@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import ConnectWallet from "@/components/ConnectWallet";
 import { userSession } from "@/lib/wallet";
 import {
   getAddressBalances,
@@ -46,14 +45,7 @@ export default function TokensPage() {
   }, [address, refresh]);
 
   return (
-    <div className="min-h-screen w-full p-6 sm:p-10 space-y-8">
-      <header className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-text">Tokens</h1>
-        <div className="lg:hidden">
-          <ConnectWallet />
-        </div>
-      </header>
-
+    <div className="space-y-8">
       {!address && (
         <Card>
           <CardContent className="pt-6">

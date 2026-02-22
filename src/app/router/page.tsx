@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { AppConfig } from "@/lib/config";
 import { CoreContracts } from "@/lib/contracts";
 import {
   callReadOnly,
@@ -14,6 +13,7 @@ import ClarityArgBuilder, {
 } from "@/components/ClarityArgBuilder";
 import { decodeResultHex } from "@/lib/clarity";
 import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 
 export default function RouterPage() {
   const router =
@@ -104,14 +104,7 @@ export default function RouterPage() {
   }, [selected, fnName]);
 
   return (
-    <div className="min-h-screen w-full p-6 sm:p-10 space-y-8">
-      <header className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-text">Router Estimator</h1>
-        <div className="text-sm text-text-secondary">
-          Network: {AppConfig.network}
-        </div>
-      </header>
-
+    <div className="space-y-8">
       <div className="rounded-lg border border-accent/20 bg-background-paper p-4 space-y-4">
         <div className="grid gap-3 md:grid-cols-3">
           <div>
@@ -120,7 +113,7 @@ export default function RouterPage() {
             </label>
             <select
               aria-label="Router contract"
-              className="border border-accent/20 rounded px-2 py-1 w-full bg-background-light text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="flex h-10 w-full rounded-md border border-neutral-light bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               value={selected}
               onChange={(e) => setSelected(e.target.value)}
             >
@@ -138,7 +131,7 @@ export default function RouterPage() {
             {fnList.length > 0 ? (
               <select
                 aria-label="Function"
-                className="border border-accent/20 rounded px-2 py-1 w-full bg-background-light text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="flex h-10 w-full rounded-md border border-neutral-light bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 value={fnName}
                 onChange={(e) => setFnName(e.target.value)}
               >
@@ -149,9 +142,8 @@ export default function RouterPage() {
                 ))}
               </select>
             ) : (
-              <input
+              <Input
                 aria-label="Function name"
-                className="border border-accent/20 rounded px-2 py-1 w-full bg-background-light text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 value={fnName}
                 onChange={(e) => setFnName(e.target.value)}
                 placeholder="estimate-output"

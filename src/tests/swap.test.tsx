@@ -1,5 +1,5 @@
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import SwapPage from '@/app/swap/page';
@@ -8,6 +8,16 @@ import { getFungibleTokenBalances } from '@/lib/coreApi';
 import { Tokens } from '@/lib/contracts';
 
 // Mock dependencies
+vi.mock('@stacks/transactions', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@stacks/transactions')>();
+  return {
+    ...actual,
+    cvToHex: vi.fn().mockReturnValue('0x01'),
+    contractPrincipalCV: vi.fn().mockReturnValue({}),
+    uintCV: vi.fn().mockReturnValue({}),
+  };
+});
+
 vi.mock('@stacks/connect', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@stacks/connect')>();
   return {
@@ -50,11 +60,13 @@ describe('SwapPage', () => {
   });
 
   it('renders the "MAX" button when balance is available', async () => {
-    render(
-      <WalletProvider>
-        <SwapPage />
-      </WalletProvider>
-    );
+    await act(async () => {
+      render(
+        <WalletProvider>
+          <SwapPage />
+        </WalletProvider>
+      );
+    });
 
     const maxButton = await screen.findByRole('button', { name: /set maximum amount/i });
     expect(maxButton).toBeInTheDocument();
@@ -62,28 +74,31 @@ describe('SwapPage', () => {
 
   it('sets the amount to max when "MAX" is clicked', async () => {
     const user = userEvent.setup();
-    render(
-      <WalletProvider>
-        <SwapPage />
-      </WalletProvider>
-    );
+    await act(async () => {
+      render(
+        <WalletProvider>
+          <SwapPage />
+        </WalletProvider>
+      );
+    });
 
     const maxButton = await screen.findByRole('button', { name: /set maximum amount/i });
     await user.click(maxButton);
 
     const fromInput = screen.getByLabelText(/from/i);
-    // 5000000 in micro-units (6 decimals) is formatted as 5.000000 in this app
     await waitFor(() => {
       expect(fromInput).toHaveValue('5.000000');
     });
   });
 
   it('slippage buttons are accessible buttons and have aria-pressed', async () => {
-    render(
-      <WalletProvider>
-        <SwapPage />
-      </WalletProvider>
-    );
+    await act(async () => {
+      render(
+        <WalletProvider>
+          <SwapPage />
+        </WalletProvider>
+      );
+    });
 
     const slippageButton = screen.getByRole('button', { name: '0.5%' });
     expect(slippageButton).toBeInTheDocument();

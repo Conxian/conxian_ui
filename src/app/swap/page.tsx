@@ -10,8 +10,6 @@ import { useWallet } from "@/lib/wallet";
 import CopyButton from "@/components/CopyButton";
 import { formatAmount, parseAmount, cn } from "@/lib/utils";
 import { AppConfig } from "@/lib/config";
-// Removed useApi import as we are using direct contract calls
-// import { useApi } from "@/lib/api-client"; 
 
 // Re-styled components
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
@@ -24,7 +22,6 @@ import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 
 
 // --- Helper Functions ---
-// No change in helper functions, keeping them as is.
 
 function useDebounce<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = React.useState<T>(value);
@@ -64,7 +61,6 @@ export default function SwapPage() {
   const [status, setStatus] = React.useState<string>("");
   const [txId, setTxId] = React.useState<string | null>(null);
   const { connectWallet, stxAddress } = useWallet();
-  // const api = useApi(); // Unused
 
   const fromTokenInfo = Tokens.find((t) => t.id === fromToken);
   const toTokenInfo = Tokens.find((t) => t.id === toToken);
@@ -95,6 +91,9 @@ export default function SwapPage() {
     setLoading(true);
     setPoolPrincipal(""); // Reset pool principal
     try {
+      if (!fromToken.includes(".") || !toToken.includes(".")) {
+        throw new Error("Invalid token format");
+      }
       const [fromTokenAddress, fromTokenName] = fromToken.split(".") as [
         string,
         string,
@@ -103,6 +102,10 @@ export default function SwapPage() {
         string,
         string,
       ];
+
+      if (!fromTokenAddress || !fromTokenName || !toTokenAddress || !toTokenName) {
+        throw new Error("Missing token address or name");
+      }
 
       // 1. Get Pool Address from Factory
       const getPoolArgs = [
@@ -195,19 +198,10 @@ export default function SwapPage() {
 
     try {
       const amountIn = BigInt(fromAmount);
-      // minAmountOut = output * (1 - slippage/100)
-      // We calculate this approximately. slippage is in percentage e.g. 0.5
-      // factor = (10000 - slippage * 100) / 10000
       const amountOut = BigInt(toAmount || "0");
       const slippageBps = Math.floor(slippage * 100);
       const minAmountOut = amountOut * BigInt(10000 - slippageBps) / BigInt(10000);
 
-      // Construct PostConditions
-      // Sending fromToken (fungible)
-      // For MVP we can use PostConditionMode.Allow to avoid complex PC construction errors,
-      // but ideally we construct them.
-      // Assuming SIP-010 traits.
-      
       const [poolAddress, poolName] = poolPrincipal.split(".") as [
         string,
         string,
@@ -234,7 +228,7 @@ export default function SwapPage() {
           contractName: routerName,
           functionName: "swap-direct",
           functionArgs,
-          postConditionMode: PostConditionMode.Allow, // Using Allow for ease of testing
+          postConditionMode: PostConditionMode.Allow,
           postConditions: [],
           onFinish: (data) => {
               setTxId(data.txId);
