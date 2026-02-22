@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { AppConfig } from "@/lib/config";
 import { CoreContracts } from "@/lib/contracts";
 import { callReadOnly, ReadOnlyResponse } from "@/lib/coreApi";
 import { decodeResultHex, getTupleField, getUint } from "@/lib/clarity";
@@ -88,14 +87,7 @@ export default function PoolsPage() {
   }, [refresh]);
 
   return (
-    <div className="min-h-screen w-full p-6 sm:p-10 space-y-8">
-      <header className="flex items-center justify-between mb-10">
-        <h1 className="text-3xl font-bold text-text">Pools</h1>
-        <div className="text-sm text-text-secondary">
-          Network: {AppConfig.network}
-        </div>
-      </header>
-
+    <div className="space-y-8">
       <Card>
         <CardHeader>
           <CardTitle>Pool Explorer</CardTitle>
@@ -103,10 +95,10 @@ export default function PoolsPage() {
         <CardContent className="space-y-4">
           <div className="grid gap-3 md:grid-cols-3">
             <div>
-              <label className="text-xs block mb-1">Pool Contract</label>
+              <label className="text-xs block mb-1 text-text-secondary">Pool Contract</label>
               <select
                 aria-label="Pool contract"
-                className="border border-accent/20 rounded px-2 py-1 w-full bg-background-light text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="flex h-10 w-full rounded-md border border-neutral-light bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 value={selected}
                 onChange={(e) => setSelected(e.target.value)}
               >

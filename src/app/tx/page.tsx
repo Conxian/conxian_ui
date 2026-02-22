@@ -166,7 +166,6 @@ function TxContent() {
   const applyTemplate = React.useCallback(async (tpl: string) => {
     setStatus("");
     if (tpl === "sip10-transfer") {
-      // Choose first token contract
       const tok = Tokens[0];
       if (tok) setSelected(tok.id);
       const supported = tok ? await hasFunction(tok.id, "transfer") : false;
@@ -177,16 +176,16 @@ function TxContent() {
       }
       setFnName("transfer");
       setPresetRows([
-        { type: "uint", value: "1" }, // amount
+        { type: "uint", value: "1" },
         {
           type: "principal",
           value: "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
-        }, // sender
+        },
         {
           type: "principal",
           value: "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
-        }, // recipient
-        { type: "optional-none" }, // memo
+        },
+        { type: "optional-none" },
       ]);
     } else if (tpl === "sip10-approve") {
       const tok = Tokens[0];
@@ -202,8 +201,8 @@ function TxContent() {
         {
           type: "principal",
           value: "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
-        }, // spender
-        { type: "uint", value: "1000" }, // amount
+        },
+        { type: "uint", value: "1000" },
       ]);
     } else if (tpl === "sip10-transfer-from") {
       const tok = Tokens[0];
@@ -221,17 +220,17 @@ function TxContent() {
         {
           type: "principal",
           value: "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
-        }, // spender
+        },
         {
           type: "principal",
           value: "ST3Y8QXTPYK6ZVMQ2BNN0R1B1RZ7RZ87GHN3Z3P43",
-        }, // sender
+        },
         {
           type: "principal",
           value: "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
-        }, // recipient
-        { type: "uint", value: "1" }, // amount
-        { type: "optional-none" }, // memo
+        },
+        { type: "uint", value: "1" },
+        { type: "optional-none" },
       ]);
     } else if (tpl === "pool-add-liquidity") {
       const pool =
@@ -249,9 +248,9 @@ function TxContent() {
       }
       setFnName("add-liquidity");
       setPresetRows([
-        { type: "uint", value: "1000" }, // dx
-        { type: "uint", value: "1000" }, // dy
-        { type: "uint", value: "0" }, // min-shares
+        { type: "uint", value: "1000" },
+        { type: "uint", value: "1000" },
+        { type: "uint", value: "0" },
       ]);
     } else if (tpl === "pool-remove-liquidity") {
       const pool =
@@ -269,9 +268,9 @@ function TxContent() {
       }
       setFnName("remove-liquidity");
       setPresetRows([
-        { type: "uint", value: "100" }, // shares
-        { type: "uint", value: "0" }, // min-dx
-        { type: "uint", value: "0" }, // min-dy
+        { type: "uint", value: "100" },
+        { type: "uint", value: "0" },
+        { type: "uint", value: "0" },
       ]);
     } else if (tpl === "pool-swap-exact-in") {
       const pool =
@@ -279,7 +278,6 @@ function TxContent() {
         CoreContracts.find((c) => c.kind === "dex") ||
         CoreContracts[0];
       if (pool) setSelected(pool.id);
-      // note: the pool has two versions; we use the simple signature swap-exact-in(amount-in,min-amount-out,x-to-y,deadline)
       const supported = pool
         ? await hasFunction(pool.id, "swap-exact-in")
         : false;
@@ -290,10 +288,10 @@ function TxContent() {
       }
       setFnName("swap-exact-in");
       setPresetRows([
-        { type: "uint", value: "100" }, // amount-in
-        { type: "uint", value: "1" }, // min-amount-out
-        { type: "bool", value: "true" }, // x-to-y
-        { type: "uint", value: String(Date.now()) }, // deadline (placeholder)
+        { type: "uint", value: "100" },
+        { type: "uint", value: "1" },
+        { type: "bool", value: "true" },
+        { type: "uint", value: String(Date.now()) },
       ]);
     } else if (tpl === "pool-swap-exact-out") {
       const pool =
@@ -311,10 +309,10 @@ function TxContent() {
       }
       setFnName("swap-exact-out");
       setPresetRows([
-        { type: "uint", value: "100" }, // amount-out
-        { type: "uint", value: "1000" }, // max-amount-in
-        { type: "bool", value: "true" }, // x-to-y
-        { type: "uint", value: String(Date.now()) }, // deadline
+        { type: "uint", value: "100" },
+        { type: "uint", value: "1000" },
+        { type: "bool", value: "true" },
+        { type: "uint", value: String(Date.now()) },
       ]);
     } else {
       setPresetRows(undefined);
@@ -327,22 +325,7 @@ function TxContent() {
   }, [templateParam, applyTemplate]);
 
   return (
-    <div className="min-h-screen w-full p-6 sm:p-10 space-y-8">
-      <header className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-text">Transactions</h1>
-        <div
-          className="text-sm flex items-center gap-2"
-          aria-label="Current network"
-        >
-          <span className="text-text-secondary">Network</span>
-          <span
-            className="px-2 py-0.5 rounded-full text-xs font-medium border border-accent/20 bg-background-light text-text/80"
-          >
-            {AppConfig.network.toUpperCase()}
-          </span>
-        </div>
-      </header>
-
+    <div className="space-y-8">
       <form
         className="rounded-lg border border-accent/20 bg-background-paper p-4 space-y-4"
         onSubmit={(e) => {
@@ -351,7 +334,6 @@ function TxContent() {
         }}
         noValidate
       >
-        {/* Interface Mode toggle */}
         <div
           className="flex items-center gap-4 text-text-secondary"
           role="radiogroup"
@@ -395,7 +377,7 @@ function TxContent() {
             <select
               id="contract-select"
               aria-label="Contract"
-              className="border border-accent/20 rounded px-2 py-1 w-full bg-background-light text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="flex h-10 w-full rounded-md border border-neutral-light bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               value={selected}
               onChange={(e) => setSelected(e.target.value)}
             >
@@ -417,7 +399,7 @@ function TxContent() {
               {abiFunctions.length > 0 ? (
                 <select
                   id="function-select"
-                  className="border border-accent/20 rounded px-2 py-1 w-full bg-background-light text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  className="flex h-10 w-full rounded-md border border-neutral-light bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   value={fnName}
                   onChange={(e) => setFnName(e.target.value)}
                 >
@@ -469,7 +451,7 @@ function TxContent() {
               id="template-select"
               aria-label="Template"
               aria-describedby="template-help"
-              className="border border-accent/20 rounded px-2 py-1 w-full bg-background-light text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="flex h-10 w-full rounded-md border border-neutral-light bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               onChange={(e) => applyTemplate(e.target.value)}
               defaultValue=""
             >
@@ -512,7 +494,6 @@ function TxContent() {
           </details>
         )}
 
-        {/* Transaction preview */}
         <div className="rounded-md border border-accent/20 bg-background-light p-3 space-y-2">
           <h3 className="text-sm font-medium text-text">Preview</h3>
           <div className="text-xs text-text-secondary">
@@ -547,7 +528,6 @@ function TxContent() {
                 try {
                   await navigator.clipboard.writeText(JSON.stringify(args.hex));
                 } catch {
-                  // noop
                 }
               }}
               disabled={args.hex.length === 0}

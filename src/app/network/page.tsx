@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { AppConfig } from "@/lib/config";
 import {
   getStatus,
   getNetworkBlockTimes,
@@ -11,6 +10,7 @@ import {
 } from "@/lib/coreApi";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { AppConfig } from "@/lib/config";
 
 export default function NetworkPage() {
   const [status, setStatus] = React.useState<CoreStatus | null>(null);
@@ -36,13 +36,12 @@ export default function NetworkPage() {
   }, [refresh]);
 
   return (
-    <div className="min-h-screen w-full p-6 sm:p-10 space-y-8">
-      <header className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-text">Network</h1>
+    <div className="space-y-8">
+      <div className="flex items-center justify-end">
         <Button onClick={refresh} disabled={loading} variant="outline" size="sm">
           {loading ? "Refreshing..." : "Refresh"}
         </Button>
-      </header>
+      </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
