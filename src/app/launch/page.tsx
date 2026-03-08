@@ -1,4 +1,3 @@
-// src/app/launch/page.tsx - Community Self-Launch Dashboard
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -16,6 +15,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { useWallet } from "@/lib/wallet";
 import { useSelfLaunch } from "@/lib/hooks/use-self-launch";
 import { Input } from "@/components/ui/Input";
+import { AppConfig } from "@/lib/config";
+import CopyButton from "@/components/CopyButton";
+import { cn, truncate } from "@/lib/utils";
 
 export default function LaunchPage() {
   const { stxAddress, addToast } = useWallet();
@@ -31,6 +33,8 @@ export default function LaunchPage() {
   } = useSelfLaunch('testnet');
 
   const [contributionAmount, setContributionAmount] = useState("100");
+  const [sending, setSending] = useState(false);
+  const [txId, setTxId] = useState<string | null>(null);
 
   useEffect(() => {
     if (stxAddress) {
@@ -38,18 +42,28 @@ export default function LaunchPage() {
     }
   }, [stxAddress, getUserContribution]);
 
-  const handleContribute = async (amount: number) => {
+  const handleContribute = async () => {
+    const amount = Number(contributionAmount);
     if (!stxAddress) {
       addToast("Please connect your wallet to contribute.", "info");
       return;
     }
 
-    const result = await contribute(stxAddress, amount);
-
-    if (result.success) {
-      addToast(`Successfully contributed ${amount} STX!`, "success");
-    } else {
-      addToast(result.error || "Contribution failed.", "error");
+    setSending(true);
+    setTxId(null);
+    try {
+      const result = await contribute(stxAddress, amount);
+      if (result.success && result.txId) {
+        setTxId(result.txId);
+        addToast(`Successfully contributed ${amount} STX! Transaction submitted.`, "success");
+      } else {
+        addToast(result.error || "Contribution failed.", "error");
+      }
+    } catch (e) {
+      console.error(e);
+      addToast("An unexpected error occurred during contribution.", "error");
+    } finally {
+      setSending(false);
     }
   };
 
@@ -81,7 +95,6 @@ export default function LaunchPage() {
           Help bootstrap the future of DeFi through community funding.
         </p>
       </div>
-
 
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4 border border-accent/20">
@@ -189,13 +202,34 @@ export default function LaunchPage() {
                   placeholder="STX Amount"
                   className="max-w-xs"
                 />
-                <Button onClick={() => handleContribute(Number(contributionAmount))}>
-                  Contribute
+                <Button onClick={handleContribute} disabled={sending}>
+                  {sending ? "Sending..." : "Contribute"}
                 </Button>
               </div>
               <div className="text-sm text-text/80">
                 Your contribution: {userContribution.total || 0} STX
               </div>
+
+              {txId && (
+                <div
+                  className="mt-4 p-4 border border-accent/20 rounded-md bg-background-light flex items-center justify-between"
+                  aria-live="polite"
+                >
+                  <div className="flex flex-col">
+                    <span className="text-xs font-semibold text-text-secondary uppercase">Transaction Submitted</span>
+                    <a
+                      href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent hover:underline font-mono text-sm mt-1"
+                      title="View on Stacks Explorer"
+                    >
+                      {truncate(txId, 12, 10)}
+                    </a>
+                  </div>
+                  <CopyButton textToCopy={txId} ariaLabel="Transaction ID" className="h-8 w-8 p-1.5" />
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
@@ -222,7 +256,7 @@ export default function LaunchPage() {
                     >
                       <div>
                         <div className="font-medium text-text">
-                          {contrib.address.substring(0, 8)}...
+                          {truncate(contrib.address, 10, 8)}
                         </div>
                       </div>
                       <div className="text-right">

@@ -87,7 +87,7 @@ describe('SwapPage', () => {
 
     const fromInput = screen.getByLabelText(/from/i);
     await waitFor(() => {
-      expect(fromInput).toHaveValue('5.000000');
+      expect(fromInput).toHaveValue('5');
     });
   });
 

@@ -8,7 +8,7 @@ import { callReadOnly, getFungibleTokenBalances, FungibleTokenBalance } from "@/
 import { decodeResultHex, getTupleField, getUint } from "@/lib/clarity";
 import { useWallet } from "@/lib/wallet";
 import CopyButton from "@/components/CopyButton";
-import { formatAmount, parseAmount, cn } from "@/lib/utils";
+import { formatAmount, parseAmount, cn, truncate } from "@/lib/utils";
 import { AppConfig } from "@/lib/config";
 
 // Re-styled components
@@ -465,7 +465,7 @@ export default function SwapPage() {
                       className="text-accent hover:underline font-mono text-xs"
                       title="View on Stacks Explorer"
                     >
-                      {txId.substring(0, 10)}...{txId.substring(txId.length - 10)}
+                      {truncate(txId, 12, 10)}
                     </a>
                     <CopyButton textToCopy={txId} ariaLabel="Transaction ID" className="h-6 w-6 p-1" />
                   </div>
