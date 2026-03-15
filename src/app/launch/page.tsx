@@ -17,7 +17,7 @@ import { useSelfLaunch } from "@/lib/hooks/use-self-launch";
 import { Input } from "@/components/ui/Input";
 import { AppConfig } from "@/lib/config";
 import CopyButton from "@/components/CopyButton";
-import { cn, truncate } from "@/lib/utils";
+import { truncate } from "@/lib/utils";
 
 export default function LaunchPage() {
   const { stxAddress, addToast } = useWallet();

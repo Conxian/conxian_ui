@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ShieldCheckIcon, PlusCircleIcon, ArrowUpCircleIcon, ArrowDownCircleIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { useApi } from '@/lib/api-client';
 import { useWallet } from '@/lib/wallet';

@@ -93,18 +93,18 @@ export default function NetworkPage() {
                 </tr>
               </thead>
               <tbody className="text-text-secondary">
-                {mempool.map((tx: MempoolTx) => (
+                {Array.isArray(mempool) && mempool.map((tx: MempoolTx, idx: number) => (
                   <tr
-                    key={tx.tx_id}
+                    key={tx?.tx_id || `tx-${idx}`}
                     className="border-b border-accent/20 hover:bg-accent/10"
                   >
-                    <td className="py-2 pr-4 break-all">{tx.tx_id}</td>
-                    <td className="py-2 pr-4">{tx.tx_type}</td>
-                    <td className="py-2 pr-4 break-all">{tx.sender_address}</td>
-                    <td className="py-2 pr-4">{tx.nonce}</td>
+                    <td className="py-2 pr-4 break-all">{tx?.tx_id || "—"}</td>
+                    <td className="py-2 pr-4">{tx?.tx_type || "—"}</td>
+                    <td className="py-2 pr-4 break-all">{tx?.sender_address || "—"}</td>
+                    <td className="py-2 pr-4">{tx?.nonce ?? "—"}</td>
                   </tr>
                 ))}
-                {mempool.length === 0 && (
+                {(!mempool || mempool.length === 0) && (
                   <tr>
                     <td className="py-4 text-center" colSpan={4}>
                       No transactions in mempool.
