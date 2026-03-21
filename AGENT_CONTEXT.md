@@ -75,7 +75,7 @@ User-facing flows:
 - `/positions`
 - `/shielded`
 
-Developer / ops tooling pages (must also be Tier0 light; currently heavy gray-token drift):
+Developer / ops tooling pages (must also be Earthy Corporate Finance (Green/Gold); currently heavy gray-token drift):
 
 - `/tokens`
 - `/contracts`
@@ -151,7 +151,7 @@ These are not aligned with the Conxian theme tokens yet:
   - P0 intent: use canonical `Button`.
 - `src/components/EnvStatus.tsx`
   - Uses `bg-gray-900`, `border-gray-800`, `text-gray-400`, etc.
-  - P0 intent: convert to theme tokens.
+  - P0 intent: cTier0 light theme tokens.
 - `src/components/ui/Toast.tsx`
   - Uses `bg-gray-800 text-white` and gray close button.
 - `src/components/ui/Badge.tsx`
