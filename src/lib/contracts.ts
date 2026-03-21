@@ -231,17 +231,17 @@ export const CoreContracts = [
     label: "Dimensional Engine",
   },
   {
-    id: `${BASE_PRINCIPAL}.position-manager`,
+    id: `${BASE_PRINCIPAL}.position-orchestrator`,
     kind: "dimensional",
     label: "Position Manager",
   },
   {
-    id: `${BASE_PRINCIPAL}.collateral-manager`,
+    id: `${BASE_PRINCIPAL}.collateral-orchestrator`,
     kind: "dimensional",
     label: "Collateral Manager",
   },
   {
-    id: `${BASE_PRINCIPAL}.risk-manager`,
+    id: `${BASE_PRINCIPAL}.risk-unit`,
     kind: "core",
     label: "Risk Manager",
   },
@@ -250,7 +250,7 @@ export const CoreContracts = [
   // LENDING
   // ============================================
   {
-    id: `${BASE_PRINCIPAL}.lending-manager`,
+    id: `${BASE_PRINCIPAL}.lending-orchestrator`,
     kind: "lending",
     label: "Lending Manager",
   },
@@ -259,7 +259,7 @@ export const CoreContracts = [
   // AUTOMATION (Office Workers)
   // ============================================
   {
-    id: `${BASE_PRINCIPAL}.office-manager`,
+    id: `${BASE_PRINCIPAL}.office-orchestrator`,
     kind: "automation",
     label: "Office Manager",
   },
@@ -269,7 +269,7 @@ export const CoreContracts = [
     label: "Risk Agent",
   },
   {
-    id: `${BASE_PRINCIPAL}.agent-treasury`,
+    id: `${BASE_PRINCIPAL}.fiscal-orchestrator`,
     kind: "automation",
     label: "Treasury Agent",
   },
