@@ -66,7 +66,7 @@ export default function ContractsPage() {
           <CardHeader>
             <CardTitle className="text-lg">Select Contract</CardTitle>
           </CardHeader>
-          <CardContent className="text-sm space-y-2 text-text-secondary">
+          <CardContent className="text-sm space-y-2 text-text">
             <select
               aria-label="Select contract"
               className="flex h-10 w-full rounded-md border border-accent/20 bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -103,7 +103,7 @@ export default function ContractsPage() {
             <CardTitle className="text-lg">Interface</CardTitle>
           </CardHeader>
           <CardContent>
-            <pre className="text-xs overflow-auto text-text-secondary bg-background-light p-2 rounded border border-accent/20">
+            <pre className="text-xs overflow-auto text-text bg-background-light p-2 rounded border border-accent/20">
               {iface ? JSON.stringify(iface, null, 2) : "No interface loaded"}
             </pre>
           </CardContent>
@@ -117,7 +117,7 @@ export default function ContractsPage() {
         <CardContent>
           <div className="grid gap-3 md:grid-cols-3">
             <div>
-              <label className="text-xs block mb-1 text-text-secondary">
+              <label className="text-xs block mb-1 text-text">
                 Function Name
               </label>
               <Input
@@ -127,7 +127,7 @@ export default function ContractsPage() {
               />
             </div>
             <div>
-              <label className="text-xs block mb-1 text-text-secondary">Sender</label>
+              <label className="text-xs block mb-1 text-text">Sender</label>
               <Input
                 value={sender}
                 onChange={(e) => setSender(e.target.value)}
@@ -135,7 +135,7 @@ export default function ContractsPage() {
               />
             </div>
             <div>
-              <label className="text-xs block mb-1 text-text-secondary">
+              <label className="text-xs block mb-1 text-text">
                 Arguments (hex, one per line)
               </label>
               <textarea
@@ -152,7 +152,7 @@ export default function ContractsPage() {
             </Button>
           </div>
           <div className="mt-3">
-            <pre className="text-xs overflow-auto text-text-secondary bg-background-light p-2 rounded border border-accent/20">
+            <pre className="text-xs overflow-auto text-text bg-background-light p-2 rounded border border-accent/20">
               {callRes ? JSON.stringify(callRes, null, 2) : "No call yet"}
             </pre>
           </div>

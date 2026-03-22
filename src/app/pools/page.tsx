@@ -95,7 +95,7 @@ export default function PoolsPage() {
         <CardContent className="space-y-4">
           <div className="grid gap-3 md:grid-cols-3">
             <div>
-              <label className="text-xs block mb-1 text-text-secondary">Pool Contract</label>
+              <label className="text-xs block mb-1 text-text">Pool Contract</label>
               <select
                 aria-label="Pool contract"
                 className="flex h-10 w-full rounded-md border border-accent/20 bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -127,7 +127,7 @@ export default function PoolsPage() {
                 <CardTitle className="text-base">Reserves</CardTitle>
               </CardHeader>
               <CardContent>
-                <pre className="text-xs overflow-auto text-text-secondary">
+                <pre className="text-xs overflow-auto text-text">
                   {reserves ? JSON.stringify(reserves, null, 2) : "—"}
                 </pre>
               </CardContent>
@@ -137,7 +137,7 @@ export default function PoolsPage() {
                 <CardTitle className="text-base">Total Supply</CardTitle>
               </CardHeader>
               <CardContent>
-                <pre className="text-xs overflow-auto text-text-secondary">
+                <pre className="text-xs overflow-auto text-text">
                   {totalSupply ? JSON.stringify(totalSupply, null, 2) : "—"}
                 </pre>
               </CardContent>
@@ -147,7 +147,7 @@ export default function PoolsPage() {
                 <CardTitle className="text-base">Price</CardTitle>
               </CardHeader>
               <CardContent>
-                <pre className="text-xs overflow-auto text-text-secondary">
+                <pre className="text-xs overflow-auto text-text">
                   {price ? JSON.stringify(price, null, 2) : "—"}
                 </pre>
               </CardContent>
@@ -160,7 +160,7 @@ export default function PoolsPage() {
                 <CardTitle className="text-base">Fee Info</CardTitle>
               </CardHeader>
               <CardContent>
-                <pre className="text-xs overflow-auto text-text-secondary">
+                <pre className="text-xs overflow-auto text-text">
                   {feeInfo ? JSON.stringify(feeInfo, null, 2) : "—"}
                 </pre>
               </CardContent>
@@ -231,7 +231,7 @@ function DerivedKPIs({
       : null;
 
   return (
-    <div className="text-xs space-y-1 text-text-secondary">
+    <div className="text-xs space-y-1 text-text">
       <div>
         <span className="font-medium text-text">LP Fee (bps):</span>{" "}
         {lpFeeBps ?? "—"}

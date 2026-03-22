@@ -27,25 +27,25 @@ export default function SystemStatus() {
       </CardHeader>
       <CardContent className="grid gap-6 md:grid-cols-3">
         <div className="flex items-center">
-          <CurrencyDollarIcon className="w-8 h-8 text-text/80" />
+          <CurrencyDollarIcon className="w-8 h-8 text-text" />
           <div className="ml-4">
-            <div className="text-sm text-text-secondary">TVL</div>
+            <div className="text-sm text-text">TVL</div>
             <div className="text-2xl font-bold text-text">${data.tvl}</div>
           </div>
         </div>
         <div className="flex items-center">
-          <ShieldCheckIcon className="w-8 h-8 text-text/80" />
+          <ShieldCheckIcon className="w-8 h-8 text-text" />
           <div className="ml-4">
-            <div className="text-sm text-text-secondary">Active Vaults</div>
+            <div className="text-sm text-text">Active Vaults</div>
             <div className="text-2xl font-bold text-text">
               {data.activeVaults}
             </div>
           </div>
         </div>
         <div className="flex items-center">
-          <ArrowTrendingUpIcon className="w-8 h-8 text-text/80" />
+          <ArrowTrendingUpIcon className="w-8 h-8 text-text" />
           <div className="ml-4">
-            <div className="text-sm text-text-secondary">APY (Median)</div>
+            <div className="text-sm text-text">APY (Median)</div>
             <div className="text-2xl font-bold text-text">{data.apy}%</div>
           </div>
         </div>

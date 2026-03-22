@@ -42,7 +42,7 @@ export default function EnvStatus() {
           className={`inline-block h-2 w-2 rounded-full ${indicator}`}
         />
       </CardHeader>
-      <CardContent className="text-sm text-text-secondary space-y-1">
+      <CardContent className="text-sm text-text space-y-1">
         <div>
           <span className="font-medium text-text">Core API:</span>{" "}
           {AppConfig.coreApiUrl}

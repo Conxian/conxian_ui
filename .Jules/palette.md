@@ -21,3 +21,9 @@
 **Learning:** Providing immediate, actionable feedback after a blockchain transaction significantly reduces user anxiety. A plain "Transaction submitted" message is insufficient.
 
 **Action:** Always include a truncated transaction ID as a link to the relevant block explorer and a `CopyButton` for one-click utility. Use monospaced fonts for IDs to improve readability.
+
+## 2026-03-22 - Global UI/UX Standardization (Ivory Foundation)
+
+**Learning:** Decentralized financial infrastructure requires institutional-grade legibility and high-trust visual cues. Dark-mode defaults in functional workspaces can increase fatigue and reduce trust for professional users.
+
+**Action:** Always enforce a bright "Ivory" foundation (#FDFBF7) and pure white surface layer (#FFFFFF) for operational zones. Reserve dark brand colors strictly for entry zones (Sidebar/Header). Use high-contrast dark typography (#333333) for all critical financial data to ensure WCAG AAA compliance.

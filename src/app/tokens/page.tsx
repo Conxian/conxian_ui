@@ -49,7 +49,7 @@ export default function TokensPage() {
       {!address && (
         <Card>
           <CardContent className="pt-6">
-            <p className="text-center text-text-secondary">
+            <p className="text-center text-text">
               Connect your wallet to view balances.
             </p>
           </CardContent>
@@ -100,12 +100,12 @@ export default function TokensPage() {
               <div className="overflow-auto">
                 <table className="w-full text-sm text-left">
                   <thead>
-                    <tr className="border-b border-accent/20 text-text-secondary">
+                    <tr className="border-b border-accent/20 text-text">
                       <th className="py-2 pr-4">Asset</th>
                       <th className="py-2 pr-4">Balance</th>
                     </tr>
                   </thead>
-                  <tbody className="text-text-secondary">
+                  <tbody className="text-text">
                     {fts.map((t: FungibleTokenBalance) => (
                       <tr
                         key={t.asset_identifier}

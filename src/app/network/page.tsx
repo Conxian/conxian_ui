@@ -48,7 +48,7 @@ export default function NetworkPage() {
           <CardHeader>
             <CardTitle className="text-lg">Environment</CardTitle>
           </CardHeader>
-          <CardContent className="text-sm space-y-1 text-text-secondary">
+          <CardContent className="text-sm space-y-1 text-text">
             <div>
               <span className="font-medium text-text">Core API:</span>{" "}
               {AppConfig.coreApiUrl}
@@ -70,7 +70,7 @@ export default function NetworkPage() {
             <CardTitle className="text-lg">Block Times</CardTitle>
           </CardHeader>
           <CardContent>
-            <pre className="text-xs overflow-auto text-text-secondary">
+            <pre className="text-xs overflow-auto text-text">
               {blocks ? JSON.stringify(blocks, null, 2) : "No data"}
             </pre>
           </CardContent>
@@ -85,14 +85,14 @@ export default function NetworkPage() {
           <div className="overflow-auto">
             <table className="w-full text-sm text-left">
               <thead>
-                <tr className="border-b border-accent/20 text-text-secondary">
+                <tr className="border-b border-accent/20 text-text">
                   <th className="py-2 pr-4">Tx ID</th>
                   <th className="py-2 pr-4">Type</th>
                   <th className="py-2 pr-4">Sender</th>
                   <th className="py-2 pr-4">Nonce</th>
                 </tr>
               </thead>
-              <tbody className="text-text-secondary">
+              <tbody className="text-text">
                 {Array.isArray(mempool) && mempool.map((tx: MempoolTx, idx: number) => (
                   <tr
                     key={tx?.tx_id || `tx-${idx}`}

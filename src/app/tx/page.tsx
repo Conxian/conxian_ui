@@ -335,7 +335,7 @@ function TxContent() {
         noValidate
       >
         <div
-          className="flex items-center gap-4 text-text-secondary"
+          className="flex items-center gap-4 text-text"
           role="radiogroup"
           aria-labelledby="mode-label"
         >
@@ -370,7 +370,7 @@ function TxContent() {
           <div>
             <label
               htmlFor="contract-select"
-              className="text-xs block mb-1 text-text-secondary"
+              className="text-xs block mb-1 text-text"
             >
               Contract
             </label>
@@ -392,7 +392,7 @@ function TxContent() {
             <div>
               <label
                 htmlFor="function-select"
-                className="text-xs block mb-1 text-text-secondary"
+                className="text-xs block mb-1 text-text"
               >
                 Function
               </label>
@@ -426,7 +426,7 @@ function TxContent() {
           <div>
             <label
               htmlFor="network"
-              className="text-xs block mb-1 text-text-secondary"
+              className="text-xs block mb-1 text-text"
             >
               Network
             </label>
@@ -443,7 +443,7 @@ function TxContent() {
           <div>
             <label
               htmlFor="template-select"
-              className="text-xs block mb-1 text-text-secondary"
+              className="text-xs block mb-1 text-text"
             >
               Template
             </label>
@@ -466,7 +466,7 @@ function TxContent() {
               <option value="pool-swap-exact-in">Pool swap-exact-in</option>
               <option value="pool-swap-exact-out">Pool swap-exact-out</option>
             </select>
-            <div id="template-help" className="text-xs text-text-secondary mt-1">
+            <div id="template-help" className="text-xs text-text mt-1">
               Choose a template to prefill common arguments. Advanced editor is
               available below.
             </div>
@@ -496,13 +496,13 @@ function TxContent() {
 
         <div className="rounded-md border border-accent/20 bg-background-light p-3 space-y-2">
           <h3 className="text-sm font-medium text-text">Preview</h3>
-          <div className="text-xs text-text-secondary">
+          <div className="text-xs text-text">
             Contract: <code className="text-text">{selected}</code>
           </div>
-          <div className="text-xs text-text-secondary">
+          <div className="text-xs text-text">
             Function: <code className="text-text">{fnName || "-"}</code>
           </div>
-          <div className="text-xs text-text-secondary">
+          <div className="text-xs text-text">
             Args (hex):{" "}
             {args.hex.length > 0 ? (
               <span className="break-all text-text">
@@ -549,7 +549,7 @@ function TxContent() {
             role="status"
             aria-live="polite"
             className={cn(
-              "text-xs text-text-secondary transition-opacity duration-300 min-h-[1rem]",
+              "text-xs text-text transition-opacity duration-300 min-h-[1rem]",
               status ? "opacity-100" : "opacity-0"
             )}
           >

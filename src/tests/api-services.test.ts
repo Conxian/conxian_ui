@@ -25,7 +25,6 @@ vi.mock("@/lib/contract-interactions", () => ({
 }));
 
 import { ApiService } from "../lib/api-services";
-import { CoreContracts } from "../lib/contracts";
 
 describe("API Service", () => {
   beforeEach(() => {

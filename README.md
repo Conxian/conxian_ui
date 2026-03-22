@@ -10,7 +10,7 @@ Our "earthy corporate finance" theme is designed to be both professional and inv
 
 * **Primary**: #2E403B (a deep, calming green)
 * **Accent**: #D4A017 (a touch of sophisticated gold)
-* **Neutrals**: #F5F5F5, #E0E0E0, #333333 (for a clean, modern look)
+* **Neutrals**: #FDFBF7, #FFFFFF, #333333 (for a clean, modern look)
 
 ## Getting Started
 

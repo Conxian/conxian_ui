@@ -19,11 +19,11 @@ const PositionCard = React.memo(({ pair, liquidity, balance, onAdd, onRemove }: 
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <p className="text-sm text-text/80">Liquidity</p>
+          <p className="text-sm text-text">Liquidity</p>
           <p className="text-lg font-semibold text-text">${liquidity.toLocaleString()}</p>
         </div>
         <div>
-          <p className="text-sm text-text/80">My Balance</p>
+          <p className="text-sm text-text">My Balance</p>
           <p className="text-lg font-semibold text-text">${balance.toLocaleString()}</p>
         </div>
         <div className="flex gap-4 pt-4">

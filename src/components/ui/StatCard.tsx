@@ -22,7 +22,7 @@ export const StatCard = ({
     </CardHeader>
     <CardContent>
       <div className="text-2xl font-bold text-text">{value}</div>
-      {subtext && <p className="text-xs text-text-secondary">{subtext}</p>}
+      {subtext && <p className="text-xs text-text">{subtext}</p>}
     </CardContent>
   </Card>
 );

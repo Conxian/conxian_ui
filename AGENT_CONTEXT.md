@@ -32,8 +32,8 @@ From `tailwind.config.ts`:
 - `primary.dark`: `#1A2623`
 - `primary.foreground`: `#FFFFFF`
 - `accent.DEFAULT`: `#D4A017`
-- `background.DEFAULT`: `#F5F5F5`
-- `background.paper`: `#E0E0E0`
+- `background.DEFAULT`: `#FDFBF7`
+- `background.paper`: `#FFFFFF`
 - `text.DEFAULT` / `text.primary`: `#333333`
 - `text.secondary`: `#666666`
 - `text.muted`: `#999999`

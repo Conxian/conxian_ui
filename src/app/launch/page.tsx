@@ -91,7 +91,7 @@ export default function LaunchPage() {
         <h1 className="text-3xl font-bold text-text">
           Conxian Community Launch
         </h1>
-        <p className="mt-2 text-sm text-text/80">
+        <p className="mt-2 text-sm text-text">
           Help bootstrap the future of DeFi through community funding.
         </p>
       </div>
@@ -114,7 +114,7 @@ export default function LaunchPage() {
                 <div className="text-2xl font-bold text-text">
                   {currentPhase?.name || 'N/A'}
                 </div>
-                <p className="text-text/80">Core infrastructure deployment</p>
+                <p className="text-text">Core infrastructure deployment</p>
               </CardContent>
             </Card>
 
@@ -126,7 +126,7 @@ export default function LaunchPage() {
                 <div className="text-2xl font-bold text-text">
                   {fundingProgress.current} STX
                 </div>
-                <p className="text-text/80">Community contributions</p>
+                <p className="text-text">Community contributions</p>
               </CardContent>
             </Card>
 
@@ -138,7 +138,7 @@ export default function LaunchPage() {
                 <div className="text-2xl font-bold text-text">
                   {communityStats?.totalContributors || 0}
                 </div>
-                <p className="text-text/80">Active community members</p>
+                <p className="text-text">Active community members</p>
               </CardContent>
             </Card>
           </div>
@@ -173,7 +173,7 @@ export default function LaunchPage() {
                     value={(phase.funding / phase.target) * 100}
                     className="h-2 bg-accent/20"
                   />
-                  <div className="flex justify-between text-sm text-text/80">
+                  <div className="flex justify-between text-sm text-text">
                     <span>
                       {phase.funding} / {phase.target} STX
                     </span>
@@ -206,7 +206,7 @@ export default function LaunchPage() {
                   {sending ? "Sending..." : "Contribute"}
                 </Button>
               </div>
-              <div className="text-sm text-text/80">
+              <div className="text-sm text-text">
                 Your contribution: {userContribution.total || 0} STX
               </div>
 
@@ -216,7 +216,7 @@ export default function LaunchPage() {
                   aria-live="polite"
                 >
                   <div className="flex flex-col">
-                    <span className="text-xs font-semibold text-text-secondary uppercase">Transaction Submitted</span>
+                    <span className="text-xs font-semibold text-text uppercase">Transaction Submitted</span>
                     <a
                       href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
                       target="_blank"
@@ -245,7 +245,7 @@ export default function LaunchPage() {
             <CardContent>
               <div className="space-y-3">
                 {!communityStats?.topContributors || communityStats.topContributors.length === 0 ? (
-                  <p className="text-center text-text/80 py-8">
+                  <p className="text-center text-text py-8">
                     No contributions yet. Be the first!
                   </p>
                 ) : (

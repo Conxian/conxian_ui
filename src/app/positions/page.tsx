@@ -48,7 +48,7 @@ export default function PositionsPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-text">My Positions</h1>
-        <p className="mt-2 text-sm text-text/80">
+        <p className="mt-2 text-sm text-text">
           Manage your active liquidity and staking positions.
         </p>
       </div>
@@ -66,17 +66,17 @@ export default function PositionsPage() {
               />
             ))
           ) : (
-            <p className="text-text/80">No positions found.</p>
+            <p className="text-text">No positions found.</p>
           )}
         </div>
       ) : (
         <div className="text-center">
-          <p className="text-text/80 mb-4">Connect your wallet to see your positions.</p>
+          <p className="text-text mb-4">Connect your wallet to see your positions.</p>
           <ConnectWallet />
         </div>
       )}
 
-      {status && <p className="text-center text-sm text-text/80 mt-6">{status}</p>}
+      {status && <p className="text-center text-sm text-text mt-6">{status}</p>}
     </div>
   );
 }

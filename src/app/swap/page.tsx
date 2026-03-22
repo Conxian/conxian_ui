@@ -293,7 +293,7 @@ export default function SwapPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-text">Swap</h1>
-        <p className="mt-2 text-sm text-text/80">
+        <p className="mt-2 text-sm text-text">
           Exchange tokens instantly on the Conxian DEX.
         </p>
       </div>
@@ -311,7 +311,7 @@ export default function SwapPage() {
               {/* From Token */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-sm">
-                  <label htmlFor="from-amount" className="text-text-secondary">
+                  <label htmlFor="from-amount" className="text-text">
                     From
                   </label>
                   <div className="flex items-center gap-2">
@@ -372,7 +372,7 @@ export default function SwapPage() {
 
               {/* To Token */}
               <div className="space-y-2">
-                <label htmlFor="to-amount" className="text-sm text-text-secondary">To</label>
+                <label htmlFor="to-amount" className="text-sm text-text">To</label>
                 <div className="flex items-center gap-2">
                   <TokenSelect
                     tokens={Tokens}
@@ -396,7 +396,7 @@ export default function SwapPage() {
               <div className="flex justify-between items-center text-sm">
                 <label
                   htmlFor="slippage-input"
-                  className="text-text-secondary cursor-pointer"
+                  className="text-text cursor-pointer"
                 >
                   Slippage Tolerance
                 </label>
@@ -481,7 +481,7 @@ export default function SwapPage() {
               <CardTitle className="text-text-primary">Optimized Swap</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-text-secondary">Optimized swap form coming soon.</p>
+              <p className="text-text">Optimized swap form coming soon.</p>
             </CardContent>
           </Card>
         </TabsContent>

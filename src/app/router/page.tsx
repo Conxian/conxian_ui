@@ -108,7 +108,7 @@ export default function RouterPage() {
       <div className="rounded-lg border border-accent/20 bg-background-paper p-4 space-y-4">
         <div className="grid gap-3 md:grid-cols-3">
           <div>
-            <label className="text-xs block mb-1 text-text-secondary">
+            <label className="text-xs block mb-1 text-text">
               Router Contract
             </label>
             <select
@@ -127,7 +127,7 @@ export default function RouterPage() {
             </select>
           </div>
           <div>
-            <label className="text-xs block mb-1 text-text-secondary">Function</label>
+            <label className="text-xs block mb-1 text-text">Function</label>
             {fnList.length > 0 ? (
               <select
                 aria-label="Function"
@@ -163,19 +163,19 @@ export default function RouterPage() {
           >
             {loading ? "Estimating..." : "Estimate"}
           </Button>
-          {status && <div className="text-xs text-text-secondary">{status}</div>}
+          {status && <div className="text-xs text-text">{status}</div>}
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded border border-accent/20 bg-background-light p-3">
             <div className="font-medium mb-1 text-text">Raw Result</div>
-            <pre className="text-xs overflow-auto text-text-secondary">
+            <pre className="text-xs overflow-auto text-text">
               {result ? JSON.stringify(result, null, 2) : "—"}
             </pre>
           </div>
           <div className="rounded border border-accent/20 bg-background-light p-3">
             <div className="font-medium mb-1 text-text">Decoded</div>
-            <pre className="text-xs overflow-auto text-text-secondary">
+            <pre className="text-xs overflow-auto text-text">
               {decoded ? JSON.stringify(decoded, null, 2) : "—"}
             </pre>
           </div>

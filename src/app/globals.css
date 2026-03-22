@@ -6,14 +6,14 @@
   --color-primary-foreground: #FFFFFF;
   --color-accent: #D4A017;
   --color-accent-foreground: #FFFFFF;
-  --color-background: #F5F5F5;
+  --color-background: #FDFBF7;
   --color-background-light: #FFFFFF;
-  --color-background-paper: #E0E0E0;
+  --color-background-paper: #FFFFFF;
   --color-text: #333333;
   --color-text-primary: #333333;
   --color-text-secondary: #666666;
   --color-text-muted: #999999;
-  --color-neutral-light: #F9FAFB;
+  --color-neutral-light: #F9F8F6;
   --font-family-sans: var(--font-inter);
 }
 

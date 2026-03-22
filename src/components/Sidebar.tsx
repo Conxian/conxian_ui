@@ -28,8 +28,8 @@ const navigation = [
 export default function Sidebar() {
   const pathname = usePathname();
   return (
-    <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:z-50 bg-primary border-r border-accent/20">
-      <div className="flex items-center h-16 px-6 bg-primary border-b border-accent/20">
+    <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:z-50 bg-primary-dark border-r border-accent/20">
+      <div className="flex items-center h-16 px-6 bg-primary-dark border-b border-accent/20">
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="/conxian-mark-b.svg"

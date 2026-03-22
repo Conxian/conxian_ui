@@ -304,7 +304,7 @@ export default function ClarityArgBuilder({ onChange, preset, paramMeta }: { onC
         </Button>
       </div>
       {rows.length === 0 && (
-        <div id="args-help" className="text-xs text-text-secondary">
+        <div id="args-help" className="text-xs text-text">
           No args. Click Add Arg.
         </div>
       )}

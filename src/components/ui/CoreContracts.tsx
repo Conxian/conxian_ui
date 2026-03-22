@@ -45,7 +45,7 @@ export default function CoreContracts() {
                 <TableCell>
                   <div className="flex items-center gap-1.5">
                     <div className="h-2 w-2 rounded-full bg-green-600" />
-                    <span className="text-xs text-text-secondary">Active</span>
+                    <span className="text-xs text-text">Active</span>
                   </div>
                 </TableCell>
                 <TableCell className="text-right">

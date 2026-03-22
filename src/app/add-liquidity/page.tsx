@@ -203,7 +203,7 @@ function AddLiquidityContent() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-text">Add Liquidity</h1>
-        <p className="mt-2 text-sm text-text/80">
+        <p className="mt-2 text-sm text-text">
           Provide liquidity to earn trading fees and rewards.
         </p>
       </div>
@@ -214,7 +214,7 @@ function AddLiquidityContent() {
         <CardContent className="space-y-6">
           {/* Token A */}
           <div className="space-y-2">
-            <label htmlFor="token-a" className="text-sm text-text-secondary">Token A</label>
+            <label htmlFor="token-a" className="text-sm text-text">Token A</label>
             <div className="flex items-center gap-2">
               <TokenSelect
                 tokens={Tokens}
@@ -236,7 +236,7 @@ function AddLiquidityContent() {
 
           {/* Token B */}
           <div className="space-y-2">
-            <label htmlFor="token-b" className="text-sm text-text-secondary">Token B</label>
+            <label htmlFor="token-b" className="text-sm text-text">Token B</label>
             <div className="flex items-center gap-2">
               <TokenSelect
                 tokens={Tokens}
@@ -273,7 +273,7 @@ function AddLiquidityContent() {
             )}
           </div>
           
-          {status && <p className="text-center text-sm text-text/80 mt-4">{status}</p>}
+          {status && <p className="text-center text-sm text-text mt-4">{status}</p>}
 
         </CardContent>
       </Card>
