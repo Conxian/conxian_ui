@@ -2,7 +2,7 @@
 
 import React from "react";
 import { AppConfig } from "@/lib/config";
-import { getStatus, getV2Info } from "@/lib/coreApi";
+import { getStatus, getV2Info } from "@/lib/core-api";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 
@@ -29,7 +29,7 @@ export default function EnvStatus() {
     refresh();
   }, [refresh]);
 
-  const indicator = status?.ok ? "bg-green-600" : "bg-red-600";
+  const indicator = status?.ok ? "bg-success" : "bg-error";
 
   return (
     <Card className="w-full max-w-xl bg-background-light">

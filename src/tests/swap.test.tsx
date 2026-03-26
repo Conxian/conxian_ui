@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import SwapPage from '@/app/swap/page';
 import { WalletProvider, useWallet } from '@/lib/wallet';
-import { getFungibleTokenBalances } from '@/lib/coreApi';
+import { getFungibleTokenBalances } from '@/lib/core-api';
 import { Tokens } from '@/lib/contracts';
 
 // Mock dependencies
@@ -26,7 +26,7 @@ vi.mock('@stacks/connect', async (importOriginal) => {
   };
 });
 
-vi.mock('@/lib/coreApi', () => ({
+vi.mock('@/lib/core-api', () => ({
   callReadOnly: vi.fn().mockResolvedValue({ ok: true, result: '' }),
   getFungibleTokenBalances: vi.fn().mockResolvedValue([]),
   decodeResultHex: vi.fn(),

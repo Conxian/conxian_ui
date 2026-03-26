@@ -31,7 +31,7 @@ The Conxian UI communicates with the Stacks blockchain via the Hiro API. We use 
 ### Our Toolkit for Blockchain Interaction:
 
 *   **`src/lib/contracts.ts`**: This file contains a list of all our smart contract identifiers. It serves as a central registry for all on-chain endpoints.
-*   **`src/lib/coreApi.ts`**: This file contains our low-level functions for making API calls to the Stacks blockchain. It includes functions for fetching balances, making read-only contract calls, and broadcasting transactions.
+*   **`src/lib/core-api.ts`**: This file contains our low-level functions for making API calls to the Stacks blockchain. It includes functions for fetching balances, making read-only contract calls, and broadcasting transactions.
 *   **`src/lib/contract-interactions.ts`**: This file contains our high-level functions for interacting with our smart contracts. It uses the `@stacks/transactions` and `@stacks/connect` libraries to build and send transactions.
 
 ## 4. The User Interface

@@ -12,7 +12,7 @@ import ClarityArgBuilder, {
 import { openContractCall } from "@stacks/connect";
 import { createNetwork } from "@stacks/network";
 import type { StacksNetwork } from "@stacks/network";
-import { getContractInterface } from "@/lib/coreApi";
+import { getContractInterface } from "@/lib/core-api";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";

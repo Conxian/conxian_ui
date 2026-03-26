@@ -7,7 +7,7 @@ import {
   getMempool,
   CoreStatus,
   MempoolTx,
-} from "@/lib/coreApi";
+} from "@/lib/core-api";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { AppConfig } from "@/lib/config";

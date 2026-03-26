@@ -70,7 +70,7 @@ export default function SystemStatus() {
           <CardTitle>System Status</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-sm text-red-600 font-medium">{error}</div>
+          <div className="text-sm text-error font-medium">{error}</div>
         </CardContent>
       </Card>
     );
@@ -110,12 +110,12 @@ export default function SystemStatus() {
           </div>
         </div>
         <div className="flex items-center">
-          <div className="p-2 bg-green-600/10 rounded-lg">
-            <ArrowTrendingUpIcon className="w-8 h-8 text-green-600" />
+          <div className="p-2 bg-success/10 rounded-lg">
+            <ArrowTrendingUpIcon className="w-8 h-8 text-success" />
           </div>
           <div className="ml-4">
             <div className="text-xs font-medium text-text-secondary uppercase tracking-wider">APY (Median)</div>
-            <div className="text-2xl font-bold text-text text-green-600">{apy}%</div>
+            <div className="text-2xl font-bold text-text text-success">{apy}%</div>
           </div>
         </div>
       </CardContent>

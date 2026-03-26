@@ -14,6 +14,14 @@
   --color-text-secondary: #666666;
   --color-text-muted: #999999;
   --color-neutral-light: #F9F8F6;
+  --color-success: #16a34a;
+  --color-success-foreground: #FFFFFF;
+  --color-warning: #ca8a04;
+  --color-warning-foreground: #FFFFFF;
+  --color-error: #dc2626;
+  --color-error-foreground: #FFFFFF;
+  --color-info: #2563eb;
+  --color-info-foreground: #FFFFFF;
   --font-family-sans: var(--font-inter);
 }
 

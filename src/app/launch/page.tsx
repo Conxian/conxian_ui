@@ -82,7 +82,7 @@ export default function LaunchPage() {
   }
 
   if (error) {
-    return <div className="text-center p-8 text-red-500">Error: {error}</div>;
+    return <div className="text-center p-8 text-error">Error: {error}</div>;
   }
 
   return (

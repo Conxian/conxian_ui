@@ -4,7 +4,7 @@ import React from "react";
 import { openContractCall } from "@stacks/connect";
 import { uintCV, cvToHex, contractPrincipalCV, PostConditionMode } from "@stacks/transactions";
 import { Tokens, CoreContracts } from "@/lib/contracts";
-import { callReadOnly, getFungibleTokenBalances, FungibleTokenBalance } from "@/lib/coreApi";
+import { callReadOnly, getFungibleTokenBalances, FungibleTokenBalance } from "@/lib/core-api";
 import { decodeResultHex, getTupleField, getUint } from "@/lib/clarity";
 import { useWallet } from "@/lib/wallet";
 import CopyButton from "@/components/CopyButton";

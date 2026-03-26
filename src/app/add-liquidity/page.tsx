@@ -1,28 +1,27 @@
-'use client';
+"use client";
 
 import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
 import { openContractCall } from "@stacks/connect";
 import { 
-  uintCV, 
+  uintCV,
+  intCV,
   cvToHex, 
   contractPrincipalCV, 
   PostConditionMode
 } from "@stacks/transactions";
 import { Tokens, CoreContracts } from '@/lib/contracts';
-import { callReadOnly, getFungibleTokenBalances, FungibleTokenBalance } from "@/lib/coreApi";
+import { callReadOnly, getFungibleTokenBalances, FungibleTokenBalance } from "@/lib/core-api";
 import { decodeResultHex, getTupleField } from "@/lib/clarity";
 import { useWallet } from '@/lib/wallet';
 import { parseAmount } from "@/lib/utils";
-// import { IntentManager } from '@/lib/intent-manager'; // Unused
 
 // Re-styled components
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import TokenSelect from '@/components/ui/TokenSelect';
-
-// const intentManager = new IntentManager(); // Unused
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 
 function isRecord(v: unknown): v is Record<string, unknown> {
   return typeof v === "object" && v !== null;
@@ -55,6 +54,11 @@ function AddLiquidityContent() {
   const [tokenB, setTokenB] = React.useState(Tokens[1].id);
   const [amountA, setAmountA] = React.useState('100');
   const [amountB, setAmountB] = React.useState('200');
+
+  // Concentrated Liquidity State
+  const [lowerTick, setLowerTick] = React.useState('-1000');
+  const [upperTick, setUpperTick] = React.useState('1000');
+
   const [balances, setBalances] = React.useState<FungibleTokenBalance[]>([]);
   const [status, setStatus] = React.useState('');
   const [sending, setSending] = React.useState(false);
@@ -87,7 +91,7 @@ function AddLiquidityContent() {
     if (nextB) setTokenB(nextB);
   }, [tokenAParam, tokenBParam, pairParam]);
 
-  const handleAddLiquidity = async () => {
+  const handleAddLiquidity = async (isConcentrated = false) => {
     if (!stxAddress) {
       setStatus('Please connect wallet to add liquidity');
       return;
@@ -137,20 +141,6 @@ function AddLiquidityContent() {
             return;
         }
 
-        // 2. Fetch Reserves/Token Order from Pool (to map A/B to 0/1)
-        // Actually, we can check contract calls or just read the `token0` `token1` vars if exposed.
-        // Or assume the user provided TokenA and TokenB might be in either order.
-        // The `add-liquidity` function requires `token0-inst` and `token1-inst`.
-        // These MUST match the pool's definition.
-        // We need to know which is which.
-        // A common convention is sorting by principal.
-        // Let's verify by checking the pool's token0/token1.
-        
-        // Since we can't easily read individual vars without a custom read-only call or map-get,
-        // we can try to infer from sort order.
-        // Contracts typically sort.
-        // Let's perform a lightweight sort here.
-        
         const tokenAInfo = Tokens.find(t => t.id === tokenA);
         const tokenBInfo = Tokens.find(t => t.id === tokenB);
 
@@ -158,7 +148,6 @@ function AddLiquidityContent() {
         const t0 = sorted[0];
         const t1 = sorted[1];
         
-        // Map amounts
         const amt0 = t0 === tokenA ? amountA : amountB;
         const amt1 = t1 === tokenB ? amountB : amountA;
 
@@ -170,16 +159,25 @@ function AddLiquidityContent() {
 
         const [poolAddr, poolName] = poolPrincipal.split(".");
 
+        const functionName = isConcentrated ? "add-liquidity-concentrated" : "add-liquidity";
+        const functionArgs: any[] = [ /* eslint-disable-line @typescript-eslint/no-explicit-any */
+            uintCV(amt0Int),
+            uintCV(amt1Int),
+            contractPrincipalCV(...(t0.split(".") as [string, string])),
+            contractPrincipalCV(...(t1.split(".") as [string, string]))
+        ];
+
+        if (isConcentrated) {
+            // Use intCV for signed tick values
+            functionArgs.push(intCV(BigInt(lowerTick)));
+            functionArgs.push(intCV(BigInt(upperTick)));
+        }
+
         await openContractCall({
             contractAddress: poolAddr,
             contractName: poolName,
-            functionName: "add-liquidity",
-            functionArgs: [
-                uintCV(amt0Int),
-                uintCV(amt1Int),
-                contractPrincipalCV(...(t0.split(".") as [string, string])),
-                contractPrincipalCV(...(t1.split(".") as [string, string]))
-            ],
+            functionName: functionName,
+            functionArgs: functionArgs,
             postConditionMode: PostConditionMode.Allow,
             postConditions: [],
             onFinish: (data) => {
@@ -203,80 +201,181 @@ function AddLiquidityContent() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-text">Add Liquidity</h1>
-        <p className="mt-2 text-sm text-text">
+        <p className="mt-2 text-sm text-text-secondary">
           Provide liquidity to earn trading fees and rewards.
         </p>
       </div>
-      <Card className="w-full max-w-md mx-auto bg-background-paper">
-        <CardHeader>
-          <CardTitle className="text-text-primary">Add Liquidity</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Token A */}
-          <div className="space-y-2">
-            <label htmlFor="token-a" className="text-sm text-text">Token A</label>
-            <div className="flex items-center gap-2">
-              <TokenSelect
-                tokens={Tokens}
-                selectedToken={tokenA}
-                onSelect={(id) => setTokenA(id)}
-                balances={balances}
-                className="w-full"
-              />
-              <Input
-                type="number"
-                id="amount-a"
-                value={amountA}
-                onChange={(e) => setAmountA(e.target.value)}
-                className="w-full text-right"
-                placeholder="0.0"
-              />
-            </div>
-          </div>
 
-          {/* Token B */}
-          <div className="space-y-2">
-            <label htmlFor="token-b" className="text-sm text-text">Token B</label>
-            <div className="flex items-center gap-2">
-              <TokenSelect
-                tokens={Tokens}
-                selectedToken={tokenB}
-                onSelect={(id) => setTokenB(id)}
-                balances={balances}
-                className="w-full"
-              />
-              <Input
-                type="number"
-                id="amount-b"
-                value={amountB}
-                onChange={(e) => setAmountB(e.target.value)}
-                className="w-full text-right"
-                placeholder="0.0"
-              />
-            </div>
-          </div>
+      <Tabs defaultValue="standard" className="w-full max-w-2xl mx-auto">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="standard">Standard (v2)</TabsTrigger>
+          <TabsTrigger value="concentrated">Concentrated (CLMM)</TabsTrigger>
+        </TabsList>
 
-          {/* Action Button */}
-          <div className="pt-4">
-            {stxAddress ? (
-              <Button
-                onClick={handleAddLiquidity}
-                disabled={sending}
-                className="w-full"
-              >
-                {sending ? 'Adding...' : 'Add Liquidity'}
-              </Button>
-            ) : (
-              <Button onClick={connectWallet} className="w-full">
-                Connect Wallet
-              </Button>
-            )}
-          </div>
-          
-          {status && <p className="text-center text-sm text-text mt-4">{status}</p>}
+        <TabsContent value="standard">
+          <Card className="bg-background-paper">
+            <CardHeader>
+              <CardTitle className="text-text-primary">Standard Liquidity</CardTitle>
+              <CardDescription>Full-range liquidity provision for automated market making.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Token A */}
+              <div className="space-y-2">
+                <label htmlFor="token-a" className="text-sm text-text font-medium">Token A</label>
+                <div className="flex items-center gap-2">
+                  <TokenSelect
+                    tokens={Tokens}
+                    selectedToken={tokenA}
+                    onSelect={(id) => setTokenA(id)}
+                    balances={balances}
+                    className="w-full"
+                  />
+                  <Input
+                    type="number"
+                    id="amount-a"
+                    value={amountA}
+                    onChange={(e) => setAmountA(e.target.value)}
+                    className="w-full text-right"
+                    placeholder="0.0"
+                  />
+                </div>
+              </div>
 
-        </CardContent>
-      </Card>
+              {/* Token B */}
+              <div className="space-y-2">
+                <label htmlFor="token-b" className="text-sm text-text font-medium">Token B</label>
+                <div className="flex items-center gap-2">
+                  <TokenSelect
+                    tokens={Tokens}
+                    selectedToken={tokenB}
+                    onSelect={(id) => setTokenB(id)}
+                    balances={balances}
+                    className="w-full"
+                  />
+                  <Input
+                    type="number"
+                    id="amount-b"
+                    value={amountB}
+                    onChange={(e) => setAmountB(e.target.value)}
+                    className="w-full text-right"
+                    placeholder="0.0"
+                  />
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <div className="pt-4">
+                {stxAddress ? (
+                  <Button
+                    onClick={() => handleAddLiquidity(false)}
+                    disabled={sending}
+                    className="w-full"
+                  >
+                    {sending ? 'Adding...' : 'Add Liquidity'}
+                  </Button>
+                ) : (
+                  <Button onClick={connectWallet} className="w-full">
+                    Connect Wallet
+                  </Button>
+                )}
+              </div>
+
+              {status && <p className="text-center text-sm text-text mt-4">{status}</p>}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="concentrated">
+          <Card className="bg-background-paper">
+            <CardHeader>
+              <CardTitle className="text-text-primary">Concentrated Liquidity</CardTitle>
+              <CardDescription>Provide liquidity within a specific price range for higher capital efficiency.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label htmlFor="token-a-cl" className="text-sm text-text font-medium">Token A</label>
+                  <TokenSelect
+                    tokens={Tokens}
+                    selectedToken={tokenA}
+                    onSelect={(id) => setTokenA(id)}
+                    balances={balances}
+                    className="w-full"
+                  />
+                  <Input
+                    type="number"
+                    id="amount-a-cl"
+                    value={amountA}
+                    onChange={(e) => setAmountA(e.target.value)}
+                    className="w-full text-right"
+                    placeholder="0.0"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="token-b-cl" className="text-sm text-text font-medium">Token B</label>
+                  <TokenSelect
+                    tokens={Tokens}
+                    selectedToken={tokenB}
+                    onSelect={(id) => setTokenB(id)}
+                    balances={balances}
+                    className="w-full"
+                  />
+                  <Input
+                    type="number"
+                    id="amount-b-cl"
+                    value={amountB}
+                    onChange={(e) => setAmountB(e.target.value)}
+                    className="w-full text-right"
+                    placeholder="0.0"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-accent/10">
+                <div className="space-y-2">
+                  <label htmlFor="lower-tick" className="text-sm text-text font-medium">Lower Tick</label>
+                  <Input
+                    type="number"
+                    id="lower-tick"
+                    value={lowerTick}
+                    onChange={(e) => setLowerTick(e.target.value)}
+                    className="w-full text-right"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="upper-tick" className="text-sm text-text font-medium">Upper Tick</label>
+                  <Input
+                    type="number"
+                    id="upper-tick"
+                    value={upperTick}
+                    onChange={(e) => setUpperTick(e.target.value)}
+                    className="w-full text-right"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-4">
+                {stxAddress ? (
+                  <Button
+                    onClick={() => handleAddLiquidity(true)}
+                    disabled={sending}
+                    variant="secondary"
+                    className="w-full"
+                  >
+                    {sending ? 'Adding...' : 'Add Concentrated Liquidity'}
+                  </Button>
+                ) : (
+                  <Button onClick={connectWallet} className="w-full">
+                    Connect Wallet
+                  </Button>
+                )}
+              </div>
+
+              {status && <p className="text-center text-sm text-text mt-4">{status}</p>}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

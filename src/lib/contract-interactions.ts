@@ -5,7 +5,7 @@ import {
   cvToHex,
 } from '@stacks/transactions';
 import { CoreContracts } from './contracts';
-import { callReadOnly } from './coreApi'; // Import from coreApi
+import { callReadOnly } from './core-api'; // Import from coreApi
 
 // --- Types ---
 

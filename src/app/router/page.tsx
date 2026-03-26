@@ -6,7 +6,7 @@ import {
   callReadOnly,
   ReadOnlyResponse,
   getContractInterface,
-} from "@/lib/coreApi";
+} from "@/lib/core-api";
 import ClarityArgBuilder, {
   BuiltArgs,
   ArgType,

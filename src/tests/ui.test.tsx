@@ -17,7 +17,7 @@ vi.mock('@/lib/api-services', () => ({
   },
 }));
 
-vi.mock('@/lib/coreApi', () => ({
+vi.mock('@/lib/core-api', () => ({
   getStatus: vi.fn().mockResolvedValue({ ok: true }),
   getV2Info: vi.fn().mockResolvedValue({ burn_block_height: 123456 }),
 }));

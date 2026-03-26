@@ -60,9 +60,9 @@ const CopyButton = ({ textToCopy, ariaLabel, className }: CopyButtonProps) => {
         type="button"
       >
         {copied ? (
-          <CheckIcon className="w-5 h-5 text-green-500" />
+          <CheckIcon className="w-5 h-5 text-success" />
         ) : error ? (
-          <XMarkIcon className="w-5 h-5 text-red-500" />
+          <XMarkIcon className="w-5 h-5 text-error" />
         ) : (
           <ClipboardIcon className="w-5 h-5" />
         )}

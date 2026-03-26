@@ -1,6 +1,6 @@
 // src/lib/contracts/self-launch.ts - Smart contract integration
 import { StacksNetwork, STACKS_TESTNET, STACKS_MAINNET } from "@stacks/network";
-import { callReadOnly, ReadOnlyResponse } from "../coreApi";
+import { callReadOnly, ReadOnlyResponse } from "../core-api";
 import { standardPrincipalCV, uintCV, cvToHex } from "@stacks/transactions";
 
 export interface LaunchPhase {

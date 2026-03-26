@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 import { Tokens } from '@/lib/contracts';
-import { FungibleTokenBalance } from '@/lib/coreApi';
+import { FungibleTokenBalance } from '@/lib/core-api';
 import TokenIcon from './TokenIcon';
 import { cn, formatAmount, truncate } from '@/lib/utils';
 
