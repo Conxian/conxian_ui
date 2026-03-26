@@ -5,14 +5,14 @@ import {
   cvToHex,
 } from '@stacks/transactions';
 import { CoreContracts } from './contracts';
-import { callReadOnly } from './core-api'; // Import from coreApi
+import { callReadOnly } from './core-api';
 
 // --- Types ---
 
 export interface ApiResult<T> {
   success: boolean;
   result?: T;
-  data?: T; // Alias for result to match UI usage
+  data?: T;
   error?: string;
 }
 
@@ -27,7 +27,6 @@ async function callReadOnlyContractFunction<T>(
   const [contractAddress, contractName] = contractId.split('.');
   try {
     const hexArgs = functionArgs.map(arg => cvToHex(arg));
-    // Use the imported callReadOnly function
     const result = await callReadOnly(contractAddress, contractName, functionName, senderAddress, hexArgs);
     if (!result.ok) {
       throw new Error(`Read-only call failed: ${result.error}`);
@@ -38,16 +37,21 @@ async function callReadOnlyContractFunction<T>(
   }
 }
 
+// ⚡ Bolt: Implement O(1) contract identifier caching.
+const CONTRACT_CACHE = new Map<string, string>();
 const findContract = (idPart: string): string | undefined => {
+    if (CONTRACT_CACHE.has(idPart)) return CONTRACT_CACHE.get(idPart);
     const contract = CoreContracts.find(c => c.id.includes(idPart));
-    return contract?.id;
+    if (contract) {
+        CONTRACT_CACHE.set(idPart, contract.id);
+        return contract.id;
+    }
+    return undefined;
 }
 
 // --- ContractInteractions Class ---
 
 export class ContractInteractions {
-  // Use a valid STACKS address format for the sender address
-  // This one is from a testnet wallet
   private static readonly SENDER_ADDRESS =
     "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM";
 
@@ -86,39 +90,15 @@ export class ContractInteractions {
     this.executeReadOnly("liquidity-provider", "get-lp-share", [
       standardPrincipalCV(address),
     ]);
-  /**
-   * Deposits a specified amount of a token into the vault.
-   * @param token - The contract identifier of the token to deposit.
-   * @param amount - The amount of the token to deposit.
-   * @returns A promise that resolves with the result of the read-only call.
-   */
   static deposit = (token: string, amount: number) =>
     this.executeReadOnly("vault", "deposit", [
       standardPrincipalCV(token),
       uintCV(amount),
     ]);
-
-  /**
-   * Gets the price of a token from the oracle.
-   * @param token - The contract identifier of the token.
-   * @returns A promise that resolves with the price of the token.
-   */
   static getPrice = (token: string) =>
     this.executeReadOnly("oracle-aggregator", "get-price", [standardPrincipalCV(token)]);
-
-  /**
-   * Gets the balance of a token for a specific address.
-   * @param token - The contract identifier of the token.
-   * @param address - The address to check the balance of.
-   * @returns A promise that resolves with the balance of the token.
-   */
   static getTokenBalance = (token: string, address: string) =>
     this.executeReadOnly(token, "get-balance", [standardPrincipalCV(address)]);
-  /**
-   * Gets the total supply of a token.
-   * @param token - The contract identifier of the token.
-   * @returns A promise that resolves with the total supply of the token.
-   */
   static getTokenTotalSupply = (token: string) =>
     this.executeReadOnly(token, "get-total-supply");
   static getDecimals = (tokenId: string) =>
@@ -171,11 +151,6 @@ export class ContractInteractions {
     this.executeReadOnly<Record<string, unknown>>("economic-policy-engine", "get-market-parameters");
   static getFinancialMetrics = () =>
     this.executeReadOnly<Record<string, unknown>>("economic-policy-engine", "get-current-rates");
-
-  // --- Dashboard & Recommendations ---
-  static getDashboardData = async () => this.getDashboardMetrics();
-  static getPerformanceRecommendations = () =>
-    this.executeReadOnly("risk-manager", "get-global-collateral-factor");
 
   static async getDashboardMetrics(): Promise<{
     systemHealth: ApiResult<Record<string, unknown>>;
@@ -243,7 +218,6 @@ export class ContractInteractions {
     details: {},
   });
   static getPositions = async (_address: string) => {
-    // Mock implementation for getPositions
     return [
       { pair: "STX-ALEX", liquidity: 1000, balance: 500 },
       { pair: "STX-DIKO", liquidity: 2000, balance: 1000 },

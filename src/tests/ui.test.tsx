@@ -166,7 +166,10 @@ describe('UI Components', () => {
   describe('EnvStatus', () => {
     it('should render the status with a tooltip', async () => {
       render(<EnvStatus />);
-      expect(await screen.findByRole('status')).toHaveAttribute('title', 'Operational');
+      // Wait for the state update to change the attribute to Operational
+      await waitFor(() => {
+        expect(screen.getByRole('status')).toHaveAttribute('title', 'Operational');
+      }, { timeout: 2000 });
     });
   });
 });

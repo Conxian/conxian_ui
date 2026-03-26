@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   Card,
   CardContent,
@@ -17,6 +17,7 @@ import { StatCard } from "@/components/ui/StatCard";
 import { VStack } from "@/components/ui/VStack";
 import { useApi } from "@/lib/api-client";
 import { ApiResult } from "@/lib/contract-interactions";
+import ReadinessDashboard from "@/components/ReadinessDashboard";
 
 interface DashboardMetrics {
   systemHealth: ApiResult<Record<string, unknown>>;
@@ -29,22 +30,24 @@ export default function Home() {
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchDashboardData() {
-      try {
-        setLoading(true);
-        const data = await api.getDashboardMetrics() as DashboardMetrics;
-        setMetrics(data);
-      } catch (err) {
-        console.error("Failed to fetch dashboard metrics", err);
-      } finally {
-        setLoading(false);
-      }
+  // ⚡ Bolt: Memoize the fetch function to prevent unnecessary recreation.
+  const fetchDashboardData = useCallback(async (isInitial = false) => {
+    try {
+      if (isInitial) setLoading(true);
+      const data = await api.getDashboardMetrics() as DashboardMetrics;
+      setMetrics(data);
+    } catch (err) {
+      console.error("Failed to fetch dashboard metrics", err);
+    } finally {
+      if (isInitial) setLoading(false);
     }
-    fetchDashboardData();
-    const interval = setInterval(fetchDashboardData, 30000); // 30s refresh
-    return () => clearInterval(interval);
   }, [api]);
+
+  useEffect(() => {
+    fetchDashboardData(true);
+    const interval = setInterval(() => fetchDashboardData(false), 30000); // 30s background refresh
+    return () => clearInterval(interval);
+  }, [fetchDashboardData]);
 
   const tvl = (metrics?.aggregatedMetrics?.data?.tvl as string) || "0.00";
   const activeVaults = (metrics?.systemHealth?.data?.["active-vaults"] as string | number) || "0";
@@ -60,6 +63,10 @@ export default function Home() {
       </div>
 
       <VStack className="mt-8">
+        <section>
+          <ReadinessDashboard />
+        </section>
+
         <section>
           <EnvStatus />
         </section>
