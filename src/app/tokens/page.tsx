@@ -10,6 +10,14 @@ import {
 } from "@/lib/core-api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/Table";
 
 export default function TokensPage() {
   const [address, setAddress] = React.useState<string>("");
@@ -97,36 +105,31 @@ export default function TokensPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="overflow-auto">
-                <table className="w-full text-sm text-left">
-                  <thead>
-                    <tr className="border-b border-accent/20 text-text">
-                      <th className="py-2 pr-4">Asset</th>
-                      <th className="py-2 pr-4">Balance</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-text">
-                    {fts.map((t: FungibleTokenBalance) => (
-                      <tr
-                        key={t.asset_identifier}
-                        className="border-b border-accent/20 hover:bg-accent/10"
-                      >
-                        <td className="py-2 pr-4 break-all">
-                          {t.asset_identifier}
-                        </td>
-                        <td className="py-2 pr-4">{t.balance}</td>
-                      </tr>
-                    ))}
-                    {fts.length === 0 && (
-                      <tr>
-                        <td className="py-4 text-center" colSpan={2}>
-                          No fungible tokens found.
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Asset</TableHead>
+                    <TableHead>Balance</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {fts.map((t: FungibleTokenBalance) => (
+                    <TableRow key={t.asset_identifier}>
+                      <TableCell className="break-all">
+                        {t.asset_identifier}
+                      </TableCell>
+                      <TableCell>{t.balance}</TableCell>
+                    </TableRow>
+                  ))}
+                  {fts.length === 0 && (
+                    <TableRow>
+                      <TableCell className="py-4 text-center" colSpan={2}>
+                        No fungible tokens found.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
             </CardContent>
           </Card>
         </>
