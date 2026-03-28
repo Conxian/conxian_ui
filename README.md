@@ -2,7 +2,7 @@
 
 ![Conxian UI Homepage](docs/images/homepage.png)
 
-Sovereign Dark Theme official UI for interacting with Conxian contracts on the Stacks blockchain. Whether you're a casual user or a seasoned pro, we've got you covered with a single, unified interface.
+Sovereign Earthy official UI for interacting with Conxian contracts on the Stacks blockchain. Whether you're a casual user or a seasoned pro, we've got you covered with a single, unified interface.
 
 ## Our Signature Look: The Conxian Color Palette
 

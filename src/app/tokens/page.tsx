@@ -85,7 +85,7 @@ export default function TokensPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Fungible Tokens</CardTitle>
+                <CardTitle className="text-xl font-bold text-text">Fungible Tokens</CardTitle>
                 <Button
                   onClick={refresh}
                   disabled={loading}
@@ -98,23 +98,23 @@ export default function TokensPage() {
             </CardHeader>
             <CardContent>
               <div className="overflow-auto">
-                <table className="w-full text-sm text-left">
+                <table className="w-full text-sm text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-accent/20 text-text">
-                      <th className="py-2 pr-4">Asset</th>
-                      <th className="py-2 pr-4">Balance</th>
+                    <tr className="border-b border-accent/20">
+                      <th className="py-3 px-4 text-xs font-bold text-text-secondary uppercase tracking-wider">Asset Identifier</th>
+                      <th className="py-3 px-4 text-xs font-bold text-text-secondary uppercase tracking-wider text-right">Balance</th>
                     </tr>
                   </thead>
                   <tbody className="text-text">
                     {fts.map((t: FungibleTokenBalance) => (
                       <tr
                         key={t.asset_identifier}
-                        className="border-b border-accent/20 hover:bg-accent/10"
+                        className="border-b border-accent/20 hover:bg-accent/5 transition-colors"
                       >
-                        <td className="py-2 pr-4 break-all">
+                        <td className="py-3 px-4 break-all font-mono text-xs">
                           {t.asset_identifier}
                         </td>
-                        <td className="py-2 pr-4">{t.balance}</td>
+                        <td className="py-3 px-4 text-right font-medium">{t.balance}</td>
                       </tr>
                     ))}
                     {fts.length === 0 && (

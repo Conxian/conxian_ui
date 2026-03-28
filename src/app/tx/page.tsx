@@ -370,7 +370,7 @@ function TxContent() {
           <div>
             <label
               htmlFor="contract-select"
-              className="text-xs block mb-1 text-text"
+              className="text-xs font-bold text-text-secondary uppercase tracking-widest block mb-1"
             >
               Contract
             </label>
@@ -443,7 +443,7 @@ function TxContent() {
           <div>
             <label
               htmlFor="template-select"
-              className="text-xs block mb-1 text-text"
+              className="text-xs font-bold text-text-secondary uppercase tracking-widest block mb-1"
             >
               Template
             </label>
@@ -542,6 +542,7 @@ function TxContent() {
             type="submit"
             disabled={sending || !fnName}
             aria-busy={sending}
+            className="px-8"
           >
             {sending ? "Sending..." : "Open Wallet"}
           </Button>
@@ -549,7 +550,7 @@ function TxContent() {
             role="status"
             aria-live="polite"
             className={cn(
-              "text-xs text-text transition-opacity duration-300 min-h-[1rem]",
+              "text-xs font-medium text-text-secondary transition-opacity duration-300 min-h-[1rem]",
               status ? "opacity-100" : "opacity-0"
             )}
           >

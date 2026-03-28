@@ -20,15 +20,25 @@ export default function NetworkPage() {
 
   const refresh = React.useCallback(async () => {
     setLoading(true);
-    const [s, b, m] = await Promise.all([
-      getStatus(),
-      getNetworkBlockTimes(),
-      getMempool(15),
-    ]);
-    setStatus(s);
-    setBlocks(b);
-    setMempool(m || []);
-    setLoading(false);
+    try {
+      const results = await Promise.allSettled([
+        getStatus(),
+        getNetworkBlockTimes(),
+        getMempool(15),
+      ]);
+
+      const s = results[0].status === "fulfilled" ? results[0].value : null;
+      const b = results[1].status === "fulfilled" ? results[1].value : null;
+      const m = results[2].status === "fulfilled" ? results[2].value : [];
+
+      setStatus(s);
+      setBlocks(b);
+      setMempool(m || []);
+    } catch (error) {
+      console.error("Failed to refresh network data", error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   React.useEffect(() => {

@@ -36,7 +36,7 @@ The Conxian UI communicates with the Stacks blockchain via the Hiro API. We use 
 
 ## 4. The User Interface
 
-The Conxian UI is built with Next.js and Tailwind CSS. We also use a set of reusable UI components to ensure a consistent look and feel throughout the application.
+The Conxian UI is built with Next.js and Tailwind CSS v4. We strictly adhere to our **Sovereign Earthy** UI architecture, utilizing a 60-30-10 palette split (Ivory/White/Brand) to ensure an institutional-grade, low-fatigue experience. We use a set of canonical UI components to ensure consistency throughout the application.
 
 ### Key Pages & Components:
 

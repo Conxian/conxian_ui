@@ -108,37 +108,37 @@ export default function LaunchPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle>Current Phase</CardTitle>
+                <CardTitle className="text-sm font-medium text-text-secondary uppercase tracking-wider">Current Phase</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-text">
                   {currentPhase?.name || 'N/A'}
                 </div>
-                <p className="text-text">Core infrastructure deployment</p>
+                <p className="text-xs text-text-secondary mt-1">Core infrastructure deployment</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Total Raised</CardTitle>
+                <CardTitle className="text-sm font-medium text-text-secondary uppercase tracking-wider">Total Raised</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-text">
                   {fundingProgress.current} STX
                 </div>
-                <p className="text-text">Community contributions</p>
+                <p className="text-xs text-text-secondary mt-1">Community contributions</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Contributors</CardTitle>
+                <CardTitle className="text-sm font-medium text-text-secondary uppercase tracking-wider">Contributors</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-text">
                   {communityStats?.totalContributors || 0}
                 </div>
-                <p className="text-text">Active community members</p>
+                <p className="text-xs text-text-secondary mt-1">Active community members</p>
               </CardContent>
             </Card>
           </div>

@@ -17,7 +17,7 @@ Start by connecting your Stacks wallet. Click the "Connect Wallet" button in the
 Once your wallet is connected, you can navigate through the sidebar to access different features of the Conxian ecosystem.
 
 #### Dashboard (Home)
-The default landing page provides an overview of the Conxian ecosystem.
+The default landing page provides an overview of the Conxian ecosystem. Enforced with our **Sovereign Earthy** ivory-led palette, it provides a high-legibility, low-fatigue experience.
 
 ![Homepage](docs/images/homepage.png)
 
