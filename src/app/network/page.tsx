@@ -10,6 +10,14 @@ import {
 } from "@/lib/core-api";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/Table";
 import { AppConfig } from "@/lib/config";
 
 export default function NetworkPage() {
@@ -82,38 +90,38 @@ export default function NetworkPage() {
           <CardTitle className="text-lg">Mempool (latest)</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="overflow-auto">
-            <table className="w-full text-sm text-left">
-              <thead>
-                <tr className="border-b border-accent/20 text-text">
-                  <th className="py-2 pr-4">Tx ID</th>
-                  <th className="py-2 pr-4">Type</th>
-                  <th className="py-2 pr-4">Sender</th>
-                  <th className="py-2 pr-4">Nonce</th>
-                </tr>
-              </thead>
-              <tbody className="text-text">
-                {Array.isArray(mempool) && mempool.map((tx: MempoolTx, idx: number) => (
-                  <tr
-                    key={tx?.tx_id || `tx-${idx}`}
-                    className="border-b border-accent/20 hover:bg-accent/10"
-                  >
-                    <td className="py-2 pr-4 break-all">{tx?.tx_id || "—"}</td>
-                    <td className="py-2 pr-4">{tx?.tx_type || "—"}</td>
-                    <td className="py-2 pr-4 break-all">{tx?.sender_address || "—"}</td>
-                    <td className="py-2 pr-4">{tx?.nonce ?? "—"}</td>
-                  </tr>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Tx ID</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Sender</TableHead>
+                <TableHead>Nonce</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Array.isArray(mempool) &&
+                mempool.map((tx: MempoolTx, idx: number) => (
+                  <TableRow key={tx?.tx_id || `tx-${idx}`}>
+                    <TableCell className="break-all">
+                      {tx?.tx_id || "—"}
+                    </TableCell>
+                    <TableCell>{tx?.tx_type || "—"}</TableCell>
+                    <TableCell className="break-all">
+                      {tx?.sender_address || "—"}
+                    </TableCell>
+                    <TableCell>{tx?.nonce ?? "—"}</TableCell>
+                  </TableRow>
                 ))}
-                {(!mempool || mempool.length === 0) && (
-                  <tr>
-                    <td className="py-4 text-center" colSpan={4}>
-                      No transactions in mempool.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+              {(!mempool || mempool.length === 0) && (
+                <TableRow>
+                  <TableCell className="py-4 text-center" colSpan={4}>
+                    No transactions in mempool.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
         </CardContent>
       </Card>
     </div>
