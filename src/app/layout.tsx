@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import { Providers } from "./providers";
 
@@ -35,14 +34,11 @@ export default function RootLayout({
           Skip to main content
         </a>
         <Providers>
-          <div>
-            <Sidebar />
-            <div className="lg:pl-64">
-              <Header />
-              <main id="main-content" className="py-10">
-                <div className="px-4 sm:px-6 lg:px-8">{children}</div>
-              </main>
-            </div>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main id="main-content" className="flex-1 py-10">
+              <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">{children}</div>
+            </main>
           </div>
         </Providers>
       </body>
