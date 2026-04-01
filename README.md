@@ -20,8 +20,8 @@ Active development. The UI is evolving toward a bright, low-fatigue operational 
 
 ## Relationship to the Conxian stack
 
-- Frontend layer for Conxian Protocol (`Conxian/`) and Conxian Gateway (`conxian-gateway/`).
-- Often run and deployed as part of the `conxius-platform` stack.
+- Frontend layer for [Conxian Protocol](https://github.com/Conxian/Conxian) and [Conxian Gateway](https://github.com/Conxian/conxian-gateway).
+- Often run and deployed as part of [conxius-platform](https://github.com/Conxian/conxius-platform).
 
 ## Our Signature Look: The Conxian Color Palette
 
