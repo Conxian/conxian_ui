@@ -30,6 +30,10 @@ Key contracts include:
 *   **Staking (`cxd-staking`)**
 *   **Bond Factory (`bond-factory`)**
 
+## Farcaster Frames (SIDL)
+
+See `docs/FARCASTER_FRAMES.md` for the minimal Frames endpoints (sBTC monitor + governance vote).
+
 ## Contributing
 
 We welcome contributions from the community. Please see our [Contributing Guide](CONTRIBUTING.md) for more information on how to get started.
