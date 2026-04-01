@@ -2,7 +2,26 @@
 
 ![Conxian UI Homepage](docs/images/homepage.png)
 
-Sovereign Dark Theme official UI for interacting with Conxian contracts on the Stacks blockchain. Whether you're a casual user or a seasoned pro, we've got you covered with a single, unified interface.
+Sovereign Earthy official UI for interacting with Conxian contracts on the Stacks blockchain. Whether you're a casual user or a seasoned pro, we've got you covered with a single, unified interface.
+
+## Purpose
+
+Provide a user-facing dashboard for interacting with Conxian protocol primitives and surfacing protocol and gateway state.
+
+## Status
+
+Active development. The UI is evolving toward a bright, low-fatigue operational foundation while maintaining the Sovereign Earthy brand.
+
+## Audience
+
+- End users interacting with Conxian protocol features.
+- Integrators validating contract flows and Gateway API behavior.
+- Frontend contributors extending components, pages, and protocol integrations.
+
+## Relationship to the Conxian stack
+
+- Frontend layer for Conxian Protocol (`Conxian/`) and Conxian Gateway (`conxian-gateway/`).
+- Often run and deployed as part of the `conxius-platform` stack.
 
 ## Our Signature Look: The Conxian Color Palette
 
