@@ -10,7 +10,9 @@ Conxian UI provides a user-facing dashboard for interacting with Conxian protoco
 
 ## Status
 
-Active development (beta). Expect breaking changes in UI and integrations as we standardize toward a brighter, Ivory-led foundation under the Sovereign Earthy brand.
+Active development (beta). UI and integrations may change; expect breaking changes.
+
+We're iterating on UX toward a brighter, lower-fatigue interface while maintaining the Sovereign Earthy brand.
 
 ## Audience
 
