@@ -23,7 +23,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-accent/20 bg-primary-dark backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-accent/20 bg-primary-dark">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1 items-center gap-x-8">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-3">
