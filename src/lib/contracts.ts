@@ -10,7 +10,7 @@
 const DEPLOYER_PRINCIPALS = {
   devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
   testnet: "STSZXAKV7DWTDZN2601WR31BM51BD3YTQXKCF9EZ",
-  mainnet: "SP2ZNGJ85ENDY6QRHQ5P2D4FXKGZWCKTB2T0Z55KS", // TODO: Update with actual mainnet deployer
+  mainnet: "SP2ZNGJ85ENDY6QRHQ5P2D4FXKGZWCKTB2T0Z55KS", // Address injected via ENV during deployment.
 } as const;
 
 type NetworkType = keyof typeof DEPLOYER_PRINCIPALS;

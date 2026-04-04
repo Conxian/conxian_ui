@@ -1,7 +1,7 @@
 // src/lib/contracts/self-launch.ts - Smart contract integration
 import { StacksNetwork, STACKS_TESTNET, STACKS_MAINNET } from "@stacks/network";
 import { callReadOnly, ReadOnlyResponse } from "../core-api";
-import { standardPrincipalCV, uintCV, cvToHex } from "@stacks/transactions";
+import { standardPrincipalCV, uintCV, cvToHex, hexToCV, cvToJSON } from "@stacks/transactions";
 
 export interface LaunchPhase {
   id: string;
@@ -62,10 +62,22 @@ export class SelfLaunchContract {
     try {
       const result = await this.readOnlyCall("get-launch-status", []);
       if (result.ok && result.result) {
-        // TODO: Implement proper CV deserialization
-        // For now falling back to safe defaults if parsing fails or using mock for development
-        // until the deserializer is fully aligned with the Tuple structure
-        return this.getMockLaunchStatus();
+        try {
+          const cv = hexToCV(result.result);
+          const data = cvToJSON(cv);
+          return {
+            phase: Number(data.value?.phase?.value || 1),
+            fundingReceived: Number(data.value?.fundingReceived?.value || 0),
+            fundingTarget: Number(data.value?.fundingTarget?.value || 0),
+            budgetAllocated: Number(data.value?.budgetAllocated?.value || 0),
+            progressPercentage: Number(data.value?.progressPercentage?.value || 0),
+            contractsDeployed: Number(data.value?.contractsDeployed?.value || 0),
+            systemHealth: Number(data.value?.systemHealth?.value || 0),
+          };
+        } catch (e) {
+          console.warn("CV deserialization failed for getLaunchStatus, using mock: ", e);
+          return this.getMockLaunchStatus();
+        }
       }
       return this.getMockLaunchStatus();
     } catch (e) {
@@ -78,8 +90,21 @@ export class SelfLaunchContract {
     try {
       const result = await this.readOnlyCall("get-funding-progress", []);
       if (result.ok && result.result) {
-        // TODO: Implement proper CV deserialization
-        return this.getMockFundingProgress();
+        try {
+          const cv = hexToCV(result.result);
+          const data = cvToJSON(cv);
+          return {
+            currentFunding: Number(data.value?.currentFunding?.value || 0),
+            fundingTarget: Number(data.value?.fundingTarget?.value || 0),
+            baseCost: Number(data.value?.baseCost?.value || 0),
+            progressPercentage: Number(data.value?.progressPercentage?.value || 0),
+            currentPhase: Number(data.value?.currentPhase?.value || 1),
+            tokensMinted: Number(data.value?.tokensMinted?.value || 0),
+          };
+        } catch (e) {
+          console.warn("CV deserialization failed for getFundingProgress, using mock: ", e);
+          return this.getMockFundingProgress();
+        }
       }
       return this.getMockFundingProgress();
     } catch (e) {
