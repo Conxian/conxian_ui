@@ -87,7 +87,7 @@ export default function PoolsPage() {
   }, [refresh]);
 
   return (
-    <div className="space-y-8 bg-background min-h-full">
+    <div className="space-y-8 bg-background min-h-screen">
       <Card className="bg-background-paper">
         <CardHeader>
           <CardTitle className="tracking-tight uppercase">Pool Explorer</CardTitle>
