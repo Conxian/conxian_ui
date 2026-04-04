@@ -51,9 +51,9 @@ export default function Home() {
   const apy = (metrics?.financialMetrics?.data?.["median-apy"] as string) || "0.00";
 
   return (
-    <>
+    <div className="space-y-8 bg-background min-h-screen">
       <div>
-        <h1 className="text-3xl font-bold text-text">Dashboard</h1>
+        <h1 className="text-3xl font-bold text-text tracking-tight uppercase">Dashboard</h1>
         <p className="mt-2 text-sm text-text-secondary">
           An overview of the Conxian ecosystem and real-time protocol telemetry.
         </p>
@@ -138,6 +138,6 @@ export default function Home() {
           </Card>
         </section>
       </VStack>
-    </>
+    </div>
   );
 }

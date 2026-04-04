@@ -23,7 +23,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-accent/20 bg-primary-dark/95 backdrop-blur supports-[backdrop-filter]:bg-primary-dark/60">
+    <header className="sticky top-0 z-50 w-full border-b border-accent/20 bg-primary-dark">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1 items-center gap-x-8">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-3">
@@ -50,10 +50,10 @@ export default function Header() {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "text-sm font-semibold leading-6 transition-colors",
+                    "text-sm font-bold uppercase tracking-wider leading-6 transition-colors",
                     isActive
                       ? "text-primary-foreground"
-                      : "text-primary-foreground/60 hover:text-primary-foreground"
+                      : "text-primary-foreground/70 hover:text-primary-foreground"
                   )}
                 >
                   {item.name}
@@ -64,7 +64,7 @@ export default function Header() {
         </div>
 
         <div className="flex flex-1 justify-end items-center gap-x-4">
-          <div className="hidden sm:flex items-center rounded-full border border-accent/20 bg-primary-dark px-3 py-1 text-xs font-medium text-primary-foreground/80">
+          <div className="hidden sm:flex items-center rounded-full border border-accent/20 bg-primary-dark px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary-foreground">
             {AppConfig.network.toUpperCase()}
           </div>
           <ConnectWallet />

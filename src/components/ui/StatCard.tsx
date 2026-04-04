@@ -20,14 +20,14 @@ export const StatCard = ({
 }: StatCardProps) => (
   <Card>
     <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-      <CardTitle className="text-xs font-semibold text-text-secondary uppercase tracking-wider">{title}</CardTitle>
-      <div title={tooltipText} className="text-text-muted">{icon}</div>
+      <CardTitle className="text-xs font-bold text-text-secondary uppercase tracking-widest">{title}</CardTitle>
+      <div title={tooltipText} className="text-text-secondary">{icon}</div>
     </CardHeader>
     <CardContent>
       {loading ? (
         <div className="h-8 w-24 bg-neutral-light animate-pulse rounded" />
       ) : (
-        <div className="text-2xl font-bold text-text tracking-tight">{value}</div>
+        <div className="text-2xl font-bold text-text tracking-tight tabular-nums">{value}</div>
       )}
       {subtext && (
         <p className={cn(

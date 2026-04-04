@@ -87,10 +87,10 @@ export default function PoolsPage() {
   }, [refresh]);
 
   return (
-    <div className="space-y-8">
-      <Card>
+    <div className="space-y-8 bg-background min-h-screen">
+      <Card className="bg-background-paper">
         <CardHeader>
-          <CardTitle>Pool Explorer</CardTitle>
+          <CardTitle className="tracking-tight uppercase">Pool Explorer</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-3 md:grid-cols-3">

@@ -290,9 +290,9 @@ export default function SwapPage() {
   }, [stxAddress]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 bg-background min-h-screen">
       <div>
-        <h1 className="text-3xl font-bold text-text">Swap</h1>
+        <h1 className="text-3xl font-bold text-text tracking-tight uppercase">Swap</h1>
         <p className="mt-2 text-sm text-text">
           Exchange tokens instantly on the Conxian DEX.
         </p>

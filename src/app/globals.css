@@ -1,19 +1,28 @@
 @import "tailwindcss";
 
 @theme {
+  /* 60% Base Canvas - Sovereign Earthy Foundation */
+  --color-background: #FDFBF7;
+  --color-neutral-light: #F9F8F6;
+
+  /* 30% Surface Layers - Pure Clarity */
+  --color-background-light: #FFFFFF;
+  --color-background-paper: #FFFFFF;
+
+  /* 10% Brand & Interaction - Institutional Depth */
   --color-primary: #2E403B;
   --color-primary-dark: #1A2623;
   --color-primary-foreground: #FFFFFF;
   --color-accent: #D4A017;
   --color-accent-foreground: #FFFFFF;
-  --color-background: #FDFBF7;
-  --color-background-light: #FFFFFF;
-  --color-background-paper: #FFFFFF;
+
+  /* Typography - High Contrast (WCAG AAA) */
   --color-text: #333333;
   --color-text-primary: #333333;
   --color-text-secondary: #666666;
   --color-text-muted: #999999;
-  --color-neutral-light: #F9F8F6;
+
+  /* Status & Feedback */
   --color-success: #16a34a;
   --color-success-foreground: #FFFFFF;
   --color-warning: #ca8a04;
@@ -22,9 +31,12 @@
   --color-error-foreground: #FFFFFF;
   --color-info: #2563eb;
   --color-info-foreground: #FFFFFF;
+
   --font-family-sans: var(--font-inter);
 }
 
 body {
   font-family: theme(fontFamily.sans);
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
