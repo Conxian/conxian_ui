@@ -88,14 +88,21 @@ export default function PoolsPage() {
 
   return (
     <div className="space-y-8 bg-background min-h-screen">
+      <div>
+        <h1 className="text-3xl font-bold text-text tracking-widest uppercase">Pool Explorer</h1>
+        <p className="mt-2 text-sm text-text-secondary">
+          Detailed metrics and telemetry for Conxian liquidity pools.
+        </p>
+      </div>
+
       <Card className="bg-background-paper">
         <CardHeader>
-          <CardTitle className="tracking-tight uppercase">Pool Explorer</CardTitle>
+          <CardTitle className="uppercase tracking-widest">Global Metrics</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-3 md:grid-cols-3">
             <div>
-              <label className="text-xs block mb-1 text-text">Pool Contract</label>
+              <label className="text-[10px] font-bold uppercase tracking-widest block mb-1 text-text-secondary">Pool Contract</label>
               <select
                 aria-label="Pool contract"
                 className="flex h-10 w-full rounded-md border border-accent/20 bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -124,7 +131,7 @@ export default function PoolsPage() {
           <div className="grid gap-4 md:grid-cols-3">
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Reserves</CardTitle>
+                <CardTitle className="text-base uppercase tracking-widest">Reserves</CardTitle>
               </CardHeader>
               <CardContent>
                 <pre className="text-xs overflow-auto text-text">
@@ -134,7 +141,7 @@ export default function PoolsPage() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Total Supply</CardTitle>
+                <CardTitle className="text-base uppercase tracking-widest">Total Supply</CardTitle>
               </CardHeader>
               <CardContent>
                 <pre className="text-xs overflow-auto text-text">
@@ -144,7 +151,7 @@ export default function PoolsPage() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Price</CardTitle>
+                <CardTitle className="text-base uppercase tracking-widest">Price</CardTitle>
               </CardHeader>
               <CardContent>
                 <pre className="text-xs overflow-auto text-text">
@@ -157,7 +164,7 @@ export default function PoolsPage() {
           <div className="grid gap-4 md:grid-cols-3 mt-4">
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Fee Info</CardTitle>
+                <CardTitle className="text-base uppercase tracking-widest">Fee Info</CardTitle>
               </CardHeader>
               <CardContent>
                 <pre className="text-xs overflow-auto text-text">
@@ -167,7 +174,7 @@ export default function PoolsPage() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Derived KPIs</CardTitle>
+                <CardTitle className="text-base uppercase tracking-widest">Derived KPIs</CardTitle>
               </CardHeader>
               <CardContent>
                 <DerivedKPIs
@@ -231,42 +238,42 @@ function DerivedKPIs({
       : null;
 
   return (
-    <div className="text-xs space-y-1 text-text">
-      <div>
-        <span className="font-medium text-text">LP Fee (bps):</span>{" "}
-        {lpFeeBps ?? "—"}
+    <div className="text-xs space-y-2 text-text">
+      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">LP Fee (bps)</span>{" "}
+        <span className="font-bold tabular-nums">{lpFeeBps ?? "—"}</span>
       </div>
-      <div>
-        <span className="font-medium text-text">Protocol Fee (bps):</span>{" "}
-        {protocolFeeBps ?? "—"}
+      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Protocol Fee (bps)</span>{" "}
+        <span className="font-bold tabular-nums">{protocolFeeBps ?? "—"}</span>
       </div>
-      <div>
-        <span className="font-medium text-text">Total Fee (bps):</span>{" "}
-        {Number.isFinite(totalFeeBps) ? totalFeeBps : "—"}
+      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Total Fee (bps)</span>{" "}
+        <span className="font-bold tabular-nums">{Number.isFinite(totalFeeBps) ? totalFeeBps : "—"}</span>
       </div>
-      <div>
-        <span className="font-medium text-text">Price X/Y:</span>{" "}
-        {priceXYU !== null ? Number(priceXYU) : "—"}
+      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Price X/Y</span>{" "}
+        <span className="font-bold tabular-nums">{priceXYU !== null ? Number(priceXYU) : "—"}</span>
       </div>
-      <div>
-        <span className="font-medium text-text">Price Y/X:</span>{" "}
-        {priceYXU !== null ? Number(priceYXU) : "—"}
+      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Price Y/X</span>{" "}
+        <span className="font-bold tabular-nums">{priceYXU !== null ? Number(priceYXU) : "—"}</span>
       </div>
-      <div>
-        <span className="font-medium text-text">Inventory Skew (A/B):</span>{" "}
-        {inventorySkew !== null ? inventorySkew.toFixed(4) : "—"}
+      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Inventory Skew (A/B)</span>{" "}
+        <span className="font-bold tabular-nums">{inventorySkew !== null ? inventorySkew.toFixed(4) : "—"}</span>
       </div>
-      <div>
-        <span className="font-medium text-text">Volume (24h):</span>{" "}
-        {vol24hU !== null ? Number(vol24hU) : "—"}
+      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Volume (24h)</span>{" "}
+        <span className="font-bold tabular-nums">{vol24hU !== null ? Number(vol24hU) : "—"}</span>
       </div>
-      <div>
-        <span className="font-medium text-text">Fees (24h):</span>{" "}
-        {fees24hU !== null ? Number(fees24hU) : "—"}
+      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Fees (24h)</span>{" "}
+        <span className="font-bold tabular-nums">{fees24hU !== null ? Number(fees24hU) : "—"}</span>
       </div>
-      <div>
-        <span className="font-medium text-text">TVL (A units):</span>{" "}
-        {tvlAUnits !== null ? tvlAUnits.toFixed(2) : "—"}
+      <div className="flex justify-between items-center">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">TVL (A units)</span>{" "}
+        <span className="font-bold tabular-nums">{tvlAUnits !== null ? tvlAUnits.toFixed(2) : "—"}</span>
       </div>
     </div>
   );

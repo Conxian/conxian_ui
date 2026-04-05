@@ -12,7 +12,7 @@ Conxian UI provides a user-facing dashboard for interacting with Conxian protoco
 
 Active development (beta). UI and integrations may change; expect breaking changes.
 
-We're iterating on UX toward a brighter, lower-fatigue interface while maintaining the Sovereign Earthy brand.
+We're iterating on UX toward a brighter, lower-fatigue interface while maintaining the Sovereign Earthy brand. The UI is built on a 60-30-10 palette split: 60% Ivory (#FDFBF7) base, 30% Pure White (#FFFFFF) surface layers, and 10% deep brand accents.
 
 ## Audience
 

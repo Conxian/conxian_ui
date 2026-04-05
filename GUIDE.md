@@ -14,7 +14,7 @@ Start by connecting your Stacks wallet. Click the "Connect Wallet" button in the
 
 ### Step 2: Explore Conxian's Features
 
-Once your wallet is connected, you can navigate through the sidebar to access different features of the Conxian ecosystem.
+Once your wallet is connected, you can navigate through the top navigation bar to access different features of the Conxian ecosystem.
 
 #### Dashboard (Home)
 The default landing page provides an overview of the Conxian ecosystem.
