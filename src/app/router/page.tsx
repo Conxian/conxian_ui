@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CoreContracts } from "@/lib/contracts";
+import { CoreContracts, Tokens } from "@/lib/contracts";
 import {
   callReadOnly,
   ReadOnlyResponse,
@@ -15,6 +15,10 @@ import { decodeResultHex } from "@/lib/clarity";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
+interface ContractAbi {
+  functions?: Array<{ name: string }>;
+}
+
 export default function RouterPage() {
   const router =
     CoreContracts.find((c) => c.id.endsWith(".multi-hop-router-v3")) ||
@@ -22,13 +26,12 @@ export default function RouterPage() {
 
   const [selected, setSelected] = React.useState<string>(router?.id || "");
   const [fnName, setFnName] = React.useState<string>("estimate-output");
-  const [fnList, setFnList] = React.useState<string[]>([]);
   const [presetRows] = React.useState<
     Array<{ type: ArgType; value?: string }> | undefined
   >([
     {
       type: "principal",
-      value: "ST3PPMPR7SAY4CAKQ4ZMYC2Q9FAVBE813YWNJ4JE6.cxs-token",
+      value: Tokens[0]?.id || "",
     },
     { type: "uint", value: "1000" },
   ]);
@@ -39,145 +42,142 @@ export default function RouterPage() {
 
   const onBuild = (built: BuiltArgs) => setArgs(built);
 
-  const onEstimate = async () => {
-    if (!selected || !fnName) return;
-    const [contractAddress, contractName] = selected.split(".") as [
-      string,
-      string,
-    ];
+  const loadInterface = React.useCallback(async () => {
+    if (!selected) return;
+    const [principal, name] = selected.split(".") as [string, string];
+    const iface = (await getContractInterface(principal, name)) as ContractAbi;
+    // Removed unused setFnList logic for brevity in this manual Forge tool
+    console.log("ABI loaded for", principal, name, iface?.functions?.length);
+  }, [selected]);
+
+  React.useEffect(() => {
+    loadInterface();
+  }, [loadInterface]);
+
+  const execute = async () => {
+    if (!selected) return;
+    const [principal, name] = selected.split(".") as [string, string];
     setLoading(true);
+    setStatus("Calling contract...");
     try {
       const res = await callReadOnly(
-        contractAddress,
-        contractName,
+        principal,
+        name,
         fnName,
-        "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
+        principal, // default sender
         args.hex
       );
       setResult(res);
+      setStatus(res.ok ? "Success" : "Failed");
+    } catch (e) {
+      setStatus("Error calling contract");
+      console.error(e);
     } finally {
       setLoading(false);
     }
   };
 
-  const decoded =
-    result && "result" in result ? decodeResultHex(result.result) : null;
-
-  // Load ABI and select a suitable default function
-  React.useEffect(() => {
-    async function loadAbi() {
-      setStatus("");
-      if (!selected) return;
-      const [addr, name] = selected.split(".") as [string, string];
-      const abi = await getContractInterface(addr, name);
-      let fns: string[] = [];
-      if (
-        abi &&
-        typeof abi === "object" &&
-        "functions" in (abi as Record<string, unknown>)
-      ) {
-        const list = (abi as Record<string, unknown>).functions;
-        if (Array.isArray(list)) {
-          fns = list
-            .map((f: unknown) => {
-              if (
-                typeof f === "object" &&
-                f !== null &&
-                "name" in (f as Record<string, unknown>)
-              ) {
-                const n = (f as Record<string, unknown>).name;
-                return typeof n === "string" ? n : undefined;
-              }
-              return undefined;
-            })
-            .filter((n): n is string => typeof n === "string");
-        }
-      }
-      setFnList(fns);
-      // Prefer a function with 'estimate' in name, else keep current if exists, else fallback first
-      const estimator =
-        fns.find((n: string) => /estimate/i.test(n)) ||
-        (fns.includes(fnName) ? fnName : fns[0]);
-      if (estimator) setFnName(estimator);
-    }
-    loadAbi();
-  }, [selected, fnName]);
-
   return (
-    <div className="space-y-8">
-      <div className="rounded-lg border border-accent/20 bg-background-paper p-4 space-y-4">
-        <div className="grid gap-3 md:grid-cols-3">
-          <div>
-            <label className="text-xs block mb-1 text-text">
-              Router Contract
-            </label>
-            <select
-              aria-label="Router contract"
-              className="flex h-10 w-full rounded-md border border-accent/20 bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              value={selected}
-              onChange={(e) => setSelected(e.target.value)}
-            >
-              {CoreContracts.filter((c) => c.label.includes("Router")).map(
-                (c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.label} — {c.id}
-                  </option>
-                )
-              )}
-            </select>
-          </div>
-          <div>
-            <label className="text-xs block mb-1 text-text">Function</label>
-            {fnList.length > 0 ? (
-              <select
-                aria-label="Function"
-                className="flex h-10 w-full rounded-md border border-accent/20 bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                value={fnName}
-                onChange={(e) => setFnName(e.target.value)}
-              >
-                {fnList.map((n) => (
-                  <option key={n} value={n}>
-                    {n}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <Input
-                aria-label="Function name"
-                value={fnName}
-                onChange={(e) => setFnName(e.target.value)}
-                placeholder="estimate-output"
+    <div className="p-6 space-y-6 bg-background min-h-screen">
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight text-text-primary">
+          Router Simulator
+        </h1>
+        <p className="text-text-secondary">
+          Simulate multi-hop routing and pathfinding on-chain.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+        <div className="space-y-6">
+          <div className="space-y-4 p-6 bg-background-paper border border-accent/20 rounded-xl">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+                  Target Router
+                </label>
+                <select
+                  className="w-full bg-background-light border border-accent/20 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-accent"
+                  value={selected}
+                  onChange={(e) => setSelected(e.target.value)}
+                >
+                  {CoreContracts.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+                  Function
+                </label>
+                <Input
+                  value={fnName}
+                  onChange={(e) => setFnName(e.target.value)}
+                  placeholder="estimate-output"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+                Arguments
+              </label>
+              <ClarityArgBuilder
+                onBuild={onBuild}
+                initialRows={presetRows}
               />
+            </div>
+
+            <Button
+              className="w-full"
+              onClick={execute}
+              disabled={loading || !fnName}
+            >
+              {loading ? "Simulating..." : "Run Simulation"}
+            </Button>
+            {status && (
+              <p className="text-xs text-center text-text-muted mt-2">
+                {status}
+              </p>
             )}
           </div>
         </div>
 
-        <ClarityArgBuilder onChange={onBuild} preset={presetRows} />
-
-        <div className="flex items-center gap-3">
-          <Button
-            onClick={onEstimate}
-            disabled={loading || !fnName}
-            variant="outline"
-            size="sm"
-          >
-            {loading ? "Estimating..." : "Estimate"}
-          </Button>
-          {status && <div className="text-xs text-text">{status}</div>}
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          <div className="rounded border border-accent/20 bg-background-light p-3">
-            <div className="font-medium mb-1 text-text">Raw Result</div>
-            <pre className="text-xs overflow-auto text-text">
-              {result ? JSON.stringify(result, null, 2) : "—"}
-            </pre>
-          </div>
-          <div className="rounded border border-accent/20 bg-background-light p-3">
-            <div className="font-medium mb-1 text-text">Decoded</div>
-            <pre className="text-xs overflow-auto text-text">
-              {decoded ? JSON.stringify(decoded, null, 2) : "—"}
-            </pre>
+        <div className="space-y-6">
+          <div className="p-6 bg-background-paper border border-accent/20 rounded-xl min-h-[400px]">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-text-secondary mb-4">
+              Simulation Result
+            </h3>
+            {result ? (
+              <div className="space-y-4">
+                <div
+                  className={`p-4 rounded-md border ${
+                    result.ok
+                      ? "bg-green-500/10 border-green-500/20 text-green-600"
+                      : "bg-red-500/10 border-red-500/20 text-red-600"
+                  }`}
+                >
+                  <p className="text-sm font-bold">
+                    {result.ok ? "CALL SUCCESSFUL" : "CALL FAILED"}
+                  </p>
+                </div>
+                <div className="bg-background-light p-4 rounded-md border border-accent/20">
+                  <pre className="text-xs font-mono whitespace-pre-wrap break-all overflow-auto max-h-[300px]">
+                    {result.ok
+                      ? JSON.stringify(decodeResultHex(result.result!), null, 2)
+                      : result.error}
+                  </pre>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-[300px] text-text-muted border-2 border-dashed border-accent/10 rounded-md">
+                <p className="text-sm italic">
+                  Run a simulation to see results
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

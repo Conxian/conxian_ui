@@ -145,7 +145,10 @@ export async function waitForTx(
   throw new Error("tx-timeout");
 }
 
-// Read-only contract call via Hiro API. Args must be hex-encoded Clarity values (0x...)
+/**
+ * Standardized Read-only call using Hiro API.
+ * Args are hex-encoded Clarity values.
+ */
 export async function callReadOnly(
   contractPrincipal: string,
   contractName: string,

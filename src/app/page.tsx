@@ -114,11 +114,11 @@ export default function Home() {
             <CardContent className="grid grid-cols-2 gap-6">
               <div className="rounded-lg bg-background-light p-4 border border-accent/10">
                 <div className="text-sm text-text-secondary mb-2 uppercase tracking-tight font-medium">Total Staked</div>
-                <div className="text-xl font-bold text-text">-bash.00</div>
+                <div className="text-xl font-bold text-text">0.00</div>
               </div>
               <div className="rounded-lg bg-background-light p-4 border border-accent/10">
                 <div className="text-sm text-text-secondary mb-2 uppercase tracking-tight font-medium">My Staked</div>
-                <div className="text-xl font-bold text-text">-bash.00</div>
+                <div className="text-xl font-bold text-text">0.00</div>
               </div>
             </CardContent>
           </Card>

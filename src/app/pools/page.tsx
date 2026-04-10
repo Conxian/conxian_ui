@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { CoreContracts } from "@/lib/contracts";
+import { CoreContracts, BASE_PRINCIPAL } from "@/lib/contracts";
 import { callReadOnly, ReadOnlyResponse } from "@/lib/core-api";
 import { decodeResultHex, getTupleField, getUint } from "@/lib/clarity";
 
-const DEFAULT_SENDER = "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5";
+const DEFAULT_SENDER = BASE_PRINCIPAL;
 
 import {
   Card,
@@ -67,7 +67,7 @@ export default function PoolsPage() {
         callReadOnly(
           contractAddress,
           contractName,
-          "get-pool-performance",
+          "get-performance-metrics",
           DEFAULT_SENDER,
           []
         ),
@@ -77,6 +77,8 @@ export default function PoolsPage() {
       setPrice(r3);
       setFeeInfo(r4);
       setPerf(r5);
+    } catch (e) {
+      console.error("Failed to fetch pool data", e);
     } finally {
       setLoading(false);
     }
@@ -87,194 +89,134 @@ export default function PoolsPage() {
   }, [refresh]);
 
   return (
-    <div className="space-y-8 bg-background min-h-screen">
-      <div>
-        <h1 className="text-3xl font-bold text-text tracking-widest uppercase">Pool Explorer</h1>
-        <p className="mt-2 text-sm text-text-secondary">
-          Detailed metrics and telemetry for Conxian liquidity pools.
-        </p>
+    <div className="p-6 space-y-6 bg-background min-h-screen">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-text-primary">
+            Pools Explorer
+          </h1>
+          <p className="text-text-secondary">
+            On-chain telemetry for Conxian liquidity pools.
+          </p>
+        </div>
+        <div className="flex gap-3">
+          <select
+            className="bg-background-paper border border-accent/20 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-accent"
+            value={selected}
+            onChange={(e) => setSelected(e.target.value)}
+          >
+            {dexPools.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.label}
+              </option>
+            ))}
+          </select>
+          <Button onClick={refresh} disabled={loading}>
+            {loading ? "Syncing..." : "Refresh"}
+          </Button>
+        </div>
       </div>
 
-      <Card className="bg-background-paper">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+              Liquidity Reserves
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold tabular-nums">
+              {reserves?.ok ? decodeResultHex(reserves.result!) : "0.00"}
+            </div>
+            <p className="text-xs text-text-muted mt-1">
+              Live vault balance for {selected.split(".")[1]}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+              Total Supply (LP)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold tabular-nums">
+              {totalSupply?.ok ? getUint(totalSupply.result!) : "0.00"}
+            </div>
+            <p className="text-xs text-text-muted mt-1">
+              Active LP tokens in circulation
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+              Internal Price
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold tabular-nums">
+              {price?.ok ? getUint(price.result!) : "0.00"}
+            </div>
+            <p className="text-xs text-text-muted mt-1">
+              Current pool swap ratio
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
         <CardHeader>
-          <CardTitle className="uppercase tracking-widest">Global Metrics</CardTitle>
+          <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+            Protocol Performance & Fees
+          </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid gap-3 md:grid-cols-3">
-            <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest block mb-1 text-text-secondary">Pool Contract</label>
-              <select
-                aria-label="Pool contract"
-                className="flex h-10 w-full rounded-md border border-accent/20 bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                value={selected}
-                onChange={(e) => setSelected(e.target.value)}
-              >
-                {dexPools.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.label} — {c.id}
-                  </option>
-                ))}
-              </select>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold text-text-primary">
+                Fee Configuration
+              </h3>
+              <div className="space-y-2 border-l-2 border-accent/20 pl-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-text-secondary">Swap Fee</span>
+                  <span className="font-mono">
+                    {feeInfo?.ok ? getTupleField(feeInfo.result!, "swap-fee") : "0"}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-text-secondary">Admin Fee</span>
+                  <span className="font-mono">
+                    {feeInfo?.ok ? getTupleField(feeInfo.result!, "admin-fee") : "0"}
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className="flex items-end">
-              <Button
-                onClick={refresh}
-                disabled={loading || !selected}
-                variant="outline"
-                size="sm"
-              >
-                {loading ? "Refreshing..." : "Refresh"}
-              </Button>
+
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold text-text-primary">
+                Operational Status
+              </h3>
+              <div className="space-y-2 border-l-2 border-accent/20 pl-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-text-secondary">Volume (24h)</span>
+                  <span className="font-mono">
+                    {perf?.ok ? getTupleField(perf.result!, "volume-24h") : "0"}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-text-secondary">Utilization</span>
+                  <span className="font-mono">
+                    {perf?.ok ? getTupleField(perf.result!, "utilization") : "0%"}
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base uppercase tracking-widest">Reserves</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <pre className="text-xs overflow-auto text-text">
-                  {reserves ? JSON.stringify(reserves, null, 2) : "—"}
-                </pre>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base uppercase tracking-widest">Total Supply</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <pre className="text-xs overflow-auto text-text">
-                  {totalSupply ? JSON.stringify(totalSupply, null, 2) : "—"}
-                </pre>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base uppercase tracking-widest">Price</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <pre className="text-xs overflow-auto text-text">
-                  {price ? JSON.stringify(price, null, 2) : "—"}
-                </pre>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-3 mt-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base uppercase tracking-widest">Fee Info</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <pre className="text-xs overflow-auto text-text">
-                  {feeInfo ? JSON.stringify(feeInfo, null, 2) : "—"}
-                </pre>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base uppercase tracking-widest">Derived KPIs</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <DerivedKPIs
-                  reserves={reserves}
-                  price={price}
-                  feeInfo={feeInfo}
-                  perf={perf}
-                />
-              </CardContent>
-            </Card>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-}
-
-function DerivedKPIs({
-  reserves,
-  price,
-  feeInfo,
-  perf,
-}: {
-  reserves: ReadOnlyResponse | null;
-  price: ReadOnlyResponse | null;
-  feeInfo: ReadOnlyResponse | null;
-  perf: ReadOnlyResponse | null;
-}) {
-  const r =
-    reserves && "result" in reserves ? decodeResultHex(reserves.result) : null;
-  const p =
-    price && "result" in price ? decodeResultHex(price.result) : null;
-  const f =
-    feeInfo && "result" in feeInfo ? decodeResultHex(feeInfo.result) : null;
-  const pr =
-    perf && "result" in perf ? decodeResultHex(perf.result) : null;
-
-  const reserveAU = getUint(getTupleField(r?.value ?? null, "reserve-a"));
-  const reserveBU = getUint(getTupleField(r?.value ?? null, "reserve-b"));
-  const priceXYU = getUint(getTupleField(p?.value ?? null, "price-x-y"));
-  const priceYXU = getUint(getTupleField(p?.value ?? null, "price-y-x"));
-  const lpFeeBpsU = getUint(getTupleField(f?.value ?? null, "lp-fee-bps"));
-  const protocolFeeBpsU = getUint(
-    getTupleField(f?.value ?? null, "protocol-fee-bps")
-  );
-  const vol24hU = getUint(getTupleField(pr?.value ?? null, "volume-24h"));
-  const fees24hU = getUint(getTupleField(pr?.value ?? null, "fees-24h"));
-
-  const lpFeeBps = lpFeeBpsU !== null ? Number(lpFeeBpsU) : null;
-  const protocolFeeBps =
-    protocolFeeBpsU !== null ? Number(protocolFeeBpsU) : null;
-  const totalFeeBps = (lpFeeBps ?? 0) + (protocolFeeBps ?? 0);
-  const inventorySkew =
-    reserveAU !== null && reserveBU !== null
-      ? Number(reserveAU) / Math.max(1, Number(reserveBU))
-      : null;
-  // TVL in A-units: reserveA + reserveB converted via Y->X
-  const tvlAUnits =
-    reserveAU !== null && reserveBU !== null && priceYXU !== null
-      ? Number(reserveAU) + (Number(reserveBU) * Number(priceYXU)) / 1
-      : null;
-
-  return (
-    <div className="text-xs space-y-2 text-text">
-      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">LP Fee (bps)</span>{" "}
-        <span className="font-bold tabular-nums">{lpFeeBps ?? "—"}</span>
-      </div>
-      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Protocol Fee (bps)</span>{" "}
-        <span className="font-bold tabular-nums">{protocolFeeBps ?? "—"}</span>
-      </div>
-      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Total Fee (bps)</span>{" "}
-        <span className="font-bold tabular-nums">{Number.isFinite(totalFeeBps) ? totalFeeBps : "—"}</span>
-      </div>
-      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Price X/Y</span>{" "}
-        <span className="font-bold tabular-nums">{priceXYU !== null ? Number(priceXYU) : "—"}</span>
-      </div>
-      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Price Y/X</span>{" "}
-        <span className="font-bold tabular-nums">{priceYXU !== null ? Number(priceYXU) : "—"}</span>
-      </div>
-      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Inventory Skew (A/B)</span>{" "}
-        <span className="font-bold tabular-nums">{inventorySkew !== null ? inventorySkew.toFixed(4) : "—"}</span>
-      </div>
-      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Volume (24h)</span>{" "}
-        <span className="font-bold tabular-nums">{vol24hU !== null ? Number(vol24hU) : "—"}</span>
-      </div>
-      <div className="flex justify-between items-center border-b border-accent/5 pb-1">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Fees (24h)</span>{" "}
-        <span className="font-bold tabular-nums">{fees24hU !== null ? Number(fees24hU) : "—"}</span>
-      </div>
-      <div className="flex justify-between items-center">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">TVL (A units)</span>{" "}
-        <span className="font-bold tabular-nums">{tvlAUnits !== null ? tvlAUnits.toFixed(2) : "—"}</span>
-      </div>
     </div>
   );
 }

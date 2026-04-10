@@ -2,6 +2,7 @@
 import { StacksNetwork, STACKS_TESTNET, STACKS_MAINNET } from "@stacks/network";
 import { callReadOnly, ReadOnlyResponse } from "../core-api";
 import { standardPrincipalCV, uintCV, cvToHex, hexToCV, cvToJSON } from "@stacks/transactions";
+import { BASE_PRINCIPAL } from "../contracts";
 
 export interface LaunchPhase {
   id: string;
@@ -39,9 +40,9 @@ export class SelfLaunchContract {
   private contractAddress: string;
   private contractName: string;
 
-  constructor(network: "mainnet" | "testnet" | "devnet" = "testnet") {
+  constructor(network: "mainnet" | "testnet" | "devnet" = "mainnet") {
     this.network = this.getNetwork(network);
-    this.contractAddress = "STSZXAKV7DWTDZN2601WR31BM51BD3YTQXKCF9EZ";
+    this.contractAddress = BASE_PRINCIPAL;
     this.contractName = "self-launch-coordinator";
   }
 
@@ -75,14 +76,14 @@ export class SelfLaunchContract {
             systemHealth: Number(data.value?.systemHealth?.value || 0),
           };
         } catch (e) {
-          console.warn("CV deserialization failed for getLaunchStatus, using mock: ", e);
-          return this.getMockLaunchStatus();
+          console.warn("CV deserialization failed for getLaunchStatus: ", e);
+          return this.getEmptyLaunchStatus();
         }
       }
-      return this.getMockLaunchStatus();
+      return this.getEmptyLaunchStatus();
     } catch (e) {
-      console.warn("Using mock data for getLaunchStatus due to error:", e);
-      return this.getMockLaunchStatus();
+      console.warn("Error in getLaunchStatus:", e);
+      return this.getEmptyLaunchStatus();
     }
   }
 
@@ -102,41 +103,26 @@ export class SelfLaunchContract {
             tokensMinted: Number(data.value?.tokensMinted?.value || 0),
           };
         } catch (e) {
-          console.warn("CV deserialization failed for getFundingProgress, using mock: ", e);
-          return this.getMockFundingProgress();
+          console.warn("CV deserialization failed for getFundingProgress: ", e);
+          return this.getEmptyFundingProgress();
         }
       }
-      return this.getMockFundingProgress();
+      return this.getEmptyFundingProgress();
     } catch (e) {
-      console.warn("Using mock data for getFundingProgress", e);
-      return this.getMockFundingProgress();
+      console.warn("Error in getFundingProgress", e);
+      return this.getEmptyFundingProgress();
     }
   }
 
   async getCommunityStats(): Promise<CommunityStats> {
     try {
       const _result = await this.readOnlyCall("get-community-stats", []);
+      // Placeholder for actual implementation
       return {
-        totalContributors: 5,
-        totalFunding: 150000000,
-        averageContribution: 30000000,
-        topContributors: [
-          {
-            address: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
-            amount: 500,
-            level: "whale",
-          },
-          {
-            address: "ST2CY5V39NHDPWSXMW9QDT3HC3PG6QCN9HECYJ979",
-            amount: 250,
-            level: "dolphin",
-          },
-          {
-            address: "ST2JHG361ZXG51QTKY2NCQH72JMCJV6M1SGS2Y1C",
-            amount: 100,
-            level: "fish",
-          },
-        ],
+        totalContributors: 0,
+        totalFunding: 0,
+        averageContribution: 0,
+        topContributors: [],
       };
     } catch (_e) {
       return {
@@ -152,10 +138,9 @@ export class SelfLaunchContract {
     try {
       const args = [cvToHex(standardPrincipalCV(contributor))];
       const _result = await this.readOnlyCall("get-contributor-level", args);
-      // Assuming result deserialization
-      return "new";
+      return "none";
     } catch (_e) {
-      return "new";
+      return "none";
     }
   }
 
@@ -177,7 +162,7 @@ export class SelfLaunchContract {
     functionName: string,
     argsHex: string[]
   ): Promise<ReadOnlyResponse> {
-    const sender = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM";
+    const sender = BASE_PRINCIPAL;
     return callReadOnly(
       this.contractAddress,
       this.contractName,
@@ -204,27 +189,26 @@ export class SelfLaunchContract {
     return phases[phaseId] || "Unknown";
   }
 
-  // Mock Data Generators (kept for fallback/dev)
-  private getMockLaunchStatus() {
+  private getEmptyLaunchStatus() {
     return {
       phase: 1,
-      fundingReceived: 150000000,
-      fundingTarget: 500000000,
-      budgetAllocated: 100000000,
-      progressPercentage: 30,
-      contractsDeployed: 2,
-      systemHealth: 85,
+      fundingReceived: 0,
+      fundingTarget: 0,
+      budgetAllocated: 0,
+      progressPercentage: 0,
+      contractsDeployed: 0,
+      systemHealth: 0,
     };
   }
 
-  private getMockFundingProgress() {
+  private getEmptyFundingProgress() {
     return {
-      currentFunding: 150000000,
-      fundingTarget: 500000000,
-      baseCost: 100000000,
-      progressPercentage: 30,
+      currentFunding: 0,
+      fundingTarget: 0,
+      baseCost: 0,
+      progressPercentage: 0,
       currentPhase: 1,
-      tokensMinted: 150000,
+      tokensMinted: 0,
     };
   }
 }

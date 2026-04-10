@@ -30,7 +30,7 @@ export default function LaunchPage() {
     error,
     contribute,
     getUserContribution,
-  } = useSelfLaunch('testnet');
+  } = useSelfLaunch();
 
   const [contributionAmount, setContributionAmount] = useState("100");
   const [sending, setSending] = useState(false);

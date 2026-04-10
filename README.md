@@ -16,7 +16,7 @@ We're iterating on UX toward a brighter, lower-fatigue interface while maintaini
 
 ## Ownership
 
-Ownership and review requirements are defined in [`CODEOWNERS`](./CODEOWNERS).
+Ownership and review requirements are defined in [`CODEOWNERS`](./.github/CODEOWNERS).
 
 ## Audience
 

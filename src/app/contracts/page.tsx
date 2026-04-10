@@ -1,11 +1,9 @@
 "use client";
 
 import React from "react";
-import { CoreContracts, Tokens, explorerContractUrl } from "@/lib/contracts";
+import { CoreContracts, explorerContractUrl, BASE_PRINCIPAL } from "@/lib/contracts";
 import {
   getContractInterface,
-  callReadOnly,
-  ReadOnlyResponse,
 } from "@/lib/core-api";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
@@ -13,19 +11,10 @@ import { Input } from "@/components/ui/Input";
 import { AppConfig } from "@/lib/config";
 
 export default function ContractsPage() {
-  const [principal, setPrincipal] = React.useState<string>(
-    "ST3PPMPR7SAY4CAKQ4ZMYC2Q9FAVBE813YWNJ4JE6"
-  );
-  const [name, setName] = React.useState<string>("dex-factory");
+  const [principal, setPrincipal] = React.useState<string>(BASE_PRINCIPAL);
+  const [name, setName] = React.useState<string>("dex-factory-v2");
   const [iface, setIface] = React.useState<unknown | null>(null);
   const [loading, setLoading] = React.useState(false);
-
-  const [fnName, setFnName] = React.useState<string>("");
-  const [args, setArgs] = React.useState<string>("");
-  const [sender, setSender] = React.useState<string>(
-    "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5"
-  );
-  const [callRes, setCallRes] = React.useState<ReadOnlyResponse | null>(null);
 
   const loadInterface = React.useCallback(async () => {
     if (!principal || !name) return;
@@ -39,125 +28,119 @@ export default function ContractsPage() {
     loadInterface();
   }, [loadInterface]);
 
-  const onSelect = (id: string) => {
-    const [p, n] = id.split(".");
-    setPrincipal(p);
-    setName(n);
-    setIface(null);
-  };
-
-  const makeReadOnly = async () => {
-    if (!fnName) return;
-    setCallRes(null);
-    const argsHex = args
-      .split("\n")
-      .map((s) => s.trim())
-      .filter(Boolean);
-    const res = await callReadOnly(principal, name, fnName, sender, argsHex);
-    setCallRes(res);
-  };
-
-  const all = [...Tokens, ...CoreContracts];
-
   return (
-    <div className="space-y-8">
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Select Contract</CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm space-y-2 text-text">
-            <select
-              aria-label="Select contract"
-              className="flex h-10 w-full rounded-md border border-accent/20 bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              value={`${principal}.${name}`}
-              onChange={(e) => onSelect(e.target.value)}
-            >
-              {all.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.label} — {c.id}
-                </option>
-              ))}
-            </select>
-            <div>
-              <span className="font-medium text-text">Explorer:</span>{" "}
-              <a
-                className="text-accent hover:underline"
-                href={explorerContractUrl(
-                  `${principal}.${name}`,
-                  AppConfig.network as "devnet" | "testnet" | "mainnet"
-                )}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open
-              </a>
-            </div>
-            <Button onClick={loadInterface} disabled={loading} variant="outline" size="sm">
-              {loading ? "Loading..." : "Fetch Interface"}
-            </Button>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Interface</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <pre className="text-xs overflow-auto text-text bg-background-light p-2 rounded border border-accent/20">
-              {iface ? JSON.stringify(iface, null, 2) : "No interface loaded"}
-            </pre>
-          </CardContent>
-        </Card>
+    <div className="p-6 space-y-6 bg-background min-h-screen">
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight text-text-primary">
+          Contract Explorer
+        </h1>
+        <p className="text-text-secondary">
+          Inspect and interact with Conxian smart contracts.
+        </p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Read-Only Call</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-3 md:grid-cols-3">
-            <div>
-              <label className="text-xs block mb-1 text-text">
-                Function Name
-              </label>
-              <Input
-                value={fnName}
-                onChange={(e) => setFnName(e.target.value)}
-                placeholder="get-balance-of"
-              />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+                Target Contract
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Principal</label>
+                <Input
+                  value={principal}
+                  onChange={(e) => setPrincipal(e.target.value)}
+                  placeholder="ST..."
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Contract Name</label>
+                <Input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="dex-factory"
+                />
+              </div>
+              <Button
+                className="w-full"
+                onClick={loadInterface}
+                disabled={loading}
+              >
+                {loading ? "Loading..." : "Load Interface"}
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+                Registry Quick-Links
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2 max-h-[400px] overflow-auto">
+                {CoreContracts.map((c) => (
+                  <button
+                    key={c.id}
+                    onClick={() => {
+                      const [p, n] = c.id.split(".");
+                      setPrincipal(p);
+                      setName(n);
+                    }}
+                    className="w-full text-left p-2 rounded hover:bg-background-light text-sm flex justify-between group transition-colors"
+                  >
+                    <span className="text-text-primary">{c.label}</span>
+                    <span className="text-text-muted opacity-0 group-hover:opacity-100 text-[10px] font-mono">
+                      {c.id.split(".")[1]}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="space-y-6">
+          {iface ? (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+                  Interface Details
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-background-light p-4 rounded-md border border-accent/20">
+                  <pre className="text-xs font-mono overflow-auto max-h-[300px] whitespace-pre-wrap">
+                    {JSON.stringify(iface, null, 2)}
+                  </pre>
+                </div>
+                <div className="pt-4 border-t border-accent/10">
+                  <a
+                    href={explorerContractUrl(
+                      `${principal}.${name}`,
+                      AppConfig.network as "devnet" | "testnet" | "mainnet"
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent text-xs hover:underline"
+                  >
+                    View in Explorer →
+                  </a>
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-[300px] text-text-muted border-2 border-dashed border-accent/10 rounded-md">
+              <p className="text-sm italic">
+                Load a contract interface to see details
+              </p>
             </div>
-            <div>
-              <label className="text-xs block mb-1 text-text">Sender</label>
-              <Input
-                value={sender}
-                onChange={(e) => setSender(e.target.value)}
-                placeholder="ST..."
-              />
-            </div>
-            <div>
-              <label className="text-xs block mb-1 text-text">
-                Arguments (hex, one per line)
-              </label>
-              <textarea
-                value={args}
-                onChange={(e) => setArgs(e.target.value)}
-                className="flex min-h-[80px] w-full rounded-md border border-accent/20 bg-background-light px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                placeholder="0x0000000000000000000000000000000000000000\n0x0000000000000000000000000000000000000001"
-              />
-            </div>
-          </div>
-          <div className="mt-3">
-            <Button onClick={makeReadOnly} variant="outline" size="sm">
-              Call
-            </Button>
-          </div>
-          <div className="mt-3">
-            <pre className="text-xs overflow-auto text-text bg-background-light p-2 rounded border border-accent/20">
-              {callRes ? JSON.stringify(callRes, null, 2) : "No call yet"}
-            </pre>
-          </div>
-        </CardContent>
-      </Card>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

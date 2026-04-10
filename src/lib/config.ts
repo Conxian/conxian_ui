@@ -1,6 +1,6 @@
 export function getCoreApiUrl(): string {
   // Prefer public env (browser) then fallback to server env configured in next.config.ts
-  return process.env.NEXT_PUBLIC_CORE_API_URL || "https://api.testnet.hiro.so";
+  return process.env.NEXT_PUBLIC_CORE_API_URL || "https://api.mainnet.hiro.so";
 }
 
 export function inferNetworkFromUrl(url: string): "devnet" | "testnet" | "mainnet" {
