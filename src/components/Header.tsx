@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/Button";
 
 const navigation = [
   { name: "Swap", href: "/swap" },
@@ -71,9 +72,9 @@ export default function Header() {
           
           {/* Mobile menu button */}
           <div className="flex lg:hidden">
-            <button
-              type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary-foreground/80 hover:text-primary-foreground"
+            <Button
+              variant="ghost"
+              className="-m-2.5 p-2.5 text-primary-foreground/80 hover:text-primary-foreground hover:bg-white/10"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">Open main menu</span>
@@ -82,7 +83,7 @@ export default function Header() {
               ) : (
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               )}
-            </button>
+            </Button>
           </div>
         </div>
       </nav>

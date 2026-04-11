@@ -83,20 +83,21 @@ export default function ContractsPage() {
             <CardContent>
               <div className="space-y-2 max-h-[400px] overflow-auto">
                 {CoreContracts.map((c) => (
-                  <button
+                  <Button
                     key={c.id}
+                    variant="ghost"
                     onClick={() => {
                       const [p, n] = c.id.split(".");
                       setPrincipal(p);
                       setName(n);
                     }}
-                    className="w-full text-left p-2 rounded hover:bg-background-light text-sm flex justify-between group transition-colors"
+                    className="w-full justify-between h-auto p-2 font-normal hover:bg-background-light"
                   >
                     <span className="text-text-primary">{c.label}</span>
                     <span className="text-text-muted opacity-0 group-hover:opacity-100 text-[10px] font-mono">
                       {c.id.split(".")[1]}
                     </span>
-                  </button>
+                  </Button>
                 ))}
               </div>
             </CardContent>

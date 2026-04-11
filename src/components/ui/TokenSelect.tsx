@@ -4,6 +4,7 @@ import { Tokens } from '@/lib/contracts';
 import { FungibleTokenBalance } from '@/lib/core-api';
 import TokenIcon from './TokenIcon';
 import { cn, formatAmount, truncate } from '@/lib/utils';
+import { Button } from "./Button";
 
 interface TokenSelectProps {
   tokens: typeof Tokens;
@@ -41,13 +42,13 @@ const TokenSelect: React.FC<TokenSelectProps> = ({ tokens, selectedToken, onSele
 
   return (
     <div className={cn('relative', className)} ref={ref}>
-      <button
+      <Button
+        variant="outline"
         onClick={() => setIsOpen(!isOpen)}
-        type="button"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-label={`Select token, current selection is ${selectedTokenInfo?.label || 'None'}`}
-        className="flex items-center justify-between w-full px-4 py-2 rounded-md border border-accent/20 bg-background-light text-text hover:bg-accent/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        className="flex items-center justify-between w-full px-4 py-2 border-accent/20 bg-background-light hover:bg-accent/10"
       >
         <div className="flex items-center overflow-hidden">
           {selectedTokenInfo && (
@@ -73,7 +74,7 @@ const TokenSelect: React.FC<TokenSelectProps> = ({ tokens, selectedToken, onSele
             d="M19 9l-7 7-7-7"
           ></path>
         </svg>
-      </button>
+      </Button>
 
       {isOpen && (
         <div className="absolute z-10 w-full mt-1 bg-background-light border border-accent/20 rounded-md shadow-lg overflow-hidden max-h-60 overflow-y-auto">

@@ -325,17 +325,18 @@ export default function SwapPage() {
                         : 0}
                     </span>
                     {fromTokenBalance && (
-                      <button
-                        type="button"
+                      <Button
+                        variant="ghost"
+                        size="sm"
                         onClick={handleMax}
-                        className="text-xs font-bold text-accent hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-1"
+                        className="h-auto py-0 px-1 text-xs font-bold text-accent hover:underline hover:bg-accent/10"
                         aria-label={`Set maximum amount (${formatAmount(
                           fromTokenBalance.balance,
                           fromTokenInfo?.decimals ?? 6
                         )})`}
                       >
                         MAX
-                      </button>
+                      </Button>
                     )}
                   </div>
                 </div>
@@ -402,20 +403,17 @@ export default function SwapPage() {
                 </label>
                 <div className="flex items-center gap-2">
                   {[0.1, 0.5, 1.0].map((val) => (
-                    <button
+                    <Button
                       key={val}
                       type="button"
+                      variant={slippage === val ? "secondary" : "outline"}
+                      size="sm"
                       onClick={() => setSlippage(val)}
-                      className={cn(
-                        badgeVariants({
-                          variant: slippage === val ? "default" : "secondary",
-                        }),
-                        "cursor-pointer"
-                      )}
+                      className="h-7 px-2 text-xs"
                       aria-pressed={slippage === val}
                     >
                       {val}%
-                    </button>
+                    </Button>
                   ))}
                   <div className="relative flex items-center">
                     <Input
