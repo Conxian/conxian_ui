@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { CheckCircleIcon, XCircleIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import { Button } from './Button';
 
 export type ToastType = 'success' | 'error' | 'info';
 
@@ -32,14 +33,15 @@ export const Toast = ({ message, type, onClose }: ToastProps) => {
     <div className="rounded-md border border-accent/20 bg-background-light p-4 shadow-lg flex items-start gap-3 max-w-sm">
       {icons[type]}
       <p className="text-sm text-text flex-1 leading-5">{message}</p>
-      <button
+      <Button
+        variant="ghost"
+        size="icon"
         onClick={onClose}
-        className="text-text-secondary hover:text-text"
+        className="h-8 w-8 text-text-secondary hover:text-text"
         aria-label="Close"
-        type="button"
       >
         <XCircleIcon className="w-5 h-5" />
-      </button>
+      </Button>
     </div>
   );
 };

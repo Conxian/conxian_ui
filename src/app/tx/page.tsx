@@ -83,7 +83,7 @@ function TxContent() {
       network: getNetwork(),
       appDetails: {
         name: "Conxian UI",
-        icon: window.location.origin + "/favicon.ico",
+        icon: window.location.origin + "/conxian-mark-b.svg",
       },
       onFinish: (data) => {
         console.log("Broadcast success:", data.txId);
@@ -111,7 +111,7 @@ function TxContent() {
                   Target Contract
                 </label>
                 <select
-                  className="w-full bg-background-light border border-accent/20 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-accent"
+                  className="w-full bg-background-light border border-accent/20 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-accent focus:outline-none"
                   value={selected}
                   onChange={(e) => setSelected(e.target.value)}
                 >
@@ -137,7 +137,7 @@ function TxContent() {
                   {abi?.functions && (
                     <div className="absolute right-2 top-2">
                       <select
-                        className="bg-transparent text-[10px] uppercase font-bold border-none focus:ring-0 cursor-pointer"
+                        className="bg-transparent text-[10px] uppercase font-bold border-none focus:ring-0 cursor-pointer focus:outline-none"
                         onChange={(e) => setFnName(e.target.value)}
                         value={fnName}
                       >

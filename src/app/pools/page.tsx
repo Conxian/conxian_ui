@@ -101,7 +101,7 @@ export default function PoolsPage() {
         </div>
         <div className="flex gap-3">
           <select
-            className="bg-background-paper border border-accent/20 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-accent"
+            className="bg-background-light border border-accent/20 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-accent focus:outline-none"
             value={selected}
             onChange={(e) => setSelected(e.target.value)}
           >
