@@ -3,12 +3,12 @@ services:
     name: conxian-ui
     env: node
     plan: free
-    buildCommand: "npm ci && npm run build"
+    buildCommand: "NPM_CONFIG_PRODUCTION=false npm ci && npm run build"
     startCommand: "npm start"
     envVars:
       - key: NODE_VERSION
         value: 20
       - key: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD
-        value: 1
+        value: "1"
       - key: NEXT_PUBLIC_CORE_API_URL
         value: https://api.testnet.hiro.so
