@@ -10,13 +10,25 @@ Conxian UI provides a user-facing dashboard for interacting with Conxian protoco
 
 ## Status
 
-Active development (beta). UI and integrations may change; expect breaking changes.
+Conxian UI is in active beta development. UI flows, integrations, and configuration defaults may change between releases, including breaking changes.
+
+## Maintenance expectations
+
+This repository is maintained by the Conxian team on a best-effort basis while beta work is ongoing.
+
+- We prioritize current development and the latest stable release.
+- Support and backports for older snapshots are not guaranteed.
 
 We're iterating on UX toward a brighter, lower-fatigue interface while maintaining the Sovereign Earthy brand. The UI is built on a 60-30-10 palette split: 60% Ivory (#FDFBF7) base, 30% Pure White (#FFFFFF) surface layers, and 10% deep brand accents.
 
 ## Ownership
 
 Ownership and review requirements are defined in [`CODEOWNERS`](./.github/CODEOWNERS).
+
+## Contribution and security
+
+- Contribution guide: [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- Security policy and vulnerability reporting: [`SECURITY.md`](./.github/SECURITY.md)
 
 ## Audience
 
@@ -28,6 +40,8 @@ Ownership and review requirements are defined in [`CODEOWNERS`](./.github/CODEOW
 
 - Frontend layer for [Conxian Protocol](https://github.com/Conxian/Conxian) and [Conxian Gateway](https://github.com/Conxian/conxian-gateway).
 - Often run and deployed as part of [conxius-platform](https://github.com/Conxian/conxius-platform) (Conxius platform stack).
+
+**Naming note:** `Conxian` is the product and protocol naming used in this UI and related protocol/gateway repos. Some ecosystem repositories still use `Conxius` naming (for example, `conxius-platform`) for broader platform packaging.
 
 ## Our Signature Look: The Conxian Color Palette
 
