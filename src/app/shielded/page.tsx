@@ -58,11 +58,13 @@ export default function Shielded() {
       return;
     }
     try {
-      const res = await api.createNewWallet();
+      const res = (await api.createNewWallet()) as { success: boolean; txId?: string; error?: string };
       if (res.txId) {
         addToast(`Wallet creation initiated. Tx ID: ${truncate(res.txId, 8, 8)}`, 'success');
-      } else {
+      } else if (res.success) {
         addToast('New shielded wallet created!', 'success');
+      } else {
+        addToast(res.error || 'Failed to create shielded wallet.', 'error');
       }
       fetchWallets();
     } catch (error) {
@@ -77,11 +79,13 @@ export default function Shielded() {
       return;
     }
     try {
-      const res = await api.sendFunds(walletId, recipient, parseInt(sendAmount, 10));
+      const res = (await api.sendFunds(walletId, recipient, parseInt(sendAmount, 10))) as { success: boolean; txId?: string; error?: string };
       if (res.txId) {
         addToast(`Shielded transfer initiated. Tx ID: ${truncate(res.txId, 8, 8)}`, 'success');
-      } else {
+      } else if (res.success) {
         addToast('Funds sent successfully!', 'success');
+      } else {
+        addToast(res.error || 'Failed to send funds.', 'error');
       }
       setSendAmount('');
       setRecipient('');
@@ -98,11 +102,13 @@ export default function Shielded() {
       return;
     }
     try {
-      const res = await api.receiveFunds(walletId, parseInt(receiveAmount, 10));
+      const res = (await api.receiveFunds(walletId, parseInt(receiveAmount, 10))) as { success: boolean; txId?: string; error?: string };
       if (res.txId) {
         addToast(`Funding initiated. Tx ID: ${truncate(res.txId, 8, 8)}`, 'success');
-      } else {
+      } else if (res.success) {
         addToast('Funds received successfully!', 'success');
+      } else {
+        addToast(res.error || 'Failed to receive funds.', 'error');
       }
       setReceiveAmount('');
       fetchWallets();

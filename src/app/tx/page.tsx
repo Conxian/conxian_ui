@@ -159,8 +159,8 @@ function TxContent() {
                 Arguments Builder
               </label>
               <ClarityArgBuilder
-                onBuild={onBuild}
-                initialRows={
+                onChange={onBuild}
+                preset={
                   templateParam === "swap"
                     ? [
                         { type: "principal", value: Tokens[0]?.id || "" },

@@ -38,20 +38,20 @@ export default function ConnectWallet() {
   if (stxAddress) {
     return (
       <div className="flex items-center gap-2">
-        <div className="flex items-center gap-2 rounded-md border border-accent/30 bg-background-light p-2">
+        <div className="flex items-center gap-2 rounded-md border border-accent/30 bg-background-light px-3 h-10">
           <span
-            className="text-sm font-mono text-text-muted"
+            className="text-xs font-mono font-bold text-text-muted"
             title={stxAddress}
           >
             {stxAddress.substring(0, 4)}...
             {stxAddress.substring(stxAddress.length - 4)}
           </span>
-          <CopyButton textToCopy={stxAddress} ariaLabel="address" />
+          <CopyButton textToCopy={stxAddress} ariaLabel="address" className="h-4 w-4 text-text-muted hover:text-accent transition-colors" />
         </div>
         <Button
           onClick={handleWalletAction}
           variant="outline"
-          className="whitespace-nowrap"
+          className="whitespace-nowrap h-10 font-bold uppercase tracking-widest text-[10px]"
           data-testid="disconnect-wallet-button"
           type="button"
         >
@@ -65,7 +65,7 @@ export default function ConnectWallet() {
     <Button
       onClick={handleWalletAction}
       variant="default"
-      className="whitespace-nowrap"
+      className="whitespace-nowrap h-10 font-bold uppercase tracking-widest text-[10px]"
       data-testid="connect-wallet-button"
       type="button"
     >
