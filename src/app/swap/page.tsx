@@ -16,7 +16,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { badgeVariants } from "@/components/ui/Badge";
 import TokenSelect from "@/components/ui/TokenSelect";
 import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 

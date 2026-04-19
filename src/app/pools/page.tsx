@@ -126,7 +126,7 @@ export default function PoolsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold tabular-nums">
-              {reserves?.ok ? decodeResultHex(reserves.result!) : "0.00"}
+              {reserves?.ok ? JSON.stringify(decodeResultHex(reserves.result!)?.value || "0.00") : "0.00"}
             </div>
             <p className="text-xs text-text-muted mt-1">
               Live vault balance for {selected.split(".")[1]}
@@ -183,13 +183,13 @@ export default function PoolsPage() {
                 <div className="flex justify-between text-sm">
                   <span className="text-text-secondary">Swap Fee</span>
                   <span className="font-mono">
-                    {feeInfo?.ok ? getTupleField(feeInfo.result!, "swap-fee") : "0"}
+                    {feeInfo?.ok ? String(getTupleField(feeInfo.result!, "swap-fee") || "0") : "0"}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-text-secondary">Admin Fee</span>
                   <span className="font-mono">
-                    {feeInfo?.ok ? getTupleField(feeInfo.result!, "admin-fee") : "0"}
+                    {feeInfo?.ok ? String(getTupleField(feeInfo.result!, "admin-fee") || "0") : "0"}
                   </span>
                 </div>
               </div>
@@ -203,13 +203,13 @@ export default function PoolsPage() {
                 <div className="flex justify-between text-sm">
                   <span className="text-text-secondary">Volume (24h)</span>
                   <span className="font-mono">
-                    {perf?.ok ? getTupleField(perf.result!, "volume-24h") : "0"}
+                    {perf?.ok ? String(getTupleField(perf.result!, "volume-24h") || "0") : "0"}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-text-secondary">Utilization</span>
                   <span className="font-mono">
-                    {perf?.ok ? getTupleField(perf.result!, "utilization") : "0%"}
+                    {perf?.ok ? String(getTupleField(perf.result!, "utilization") || "0%") : "0%"}
                   </span>
                 </div>
               </div>

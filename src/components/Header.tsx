@@ -17,6 +17,7 @@ const navigation = [
   { name: "Portfolio", href: "/positions" },
   { name: "Shielded", href: "/shielded" },
   { name: "Overview", href: "/overview" },
+  { name: "Forge", href: "/tx" },
 ];
 
 export default function Header() {
