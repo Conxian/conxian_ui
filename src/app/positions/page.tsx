@@ -6,6 +6,7 @@ import { useWallet } from '@/lib/wallet';
 import { useApi } from '@/lib/api-client';
 import ConnectWallet from '@/components/ConnectWallet';
 import PositionCard from '@/components/PositionCard';
+import { Button } from '@/components/ui/Button';
 
 interface Position {
   pair: string;
@@ -20,9 +21,6 @@ export default function PositionsPage() {
   const api = useApi();
   const router = useRouter();
 
-  // ⚡ Bolt: Memoize action handlers to prevent them from being recreated on every render.
-  // This is a key optimization for components that render lists, as it ensures
-  // that child components (like the Buttons here) receive stable function props.
   const handleAdd = useCallback((pair: string) => {
     const params = new URLSearchParams({ pair });
     router.push(`/add-liquidity?${params.toString()}`);
@@ -45,13 +43,14 @@ export default function PositionsPage() {
   }, [stxAddress, api]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 bg-background min-h-screen">
       <div>
-        <h1 className="text-3xl font-bold text-text">My Positions</h1>
-        <p className="mt-2 text-sm text-text">
-          Manage your active liquidity and staking positions.
+        <h1 className="text-3xl font-bold text-text tracking-widest uppercase">My Portfolio</h1>
+        <p className="mt-2 text-sm text-text-secondary">
+          Manage your active liquidity and staking positions on Conxian.
         </p>
       </div>
+
       {stxAddress ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {positions.length > 0 ? (
@@ -66,17 +65,22 @@ export default function PositionsPage() {
               />
             ))
           ) : (
-            <p className="text-text">No positions found.</p>
+            <div className="col-span-full py-20 text-center border-2 border-dashed border-accent/10 rounded-xl">
+               <p className="text-text-secondary italic">No active positions detected in this wallet.</p>
+               <Button onClick={() => router.push('/swap')} variant="outline" className="mt-4 border-accent/30 text-accent">
+                 Explore Liquidity Pools
+               </Button>
+            </div>
           )}
         </div>
       ) : (
-        <div className="text-center">
-          <p className="text-text mb-4">Connect your wallet to see your positions.</p>
+        <div className="text-center py-20 bg-background-light border border-accent/20 rounded-xl">
+          <p className="text-text-secondary mb-6 font-medium">Connect your wallet to see your portfolio.</p>
           <ConnectWallet />
         </div>
       )}
 
-      {status && <p className="text-center text-sm text-text mt-6">{status}</p>}
+      {status && <p className="text-center text-sm text-error mt-6 font-bold uppercase tracking-widest">{status}</p>}
     </div>
   );
 }

@@ -1,79 +1,61 @@
 "use client";
 
-import React from "react";
+import { useEffect, useState } from "react";
+import { Badge } from "@/components/ui/Badge";
+import { getStatus, CoreStatus } from "@/lib/core-api";
 import { AppConfig } from "@/lib/config";
-import { getStatus, getV2Info } from "@/lib/core-api";
-import { Button } from "@/components/ui/Button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { cn } from "@/lib/utils";
 
 export default function EnvStatus() {
-  const [status, setStatus] = React.useState<{
-    ok: boolean;
-    chain_id?: number;
-    network_id?: string;
-    error?: string;
-  } | null>(null);
-  const [info, setInfo] = React.useState<{ burn_block_height?: number } | null>(null);
-  const [loading, setLoading] = React.useState(false);
+  const [status, setStatus] = useState<CoreStatus | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const refresh = React.useCallback(async () => {
-    setLoading(true);
-    const s = await getStatus();
-    setStatus(s);
-    const i = await getV2Info();
-    setInfo(i);
-    setLoading(false);
+  useEffect(() => {
+    async function checkStatus() {
+      try {
+        const s = await getStatus();
+        setStatus(s);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    checkStatus();
+    const interval = setInterval(checkStatus, 60000); // 1 min
+    return () => clearInterval(interval);
   }, []);
 
-  React.useEffect(() => {
-    refresh();
-  }, [refresh]);
-
-  const indicator = status?.ok ? "bg-success" : "bg-error";
-
   return (
-    <Card className="w-full max-w-xl bg-background-light">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0">
-        <CardTitle className="text-lg">Environment</CardTitle>
-        <span
-          role="status"
-          aria-label={status?.ok ? "Operational" : "Error"}
-          title={status?.ok ? "Operational" : "Error"}
-          className={`inline-block h-2 w-2 rounded-full ${indicator}`}
-        />
-      </CardHeader>
-      <CardContent className="text-sm text-text space-y-1">
-        <div>
-          <span className="font-medium text-text">Core API:</span>{" "}
-          {AppConfig.coreApiUrl}
-        </div>
-        <div>
-          <span className="font-medium text-text">Network:</span>{" "}
-          {AppConfig.network}
-        </div>
-        {info && info.burn_block_height !== undefined && (
-          <div>
-            <span className="font-medium text-text">Bitcoin Finality:</span>{" "}
-            <span className="text-accent">
-              Burn Block #{info.burn_block_height}
+    <div className="flex items-center gap-4 bg-background-light p-3 rounded-lg border border-accent/20" role="status" title={status?.ok ? "Operational" : "Degraded"}>
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-bold text-text-secondary uppercase tracking-widest">Network</span>
+        <Badge variant="outline" className="font-mono text-[10px] bg-accent/5">
+          {AppConfig.network.toUpperCase()}
+        </Badge>
+      </div>
+
+      <div className="h-4 w-px bg-accent/20" />
+
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-bold text-text-secondary uppercase tracking-widest">Core API</span>
+        {loading ? (
+          <div className="h-2 w-2 rounded-full bg-neutral-light animate-pulse" />
+        ) : (
+          <div className="flex items-center gap-1.5">
+            <div className={cn("h-2 w-2 rounded-full", status?.ok ? "bg-success" : "bg-error")} />
+            <span className={cn("text-[10px] font-bold uppercase", status?.ok ? "text-success" : "text-error")}>
+              {status?.ok ? "Connected" : "Disconnected"}
             </span>
           </div>
         )}
-        {status && (
-          <div>
-            <span className="font-medium text-text">Status:</span>{" "}
-            {status.ok
-              ? `OK (chain_id=${status.chain_id}, network=${status.network_id})`
-              : `Error ${status.error || "unknown"}`}
-          </div>
-        )}
+      </div>
 
-        <div className="pt-3">
-          <Button onClick={refresh} disabled={loading} variant="outline" size="sm">
-            {loading ? "Refreshing..." : "Refresh"}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+      <div className="hidden sm:flex flex-1 justify-end items-center gap-2">
+         <span className="text-[10px] font-mono text-text-muted truncate max-w-[200px]" title={AppConfig.coreApiUrl}>
+           {AppConfig.coreApiUrl}
+         </span>
+      </div>
+    </div>
   );
 }

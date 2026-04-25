@@ -18,22 +18,33 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/Table";
+import { formatAmount } from "@/lib/utils";
+import { useSelfLaunch } from "@/lib/hooks/use-self-launch";
 
 export default function TokensPage() {
   const [address, setAddress] = React.useState<string>("");
   const [loading, setLoading] = React.useState(false);
   const [stx, setStx] = React.useState<AddressBalances["stx"] | null>(null);
   const [fts, setFts] = React.useState<FungibleTokenBalance[]>([]);
+  const { userContribution, getUserContribution } = useSelfLaunch();
 
   const refresh = React.useCallback(async () => {
     if (!address) return;
     setLoading(true);
-    const balances = await getAddressBalances(address);
-    const fungibles = await getFungibleTokenBalances(address);
-    setStx(balances?.stx);
-    setFts(fungibles || []);
-    setLoading(false);
-  }, [address]);
+    try {
+      const [balances, fungibles] = await Promise.all([
+        getAddressBalances(address),
+        getFungibleTokenBalances(address),
+        getUserContribution(address)
+      ]);
+      setStx(balances?.stx || null);
+      setFts(fungibles || []);
+    } catch (err) {
+      console.error("Failed to refresh balances", err);
+    } finally {
+      setLoading(false);
+    }
+  }, [address, getUserContribution]);
 
   React.useEffect(() => {
     if (userSession.isUserSignedIn()) {
@@ -53,7 +64,14 @@ export default function TokensPage() {
   }, [address, refresh]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 bg-background min-h-screen">
+      <div>
+        <h1 className="text-3xl font-bold text-text tracking-widest uppercase">My Assets</h1>
+        <p className="mt-2 text-sm text-text-secondary">
+          A real-time overview of your Stacks blockchain holdings.
+        </p>
+      </div>
+
       {!address && (
         <Card>
           <CardContent className="pt-6">
@@ -66,26 +84,27 @@ export default function TokensPage() {
 
       {address && (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>STX Balance</CardTitle>
+                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">STX Balance</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-text">
-                  {stx?.balance ? `${stx.balance} STX` : "—"}
+                <div className="text-3xl font-bold text-text tabular-nums">
+                  {stx?.balance ? `${formatAmount(stx.balance, 6)} STX` : "0.00 STX"}
                 </div>
+                <p className="text-xs text-text-muted mt-1 uppercase">Available for transaction</p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Your Contribution</CardTitle>
+                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Launch Contribution</CardTitle>
               </CardHeader>
               <CardContent>
-                {/* This will be implemented in a future step */}
-                <div className="text-2xl font-bold text-text">
-                  Coming Soon
+                <div className="text-3xl font-bold text-text tabular-nums">
+                  {userContribution.total} STX
                 </div>
+                <p className="text-xs text-text-muted mt-1 uppercase">Tier: {userContribution.level}</p>
               </CardContent>
             </Card>
           </div>
@@ -93,14 +112,15 @@ export default function TokensPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Fungible Tokens</CardTitle>
+                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Fungible Tokens</CardTitle>
                 <Button
                   onClick={refresh}
                   disabled={loading}
                   variant="outline"
                   size="sm"
+                  className="h-8 px-3 text-[10px] font-bold uppercase tracking-widest"
                 >
-                  {loading ? "Refreshing..." : "Refresh"}
+                  {loading ? "Syncing..." : "Refresh"}
                 </Button>
               </div>
             </CardHeader>
@@ -108,23 +128,25 @@ export default function TokensPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Asset</TableHead>
-                    <TableHead>Balance</TableHead>
+                    <TableHead>Asset Identifier</TableHead>
+                    <TableHead className="text-right">Balance</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {fts.map((t: FungibleTokenBalance) => (
                     <TableRow key={t.asset_identifier}>
-                      <TableCell className="break-all">
+                      <TableCell className="font-mono text-xs text-text-primary break-all">
                         {t.asset_identifier}
                       </TableCell>
-                      <TableCell>{t.balance}</TableCell>
+                      <TableCell className="text-right font-bold tabular-nums">
+                        {formatAmount(t.balance, 6)}
+                      </TableCell>
                     </TableRow>
                   ))}
                   {fts.length === 0 && (
                     <TableRow>
-                      <TableCell className="py-4 text-center" colSpan={2}>
-                        No fungible tokens found.
+                      <TableCell className="py-12 text-center text-text-muted italic" colSpan={2}>
+                        No fungible tokens detected in this account.
                       </TableCell>
                     </TableRow>
                   )}

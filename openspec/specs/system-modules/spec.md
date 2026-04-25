@@ -1,7 +1,8 @@
 # system-modules Specification
 
 ## Purpose
-TBD - created by archiving change overhaul-spec-driven-design. Update Purpose after archive.
+This specification outlines the modular architecture of the Conxian ecosystem, defining the core components and their responsibilities within the protocol.
+
 ## Requirements
 ### Requirement: DEX Factory Module
 The system SHALL maintain a registry for all liquidity pools and provide interfaces to query and create new pools.
@@ -23,3 +24,10 @@ The system SHALL provide a central repository for liquidity (Vault) and a tamper
 #### Scenario: Price Update
 - **WHEN** a contract requires a reliable asset price for a swap or liquidity operation
 - **THEN** it SHALL call the Oracle Aggregator to get the latest aggregated price
+
+### Requirement: Economic Policy Engine
+The system SHALL monitor and adjust protocol parameters to maintain market stability and capital efficiency.
+
+#### Scenario: Fetch Market Parameters
+- **WHEN** the dashboard requires real-time interest rates or collateral factors
+- **THEN** it SHALL query the `economic-policy-engine` for the current protocol configuration

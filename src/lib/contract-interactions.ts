@@ -151,7 +151,7 @@ export class ContractInteractions {
   // --- Dashboard & Recommendations ---
   static getDashboardData = async () => this.getDashboardMetrics();
   static getPerformanceRecommendations = () =>
-    this.executeReadOnly("risk-manager", "get-global-collateral-factor");
+    this.executeReadOnly("risk-unit", "get-global-collateral-factor");
 
   static async getDashboardMetrics(): Promise<{
     systemHealth: ApiResult<Record<string, unknown>>;
@@ -173,7 +173,7 @@ export class ContractInteractions {
 
   // --- Enterprise & Yield ---
   static getEnterpriseConfig = () =>
-    this.executeReadOnly("lending-manager", "get-config");
+    this.executeReadOnly("lending-orchestrator", "get-config");
   static getYieldStrategies = () =>
     this.executeReadOnly("cxd-staking", "get-staking-info");
 
