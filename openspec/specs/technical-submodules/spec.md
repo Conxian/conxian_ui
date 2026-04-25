@@ -1,14 +1,15 @@
 # technical-submodules Specification
 
 ## Purpose
-TBD - created by archiving change overhaul-spec-driven-design. Update Purpose after archive.
+This specification details the technical foundation of the Conxian UI, including blockchain connectivity, wallet integration, and Clarity value mapping.
+
 ## Requirements
 ### Requirement: Stacks API Client
 The system SHALL interact with the Stacks blockchain via the Hiro API (or equivalent) for read-only contract calls, transaction broadcasting, and account history fetching.
 
 #### Scenario: Read-only Call to Stacks Node
 - **WHEN** the system needs to fetch a user's token balance
-- **THEN** it SHALL use the `fetchCallReadOnlyFunction` utility to call the contract and parse the returned clarity values
+- **THEN** it SHALL use the `callReadOnly` utility to call the contract and parse the returned clarity values
 
 ### Requirement: Wallet Provider and Authentication
 The system SHALL integrate with Stacks-compatible wallets (e.g., Hiro, Leather, Xverse) for user authentication and transaction signing.

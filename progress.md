@@ -1,23 +1,20 @@
-# Project: Conxian UI Test Fixes
+# Project: Conxian UI System Review & Repair
 
 ## 1. Overview
+This document tracks the comprehensive review and repairs performed on the Conxian UI.
 
-This document tracks the progress of fixing the failing tests in the Conxian UI project.
+## 2. Completed Actions
+- [x] **UI Palette Audit**: Verified all pages adhere to the 60-30-10 Sovereign Earthy palette.
+- [x] **Shared Services Enhancement**:
+    - Robustified `ContractInteractions` with better error handling and network-specific logic.
+    - Implemented live telemetry for liquidity pools in `PoolsPage`.
+    - Added `ReadinessDashboard` to `OverviewPage` for Genesis countdown and hardware attestation.
+    - Improved `EnvStatus` with accessibility roles and real-time connectivity state.
+- [x] **Testing**: Fixed failing tests and ensured 100% pass rate for unit tests.
+- [x] **Documentation**:
+    - Synchronized `ARCHITECTURE.md` with current system state.
+    - Updated `openspec/specs` for Business Flows, System Modules, Asset Management, and Technical Submodules.
+    - Standardized `AGENTS.md` with institutional readiness pillars.
 
-## 2. Plan
-
-1.  **Fix API Service Tests:**
-    *   Refactor `src/lib/api-services.ts` to handle asynchronous loading of `ContractInteractions` in the test environment. This will be done using a proxy to avoid the race condition that is causing the tests to fail.
-
-2.  **Fix UI Tests:**
-    *   Update the failing UI tests in `src/tests/ui.test.tsx` to look for the correct button text, "Install Wallet" instead of "Connect Wallet".
-
-3.  **Run Tests:**
-    *   Run all tests to confirm that the fixes have been implemented correctly and that all tests pass.
-
-## 3. Progress
-
-*   [x] Fix API Service Tests
-*   [x] Fix UI Tests
-*   [x] Run Tests
-*   [x] Unified UI Design Tokens (P0 Polish)
+## 3. Current Status
+System is in a stable state with all core modules operational and synchronized with the latest protocol specifications.

@@ -1,20 +1,31 @@
+"use client";
 
 import { cn } from "@/lib/utils";
 
-type Status = "operational" | "degraded" | "outage";
+interface StatusIndicatorProps {
+  status: "operational" | "degraded" | "error";
+  label?: string;
+  className?: string;
+}
 
-const statusStyles: Record<Status, string> = {
-  operational: "bg-success",
-  degraded: "bg-warning",
-  outage: "bg-error",
-};
+export default function StatusIndicator({ status, label, className }: StatusIndicatorProps) {
+  const dotColor = {
+    operational: "bg-success",
+    degraded: "bg-warning",
+    error: "bg-error",
+  }[status];
 
-export default function StatusIndicator({ status }: { status: Status }) {
+  const textColor = {
+    operational: "text-success",
+    degraded: "text-warning",
+    error: "text-error",
+  }[status];
+
   return (
-    <div className="flex items-center">
-      <div className={cn("w-3 h-3 rounded-full", statusStyles[status])} />
-      <span className="ml-2 text-sm text-text capitalize">
-        {status}
+    <div className={cn("flex items-center gap-2", className)}>
+      <div className={cn("h-2 w-2 rounded-full", dotColor, status === "operational" && "animate-pulse")} />
+      <span className={cn("text-[10px] font-bold uppercase tracking-widest", textColor)}>
+        {label || status}
       </span>
     </div>
   );

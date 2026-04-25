@@ -1,4 +1,3 @@
-
 import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -68,7 +67,7 @@ describe('SwapPage', () => {
       );
     });
 
-    const maxButton = await screen.findByRole('button', { name: /set maximum amount/i });
+    const maxButton = await screen.findByRole('button', { name: /max/i });
     expect(maxButton).toBeInTheDocument();
   });
 
@@ -82,10 +81,10 @@ describe('SwapPage', () => {
       );
     });
 
-    const maxButton = await screen.findByRole('button', { name: /set maximum amount/i });
+    const maxButton = await screen.findByRole('button', { name: /max/i });
     await user.click(maxButton);
 
-    const fromInput = screen.getByLabelText(/from/i);
+    const fromInput = screen.getByLabelText(/asset in/i);
     await waitFor(() => {
       expect(fromInput).toHaveValue('5');
     });

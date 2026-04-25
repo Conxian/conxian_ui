@@ -4,24 +4,17 @@ import { CoreContracts } from '../lib/contracts';
 
 // --- Mocks and Setup ---
 
-vi.mock('@stacks/network', () => ({
-  StacksTestnet: class {},
+vi.mock('../lib/core-api', () => ({
+  callReadOnly: vi.fn().mockImplementation((principal, _name, functionName) => {
+    if (functionName === 'get-price' && principal === 'ST456') {
+      return Promise.resolve({ ok: false, error: 'Network error' });
+    }
+    return Promise.resolve({ ok: true, result: '0x01' });
+  }),
 }));
 
-vi.mock('@stacks/transactions', async (importOriginal) => {
-  const actual = await importOriginal();
-  return {
-    ...actual,
-    callReadOnlyFunction: vi.fn().mockImplementation(({ functionName, contractAddress }) => {
-      if (functionName === 'get-price' && contractAddress === 'ST456') {
-        return Promise.reject(new Error('Network error')); // Mock failure
-      }
-      return Promise.resolve({ value: 'mock_clarity_value' });
-    }),
-    standardPrincipalCV: (p) => p,
-    uintCV: (u) => u,
-  };
-});
+const VALID_STX_ADDR_A = 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM';
+const VALID_STX_ADDR_B = 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM'; // Using same valid address to avoid checksum issues
 
 describe('Contract Interactions', () => {
   it('should export ContractInteractions class', () => {
@@ -63,26 +56,29 @@ describe('Contract Interactions', () => {
 
   describe('Error Handling', () => {
     it('should handle missing contracts gracefully', async () => {
-      const spy = vi.spyOn(CoreContracts, 'find').mockReturnValue(undefined);
+      const originalFind = CoreContracts.find;
+      CoreContracts.find = vi.fn().mockReturnValue(undefined);
 
-      const result = await ContractInteractions.getPair('ST123.token-a', 'ST123.token-b');
+      const resultFail = await ContractInteractions.getPair(VALID_STX_ADDR_A, VALID_STX_ADDR_B);
+      expect(resultFail.success).toBe(false);
+      expect(resultFail.error).toBe('pool-template contract not found');
 
-      expect(result.success).toBe(false);
-      expect(result.error).toBe('pool-template contract not found');
-
-      spy.mockRestore();
+      CoreContracts.find = originalFind;
     });
 
     it('should handle network errors gracefully', async () => {
-      const oracleContract = { id: 'ST456.oracle', kind: 'oracle' };
-      const spy = vi.spyOn(CoreContracts, 'find').mockReturnValue(oracleContract);
+      const oracleContract = { id: 'ST456.oracle-aggregator', kind: 'oracle' };
+      const originalFind = CoreContracts.find;
+      CoreContracts.find = vi.fn().mockImplementation(() => {
+          return oracleContract;
+      });
 
-      const result = await ContractInteractions.getPrice('ST-TOKEN');
+      const result = await ContractInteractions.getPrice(VALID_STX_ADDR_A);
 
       expect(result.success).toBe(false);
-      expect(result.error).toBe('Unable to serialize. Invalid Clarity Value.');
+      expect(result.error).toBe('Read-only call failed: Network error');
 
-      spy.mockRestore();
+      CoreContracts.find = originalFind;
     });
   });
 });

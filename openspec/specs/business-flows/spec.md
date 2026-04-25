@@ -1,7 +1,8 @@
 # business-flows Specification
 
 ## Purpose
-TBD - created by archiving change overhaul-spec-driven-design. Update Purpose after archive.
+This specification defines the core business flows within the Conxian UI, ensuring a seamless user experience for trading, funding, and asset management on the Stacks blockchain.
+
 ## Requirements
 ### Requirement: Token Swap Flow
 The system SHALL enable users to exchange one Stacks fungible token for another via the DEX Router and Factory.
@@ -30,3 +31,10 @@ The system SHALL allow users to add or remove liquidity from DEX pools.
 #### Scenario: Add Liquidity
 - **WHEN** a user selects two tokens, specifies the amounts, and clicks "Add Liquidity"
 - **THEN** the system SHALL interact with the `dex-factory-v2` or specific pool contract to update reserves and issue LP tokens
+
+### Requirement: System Health Monitoring
+The system SHALL provide real-time telemetry and readiness status for institutional users.
+
+#### Scenario: View Readiness Dashboard
+- **WHEN** a user navigates to the Overview page
+- **THEN** the system SHALL display the Genesis countdown, hardware attestation status, and core protocol health metrics

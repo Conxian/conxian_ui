@@ -1,7 +1,8 @@
 # asset-management Specification
 
 ## Purpose
-TBD - created by archiving change overhaul-spec-driven-design. Update Purpose after archive.
+This specification defines the standards for representing, fetching, and managing digital assets within the Conxian UI, ensuring consistent data presentation and precise arithmetic operations.
+
 ## Requirements
 ### Requirement: Standardized Asset Metadata
 The system SHALL represent all Stacks fungible tokens using a consistent metadata format including asset identifier, symbol, decimals, and icon.
