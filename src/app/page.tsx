@@ -51,7 +51,7 @@ export default function Home() {
   const apy = (metrics?.financialMetrics?.data?.["median-apy"] as string) || "0.00";
 
   return (
-    <div className="space-y-8 bg-background min-h-screen">
+    <div className="space-y-8 min-h-screen">
       <div>
         <h1 className="text-3xl font-bold text-text tracking-tight uppercase">Dashboard</h1>
         <p className="mt-2 text-sm text-text-secondary">
@@ -97,7 +97,7 @@ export default function Home() {
               <CardTitle>Vaults</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-3 gap-4 text-sm text-text font-medium border-b border-accent/10 pb-2">
+              <div className="grid grid-cols-3 gap-4 text-xs text-text-secondary font-bold uppercase tracking-widest border-b border-accent/20 pb-2">
                 <div>Name</div>
                 <div>Asset</div>
                 <div className="text-right">APY</div>
@@ -112,13 +112,13 @@ export default function Home() {
               <CardTitle>Staking</CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-2 gap-6">
-              <div className="rounded-lg bg-background-light p-4 border border-accent/10">
-                <div className="text-sm text-text-secondary mb-2 uppercase tracking-tight font-medium">Total Staked</div>
-                <div className="text-xl font-bold text-text">0.00</div>
+              <div className="rounded-lg bg-background-light p-4 border border-accent/20">
+                <div className="text-xs text-text-secondary mb-2 uppercase tracking-widest font-bold">Total Staked</div>
+                <div className="text-xl font-bold text-text tabular-nums">0.00</div>
               </div>
-              <div className="rounded-lg bg-background-light p-4 border border-accent/10">
-                <div className="text-sm text-text-secondary mb-2 uppercase tracking-tight font-medium">My Staked</div>
-                <div className="text-xl font-bold text-text">0.00</div>
+              <div className="rounded-lg bg-background-light p-4 border border-accent/20">
+                <div className="text-xs text-text-secondary mb-2 uppercase tracking-widest font-bold">My Staked</div>
+                <div className="text-xl font-bold text-text tabular-nums">0.00</div>
               </div>
             </CardContent>
           </Card>

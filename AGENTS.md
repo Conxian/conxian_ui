@@ -25,3 +25,7 @@ Purge all heavy, default dark-mode backgrounds from main operational views. The 
 *   **Contrast**: Ensure all text contrast ratios meet strict institutional accessibility standards (WCAG AAA for financial data, ~12:1 ratio). Primary text should be #333333, secondary text should be #4D4D4D.
 *   **Typography**: Use `tabular-nums` for all financial figures and ensure primary headers use `uppercase tracking-tight`.
 *   **Components**: Use canonical UI components (Button, Input, Card, Badge, Table) and standard `border-accent/20` styling to maintain theme consistency.
+
+---
+
+**STATUS UPDATE (2025):** The global UI alignment directive has been fully executed across all core functional and supplementary pages. All operational zones now enforce the bright Ivory foundation, institutional typography (tabular-nums, widest tracking), and standardized micro-borders.

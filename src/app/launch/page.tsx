@@ -86,12 +86,12 @@ export default function LaunchPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 min-h-screen">
       <div>
-        <h1 className="text-3xl font-bold text-text">
+        <h1 className="text-3xl font-bold text-text tracking-tight uppercase">
           Conxian Community Launch
         </h1>
-        <p className="mt-2 text-sm text-text">
+        <p className="mt-2 text-sm text-text-secondary">
           Help bootstrap the future of DeFi through community funding.
         </p>
       </div>
@@ -108,37 +108,37 @@ export default function LaunchPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle>Current Phase</CardTitle>
+                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Current Phase</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-text">
                   {currentPhase?.name || 'N/A'}
                 </div>
-                <p className="text-text">Core infrastructure deployment</p>
+                <p className="text-xs text-text-muted mt-1 uppercase tracking-widest">Core infrastructure deployment</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Total Raised</CardTitle>
+                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Total Raised</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-text">
+                <div className="text-2xl font-bold text-text tabular-nums">
                   {fundingProgress.current} STX
                 </div>
-                <p className="text-text">Community contributions</p>
+                <p className="text-xs text-text-muted mt-1 uppercase tracking-widest">Community contributions</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Contributors</CardTitle>
+                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Contributors</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-text">
+                <div className="text-2xl font-bold text-text tabular-nums">
                   {communityStats?.totalContributors || 0}
                 </div>
-                <p className="text-text">Active community members</p>
+                <p className="text-xs text-text-muted mt-1 uppercase tracking-widest">Active community members</p>
               </CardContent>
             </Card>
           </div>
@@ -173,8 +173,8 @@ export default function LaunchPage() {
                     value={(phase.funding / phase.target) * 100}
                     className="h-2 bg-accent/20"
                   />
-                  <div className="flex justify-between text-sm text-text">
-                    <span>
+                  <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-text-secondary">
+                    <span className="tabular-nums">
                       {phase.funding} / {phase.target} STX
                     </span>
                     <span>{phase.contributors} contributors</span>
@@ -206,8 +206,8 @@ export default function LaunchPage() {
                   {sending ? "Sending..." : "Contribute"}
                 </Button>
               </div>
-              <div className="text-sm text-text">
-                Your contribution: {userContribution.total || 0} STX
+              <div className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+                Your contribution: <span className="tabular-nums">{userContribution.total || 0}</span> STX
               </div>
 
               {txId && (
@@ -255,15 +255,15 @@ export default function LaunchPage() {
                       className="flex justify-between items-center p-3 border border-accent/20 rounded-md bg-background-light"
                     >
                       <div>
-                        <div className="font-medium text-text">
+                        <div className="text-sm font-medium text-text tabular-nums">
                           {truncate(contrib.address, 10, 8)}
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="font-medium text-text">
+                        <div className="text-sm font-bold text-text tabular-nums">
                           {contrib.amount} STX
                         </div>
-                        <Badge variant="outline" className="text-xs">
+                        <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-widest">
                           {contrib.level}
                         </Badge>
                       </div>

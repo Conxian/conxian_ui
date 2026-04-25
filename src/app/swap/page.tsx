@@ -289,10 +289,10 @@ export default function SwapPage() {
   }, [stxAddress]);
 
   return (
-    <div className="space-y-8 bg-background min-h-screen">
+    <div className="space-y-8 min-h-screen">
       <div>
         <h1 className="text-3xl font-bold text-text tracking-tight uppercase">Swap</h1>
-        <p className="mt-2 text-sm text-text">
+        <p className="mt-2 text-sm text-text-secondary">
           Exchange tokens instantly on the Conxian DEX.
         </p>
       </div>
@@ -309,12 +309,12 @@ export default function SwapPage() {
             <CardContent className="space-y-6">
               {/* From Token */}
               <div className="space-y-2">
-                <div className="flex justify-between items-center text-sm">
-                  <label htmlFor="from-amount" className="text-text">
+                <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest">
+                  <label htmlFor="from-amount" className="text-text-secondary">
                     From
                   </label>
                   <div className="flex items-center gap-2">
-                    <span className="text-text-muted">
+                    <span className="text-text-muted tabular-nums">
                       Balance:{" "}
                       {fromTokenBalance
                         ? formatAmount(
@@ -372,7 +372,7 @@ export default function SwapPage() {
 
               {/* To Token */}
               <div className="space-y-2">
-                <label htmlFor="to-amount" className="text-sm text-text">To</label>
+                <label htmlFor="to-amount" className="text-xs font-bold uppercase tracking-widest text-text-secondary">To</label>
                 <div className="flex items-center gap-2">
                   <TokenSelect
                     tokens={Tokens}
@@ -393,10 +393,10 @@ export default function SwapPage() {
               </div>
 
               {/* Slippage */}
-              <div className="flex justify-between items-center text-sm">
+              <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest">
                 <label
                   htmlFor="slippage-input"
-                  className="text-text cursor-pointer"
+                  className="text-text-secondary cursor-pointer"
                 >
                   Slippage Tolerance
                 </label>

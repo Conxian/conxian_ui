@@ -29,9 +29,9 @@ export default function ContractsPage() {
   }, [loadInterface]);
 
   return (
-    <div className="p-6 space-y-6 bg-background min-h-screen">
+    <div className="p-6 space-y-6 min-h-screen">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-text-primary">
+        <h1 className="text-3xl font-bold tracking-tight text-text uppercase">
           Contract Explorer
         </h1>
         <p className="text-text-secondary">

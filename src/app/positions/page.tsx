@@ -45,10 +45,10 @@ export default function PositionsPage() {
   }, [stxAddress, api]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 min-h-screen">
       <div>
-        <h1 className="text-3xl font-bold text-text">My Positions</h1>
-        <p className="mt-2 text-sm text-text">
+        <h1 className="text-3xl font-bold text-text tracking-tight uppercase">My Positions</h1>
+        <p className="mt-2 text-sm text-text-secondary">
           Manage your active liquidity and staking positions.
         </p>
       </div>

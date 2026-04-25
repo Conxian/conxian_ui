@@ -6,11 +6,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary-dark",
-        secondary: "bg-accent text-accent-foreground hover:bg-accent/90",
+        default: "bg-primary text-primary-foreground hover:bg-primary-dark uppercase tracking-widest font-bold",
+        secondary: "bg-accent text-accent-foreground hover:bg-accent/90 uppercase tracking-widest font-bold",
         outline:
-          "border border-accent/30 bg-background-light text-text hover:bg-accent/10",
-        ghost: "hover:bg-accent/10 text-text",
+          "border border-accent/20 bg-background-light text-text hover:bg-accent/10 uppercase tracking-widest font-bold",
+        ghost: "hover:bg-accent/10 text-text uppercase tracking-widest font-bold",
       },
       size: {
         default: "h-10 px-4 py-2",

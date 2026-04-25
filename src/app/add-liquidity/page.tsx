@@ -200,7 +200,7 @@ function AddLiquidityContent() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-text">Add Liquidity</h1>
+        <h1 className="text-3xl font-bold text-text tracking-tight uppercase">Add Liquidity</h1>
         <p className="mt-2 text-sm text-text-secondary">
           Provide liquidity to earn trading fees and rewards.
         </p>
