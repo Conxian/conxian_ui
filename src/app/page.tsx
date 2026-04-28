@@ -66,7 +66,7 @@ export default function Home() {
         <div className="flex justify-between items-end border-b border-ghost pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-tighter uppercase text-ink">TERMINAL</h1>
-              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Institutional Protocol Access</p>
+              <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Institutional Protocol Access</p>
            </div>
            <div className="text-right hidden md:block">
               <span className="text-[9px] font-black uppercase text-ink/30">System Epoch</span>
@@ -139,9 +139,9 @@ export default function Home() {
                         Authorized hardware access for high-frequency protocol interaction.
                      </p>
                      <div className="p-3 bg-neutral-light border border-ghost rounded-sm font-mono text-[10px]">
-                        <p className="text-success font-black">> ATTESTATION_READY</p>
-                        <p className="opacity-50">> KEY_ROTATION: OK</p>
-                        <p className="opacity-50">> ENCLAVE_ID: 0x42...F1</p>
+                        <p className="text-success font-black">&gt; ATTESTATION_READY</p>
+                        <p className="opacity-50">&gt; KEY_ROTATION: OK</p>
+                        <p className="opacity-50">&gt; ENCLAVE_ID: 0x42...F1</p>
                      </div>
                   </CardContent>
                </Card>
@@ -157,8 +157,8 @@ export default function Home() {
                      <div className="space-y-3">
                         {['LATENCY', 'SLIPPAGE', 'COST'].map(m => (
                           <div key={m} className="flex justify-between items-baseline">
-                             <span className="text-[10px] font-black text-ink/40 tracking-tighter">{m}</span>
-                             <span className="text-[10px] font-black text-ink">99th PERCENTILE</span>
+                             <span className="text-[10px] font-black text-ink/40 tracking-tighter uppercase">{m}</span>
+                             <span className="text-[10px] font-black text-ink uppercase">99th PERCENTILE</span>
                           </div>
                         ))}
                      </div>

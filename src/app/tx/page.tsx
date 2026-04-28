@@ -4,7 +4,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AppConfig } from "@/lib/config";
 import { CoreContracts, Tokens } from "@/lib/contracts";
-import { userSession } from "@/lib/wallet";
+
 import ClarityArgBuilder, {
   BuiltArgs,
 } from "@/components/ClarityArgBuilder";
@@ -180,7 +180,7 @@ function TxContent() {
               </div>
               <CardContent className="p-8 space-y-6">
                 <div className="bg-ink text-white/90 p-6 rounded-sm font-mono text-[11px] leading-relaxed">
-                  <p className="text-accent mb-4 font-black tracking-widest">// RAW HEX PAYLOAD</p>
+                  <p className="text-accent mb-4 font-black tracking-widest">{/* RAW HEX PAYLOAD */}</p>
                   <div className="space-y-2 break-all opacity-70">
                     <p><span className="text-white/30">ID:</span> {selected}</p>
                     <p><span className="text-white/30">FN:</span> {fnName || "---"}</p>

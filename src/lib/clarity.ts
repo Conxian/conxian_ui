@@ -44,3 +44,10 @@ export function getUint(json: unknown): bigint | null {
   }
   return null;
 }
+
+export function getPrincipalValue(json: unknown): string | null {
+  if (isRecord(json) && json.type === 'principal') {
+    return json.value as string;
+  }
+  return null;
+}

@@ -4,8 +4,8 @@ import React, { useState, useCallback, useEffect } from "react";
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
+
+
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/Input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import {
   ArrowsUpDownIcon,
-  ChevronDownIcon,
+
   CpuChipIcon,
 } from "@heroicons/react/24/outline";
 import { Tokens } from "@/lib/contracts";
@@ -35,7 +35,7 @@ import CopyButton from "@/components/CopyButton";
 import { cn } from "@/lib/utils";
 
 export default function SwapPage() {
-  const { stxAddress, connectWallet } = useWallet();
+  const { stxAddress } = useWallet();
   const [fromToken, setFromToken] = useState(Tokens[0].id);
   const [toToken, setToToken] = useState(Tokens[1].id);
   const [fromAmount, setFromAmount] = useState("");
@@ -78,8 +78,8 @@ export default function SwapPage() {
     try {
       const routerAddress = AppConfig.contracts.router.split(".")[0];
       const routerName = AppConfig.contracts.router.split(".")[1];
-      const poolAddress = AppConfig.contracts.defaultPool.split(".")[0];
-      const poolName = AppConfig.contracts.defaultPool.split(".")[1];
+      const poolAddress = AppConfig.contracts.pool.split(".")[0];
+      const poolName = AppConfig.contracts.pool.split(".")[1];
 
       const amountIn = BigInt(parseAmount(fromAmount, fromTokenInfo?.decimals ?? 6));
       const minAmountOut = (amountIn * BigInt(Math.floor((1 - slippage / 100) * 10000))) / 10000n;
@@ -133,7 +133,7 @@ export default function SwapPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       {/* Terminal Top Bar */}
-      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-ghost">
+      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
           <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
           <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Execution Environment</span>
@@ -297,9 +297,9 @@ export default function SwapPage() {
                       </div>
                       <div className="flex items-center gap-2 text-[10px] font-mono text-ink/60">
                          <span className="font-black">{fromTokenInfo?.label}</span>
-                         <span className="text-accent">→</span>
+                         <span className="text-accent">&rarr;</span>
                          <span className="opacity-40">STX_POOL</span>
-                         <span className="text-accent">→</span>
+                         <span className="text-accent">&rarr;</span>
                          <span className="font-black">{toTokenInfo?.label}</span>
                       </div>
                     </div>
@@ -351,7 +351,7 @@ export default function SwapPage() {
               <CardContent className="p-4 space-y-4 font-mono text-[10px] text-ink/60">
                  <div className="space-y-2">
                     <div className="flex justify-between border-b border-ghost pb-1">
-                       <span>[BLOCK] HEIGT:</span>
+                       <span>[BLOCK] HEIGHT:</span>
                        <span className="text-ink font-black">84,321</span>
                     </div>
                     <div className="flex justify-between border-b border-ghost pb-1">
@@ -371,10 +371,10 @@ export default function SwapPage() {
                  <div className="pt-4">
                     <h5 className="text-[8px] font-black uppercase text-ink/30 mb-2">Trace Log</h5>
                     <div className="space-y-1 opacity-50">
-                       <p>{"{ \"> \" }"}Connection established</p>
-                       <p>{"{ \"> \" }"}Handshake verified</p>
-                       <p>{"{ \"> \" }"}Hardware attestation OK</p>
-                       <p>{"{ \"> \" }"}Subscribing to events...</p>
+                       <p>&gt; Connection established</p>
+                       <p>&gt; Handshake verified</p>
+                       <p>&gt; Hardware attestation OK</p>
+                       <p>&gt; Subscribing to events...</p>
                     </div>
                  </div>
               </CardContent>

@@ -1,12 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Progress } from "@/components/ui/Progress";
@@ -17,13 +14,12 @@ import { useSelfLaunch } from "@/lib/hooks/use-self-launch";
 import { Input } from "@/components/ui/Input";
 import { AppConfig } from "@/lib/config";
 import CopyButton from "@/components/CopyButton";
-import { truncate } from "@/lib/utils";
-import { CpuChipIcon, BoltIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
+import { truncate, cn } from "@/lib/utils";
+import { BoltIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
 
 export default function LaunchPage() {
   const { stxAddress, connectWallet, addToast } = useWallet();
   const {
-    phases,
     currentPhase,
     fundingProgress,
     communityStats,
@@ -36,6 +32,13 @@ export default function LaunchPage() {
   const [sending, setSending] = useState(false);
   const [txId, setTxId] = useState("");
 
+  // Hardcoded phases for roadmap display since they aren't dynamic yet
+  const phases = [
+    { id: '1', name: 'Alpha Genesis', target: 50000, funding: 50000, contributors: 42, status: 'completed' },
+    { id: '2', name: 'Infrastructure expansion', target: 250000, funding: fundingProgress.current, contributors: communityStats?.totalContributors || 0, status: 'active' },
+    { id: '3', name: 'Mainnet Readiness', target: 1000000, funding: 0, contributors: 0, status: 'pending' },
+  ];
+
   const handleContribute = async () => {
     if (!stxAddress) {
       addToast("Please connect your wallet to contribute", "info");
@@ -46,7 +49,7 @@ export default function LaunchPage() {
 
     setSending(true);
     try {
-      const res = await contribute(parseInt(contributionAmount, 10));
+      const res = await contribute(stxAddress, parseInt(contributionAmount, 10));
       if (res?.txId) {
         setTxId(res.txId);
         setContributionAmount("");
@@ -62,7 +65,7 @@ export default function LaunchPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       {/* Terminal Top Bar */}
-      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-ghost">
+      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
           <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
           <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Bootstrap Environment</span>
@@ -140,7 +143,7 @@ export default function LaunchPage() {
                 <span>LAUNCH ROADMAP</span>
               </div>
               <CardContent className="p-8 space-y-8">
-                {phases && phases.map((phase) => (
+                {phases.map((phase) => (
                   <div key={phase.id} className="space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="font-black text-ink uppercase tracking-[0.2em] text-xs">
@@ -200,13 +203,13 @@ export default function LaunchPage() {
                 </div>
 
                 {txId && (
-                  <div className="p-4 border border-ghost bg-accent/5 rounded-sm flex items-center justify-between animate-in fade-in slide-in-from-bottom-2">
+                  <div className="p-4 border border-accent/20 bg-accent/5 rounded-sm flex items-center justify-between animate-in fade-in slide-in-from-bottom-2">
                     <div className="flex flex-col">
                       <span className="text-[9px] font-black text-accent uppercase tracking-[0.2em]">TRANSACTION_SUCCESS</span>
                       <a
                         href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
                         target="_blank" rel="noopener noreferrer"
-                        className="text-ink font-mono text-[10px] font-black mt-1 hover:underline"
+                        className="text-ink font-mono text-[10px] font-bold mt-1 hover:underline"
                       >
                         {truncate(txId, 20, 18)}
                       </a>

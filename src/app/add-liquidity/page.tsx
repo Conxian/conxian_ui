@@ -1,12 +1,9 @@
 "use client";
 
-import React, { useState, useCallback, Suspense, useEffect } from "react";
+import React, { useState, Suspense, useEffect } from "react";
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
@@ -17,6 +14,7 @@ import {
   intCV,
   PostConditionMode,
   contractPrincipalCV,
+  cvToHex,
 } from "@stacks/transactions";
 import { openContractCall } from "@stacks/connect";
 import { AppConfig } from "@/lib/config";
@@ -25,7 +23,7 @@ import {
   FungibleTokenBalance,
   callReadOnly,
 } from "@/lib/core-api";
-import { parseAmount, formatAmount, truncate } from "@/lib/utils";
+import { parseAmount } from "@/lib/utils";
 import TokenSelect from "@/components/ui/TokenSelect";
 import { Input } from "@/components/ui/Input";
 import { decodeResultHex, getTupleField, getPrincipalValue } from "@/lib/clarity";
@@ -39,7 +37,6 @@ function AddLiquidityContent() {
   const [amountB, setAmountB] = useState("");
   const [lowerTick, setLowerTick] = useState("-5000");
   const [upperTick, setUpperTick] = useState("5000");
-  const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState("");
   const [balances, setBalances] = useState<FungibleTokenBalance[]>([]);
@@ -65,7 +62,7 @@ function AddLiquidityContent() {
         const getPoolArgs = [
             contractPrincipalCV(...(tokenA.split(".") as [string, string])),
             contractPrincipalCV(...(tokenB.split(".") as [string, string]))
-        ];
+        ].map(cvToHex);
 
         const poolRes = await callReadOnly(
             factoryAddress,
@@ -110,7 +107,7 @@ function AddLiquidityContent() {
         const [poolAddr, poolName] = poolPrincipal.split(".");
 
         const functionName = isConcentrated ? "add-liquidity-concentrated" : "add-liquidity";
-        const functionArgs: any[] = [
+        const functionArgs: Array<any> /* eslint-disable-line @typescript-eslint/no-explicit-any */ = [
             uintCV(amt0Int),
             uintCV(amt1Int),
             contractPrincipalCV(...(t0.split(".") as [string, string])),
@@ -126,9 +123,9 @@ function AddLiquidityContent() {
             contractAddress: poolAddr,
             contractName: poolName,
             functionName: functionName,
-            functionArgs: functionArgs,
+            functionArgs: functionArgs as any /* eslint-disable-line @typescript-eslint/no-explicit-any */,
             postConditionMode: PostConditionMode.Allow,
-            onFinish: (data) => {
+            onFinish: () => {
                 setStatus("BROADCAST_SUCCESS");
                 setSending(false);
             },
@@ -147,7 +144,7 @@ function AddLiquidityContent() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
-      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-ghost">
+      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Liquidity Provision Environment</span>
         <div className="flex gap-4 text-[10px] font-bold uppercase tracking-widest opacity-60">
           <span>YIELD_SOURCE: DET_v3</span>
@@ -240,8 +237,8 @@ function AddLiquidityContent() {
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
-                      <Input type="number" value={amountA} onChange={e => setAmountA(e.target.value)} className="h-12 bg-neutral-light border-ghost text-right font-bold" placeholder="QTY_A" />
-                      <Input type="number" value={amountB} onChange={e => setAmountB(e.target.value)} className="h-12 bg-neutral-light border-ghost text-right font-bold" placeholder="QTY_B" />
+                      <Input type="number" value={amountA} onChange={e => setAmountA(e.target.value)} className="h-12 bg-neutral-light border-ghost text-right font-black" placeholder="QTY_A" />
+                      <Input type="number" value={amountB} onChange={e => setAmountB(e.target.value)} className="h-12 bg-neutral-light border-ghost text-right font-black" placeholder="QTY_B" />
                     </div>
                   </div>
 
@@ -249,11 +246,11 @@ function AddLiquidityContent() {
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Range Parameters</label>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <span className="text-[9px] font-black text-ink/30 uppercase tracking-widest">Lower_Tick</span>
+                        <span className="text-[9px] font-black text-ink/30 uppercase tracking-[0.2em]">Lower_Tick</span>
                         <Input type="number" value={lowerTick} onChange={e => setLowerTick(e.target.value)} className="h-10 bg-white border-ghost text-right font-mono text-xs" />
                       </div>
                       <div className="space-y-2">
-                        <span className="text-[9px] font-black text-ink/30 uppercase tracking-widest">Upper_Tick</span>
+                        <span className="text-[9px] font-black text-ink/30 uppercase tracking-[0.2em]">Upper_Tick</span>
                         <Input type="number" value={upperTick} onChange={e => setUpperTick(e.target.value)} className="h-10 bg-white border-ghost text-right font-mono text-xs" />
                       </div>
                     </div>
