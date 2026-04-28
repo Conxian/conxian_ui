@@ -198,9 +198,9 @@ function AddLiquidityContent() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <div>
-        <h1 className="text-3xl font-bold text-text">Add Liquidity</h1>
+        <h1 className="text-3xl font-bold text-text tracking-widest uppercase">Add Liquidity</h1>
         <p className="mt-2 text-sm text-text-secondary">
           Provide liquidity to earn trading fees and rewards.
         </p>
@@ -215,13 +215,13 @@ function AddLiquidityContent() {
         <TabsContent value="standard">
           <Card className="bg-background-paper">
             <CardHeader>
-              <CardTitle className="text-text-primary">Standard Liquidity</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Standard Liquidity</CardTitle>
               <CardDescription>Full-range liquidity provision for automated market making.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Token A */}
               <div className="space-y-2">
-                <label htmlFor="token-a" className="text-sm text-text font-medium">Token A</label>
+                <label htmlFor="token-a" className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Token A</label>
                 <div className="flex items-center gap-2">
                   <TokenSelect
                     tokens={Tokens}
@@ -243,7 +243,7 @@ function AddLiquidityContent() {
 
               {/* Token B */}
               <div className="space-y-2">
-                <label htmlFor="token-b" className="text-sm text-text font-medium">Token B</label>
+                <label htmlFor="token-b" className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Token B</label>
                 <div className="flex items-center gap-2">
                   <TokenSelect
                     tokens={Tokens}
@@ -288,13 +288,13 @@ function AddLiquidityContent() {
         <TabsContent value="concentrated">
           <Card className="bg-background-paper">
             <CardHeader>
-              <CardTitle className="text-text-primary">Concentrated Liquidity</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Concentrated Liquidity</CardTitle>
               <CardDescription>Provide liquidity within a specific price range for higher capital efficiency.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label htmlFor="token-a-cl" className="text-sm text-text font-medium">Token A</label>
+                  <label htmlFor="token-a-cl" className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Token A</label>
                   <TokenSelect
                     tokens={Tokens}
                     selectedToken={tokenA}
@@ -312,7 +312,7 @@ function AddLiquidityContent() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="token-b-cl" className="text-sm text-text font-medium">Token B</label>
+                  <label htmlFor="token-b-cl" className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Token B</label>
                   <TokenSelect
                     tokens={Tokens}
                     selectedToken={tokenB}
@@ -333,7 +333,7 @@ function AddLiquidityContent() {
 
               <div className="grid grid-cols-2 gap-4 pt-4 border-t border-accent/10">
                 <div className="space-y-2">
-                  <label htmlFor="lower-tick" className="text-sm text-text font-medium">Lower Tick</label>
+                  <label htmlFor="lower-tick" className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Lower Tick</label>
                   <Input
                     type="number"
                     id="lower-tick"
@@ -343,7 +343,7 @@ function AddLiquidityContent() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="upper-tick" className="text-sm text-text font-medium">Upper Tick</label>
+                  <label htmlFor="upper-tick" className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Upper Tick</label>
                   <Input
                     type="number"
                     id="upper-tick"

@@ -51,7 +51,7 @@ export default function ConnectWallet() {
         <Button
           onClick={handleWalletAction}
           variant="outline"
-          className="whitespace-nowrap h-10 font-bold uppercase tracking-widest text-[10px]"
+          className="whitespace-nowrap h-10 font-bold uppercase tracking-widest text-xs"
           data-testid="disconnect-wallet-button"
           type="button"
         >
@@ -65,7 +65,7 @@ export default function ConnectWallet() {
     <Button
       onClick={handleWalletAction}
       variant="default"
-      className="whitespace-nowrap h-10 font-bold uppercase tracking-widest text-[10px]"
+      className="whitespace-nowrap h-10 font-bold uppercase tracking-widest text-xs"
       data-testid="connect-wallet-button"
       type="button"
     >

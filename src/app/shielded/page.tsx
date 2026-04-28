@@ -123,9 +123,9 @@ export default function Shielded() {
   }, [fetchWallets]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <div>
-        <h1 className="text-3xl font-bold text-text">Shielded Wallets</h1>
+        <h1 className="text-3xl font-bold text-text tracking-widest uppercase">Shielded Wallets</h1>
         <p className="mt-2 text-sm text-text-secondary">
           Manage your private, shielded assets and transactions using Zero-Knowledge proofs.
         </p>
@@ -136,7 +136,7 @@ export default function Shielded() {
           <div className="flex items-center">
             <ShieldCheckIcon className="w-8 h-8 mr-3 text-accent" />
             <div>
-              <CardTitle className="text-xl font-semibold text-text">Wallets</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary font-semibold text-text">Wallets</CardTitle>
               <CardDescription className="text-text-secondary font-medium uppercase tracking-tight text-xs mt-1">
                 Your Hardware-Attested Private Accounts
               </CardDescription>
@@ -166,7 +166,7 @@ export default function Shielded() {
                   </Badge>
                 </div>
                 <div className="flex items-baseline gap-2 mb-6 border-b border-accent/10 pb-4">
-                  <span className="text-3xl font-bold text-text-primary">{wallet.balance}</span>
+                  <span className="text-3xl font-bold text-text tracking-widest tabular-nums">{wallet.balance}</span>
                   <span className="text-text-secondary font-semibold text-sm uppercase">STX</span>
                 </div>
 

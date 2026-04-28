@@ -64,7 +64,7 @@ export default function TokensPage() {
   }, [address, refresh]);
 
   return (
-    <div className="space-y-8 bg-background min-h-screen">
+    <div className="space-y-10 bg-background min-h-screen">
       <div>
         <h1 className="text-3xl font-bold text-text tracking-widest uppercase">My Assets</h1>
         <p className="mt-2 text-sm text-text-secondary">
@@ -93,7 +93,7 @@ export default function TokensPage() {
                 <div className="text-3xl font-bold text-text tabular-nums">
                   {stx?.balance ? `${formatAmount(stx.balance, 6)} STX` : "0.00 STX"}
                 </div>
-                <p className="text-xs text-text-muted mt-1 uppercase">Available for transaction</p>
+                <p className="text-[10px] text-text-muted mt-1 uppercase font-bold tracking-widest">Available for transaction</p>
               </CardContent>
             </Card>
             <Card>
@@ -104,7 +104,7 @@ export default function TokensPage() {
                 <div className="text-3xl font-bold text-text tabular-nums">
                   {userContribution.total} STX
                 </div>
-                <p className="text-xs text-text-muted mt-1 uppercase">Tier: {userContribution.level}</p>
+                <p className="text-[10px] text-text-muted mt-1 uppercase font-bold tracking-widest">Tier: {userContribution.level}</p>
               </CardContent>
             </Card>
           </div>

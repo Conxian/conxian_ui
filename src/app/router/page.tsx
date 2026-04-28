@@ -78,9 +78,9 @@ export default function RouterPage() {
   };
 
   return (
-    <div className="p-6 space-y-6 bg-background min-h-screen">
+    <div className="space-y-10 bg-background min-h-screen">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-text-primary">
+        <h1 className="text-3xl font-bold tracking-widest text-text-primary uppercase">
           Router Simulator
         </h1>
         <p className="text-text-secondary">
@@ -159,7 +159,7 @@ export default function RouterPage() {
                       : "bg-error/10 border-error/20 text-error"
                   }`}
                 >
-                  <p className="text-sm font-bold">
+                  <p className="text-sm font-bold uppercase tracking-widest">
                     {result.ok ? "CALL SUCCESSFUL" : "CALL FAILED"}
                   </p>
                 </div>

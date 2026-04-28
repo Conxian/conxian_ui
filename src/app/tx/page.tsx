@@ -92,9 +92,9 @@ function TxContent() {
   };
 
   return (
-    <div className="p-6 space-y-6 bg-background min-h-screen">
+    <div className="space-y-10 bg-background min-h-screen">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-text-primary">
+        <h1 className="text-3xl font-bold tracking-widest text-text-primary uppercase">
           Transaction Forge
         </h1>
         <p className="text-text-secondary">
@@ -185,7 +185,7 @@ function TxContent() {
 
         <div className="space-y-6">
           <div className="p-6 bg-background-paper border border-accent/20 rounded-xl space-y-4">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-text-secondary font-bold uppercase tracking-widest text-text-secondary">
               Transaction Payload
             </h3>
             <div className="bg-background-light p-4 rounded-md border border-accent/20">

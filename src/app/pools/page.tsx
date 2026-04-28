@@ -76,10 +76,10 @@ export default function PoolsPage() {
   }, [refresh]);
 
   return (
-    <div className="p-6 space-y-6 bg-background min-h-screen">
+    <div className="space-y-10 space-y-6 bg-background min-h-screen">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-text-primary uppercase tracking-widest">
+          <h1 className="text-3xl font-bold tracking-widest text-text-primary uppercase tracking-widest">
             Pools Explorer
           </h1>
           <p className="text-text-secondary">
@@ -104,10 +104,10 @@ export default function PoolsPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gaspace-y-10">
         <Card>
           <CardHeader>
-            <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">
+            <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">
               Liquidity Reserves
             </CardTitle>
           </CardHeader>
@@ -115,7 +115,7 @@ export default function PoolsPage() {
             <div className="text-2xl font-bold tabular-nums text-text">
               {reserves?.ok ? JSON.stringify(decodeResultHex(reserves.result!)?.value || "0.00") : "0.00"}
             </div>
-            <p className="text-[10px] text-text-muted mt-1 uppercase font-medium">
+            <p className="text-xs text-text-muted mt-1 uppercase font-medium">
               Live vault balance for {selected.split(".")[1]}
             </p>
           </CardContent>
@@ -123,7 +123,7 @@ export default function PoolsPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">
+            <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">
               Total Supply (LP)
             </CardTitle>
           </CardHeader>
@@ -131,7 +131,7 @@ export default function PoolsPage() {
             <div className="text-2xl font-bold tabular-nums text-text">
               {totalSupply?.ok ? getUint(totalSupply.result!)?.toString() || "0.00" : "0.00"}
             </div>
-            <p className="text-[10px] text-text-muted mt-1 uppercase font-medium">
+            <p className="text-xs text-text-muted mt-1 uppercase font-medium">
               Active LP tokens in circulation
             </p>
           </CardContent>
@@ -139,7 +139,7 @@ export default function PoolsPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">
+            <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">
               Internal Price
             </CardTitle>
           </CardHeader>
@@ -147,7 +147,7 @@ export default function PoolsPage() {
             <div className="text-2xl font-bold tabular-nums text-text">
               {price?.ok ? getUint(price.result!)?.toString() || "0.00" : "0.00"}
             </div>
-            <p className="text-[10px] text-text-muted mt-1 uppercase font-medium">
+            <p className="text-xs text-text-muted mt-1 uppercase font-medium">
               Current pool swap ratio
             </p>
           </CardContent>
@@ -163,7 +163,7 @@ export default function PoolsPage() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-4">
-              <h3 className="text-[10px] font-bold text-text-primary uppercase tracking-widest">
+              <h3 className="text-xs font-bold text-text-primary uppercase tracking-widest">
                 Fee Configuration
               </h3>
               <div className="space-y-2 border-l-2 border-accent/20 pl-4">
@@ -183,7 +183,7 @@ export default function PoolsPage() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-[10px] font-bold text-text-primary uppercase tracking-widest">
+              <h3 className="text-xs font-bold text-text-primary uppercase tracking-widest">
                 Operational Status
               </h3>
               <div className="space-y-2 border-l-2 border-accent/20 pl-4">

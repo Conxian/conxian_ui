@@ -91,7 +91,7 @@ export default function LaunchPage() {
   }
 
   return (
-    <div className="space-y-8 bg-background min-h-screen">
+    <div className="space-y-10 bg-background min-h-screen">
       <div>
         <h1 className="text-3xl font-bold text-text tracking-widest uppercase">
           Community Launch
@@ -103,47 +103,47 @@ export default function LaunchPage() {
 
       <Tabs defaultValue="overview" className="space-y-6">
         <TabsList className="grid w-full grid-cols-4 border border-accent/20 bg-background-light p-1 h-12">
-          <TabsTrigger value="overview" className="uppercase font-bold tracking-widest text-[10px]">Overview</TabsTrigger>
-          <TabsTrigger value="contribute" className="uppercase font-bold tracking-widest text-[10px]">Contribute</TabsTrigger>
-          <TabsTrigger value="progress" className="uppercase font-bold tracking-widest text-[10px]">Progress</TabsTrigger>
-          <TabsTrigger value="leaderboard" className="uppercase font-bold tracking-widest text-[10px]">Leaderboard</TabsTrigger>
+          <TabsTrigger value="overview" className="uppercase font-bold tracking-widest text-xs">Overview</TabsTrigger>
+          <TabsTrigger value="contribute" className="uppercase font-bold tracking-widest text-xs">Contribute</TabsTrigger>
+          <TabsTrigger value="progress" className="uppercase font-bold tracking-widest text-xs">Progress</TabsTrigger>
+          <TabsTrigger value="leaderboard" className="uppercase font-bold tracking-widest text-xs">Leaderboard</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Current Phase</CardTitle>
+                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Current Phase</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-text uppercase tracking-tight">
                   {currentPhase?.name || 'N/A'}
                 </div>
-                <p className="text-[10px] text-text-muted mt-1 uppercase font-medium">Core Infrastructure deployment</p>
+                <p className="text-xs text-text-muted mt-1 uppercase font-medium">Core Infrastructure deployment</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Total Raised</CardTitle>
+                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Total Raised</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-text tabular-nums">
                   {fundingProgress.current.toLocaleString()} STX
                 </div>
-                <p className="text-[10px] text-text-muted mt-1 uppercase font-medium">Community pool funding</p>
+                <p className="text-xs text-text-muted mt-1 uppercase font-medium">Community pool funding</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Contributors</CardTitle>
+                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Contributors</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-text tabular-nums">
                   {communityStats?.totalContributors || 0}
                 </div>
-                <p className="text-[10px] text-text-muted mt-1 uppercase font-medium">Verified active addresses</p>
+                <p className="text-xs text-text-muted mt-1 uppercase font-medium">Verified active addresses</p>
               </CardContent>
             </Card>
           </div>
@@ -170,7 +170,7 @@ export default function LaunchPage() {
                           ? "secondary"
                           : "outline"
                       }
-                      className="uppercase text-[9px] font-bold tracking-widest px-2 py-0.5"
+                      className="uppercase text-[10px] font-bold tracking-widest px-2 py-0.5"
                     >
                       {phase.status}
                     </Badge>
@@ -179,7 +179,7 @@ export default function LaunchPage() {
                     value={(phase.funding / phase.target) * 100}
                     className="h-2 bg-accent/10"
                   />
-                  <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-text-secondary tabular-nums">
+                  <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-text-secondary tabular-nums">
                     <span>
                       {phase.funding.toLocaleString()} / {phase.target.toLocaleString()} STX
                     </span>
@@ -216,7 +216,7 @@ export default function LaunchPage() {
                 </Button>
               </div>
               <div className="p-3 bg-neutral-light rounded border border-accent/10 flex justify-between items-center">
-                 <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Your Active Contribution:</span>
+                 <span className="text-xs font-bold uppercase tracking-widest text-text-secondary">Your Active Contribution:</span>
                  <span className="text-sm font-bold text-text tabular-nums">{userContribution.total} STX</span>
               </div>
 
@@ -226,7 +226,7 @@ export default function LaunchPage() {
                   aria-live="polite"
                 >
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.2em]">Transaction Submitted</span>
+                    <span className="text-xs font-bold text-text-secondary uppercase tracking-[0.2em]">Transaction Submitted</span>
                     <a
                       href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
                       target="_blank"
@@ -274,7 +274,7 @@ export default function LaunchPage() {
                         <div className="font-bold text-text tabular-nums text-sm">
                           {contrib.amount.toLocaleString()} STX
                         </div>
-                        <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-[0.2em] border-accent/20 text-accent">
+                        <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-[0.2em] border-accent/20 text-accent">
                           {contrib.level}
                         </Badge>
                       </div>

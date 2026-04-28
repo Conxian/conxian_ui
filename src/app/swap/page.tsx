@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import {
@@ -41,6 +42,7 @@ export default function SwapPage() {
   const [balances, setBalances] = useState<FungibleTokenBalance[]>([]);
 
   const fromTokenInfo = Tokens.find((t) => t.id === fromToken);
+  const toTokenInfo = Tokens.find((t) => t.id === toToken);
   const fromTokenBalance = balances.find((b) => b.asset_identifier === fromToken);
   const isSameToken = fromToken === toToken;
 
@@ -162,24 +164,24 @@ export default function SwapPage() {
       </div>
 
       <Tabs defaultValue="simple" className="w-full max-w-md mx-auto">
-        <TabsList className="grid w-full grid-cols-2 bg-background-light border border-accent/20 p-1 h-11">
-          <TabsTrigger value="simple" className="uppercase font-bold tracking-widest text-[10px]">Standard</TabsTrigger>
-          <TabsTrigger value="optimized" disabled className="uppercase font-bold tracking-widest text-[10px]">Institutional</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 bg-background-light border border-accent/20 p-1 h-12">
+          <TabsTrigger value="simple" className="uppercase font-bold tracking-widest text-xs">Standard</TabsTrigger>
+          <TabsTrigger value="optimized" disabled className="uppercase font-bold tracking-widest text-xs">Institutional</TabsTrigger>
         </TabsList>
         <TabsContent value="simple" className="mt-6">
           <Card className="bg-background-paper border-accent/20 shadow-xl">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Execution Matrix</CardTitle>
+            <CardHeader className="pb-6">
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">EXECUTION MATRIX</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* From Token */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <label htmlFor="from-amount" className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">
+                  <label htmlFor="from-amount" className="text-xs font-bold uppercase tracking-widest text-text-secondary">
                     Asset In
                   </label>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono text-text-muted">
+                    <span className="text-xs font-mono text-text-muted">
                       BAL: {fromTokenBalance ? formatAmount(fromTokenBalance.balance, fromTokenInfo?.decimals ?? 6) : "0.00"}
                     </span>
                     {fromTokenBalance && (
@@ -187,7 +189,7 @@ export default function SwapPage() {
                         variant="ghost"
                         size="sm"
                         onClick={handleMax}
-                        className="h-auto py-0 px-1.5 text-[9px] font-black text-accent border border-accent/20 hover:bg-accent/10 uppercase tracking-tighter"
+                        className="h-auto py-0 px-1.5 text-[10px] font-black text-accent border border-accent/20 hover:bg-accent/10 uppercase tracking-tighter"
                       >
                         MAX
                       </Button>
@@ -228,7 +230,7 @@ export default function SwapPage() {
 
               {/* To Token */}
               <div className="space-y-2">
-                <label htmlFor="to-amount" className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Asset Out</label>
+                <label htmlFor="to-amount" className="text-xs font-bold uppercase tracking-widest text-text-secondary">Asset Out</label>
                 <div className="flex items-center gap-2 bg-neutral-light p-2 rounded-lg border border-accent/10">
                   <TokenSelect
                     tokens={Tokens}
@@ -251,8 +253,8 @@ export default function SwapPage() {
               {/* Slippage */}
               <div className="pt-2">
                  <div className="flex justify-between items-center mb-2">
-                    <label className="text-[9px] font-bold uppercase tracking-widest text-text-muted">Slippage Tolerance</label>
-                    <span className="text-[9px] font-bold text-accent">{slippage}%</span>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-text-muted">Slippage Tolerance</label>
+                    <span className="text-[10px] font-bold text-accent">{slippage}%</span>
                  </div>
                  <div className="flex gap-2">
                     {[0.1, 0.5, 1.0].map((val) => (
@@ -261,7 +263,7 @@ export default function SwapPage() {
                         variant={slippage === val ? "default" : "outline"}
                         size="sm"
                         onClick={() => setSlippage(val)}
-                        className="flex-1 h-7 text-[10px] font-bold border-accent/20"
+                        className="flex-1 h-7 text-xs font-bold border-accent/20"
                         aria-pressed={slippage === val}
                       >
                         {val}%
@@ -286,7 +288,21 @@ export default function SwapPage() {
                   </Button>
                 )}
               </div>
-              
+
+              {/* Routing Logic */}
+              <div className="pt-4 border-t border-accent/5">
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-text-muted">Route Optimization</label>
+                  <Badge variant="outline" className="text-[8px] border-accent/20 text-accent font-black">STABLE_PATH_V3</Badge>
+                </div>
+                <div className="flex items-center gap-2 text-[10px] font-mono text-text-secondary bg-neutral-light p-2 rounded-md">
+                   <span className="font-bold">{fromTokenInfo?.label || "TOKEN_A"}</span>
+                   <span className="text-accent">→</span>
+                   <span className="opacity-60">AGGREGATOR</span>
+                   <span className="text-accent">→</span>
+                   <span className="font-bold">{toTokenInfo?.label || "TOKEN_B"}</span>
+                </div>
+              </div>
               <div
                 className={cn(
                   "text-center text-sm mt-2 min-h-[3rem] flex flex-col items-center justify-center transition-opacity duration-300",
@@ -294,14 +310,14 @@ export default function SwapPage() {
                 )}
                 aria-live="polite"
               >
-                {status && <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted">{status}</p>}
+                {status && <p className="text-xs font-bold uppercase tracking-widest text-text-muted">{status}</p>}
                 {txId && (
                   <div className="flex items-center gap-2 mt-1">
                     <a
                       href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-accent hover:underline font-mono text-[10px]"
+                      className="text-accent hover:underline font-mono text-xs"
                       title="View on Stacks Explorer"
                     >
                       {truncate(txId, 12, 10)}

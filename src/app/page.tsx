@@ -52,8 +52,20 @@ export default function Home() {
 
   return (
     <div className="space-y-8 bg-background min-h-screen">
+      {/* High-Trust Readiness Banner */}
+      <div className="bg-primary-dark text-primary-foreground py-2 px-4 rounded-md flex justify-between items-center border border-accent/20">
+        <div className="flex items-center gap-3">
+          <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-[0.2em]">Conxian System Ready</span>
+        </div>
+        <div className="flex gap-6 text-[10px] font-bold uppercase tracking-widest opacity-70">
+          <span>Latency: <span className="text-accent">0.8ms</span></span>
+          <span>Block: <span className="text-accent">#84,321</span></span>
+        </div>
+      </div>
+
       <div>
-        <h1 className="text-3xl font-bold text-text tracking-tight uppercase">Dashboard</h1>
+        <h1 className="text-3xl font-bold text-text tracking-widest uppercase">Dashboard</h1>
         <p className="mt-2 text-sm text-text-secondary">
           An overview of the Conxian ecosystem and real-time protocol telemetry.
         </p>
@@ -94,7 +106,7 @@ export default function Home() {
         <section className="grid gap-6 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Vaults</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Vaults</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-3 gap-4 text-sm text-text font-medium border-b border-accent/10 pb-2">
@@ -109,7 +121,7 @@ export default function Home() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Staking</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Staking</CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-2 gap-6">
               <div className="rounded-lg bg-background-light p-4 border border-accent/10">
@@ -127,7 +139,7 @@ export default function Home() {
         <section>
           <Card>
             <CardHeader>
-              <CardTitle>Benchmarks</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Benchmarks</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-text-secondary leading-relaxed">
