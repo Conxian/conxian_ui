@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "serve out -l 10000",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
@@ -25,6 +25,7 @@
     "next": "^15.5.9",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "serve": "^14.2.6",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {

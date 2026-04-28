@@ -3,8 +3,8 @@ services:
     name: conxian-ui
     env: node
     plan: free
-    buildCommand: "NPM_CONFIG_PRODUCTION=false npm ci && npm run build"
-    startCommand: "npm start"
+    buildCommand: "pnpm install && pnpm run build"
+    startCommand: "pnpm start"
     envVars:
       - key: NODE_VERSION
         value: 20
