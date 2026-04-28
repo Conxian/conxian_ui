@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "npx serve@latest out -p 10000",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
