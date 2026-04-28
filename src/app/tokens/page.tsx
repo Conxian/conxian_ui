@@ -66,7 +66,7 @@ export default function TokensPage() {
   return (
     <div className="space-y-8 bg-background min-h-screen">
       <div>
-        <h1 className="text-3xl font-bold text-text tracking-widest uppercase">My Assets</h1>
+        <h1 className="text-3xl font-black text-text tracking-[0.2em] uppercase">My Assets</h1>
         <p className="mt-2 text-sm text-text-secondary">
           A real-time overview of your Stacks blockchain holdings.
         </p>
@@ -87,10 +87,10 @@ export default function TokensPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">STX Balance</CardTitle>
+                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">STX Balance</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-text tabular-nums">
+                <div className="text-3xl font-black text-text tabular-nums">
                   {stx?.balance ? `${formatAmount(stx.balance, 6)} STX` : "0.00 STX"}
                 </div>
                 <p className="text-xs text-text-muted mt-1 uppercase">Available for transaction</p>
@@ -98,10 +98,10 @@ export default function TokensPage() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Launch Contribution</CardTitle>
+                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">Launch Contribution</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-text tabular-nums">
+                <div className="text-3xl font-black text-text tabular-nums">
                   {userContribution.total} STX
                 </div>
                 <p className="text-xs text-text-muted mt-1 uppercase">Tier: {userContribution.level}</p>
@@ -112,13 +112,13 @@ export default function TokensPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Fungible Tokens</CardTitle>
+                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">Fungible Tokens</CardTitle>
                 <Button
                   onClick={refresh}
                   disabled={loading}
                   variant="outline"
                   size="sm"
-                  className="h-8 px-3 text-[10px] font-bold uppercase tracking-widest"
+                  className="h-8 px-3 text-[10px] font-black uppercase tracking-[0.2em]"
                 >
                   {loading ? "Syncing..." : "Refresh"}
                 </Button>
@@ -138,7 +138,7 @@ export default function TokensPage() {
                       <TableCell className="font-mono text-xs text-text-primary break-all">
                         {t.asset_identifier}
                       </TableCell>
-                      <TableCell className="text-right font-bold tabular-nums">
+                      <TableCell className="text-right font-black tabular-nums">
                         {formatAmount(t.balance, 6)}
                       </TableCell>
                     </TableRow>

@@ -1,43 +1,107 @@
 @import "tailwindcss";
 
 @theme {
-  /* MASTER MANIFEST ALIGNMENT - Standardized Palette */
-  /* 60% Base Canvas - Sovereign Earthy Foundation (Ivory) */
+  /* MASTER MANIFEST ALIGNMENT - Institutional Terminal Edition */
   --color-background: #FDFBF7;
   --color-neutral-light: #F9F8F6;
-
-  /* 30% Surface Layers - Pure Clarity */
-  --color-background-light: #FFFFFF;
+  --color-surface-dim: #F2F0ED;
   --color-background-paper: #FFFFFF;
 
-  /* 10% Brand & Interaction - Institutional Depth */
-  --color-primary: #2E403B;
-  --color-primary-dark: #1A2623;
-  --color-primary-foreground: #FFFFFF;
+  --color-ink: #2E403B;
+  --color-ink-light: #415C55;
+  --color-ink-deep: #1A2623;
+
   --color-accent: #D4A017;
-  --color-accent-foreground: #FFFFFF;
+  --color-accent-dim: rgba(212, 160, 23, 0.1);
 
-  /* Typography - High Contrast (WCAG AAA) */
-  --color-text: #333333;
-  --color-text-primary: #333333;
-  --color-text-secondary: #4D4D4D;
-  --color-text-muted: #737373;
-
-  /* Status & Feedback */
   --color-success: #16a34a;
-  --color-success-foreground: #FFFFFF;
   --color-warning: #ca8a04;
-  --color-warning-foreground: #FFFFFF;
   --color-error: #dc2626;
-  --color-error-foreground: #FFFFFF;
-  --color-info: #2563eb;
-  --color-info-foreground: #FFFFFF;
 
   --font-family-sans: var(--font-inter);
+  --font-family-mono: var(--font-jetbrains-mono);
 }
 
 body {
   font-family: theme(fontFamily.sans);
   background-color: var(--color-background);
-  color: var(--color-text);
+  background-image:
+    linear-gradient(rgba(46, 64, 59, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 64, 59, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Institutional Terminal Components */
+
+.machined-card {
+  background: var(--color-background-paper);
+  border: 1px solid rgba(46, 64, 59, 0.1);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset,
+    0 4px 12px rgba(0, 0, 0, 0.02);
+  position: relative;
+}
+
+.machined-header {
+  background: linear-gradient(90deg, var(--color-ink) 0%, var(--color-ink-light) 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.terminal-text {
+  font-family: theme(fontFamily.mono);
+  letter-spacing: -0.02em;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(46, 64, 59, 0.1);
+}
+
+.border-ghost {
+  border-color: rgba(46, 64, 59, 0.1);
+}
+
+/* Animations */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Scrollbar Refinement */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-neutral-light);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(46, 64, 59, 0.2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(46, 64, 59, 0.4);
+}
+
+/* Force High Contrast for Labels */
+label, .label-terminal {
+  color: var(--color-ink-light);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }

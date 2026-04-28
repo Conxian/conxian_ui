@@ -125,7 +125,7 @@ export default function Shielded() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-text">Shielded Wallets</h1>
+        <h1 className="text-3xl font-black text-text">Shielded Wallets</h1>
         <p className="mt-2 text-sm text-text-secondary">
           Manage your private, shielded assets and transactions using Zero-Knowledge proofs.
         </p>
@@ -155,24 +155,24 @@ export default function Shielded() {
             {wallets.map((wallet) => (
               <li
                 key={wallet.id}
-                className="p-6 rounded-lg border border-accent/20 bg-background-light shadow-sm hover:shadow-md transition-shadow"
+                className="p-6 rounded-lg border border-ghost bg-neutral-light shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex justify-between items-start mb-4">
                   <p className="font-mono text-sm font-semibold text-text-primary bg-neutral-light px-2 py-1 rounded">
                     {truncate(wallet.id, 12, 10)}
                   </p>
-                  <Badge variant="outline" className="bg-info/10 text-info border-info/20 font-bold uppercase tracking-widest text-[10px]">
+                  <Badge variant="outline" className="bg-info/10 text-info border-info/20 font-black uppercase tracking-[0.2em] text-[10px]">
                     Shielded
                   </Badge>
                 </div>
                 <div className="flex items-baseline gap-2 mb-6 border-b border-accent/10 pb-4">
-                  <span className="text-3xl font-bold text-text-primary">{wallet.balance}</span>
+                  <span className="text-3xl font-black text-text-primary">{wallet.balance}</span>
                   <span className="text-text-secondary font-semibold text-sm uppercase">STX</span>
                 </div>
 
                 <div className="space-y-6 pt-2">
                   <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-text-secondary uppercase tracking-widest">Shielded Transfer</label>
+                    <label className="text-[10px] font-black text-text-secondary uppercase tracking-[0.2em]">Shielded Transfer</label>
                     <div className="grid grid-cols-1 gap-2">
                       <Input
                         type="text"
@@ -198,7 +198,7 @@ export default function Shielded() {
                   </div>
 
                   <div className="space-y-3 pt-4 border-t border-accent/5">
-                    <label className="text-[10px] font-bold text-text-secondary uppercase tracking-widest">Shielded Funding</label>
+                    <label className="text-[10px] font-black text-text-secondary uppercase tracking-[0.2em]">Shielded Funding</label>
                     <div className="flex items-center space-x-2">
                       <Input
                         type="number"

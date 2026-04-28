@@ -17,6 +17,7 @@ export const AppConfig = {
   network: inferNetworkFromUrl(getCoreApiUrl()),
   contracts: {
     router: `${BASE_PRINCIPAL}.swap-router`,
+    factory: `${BASE_PRINCIPAL}.dex-factory-v2`,
     pool: `${BASE_PRINCIPAL}.pool-v2-stx-cxd`, // Default pool
   }
 };

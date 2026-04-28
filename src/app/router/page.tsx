@@ -80,7 +80,7 @@ export default function RouterPage() {
   return (
     <div className="p-6 space-y-6 bg-background min-h-screen">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-text-primary">
+        <h1 className="text-3xl font-black tracking-tight text-text-primary">
           Router Simulator
         </h1>
         <p className="text-text-secondary">
@@ -90,14 +90,14 @@ export default function RouterPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
         <div className="space-y-6">
-          <div className="space-y-4 p-6 bg-background-paper border border-accent/20 rounded-xl">
+          <div className="space-y-4 p-6 bg-background-paper border border-ghost rounded-xl">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+                <label className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">
                   Target Router
                 </label>
                 <select
-                  className="w-full bg-background-light border border-accent/20 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-accent focus:outline-none"
+                  className="w-full bg-neutral-light border border-ghost rounded-sm px-3 py-2 text-sm focus:ring-2 focus:ring-accent focus:outline-none"
                   value={selected}
                   onChange={(e) => setSelected(e.target.value)}
                 >
@@ -109,7 +109,7 @@ export default function RouterPage() {
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+                <label className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">
                   Function
                 </label>
                 <Input
@@ -121,7 +121,7 @@ export default function RouterPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-text-secondary">
+              <label className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">
                 Arguments
               </label>
               <ClarityArgBuilder
@@ -146,24 +146,24 @@ export default function RouterPage() {
         </div>
 
         <div className="space-y-6">
-          <div className="p-6 bg-background-paper border border-accent/20 rounded-xl min-h-[400px]">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-text-secondary mb-4">
+          <div className="p-6 bg-background-paper border border-ghost rounded-xl min-h-[400px]">
+            <h3 className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary mb-4">
               Simulation Result
             </h3>
             {result ? (
               <div className="space-y-4">
                 <div
-                  className={`p-4 rounded-md border ${
+                  className={`p-4 rounded-sm border ${
                     result.ok
                       ? "bg-success/10 border-success/20 text-success"
                       : "bg-error/10 border-error/20 text-error"
                   }`}
                 >
-                  <p className="text-sm font-bold">
+                  <p className="text-sm font-black">
                     {result.ok ? "CALL SUCCESSFUL" : "CALL FAILED"}
                   </p>
                 </div>
-                <div className="bg-background-light p-4 rounded-md border border-accent/20">
+                <div className="bg-neutral-light p-4 rounded-sm border border-ghost">
                   <pre className="text-xs font-mono whitespace-pre-wrap break-all overflow-auto max-h-[300px]">
                     {result.ok
                       ? JSON.stringify(decodeResultHex(result.result!), null, 2)
@@ -172,7 +172,7 @@ export default function RouterPage() {
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center h-[300px] text-text-muted border-2 border-dashed border-accent/10 rounded-md">
+              <div className="flex flex-col items-center justify-center h-[300px] text-text-muted border-2 border-dashed border-accent/10 rounded-sm">
                 <p className="text-sm italic">
                   Run a simulation to see results
                 </p>

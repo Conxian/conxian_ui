@@ -1,12 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Progress } from "@/components/ui/Progress";
@@ -17,275 +14,214 @@ import { useSelfLaunch } from "@/lib/hooks/use-self-launch";
 import { Input } from "@/components/ui/Input";
 import { AppConfig } from "@/lib/config";
 import CopyButton from "@/components/CopyButton";
-import { truncate } from "@/lib/utils";
+import { truncate, cn } from "@/lib/utils";
+import { BoltIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
 
 export default function LaunchPage() {
-  const { stxAddress, addToast } = useWallet();
+  const { stxAddress, connectWallet, addToast } = useWallet();
   const {
     currentPhase,
     fundingProgress,
     communityStats,
     userContribution,
-    isLoading,
-    error,
     contribute,
-    getUserContribution,
+    refreshData
   } = useSelfLaunch();
 
-  const [contributionAmount, setContributionAmount] = useState("100");
+  const [contributionAmount, setContributionAmount] = useState("");
   const [sending, setSending] = useState(false);
-  const [txId, setTxId] = useState<string | null>(null);
+  const [txId, setTxId] = useState("");
 
-  useEffect(() => {
-    if (stxAddress) {
-      getUserContribution(stxAddress);
-    }
-  }, [stxAddress, getUserContribution]);
+  // Hardcoded phases for roadmap display since they aren't dynamic yet
+  const phases = [
+    { id: '1', name: 'Alpha Genesis', target: 50000, funding: 50000, contributors: 42, status: 'completed' },
+    { id: '2', name: 'Infrastructure expansion', target: 250000, funding: fundingProgress.current, contributors: communityStats?.totalContributors || 0, status: 'active' },
+    { id: '3', name: 'Mainnet Readiness', target: 1000000, funding: 0, contributors: 0, status: 'pending' },
+  ];
 
   const handleContribute = async () => {
-    const amount = Number(contributionAmount);
     if (!stxAddress) {
-      addToast("Please connect your wallet to contribute.", "info");
+      addToast("Please connect your wallet to contribute", "info");
+      connectWallet();
       return;
     }
+    if (!contributionAmount) return;
 
     setSending(true);
-    setTxId(null);
     try {
-      const result = await contribute(stxAddress, amount);
-      if (result.success && result.txId) {
-        setTxId(result.txId);
-        addToast(`Successfully contributed ${amount} STX! Transaction submitted.`, "success");
-      } else {
-        addToast(result.error || "Contribution failed.", "error");
+      const res = await contribute(stxAddress, parseInt(contributionAmount, 10));
+      if (res?.txId) {
+        setTxId(res.txId);
+        setContributionAmount("");
+        refreshData();
       }
     } catch (e) {
       console.error(e);
-      addToast("An unexpected error occurred during contribution.", "error");
     } finally {
       setSending(false);
     }
   };
 
-  const phases = currentPhase ? [{
-    id: currentPhase.id,
-    name: currentPhase.name,
-    funding: fundingProgress.current,
-    target: fundingProgress.target,
-    contributors: communityStats?.totalContributors || 0,
-    contracts: currentPhase.requiredContracts,
-    status: currentPhase.status as "pending" | "active" | "completed",
-  }] : [];
-
-  if (isLoading && !currentPhase) {
-    return <div className="text-center p-20 animate-pulse text-text-secondary uppercase tracking-widest font-bold">Synchronizing Launch Sequence...</div>;
-  }
-
-  if (error) {
-    return (
-      <div className="text-center p-20 bg-error/5 border border-error/20 rounded-xl">
-        <p className="text-error font-bold uppercase tracking-widest">Initialization Error</p>
-        <p className="text-text-secondary text-sm mt-2">{error}</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-8 bg-background min-h-screen">
-      <div>
-        <h1 className="text-3xl font-bold text-text tracking-widest uppercase">
-          Community Launch
-        </h1>
-        <p className="mt-2 text-sm text-text-secondary">
-          Bootstrap the future of decentralized finance through communal funding.
-        </p>
+    <div className="flex flex-col min-h-screen bg-background terminal-text">
+      {/* Terminal Top Bar */}
+      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-accent/20">
+        <div className="flex items-center gap-4">
+          <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Bootstrap Environment</span>
+        </div>
+        <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
+          <span>ALLOCATION: OPEN</span>
+          <span>QUORUM: 94.2%</span>
+        </div>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4 border border-accent/20 bg-background-light p-1 h-12">
-          <TabsTrigger value="overview" className="uppercase font-bold tracking-widest text-[10px]">Overview</TabsTrigger>
-          <TabsTrigger value="contribute" className="uppercase font-bold tracking-widest text-[10px]">Contribute</TabsTrigger>
-          <TabsTrigger value="progress" className="uppercase font-bold tracking-widest text-[10px]">Progress</TabsTrigger>
-          <TabsTrigger value="leaderboard" className="uppercase font-bold tracking-widest text-[10px]">Leaderboard</TabsTrigger>
-        </TabsList>
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+        <div className="flex justify-between items-end border-b border-ghost pb-6">
+           <div>
+              <h1 className="text-5xl font-black tracking-tighter uppercase text-ink">BOOTSTRAP</h1>
+              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Community Funding Sequence</p>
+           </div>
+           <div className="text-right hidden md:block">
+              <span className="text-[9px] font-black uppercase text-ink/30">Target Phase</span>
+              <p className="text-xs font-mono font-black text-ink">{currentPhase?.name || "SEQUENCING..."}</p>
+           </div>
+        </div>
 
-        <TabsContent value="overview" className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Current Phase</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-text uppercase tracking-tight">
-                  {currentPhase?.name || 'N/A'}
+        <Tabs defaultValue="overview" className="space-y-8">
+          <TabsList className="grid w-full grid-cols-4 bg-neutral-light border-ghost h-12 p-1">
+            <TabsTrigger value="overview" className="uppercase font-black tracking-[0.2em] text-[10px]">Sequence Log</TabsTrigger>
+            <TabsTrigger value="contribute" className="uppercase font-black tracking-[0.2em] text-[10px]">Contribute</TabsTrigger>
+            <TabsTrigger value="progress" className="uppercase font-black tracking-[0.2em] text-[10px]">Node Distribution</TabsTrigger>
+            <TabsTrigger value="leaderboard" className="uppercase font-black tracking-[0.2em] text-[10px]">Attribution</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview" className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="machined-card">
+                <div className="machined-header">
+                   <span>CURRENT PHASE</span>
+                   <BoltIcon className="w-3 h-3" />
                 </div>
-                <p className="text-[10px] text-text-muted mt-1 uppercase font-medium">Core Infrastructure deployment</p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Total Raised</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-text tabular-nums">
-                  {fundingProgress.current.toLocaleString()} STX
-                </div>
-                <p className="text-[10px] text-text-muted mt-1 uppercase font-medium">Community pool funding</p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Contributors</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-text tabular-nums">
-                  {communityStats?.totalContributors || 0}
-                </div>
-                <p className="text-[10px] text-text-muted mt-1 uppercase font-medium">Verified active addresses</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm font-bold uppercase tracking-widest text-text-secondary">Launch Roadmap</CardTitle>
-              <CardDescription className="text-xs text-text-muted">
-                Milestone tracking for the Conxian network decentralization.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {phases.map((phase) => (
-                <div key={phase.id} className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="font-bold text-text uppercase tracking-tight text-sm">
-                      {phase.name}
-                    </span>
-                    <Badge
-                      variant={
-                        phase.status === "completed"
-                          ? "default"
-                          : phase.status === "active"
-                          ? "secondary"
-                          : "outline"
-                      }
-                      className="uppercase text-[9px] font-bold tracking-widest px-2 py-0.5"
-                    >
-                      {phase.status}
-                    </Badge>
+                <CardContent className="p-6">
+                  <div className="text-3xl font-black text-ink uppercase tracking-tighter">
+                    {currentPhase?.name || 'N/A'}
                   </div>
-                  <Progress
-                    value={(phase.funding / phase.target) * 100}
-                    className="h-2 bg-accent/10"
-                  />
-                  <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-text-secondary tabular-nums">
-                    <span>
-                      {phase.funding.toLocaleString()} / {phase.target.toLocaleString()} STX
-                    </span>
-                    <span>{phase.contributors} members</span>
-                  </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </TabsContent>
+                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Core Infrastructure Deployment</p>
+                </CardContent>
+              </Card>
 
-        <TabsContent value="contribute" className="space-y-6">
-          <Card className="max-w-xl mx-auto">
-            <CardHeader>
-              <CardTitle className="text-sm font-bold uppercase tracking-widest text-text-secondary">Funding Participation</CardTitle>
-              <CardDescription className="text-xs text-text-muted">
-                Support the Conxian infrastructure and earn hardware-attested rewards.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-center gap-3">
-                <div className="relative flex-1">
-                   <Input
-                     type="number"
-                     value={contributionAmount}
-                     onChange={(e) => setContributionAmount(e.target.value)}
-                     placeholder="0.00"
-                     className="text-right pr-12 font-bold"
-                   />
-                   <span className="absolute right-4 top-2.5 text-xs font-bold text-text-muted pointer-events-none">STX</span>
+              <Card className="machined-card">
+                <div className="machined-header">
+                   <span>TOTAL RAISED</span>
+                   <div className="h-1.5 w-1.5 rounded-full bg-accent" />
                 </div>
-                <Button onClick={handleContribute} disabled={sending} className="min-w-[120px] font-bold uppercase tracking-widest text-xs h-10">
-                  {sending ? "Sending..." : "Contribute"}
-                </Button>
+                <CardContent className="p-6">
+                  <div className="text-3xl font-black text-ink tabular-nums">
+                    {fundingProgress.current.toLocaleString()} <span className="text-lg opacity-40">STX</span>
+                  </div>
+                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Community Pool Funding</p>
+                </CardContent>
+              </Card>
+
+              <Card className="machined-card">
+                <div className="machined-header">
+                   <span>CONTRIBUTORS</span>
+                   <GlobeAltIcon className="w-3 h-3" />
+                </div>
+                <CardContent className="p-6">
+                  <div className="text-3xl font-black text-ink tabular-nums">
+                    {communityStats?.totalContributors || 0}
+                  </div>
+                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Verified Active Nodes</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card className="machined-card">
+              <div className="machined-header">
+                <span>LAUNCH ROADMAP</span>
               </div>
-              <div className="p-3 bg-neutral-light rounded border border-accent/10 flex justify-between items-center">
-                 <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Your Active Contribution:</span>
-                 <span className="text-sm font-bold text-text tabular-nums">{userContribution.total} STX</span>
-              </div>
-
-              {txId && (
-                <div
-                  className="mt-6 p-4 border border-accent/20 rounded-lg bg-background-light flex items-center justify-between"
-                  aria-live="polite"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.2em]">Transaction Submitted</span>
-                    <a
-                      href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-accent hover:underline font-mono text-xs mt-1"
-                      title="View on Stacks Explorer"
-                    >
-                      {truncate(txId, 14, 12)}
-                    </a>
-                  </div>
-                  <CopyButton textToCopy={txId} ariaLabel="Transaction ID" className="h-8 w-8 p-1.5 border border-accent/20" />
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="leaderboard" className="space-y-6">
-          <Card className="max-w-2xl mx-auto">
-            <CardHeader>
-              <CardTitle className="text-sm font-bold uppercase tracking-widest text-text-secondary">Launch Benefactors</CardTitle>
-              <CardDescription className="text-xs text-text-muted">
-                Real-time attribution for top protocol participants.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {!communityStats?.topContributors || communityStats.topContributors.length === 0 ? (
-                  <div className="py-20 text-center border-2 border-dashed border-accent/5 rounded-xl">
-                    <p className="text-text-muted italic text-sm">No recorded contributions yet. The sequence is ready.</p>
-                  </div>
-                ) : (
-                  communityStats.topContributors.map((contrib, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-between items-center p-4 border border-accent/10 rounded-lg bg-background-light hover:border-accent/30 transition-colors"
-                    >
-                      <div className="flex items-center gap-4">
-                        <span className="text-xs font-bold text-text-muted tabular-nums">#0{index + 1}</span>
-                        <div className="font-mono text-xs font-bold text-text-primary">
-                          {truncate(contrib.address, 10, 8)}
-                        </div>
-                      </div>
-                      <div className="text-right flex items-center gap-4">
-                        <div className="font-bold text-text tabular-nums text-sm">
-                          {contrib.amount.toLocaleString()} STX
-                        </div>
-                        <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-[0.2em] border-accent/20 text-accent">
-                          {contrib.level}
-                        </Badge>
-                      </div>
+              <CardContent className="p-8 space-y-8">
+                {phases.map((phase) => (
+                  <div key={phase.id} className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="font-black text-ink uppercase tracking-[0.2em] text-xs">
+                        {phase.name}
+                      </span>
+                      <Badge
+                        variant="outline"
+                        className={cn(
+                          "uppercase text-[8px] font-black tracking-[0.2em] px-2 py-0.5 border-ghost",
+                          phase.status === "active" ? "text-accent" : "text-ink/30"
+                        )}
+                      >
+                        {phase.status}
+                      </Badge>
                     </div>
-                  ))
-                )}
+                    <Progress
+                      value={(phase.funding / phase.target) * 100}
+                      className="h-1 bg-ink/5"
+                    />
+                    <div className="flex justify-between text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 tabular-nums">
+                      <span>
+                        {phase.funding.toLocaleString()} / {phase.target.toLocaleString()} STX
+                      </span>
+                      <span>{phase.contributors} MEMBERS</span>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="contribute" className="space-y-8">
+            <Card className="machined-card max-w-2xl mx-auto">
+              <div className="machined-header">
+                <span>FUNDING PARTICIPATION</span>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+              <CardContent className="p-8 space-y-8">
+                <div className="flex items-center gap-4">
+                  <div className="relative flex-1">
+                     <Input
+                       type="number"
+                       value={contributionAmount}
+                       onChange={(e) => setContributionAmount(e.target.value)}
+                       placeholder="0.00"
+                       className="text-right pr-12 font-black text-2xl h-14 bg-neutral-light border-ghost tabular-nums"
+                     />
+                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-black text-ink/30 pointer-events-none">STX</span>
+                  </div>
+                  <Button onClick={handleContribute} disabled={sending} className="min-w-[160px] h-14 bg-ink text-background font-black uppercase tracking-[0.2em] text-xs hover:bg-ink-light rounded-none">
+                    {sending ? "TRANSMITTING..." : "CONTRIBUTE"}
+                  </Button>
+                </div>
+
+                <div className="p-4 bg-ink/[0.02] border border-ghost rounded-sm flex justify-between items-center">
+                   <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Active Contribution:</span>
+                   <span className="text-xl font-black text-ink tabular-nums">{userContribution.total} <span className="text-xs opacity-30">STX</span></span>
+                </div>
+
+                {txId && (
+                  <div className="p-4 border border-accent/20 bg-accent/5 rounded-sm flex items-center justify-between animate-in fade-in slide-in-from-bottom-2">
+                    <div className="flex flex-col">
+                      <span className="text-[9px] font-black text-accent uppercase tracking-[0.2em]">TRANSACTION_SUCCESS</span>
+                      <a
+                        href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
+                        target="_blank" rel="noopener noreferrer"
+                        className="text-ink font-mono text-[10px] font-bold mt-1 hover:underline"
+                      >
+                        {truncate(txId, 20, 18)}
+                      </a>
+                    </div>
+                    <CopyButton textToCopy={txId} ariaLabel="Copy TX" className="h-4 w-4 opacity-50" />
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </main>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   getStatus,
   getNetworkBlockTimes,
@@ -9,7 +9,7 @@ import {
   MempoolTx,
 } from "@/lib/core-api";
 import { Button } from "@/components/ui/Button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/Card";
 import {
   Table,
   TableBody,
@@ -19,117 +19,139 @@ import {
   TableRow,
 } from "@/components/ui/Table";
 import { AppConfig } from "@/lib/config";
+import { CpuChipIcon, GlobeAltIcon, BoltIcon } from "@heroicons/react/24/outline";
 
 export default function NetworkPage() {
-  const [status, setStatus] = React.useState<CoreStatus | null>(null);
-  const [blocks, setBlocks] = React.useState<unknown | null>(null);
-  const [mempool, setMempool] = React.useState<MempoolTx[]>([]);
-  const [loading, setLoading] = React.useState(false);
+  const [status, setStatus] = useState<CoreStatus | null>(null);
+  const [blocks, setBlocks] = useState<unknown | null>(null);
+  const [mempool, setMempool] = useState<MempoolTx[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const refresh = React.useCallback(async () => {
+  const refresh = useCallback(async () => {
     setLoading(true);
-    const [s, b, m] = await Promise.all([
-      getStatus(),
-      getNetworkBlockTimes(),
-      getMempool(15),
-    ]);
-    setStatus(s);
-    setBlocks(b);
-    setMempool(m || []);
-    setLoading(false);
+    try {
+      const [s, b, m] = await Promise.all([
+        getStatus(),
+        getNetworkBlockTimes(),
+        getMempool(20),
+      ]);
+      setStatus(s);
+      setBlocks(b);
+      setMempool(m || []);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     refresh();
   }, [refresh]);
 
   return (
-    <div className="space-y-8 bg-background min-h-screen">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-text tracking-widest uppercase">Network</h1>
-          <p className="mt-2 text-sm text-text-secondary">
-            Live telemetry from the Stacks network.
-          </p>
+    <div className="flex flex-col min-h-screen bg-background terminal-text">
+      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-ghost">
+        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Network Topology Telemetry</span>
+        <div className="flex gap-4 text-[10px] font-bold uppercase tracking-widest opacity-60">
+          <span>PROTO: STACKS_v2</span>
         </div>
-        <Button onClick={refresh} disabled={loading} variant="outline" size="sm">
-          {loading ? "Refreshing..." : "Refresh"}
-        </Button>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg uppercase tracking-widest">Environment</CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm space-y-1 text-text">
-            <div>
-              <span className="font-medium text-text">Core API:</span>{" "}
-              {AppConfig.coreApiUrl}
-            </div>
-            <div>
-              <span className="font-medium text-text">Network:</span>{" "}
-              {AppConfig.network}
-            </div>
-            <div>
-              <span className="font-medium text-text">Status:</span>{" "}
-              {status?.ok
-                ? `OK (chain_id=${status.chain_id}, network=${status.network_id})`
-                : `Error ${status?.error || "unknown"}`}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg uppercase tracking-widest">Block Times</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <pre className="text-xs overflow-auto text-text">
-              {blocks ? JSON.stringify(blocks, null, 2) : "No data"}
-            </pre>
-          </CardContent>
-        </Card>
-      </div>
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+        <div className="flex justify-between items-end border-b border-ghost pb-6">
+           <div>
+              <h1 className="text-5xl font-black tracking-tighter uppercase text-ink">TELEMETRY</h1>
+              <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Real-Time Chain State Analysis</p>
+           </div>
+           <Button onClick={refresh} disabled={loading} className="h-10 px-6 bg-ink text-background font-black uppercase tracking-widest text-[10px]">
+              {loading ? "SYNCING..." : "REFRESH"}
+           </Button>
+        </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg uppercase tracking-widest">Mempool (latest)</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Tx ID</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Sender</TableHead>
-                <TableHead>Nonce</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {Array.isArray(mempool) &&
-                mempool.map((tx: MempoolTx, idx: number) => (
-                  <TableRow key={tx?.tx_id || `tx-${idx}`}>
-                    <TableCell className="break-all">
-                      {tx?.tx_id || "—"}
-                    </TableCell>
-                    <TableCell>{tx?.tx_type || "—"}</TableCell>
-                    <TableCell className="break-all">
-                      {tx?.sender_address || "—"}
-                    </TableCell>
-                    <TableCell>{tx?.nonce ?? "—"}</TableCell>
-                  </TableRow>
-                ))}
-              {(!mempool || mempool.length === 0) && (
-                <TableRow>
-                  <TableCell className="py-4 text-center" colSpan={4}>
-                    No transactions in mempool.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+        <div className="grid gap-8 md:grid-cols-12 items-start">
+          <div className="md:col-span-4 space-y-6">
+            <Card className="machined-card">
+              <div className="machined-header">
+                <span>ENVIRONMENT_CONFIG</span>
+                <GlobeAltIcon className="w-3 h-3" />
+              </div>
+              <CardContent className="p-6 space-y-4 font-mono text-[10px] text-ink/60">
+                <div className="space-y-2">
+                   <div className="flex justify-between border-b border-ghost pb-1">
+                      <span>CORE_API:</span>
+                      <span className="text-ink font-bold truncate ml-4">{AppConfig.coreApiUrl}</span>
+                   </div>
+                   <div className="flex justify-between border-b border-ghost pb-1">
+                      <span>NETWORK_ID:</span>
+                      <span className="text-ink font-bold">{AppConfig.network.toUpperCase()}</span>
+                   </div>
+                   <div className="flex justify-between border-b border-ghost pb-1">
+                      <span>SYNC_STATUS:</span>
+                      <span className={status?.ok ? "text-success font-bold" : "text-error font-bold"}>
+                        {status?.ok ? "LOCKED" : "FAULT"}
+                      </span>
+                   </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="machined-card">
+              <div className="machined-header">
+                <span>BLOCK_LATENCY_LOG</span>
+                <CpuChipIcon className="w-3 h-3 opacity-50" />
+              </div>
+              <CardContent className="p-4">
+                <pre className="text-[10px] font-mono overflow-auto max-h-[300px] text-ink/70 bg-neutral-light p-4 rounded-sm border border-ghost">
+                  {blocks ? JSON.stringify(blocks, null, 2) : "AWAITING_PACKET..."}
+                </pre>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="md:col-span-8 space-y-6">
+            <Card className="machined-card">
+              <div className="machined-header">
+                <span>MEMPOOL_STREAM (LATEST_20)</span>
+                <BoltIcon className="w-3 h-3 text-accent" />
+              </div>
+              <CardContent className="p-0">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-ink/[0.02] border-ghost">
+                      <TableHead className="text-[9px] font-black">TX_ID_VECTOR</TableHead>
+                      <TableHead className="text-[9px] font-black">OP_TYPE</TableHead>
+                      <TableHead className="text-[9px] font-black">SENDER_ORIGIN</TableHead>
+                      <TableHead className="text-[9px] font-black text-right">NONCE</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {mempool.map((tx, idx) => (
+                      <TableRow key={tx?.tx_id || `tx-${idx}`} className="border-ghost hover:bg-neutral-light transition-colors">
+                        <TableCell className="font-mono text-[9px] font-bold text-accent truncate max-w-[120px]">
+                          {tx?.tx_id || "—"}
+                        </TableCell>
+                        <TableCell className="text-[9px] font-black text-ink/60 uppercase">{tx?.tx_type || "—"}</TableCell>
+                        <TableCell className="font-mono text-[9px] text-ink/40 truncate max-w-[120px]">
+                          {tx?.sender_address || "—"}
+                        </TableCell>
+                        <TableCell className="text-right text-[9px] font-black text-ink">{tx?.nonce ?? "—"}</TableCell>
+                      </TableRow>
+                    ))}
+                    {mempool.length === 0 && (
+                      <TableRow>
+                        <TableCell className="py-20 text-center font-black uppercase text-[10px] text-ink/20" colSpan={4}>
+                          MEMPOOL_EMPTY: AWAITING_NETWORK_EVENT
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

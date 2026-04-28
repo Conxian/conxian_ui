@@ -6,27 +6,31 @@ import { ReadinessDashboard } from "@/components/ReadinessDashboard";
 
 export default function Overview() {
   return (
-    <div className="space-y-10 bg-background min-h-screen">
-      <div>
-        <h1 className="text-3xl font-bold text-text tracking-widest uppercase">System Overview</h1>
-        <p className="mt-2 text-sm text-text-secondary">
-          A high-level view of the Conxian ecosystem and technical readiness.
-        </p>
+    <div className="flex flex-col min-h-screen bg-background terminal-text">
+      {/* Top Bar placeholder */}
+      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-ghost">
+        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol System Architecture</span>
+        <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
+          <span>DOC_VERSION: v1.4</span>
+        </div>
       </div>
 
-      <section>
-        <ReadinessDashboard />
-      </section>
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-12">
+        <div className="flex justify-between items-end border-b border-ghost pb-6">
+           <div>
+              <h1 className="text-5xl font-black tracking-tighter uppercase text-ink">ARCHITECTURE</h1>
+              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Full Stack System Overview</p>
+           </div>
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <section>
-          <SystemStatus />
+        <section className="space-y-12">
+          <ReadinessDashboard />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <SystemStatus />
+            <CoreContracts />
+          </div>
         </section>
-
-        <section>
-          <CoreContracts />
-        </section>
-      </div>
+      </main>
     </div>
   );
 }

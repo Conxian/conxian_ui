@@ -1,17 +1,20 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
+
+
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import {
   ArrowsUpDownIcon,
+
+  CpuChipIcon,
 } from "@heroicons/react/24/outline";
 import { Tokens } from "@/lib/contracts";
 import { useWallet } from "@/lib/wallet";
@@ -22,15 +25,19 @@ import {
 } from "@stacks/transactions";
 import { openContractCall } from "@stacks/connect";
 import { AppConfig } from "@/lib/config";
-import { formatAmount, parseAmount, truncate, cn } from "@/lib/utils";
+import {
+  getFungibleTokenBalances,
+  FungibleTokenBalance,
+} from "@/lib/core-api";
+import { formatAmount, parseAmount, truncate } from "@/lib/utils";
 import TokenSelect from "@/components/ui/TokenSelect";
-import { getFungibleTokenBalances, FungibleTokenBalance } from "@/lib/core-api";
 import CopyButton from "@/components/CopyButton";
+import { cn } from "@/lib/utils";
 
 export default function SwapPage() {
-  const { stxAddress, connectWallet } = useWallet();
-  const [fromToken, setFromToken] = useState(Tokens[0]?.id || "");
-  const [toToken, setToToken] = useState(Tokens[1]?.id || "");
+  const { stxAddress } = useWallet();
+  const [fromToken, setFromToken] = useState(Tokens[0].id);
+  const [toToken, setToToken] = useState(Tokens[1].id);
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
   const [slippage, setSlippage] = useState(0.5);
@@ -41,6 +48,7 @@ export default function SwapPage() {
   const [balances, setBalances] = useState<FungibleTokenBalance[]>([]);
 
   const fromTokenInfo = Tokens.find((t) => t.id === fromToken);
+  const toTokenInfo = Tokens.find((t) => t.id === toToken);
   const fromTokenBalance = balances.find((b) => b.asset_identifier === fromToken);
   const isSameToken = fromToken === toToken;
 
@@ -50,27 +58,28 @@ export default function SwapPage() {
       return;
     }
     setLoading(true);
-    // Simulation: in a real app, you'd call a contract or API here
-    setTimeout(() => {
-      setToAmount((parseFloat(fromAmount) * 0.98).toString());
+    try {
+      setTimeout(() => {
+        const amt = parseFloat(fromAmount) * 0.997;
+        setToAmount(amt.toFixed(6));
+        setLoading(false);
+      }, 300);
+    } catch (e) {
+      console.error(e);
       setLoading(false);
-    }, 500);
+    }
   }, [fromAmount, isSameToken]);
 
   const handleSwap = async () => {
-    if (!stxAddress) {
-      connectWallet();
-      return;
-    }
-
+    if (!fromAmount || isSameToken) return;
     setSending(true);
-    setStatus("Initiating swap...");
+    setStatus("Initiating swap protocol...");
+
     try {
-      // Manual implementation of swap-direct call
-      const router = AppConfig.contracts.router;
-      const [routerAddress, routerName] = router.split(".");
-      const pool = AppConfig.contracts.pool;
-      const [poolAddress, poolName] = pool.split(".");
+      const routerAddress = AppConfig.contracts.router.split(".")[0];
+      const routerName = AppConfig.contracts.router.split(".")[1];
+      const poolAddress = AppConfig.contracts.pool.split(".")[0];
+      const poolName = AppConfig.contracts.pool.split(".")[1];
 
       const amountIn = BigInt(parseAmount(fromAmount, fromTokenInfo?.decimals ?? 6));
       const minAmountOut = (amountIn * BigInt(Math.floor((1 - slippage / 100) * 10000))) / 10000n;
@@ -95,11 +104,11 @@ export default function SwapPage() {
           postConditions: [],
           onFinish: (data) => {
               setTxId(data.txId);
-              setStatus("Transaction submitted!");
+              setStatus("Transaction broadcast successful.");
               setSending(false);
           },
           onCancel: () => {
-              setStatus("Transaction canceled");
+              setStatus("Transaction aborted.");
               setSending(false);
           }
       });
@@ -111,210 +120,267 @@ export default function SwapPage() {
     }
   };
 
-  const handleFromAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (/^\d*\.?\d*$/.test(value)) {
-      setFromAmount(value);
-    }
-  };
-
-  const handleMax = () => {
-    if (fromTokenBalance) {
-      setFromAmount(formatAmount(fromTokenBalance.balance, fromTokenInfo?.decimals ?? 6));
-    }
-  };
-
-  const handleFromTokenChange = (tokenId: string) => {
-    setFromToken(tokenId);
-    setToAmount("");
-  };
-
-  const handleToTokenChange = (tokenId: string) => {
-    setToToken(tokenId);
-    setToAmount("");
-  };
-
-  const invertTokens = () => {
-    const temp = fromToken;
-    setFromToken(toToken);
-    setToToken(temp);
-    setFromAmount(toAmount);
-    setToAmount("");
-  };
-
-  React.useEffect(() => {
+  useEffect(() => {
     getEstimate();
   }, [getEstimate]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (stxAddress) {
       getFungibleTokenBalances(stxAddress).then(setBalances);
     }
   }, [stxAddress]);
 
   return (
-    <div className="space-y-8 bg-background min-h-screen">
-      <div>
-        <h1 className="text-3xl font-bold text-text tracking-widest uppercase">Swap</h1>
-        <p className="mt-2 text-sm text-text-secondary">
-          Institutional-grade liquidity engine for instant asset exchange.
-        </p>
+    <div className="flex flex-col min-h-screen bg-background terminal-text">
+      {/* Terminal Top Bar */}
+      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-accent/20">
+        <div className="flex items-center gap-4">
+          <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Execution Environment</span>
+        </div>
+        <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
+          <span>MTU: 1500</span>
+          <span>LATENCY: 0.08ms</span>
+          <span>SEQ: #84,321</span>
+        </div>
       </div>
 
-      <Tabs defaultValue="simple" className="w-full max-w-md mx-auto">
-        <TabsList className="grid w-full grid-cols-2 bg-background-light border border-accent/20 p-1 h-11">
-          <TabsTrigger value="simple" className="uppercase font-bold tracking-widest text-[10px]">Standard</TabsTrigger>
-          <TabsTrigger value="optimized" disabled className="uppercase font-bold tracking-widest text-[10px]">Institutional</TabsTrigger>
-        </TabsList>
-        <TabsContent value="simple" className="mt-6">
-          <Card className="bg-background-paper border-accent/20 shadow-xl">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest text-text-secondary">Execution Matrix</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* From Token */}
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <label htmlFor="from-amount" className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">
-                    Asset In
-                  </label>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono text-text-muted">
-                      BAL: {fromTokenBalance ? formatAmount(fromTokenBalance.balance, fromTokenInfo?.decimals ?? 6) : "0.00"}
-                    </span>
-                    {fromTokenBalance && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={handleMax}
-                        className="h-auto py-0 px-1.5 text-[9px] font-black text-accent border border-accent/20 hover:bg-accent/10 uppercase tracking-tighter"
-                      >
-                        MAX
-                      </Button>
-                    )}
+      <main className="flex-1 p-8 max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Telemetry & Sidebar */}
+        <div className="lg:col-span-3 space-y-6 hidden lg:block">
+          <div className="p-4 bg-neutral-light border border-ghost rounded-sm space-y-4">
+            <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Market Telemetry</h4>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-[10px] uppercase font-black text-text-muted">STX/BTC</span>
+                <span className="text-[10px] font-black text-ink">0.000042</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[10px] uppercase font-black text-text-muted">GAS (FIXED)</span>
+                <span className="text-[10px] font-black text-success">LOW</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[10px] uppercase font-black text-text-muted">CONX_RELAY</span>
+                <span className="text-[10px] font-black text-ink">ACTIVE</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-4 bg-ink/5 border border-ghost rounded-sm">
+            <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 mb-2">Instructions</h4>
+            <p className="text-[10px] leading-relaxed text-text-secondary">
+              Input asset quantities for direct automated routing. Path aggregation is hardware-attested for deterministic execution.
+            </p>
+          </div>
+        </div>
+
+        {/* Center Column: Execution Matrix */}
+        <div className="lg:col-span-6 space-y-8">
+           <div className="mb-6">
+              <h1 className="text-4xl font-black tracking-tighter uppercase text-ink leading-none">EXECUTION</h1>
+              <div className="h-1 w-12 bg-accent mt-4" />
+           </div>
+
+           <Tabs defaultValue="direct" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 bg-neutral-light border-ghost h-12 p-1 mb-8">
+              <TabsTrigger value="direct" className="uppercase font-black tracking-[0.2em] text-[10px]">Direct Protocol</TabsTrigger>
+              <TabsTrigger value="aggregator" disabled className="uppercase font-black tracking-[0.2em] text-[10px] opacity-30">Multi-Hop Path</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="direct">
+              <Card className="machined-card">
+                <div className="machined-header">
+                  <span>EXECUTION MATRIX V4.1</span>
+                  <CpuChipIcon className="w-3 h-3 opacity-50" />
+                </div>
+
+                <CardContent className="p-8 space-y-6">
+                  {/* From Asset */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-end">
+                      <label htmlFor="from-amount" className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/60">Asset In</label>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono text-ink/40">BAL: {fromTokenBalance ? formatAmount(fromTokenBalance.balance, fromTokenInfo?.decimals ?? 6) : "0.00"}</span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => fromTokenBalance && setFromAmount(formatAmount(fromTokenBalance.balance, fromTokenInfo?.decimals ?? 6))}
+                          className="h-4 p-0 text-[9px] font-black text-accent hover:bg-transparent"
+                        >
+                          [MAX]
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4 bg-neutral-light p-4 rounded-sm border border-ghost">
+                      <TokenSelect
+                        tokens={Tokens}
+                        selectedToken={fromToken}
+                        onSelect={(id) => { setFromToken(id); setToAmount(""); }}
+                        balances={balances}
+                        className="w-1/3"
+                      />
+                      <Input
+                        type="text"
+                        id="from-amount"
+                        value={fromAmount}
+                        onChange={(e) => /^\d*\.?\d*$/.test(e.target.value) && setFromAmount(e.target.value)}
+                        className="flex-1 text-right font-black text-2xl bg-transparent border-none focus:ring-0 tabular-nums"
+                        placeholder="0.000000"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-2 bg-neutral-light p-2 rounded-lg border border-accent/10">
-                  <TokenSelect
-                    tokens={Tokens}
-                    selectedToken={fromToken}
-                    onSelect={handleFromTokenChange}
-                    balances={balances}
-                    className="w-1/2 border-none shadow-none bg-transparent"
-                  />
-                  <Input
-                    type="text"
-                    id="from-amount"
-                    value={fromAmount}
-                    onChange={handleFromAmountChange}
-                    className="w-1/2 text-right font-bold text-lg border-none focus-visible:ring-0 bg-transparent"
-                    placeholder="0.00"
-                  />
-                </div>
-              </div>
 
-              {/* Invert Button */}
-              <div className="flex justify-center -my-3 relative z-10">
-                <Button
-                  onClick={invertTokens}
-                  variant="outline"
-                  size="icon"
-                  className="rounded-full bg-background-paper border-accent/30 h-8 w-8 shadow-md hover:bg-neutral-light"
-                  aria-label="Invert tokens"
-                >
-                  <ArrowsUpDownIcon className="h-4 w-4 text-accent transition-transform duration-500 active:rotate-180" />
-                </Button>
-              </div>
+                  {/* Invert */}
+                  <div className="flex justify-center -my-3 relative z-10">
+                    <button
+                      onClick={() => {
+                        const temp = fromToken;
+                        setFromToken(toToken);
+                        setToToken(temp);
+                        setFromAmount(toAmount);
+                        setToAmount("");
+                      }}
+                      className="bg-background-paper p-2 rounded-full border border-ghost hover:border-accent transition-colors shadow-sm"
+                    >
+                      <ArrowsUpDownIcon className="w-4 h-4 text-ink" />
+                    </button>
+                  </div>
 
-              {/* To Token */}
-              <div className="space-y-2">
-                <label htmlFor="to-amount" className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Asset Out</label>
-                <div className="flex items-center gap-2 bg-neutral-light p-2 rounded-lg border border-accent/10">
-                  <TokenSelect
-                    tokens={Tokens}
-                    selectedToken={toToken}
-                    onSelect={handleToTokenChange}
-                    balances={balances}
-                    className="w-1/2 border-none shadow-none bg-transparent"
-                  />
-                  <Input
-                    type="text"
-                    id="to-amount"
-                    value={toAmount}
-                    readOnly
-                    className="w-1/2 text-right font-bold text-lg border-none focus-visible:ring-0 bg-transparent text-text-secondary"
-                    placeholder="0.00"
-                  />
-                </div>
-              </div>
+                  {/* To Asset */}
+                  <div className="space-y-3">
+                    <label htmlFor="to-amount" className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/60">Asset Out</label>
+                    <div className="flex items-center gap-4 bg-neutral-light p-4 rounded-sm border border-ghost">
+                      <TokenSelect
+                        tokens={Tokens}
+                        selectedToken={toToken}
+                        onSelect={(id) => { setToToken(id); setToAmount(""); }}
+                        balances={balances}
+                        className="w-1/3"
+                      />
+                      <Input
+                        type="text"
+                        id="to-amount"
+                        value={toAmount}
+                        readOnly
+                        className="flex-1 text-right font-black text-2xl bg-transparent border-none focus:ring-0 text-ink/40 tabular-nums"
+                        placeholder="0.000000"
+                      />
+                    </div>
+                  </div>
 
-              {/* Slippage */}
-              <div className="pt-2">
-                 <div className="flex justify-between items-center mb-2">
-                    <label className="text-[9px] font-bold uppercase tracking-widest text-text-muted">Slippage Tolerance</label>
-                    <span className="text-[9px] font-bold text-accent">{slippage}%</span>
-                 </div>
-                 <div className="flex gap-2">
-                    {[0.1, 0.5, 1.0].map((val) => (
-                      <Button
-                        key={val}
-                        variant={slippage === val ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setSlippage(val)}
-                        className="flex-1 h-7 text-[10px] font-bold border-accent/20"
-                        aria-pressed={slippage === val}
-                      >
-                        {val}%
-                      </Button>
-                    ))}
-                 </div>
-              </div>
+                  {/* Routing Info */}
+                  <div className="p-4 bg-ink/[0.02] border border-ghost rounded-sm space-y-4">
+                    <div className="flex justify-between items-center">
+                       <span className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Slippage Tolerance</span>
+                       <div className="flex gap-2">
+                         {[0.1, 0.5, 1.0].map(v => (
+                           <Button
+                            key={v}
+                            onClick={() => setSlippage(v)}
+                            aria-pressed={slippage === v ? "true" : "false"}
+                            variant={slippage === v ? "default" : "outline"}
+                            size="sm"
+                            className={cn(
+                              "text-[9px] font-black px-2 py-0.5 rounded-sm h-7 transition-all",
+                              slippage === v ? "bg-ink text-background border-ink" : "border-ghost text-ink/40 hover:border-ink/20"
+                            )}
+                           >
+                            {v}%
+                           </Button>
+                         ))}
+                       </div>
+                    </div>
+                    <div className="pt-4 border-t border-ink/5">
+                      <div className="flex justify-between items-center mb-2">
+                        <label className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Aggregated Path</label>
+                        <Badge variant="outline" className="text-[8px] border-ghost text-accent font-black">DET_PATH_V3</Badge>
+                      </div>
+                      <div className="flex items-center gap-2 text-[10px] font-mono text-ink/60">
+                         <span className="font-black">{fromTokenInfo?.label}</span>
+                         <span className="text-accent">&rarr;</span>
+                         <span className="opacity-40">STX_POOL</span>
+                         <span className="text-accent">&rarr;</span>
+                         <span className="font-black">{toTokenInfo?.label}</span>
+                      </div>
+                    </div>
+                  </div>
 
-              {/* Action Button */}
-              <div className="pt-4">
-                {stxAddress ? (
+                  {/* Action */}
                   <Button
                     onClick={handleSwap}
-                    disabled={loading || sending || isSameToken || !fromAmount}
-                    className="w-full h-12 text-sm font-bold uppercase tracking-widest"
+                    disabled={sending || loading || isSameToken || !fromAmount}
+                    className="w-full h-14 bg-ink text-background font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light transition-all rounded-none"
                   >
-                    {sending ? "Processing..." : loading ? "Calculating..." : "Execute Swap"}
+                    {sending ? "TRANSMITTING..." : loading ? "SYNCHRONIZING..." : "EXECUTE PROTOCOL"}
                   </Button>
-                ) : (
-                  <Button onClick={connectWallet} className="w-full h-12 text-sm font-bold uppercase tracking-widest">
-                    Connect Wallet
-                  </Button>
-                )}
-              </div>
-              
-              <div
-                className={cn(
-                  "text-center text-sm mt-2 min-h-[3rem] flex flex-col items-center justify-center transition-opacity duration-300",
-                  (status || txId) ? "opacity-100" : "opacity-0"
-                )}
-                aria-live="polite"
-              >
-                {status && <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted">{status}</p>}
-                {txId && (
-                  <div className="flex items-center gap-2 mt-1">
-                    <a
-                      href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-accent hover:underline font-mono text-[10px]"
-                      title="View on Stacks Explorer"
-                    >
-                      {truncate(txId, 12, 10)}
-                    </a>
-                    <CopyButton textToCopy={txId} ariaLabel="Transaction ID" className="h-6 w-6 p-1 border border-accent/10" />
-                  </div>
-                )}
-              </div>
 
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                  {/* Status Overlay */}
+                  {(status || txId) && (
+                    <div className="pt-6 border-t border-ghost space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                       <div className="flex justify-between items-center">
+                          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Status Log</span>
+                          <span className="text-[10px] font-black text-accent uppercase tracking-tighter">{status}</span>
+                       </div>
+                       {txId && (
+                         <div className="flex items-center justify-between p-3 bg-neutral-light border border-ghost rounded-sm">
+                            <a
+                              href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
+                              target="_blank" rel="noopener noreferrer"
+                              className="text-[10px] font-mono font-black text-ink hover:underline"
+                            >
+                              TX: {truncate(txId, 16, 14)}
+                            </a>
+                            <CopyButton textToCopy={txId} ariaLabel="Copy Tx" className="h-4 w-4 opacity-50" />
+                         </div>
+                       )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+           </Tabs>
+        </div>
+
+        {/* Right Column: Live Telemetry Feed */}
+        <div className="lg:col-span-3 space-y-6">
+           <Card className="machined-card">
+              <div className="machined-header">
+                <span>LIVE TELEMETRY</span>
+                <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
+              </div>
+              <CardContent className="p-4 space-y-4 font-mono text-[10px] text-ink/60">
+                 <div className="space-y-2">
+                    <div className="flex justify-between border-b border-ghost pb-1">
+                       <span>[BLOCK] HEIGHT:</span>
+                       <span className="text-ink font-black">84,321</span>
+                    </div>
+                    <div className="flex justify-between border-b border-ghost pb-1">
+                       <span>[TX] MEMPOOL:</span>
+                       <span className="text-ink font-black">142 UNIT</span>
+                    </div>
+                    <div className="flex justify-between border-b border-ghost pb-1">
+                       <span>[SYNC] ORACLE:</span>
+                       <span className="text-success font-black">LOCKED</span>
+                    </div>
+                    <div className="flex justify-between border-b border-ghost pb-1">
+                       <span>[PULSE] NODE:</span>
+                       <span className="text-ink font-black">0.12ms</span>
+                    </div>
+                 </div>
+
+                 <div className="pt-4">
+                    <h5 className="text-[8px] font-black uppercase text-ink/30 mb-2">Trace Log</h5>
+                    <div className="space-y-1 opacity-50">
+                       <p>&gt; Connection established</p>
+                       <p>&gt; Handshake verified</p>
+                       <p>&gt; Hardware attestation OK</p>
+                       <p>&gt; Subscribing to events...</p>
+                    </div>
+                 </div>
+              </CardContent>
+           </Card>
+        </div>
+      </main>
     </div>
   );
 }

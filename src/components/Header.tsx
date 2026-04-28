@@ -11,13 +11,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 
 const navigation = [
-  { name: "Swap", href: "/swap" },
-  { name: "Pools", href: "/pools" },
-  { name: "Launch", href: "/launch" },
+  { name: "Execute", href: "/swap" },
+  { name: "Reserves", href: "/pools" },
+  { name: "Bootstrap", href: "/launch" },
   { name: "Portfolio", href: "/positions" },
-  { name: "Shielded", href: "/shielded" },
-  { name: "Overview", href: "/overview" },
   { name: "Forge", href: "/tx" },
+  { name: "Telemetry", href: "/network" },
 ];
 
 export default function Header() {
@@ -25,26 +24,27 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-accent/20 bg-primary-dark">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
-        <div className="flex lg:flex-1 items-center gap-x-8">
-          <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-3">
-            <span className="sr-only">Conxian</span>
-            <Image
-              src="/conxian-mark-b.svg"
-              alt="Conxian"
-              width={32}
-              height={32}
-              className="h-8 w-8"
-              priority
-            />
-            <span className="text-xl font-bold tracking-wide text-primary-foreground hidden sm:block">
-              CONXIAN
+    <header className="sticky top-0 z-[60] w-full border-b border-accent/20 bg-ink-deep">
+      <nav className="mx-auto flex max-w-[90rem] items-center justify-between p-4 lg:px-12" aria-label="Global">
+        <div className="flex lg:flex-1 items-center gap-x-12">
+          <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-3 group">
+            <div className="relative">
+              <Image
+                src="/conxian-mark-b.svg"
+                alt="Conxian"
+                width={28}
+                height={28}
+                className="h-7 w-7 transition-transform duration-500 group-hover:rotate-180"
+                priority
+              />
+            </div>
+            <span className="text-xl font-black tracking-[-0.05em] text-white">
+              CONXIAN<span className="text-accent">_</span>
             </span>
           </Link>
           
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex lg:gap-x-6">
+          <div className="hidden lg:flex lg:gap-x-8">
             {navigation.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
@@ -52,10 +52,10 @@ export default function Header() {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "text-sm font-bold uppercase tracking-wider leading-6 transition-colors",
+                    "text-[10px] font-black uppercase tracking-[0.2em] leading-6 transition-all duration-300",
                     isActive
-                      ? "text-primary-foreground"
-                      : "text-primary-foreground/70 hover:text-primary-foreground"
+                      ? "text-accent"
+                      : "text-white/40 hover:text-white"
                   )}
                 >
                   {item.name}
@@ -65,17 +65,16 @@ export default function Header() {
           </div>
         </div>
 
-        <div className="flex flex-1 justify-end items-center gap-x-4">
-          <div className="hidden sm:flex items-center rounded-full border border-accent/20 bg-primary-dark px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary-foreground">
-            {AppConfig.network.toUpperCase()}
+        <div className="flex flex-1 justify-end items-center gap-x-6">
+          <div className="hidden sm:flex items-center rounded-sm border border-white/10 bg-white/5 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-white/50">
+             {AppConfig.network.toUpperCase()}
           </div>
           <ConnectWallet />
           
-          {/* Mobile menu button */}
           <div className="flex lg:hidden">
             <Button
               variant="ghost"
-              className="-m-2.5 p-2.5 text-primary-foreground/80 hover:text-primary-foreground hover:bg-white/10"
+              className="-m-2.5 p-2.5 text-white/80 hover:text-white"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">Open main menu</span>
@@ -91,8 +90,8 @@ export default function Header() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-accent/20 bg-primary-dark">
-          <div className="space-y-1 px-4 pb-3 pt-2">
+        <div className="lg:hidden border-t border-white/10 bg-ink-deep">
+          <div className="space-y-1 px-6 pb-6 pt-4">
             {navigation.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
@@ -101,10 +100,10 @@ export default function Header() {
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={cn(
-                    "block rounded-md px-3 py-2 text-base font-medium",
+                    "block px-3 py-4 text-xs font-black uppercase tracking-widest",
                     isActive
-                      ? "bg-accent/20 text-primary-foreground"
-                      : "text-primary-foreground/60 hover:bg-accent/10 hover:text-primary-foreground"
+                      ? "text-accent"
+                      : "text-white/60 hover:text-white"
                   )}
                 >
                   {item.name}
