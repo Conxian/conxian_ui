@@ -204,6 +204,7 @@ export default function SwapPage() {
                         <Button
                           variant="ghost"
                           size="sm"
+                          aria-label="Set maximum amount"
                           onClick={() => fromTokenBalance && setFromAmount(formatAmount(fromTokenBalance.balance, fromTokenInfo?.decimals ?? 6))}
                           className="h-4 p-0 text-[9px] font-black text-accent hover:bg-transparent"
                         >
@@ -211,7 +212,7 @@ export default function SwapPage() {
                         </Button>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4 bg-neutral-light p-4 rounded-sm border border-ghost">
+                    <div className="flex items-center gap-4 bg-neutral-light p-4 rounded-sm border border-ghost focus-within:border-accent/40 transition-colors">
                       <TokenSelect
                         tokens={Tokens}
                         selectedToken={fromToken}
@@ -240,16 +241,17 @@ export default function SwapPage() {
                         setFromAmount(toAmount);
                         setToAmount("");
                       }}
-                      className="bg-background-paper p-2 rounded-full border border-ghost hover:border-accent transition-colors shadow-sm"
+                      aria-label="Invert input and output assets"
+                      className="bg-background-paper p-2 rounded-full border border-ghost hover:border-accent transition-colors shadow-sm group"
                     >
-                      <ArrowsUpDownIcon className="w-4 h-4 text-ink" />
+                      <ArrowsUpDownIcon className="w-4 h-4 text-ink group-hover:rotate-180 transition-transform duration-500" />
                     </button>
                   </div>
 
                   {/* To Asset */}
                   <div className="space-y-3">
                     <label htmlFor="to-amount" className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/60">Asset Out</label>
-                    <div className="flex items-center gap-4 bg-neutral-light p-4 rounded-sm border border-ghost">
+                    <div className="flex items-center gap-4 bg-neutral-light p-4 rounded-sm border border-ghost focus-within:border-accent/40 transition-colors">
                       <TokenSelect
                         tokens={Tokens}
                         selectedToken={toToken}
