@@ -27,3 +27,9 @@
 **Learning:** Decentralized financial infrastructure requires institutional-grade legibility and high-trust visual cues. Dark-mode defaults in functional workspaces can increase fatigue and reduce trust for professional users.
 
 **Action:** Always enforce a bright "Ivory" foundation (#FDFBF7) and pure white surface layer (#FFFFFF) for operational zones. Reserve dark brand colors strictly for entry zones (Sidebar/Header). Use high-contrast dark typography (#333333) for all critical financial data to ensure WCAG AAA compliance.
+
+## 2026-05-12 - Container-Level Focus States for Clean Inputs
+
+**Learning:** When using minimal inputs with `focus:ring-0` to maintain a "No-Line" aesthetic, users lose critical keyboard focus feedback. Applying focus styles to the parent container using `focus-within` restores accessibility without cluttering the internal input design.
+
+**Action:** Use `focus-within:border-accent/40` and `transition-colors` on parent containers for inputs that suppress default focus rings.
