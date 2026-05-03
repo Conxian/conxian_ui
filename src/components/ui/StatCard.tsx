@@ -25,7 +25,7 @@ export const StatCard = ({
       {loading ? (
         <div className="h-10 w-32 bg-ink/5 animate-pulse rounded-sm" />
       ) : (
-        <div className="text-4xl font-black text-ink tracking-tighter tabular-nums">{value}</div>
+        <div className="text-4xl font-black text-ink tracking-widest tabular-nums">{value}</div>
       )}
       {subtext && (
         <div className="mt-3 flex items-center gap-2">

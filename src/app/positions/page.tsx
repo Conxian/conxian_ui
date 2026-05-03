@@ -44,7 +44,7 @@ export default function PositionsPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
-      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-ghost">
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-ghost">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Asset Custody Interface</span>
         <div className="flex gap-4 text-[10px] font-bold uppercase tracking-widest opacity-60">
           <span>HODL: ACTIVE</span>
@@ -54,7 +54,7 @@ export default function PositionsPage() {
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-ghost pb-6">
            <div>
-              <h1 className="text-5xl font-black tracking-tighter uppercase text-ink">PORTFOLIO</h1>
+              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">PORTFOLIO</h1>
               <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Active Liquidity & Staking Positions</p>
            </div>
         </div>
@@ -75,7 +75,7 @@ export default function PositionsPage() {
             ) : (
               <div className="col-span-full py-32 text-center border-2 border-dashed border-ghost rounded-sm bg-ink/[0.01]">
                  <div className="mb-6 opacity-20 flex justify-center">
-                    <div className="h-16 w-16 border-4 border-ink rounded-full flex items-center justify-center font-black text-2xl tracking-tighter">?</div>
+                    <div className="h-16 w-16 border-4 border-ink rounded-full flex items-center justify-center font-black text-2xl tracking-widest">?</div>
                  </div>
                  <p className="text-ink/40 font-black uppercase tracking-widest text-xs">Zero active positions detected in custody.</p>
                  <Button onClick={() => router.push('/swap')} className="mt-8 bg-ink text-background font-black uppercase tracking-widest text-[10px] h-12 px-8 rounded-none">

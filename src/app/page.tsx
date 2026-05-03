@@ -65,7 +65,7 @@ export default function Home() {
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-ghost pb-6">
            <div>
-              <h1 className="text-5xl font-black tracking-tighter uppercase text-ink">TERMINAL</h1>
+              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">TERMINAL</h1>
               <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Institutional Protocol Access</p>
            </div>
            <div className="text-right hidden md:block">
@@ -157,7 +157,7 @@ export default function Home() {
                      <div className="space-y-3">
                         {['LATENCY', 'SLIPPAGE', 'COST'].map(m => (
                           <div key={m} className="flex justify-between items-baseline">
-                             <span className="text-[10px] font-black text-ink/40 tracking-tighter uppercase">{m}</span>
+                             <span className="text-[10px] font-black text-ink/40 tracking-widest uppercase">{m}</span>
                              <span className="text-[10px] font-black text-ink uppercase">99th PERCENTILE</span>
                           </div>
                         ))}

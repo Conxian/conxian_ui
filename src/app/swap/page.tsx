@@ -133,7 +133,7 @@ export default function SwapPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       {/* Terminal Top Bar */}
-      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-accent/20">
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
           <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
           <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Execution Environment</span>
@@ -177,7 +177,7 @@ export default function SwapPage() {
         {/* Center Column: Execution Matrix */}
         <div className="lg:col-span-6 space-y-8">
            <div className="mb-6">
-              <h1 className="text-4xl font-black tracking-tighter uppercase text-ink leading-none">EXECUTION</h1>
+              <h1 className="text-4xl font-black tracking-widest uppercase text-ink leading-none">EXECUTION</h1>
               <div className="h-1 w-12 bg-accent mt-4" />
            </div>
 
@@ -319,7 +319,7 @@ export default function SwapPage() {
                     <div className="pt-6 border-t border-ghost space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-500">
                        <div className="flex justify-between items-center">
                           <span className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Status Log</span>
-                          <span className="text-[10px] font-black text-accent uppercase tracking-tighter">{status}</span>
+                          <span className="text-[10px] font-black text-accent uppercase tracking-widest">{status}</span>
                        </div>
                        {txId && (
                          <div className="flex items-center justify-between p-3 bg-neutral-light border border-ghost rounded-sm">

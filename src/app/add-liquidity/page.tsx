@@ -144,7 +144,7 @@ function AddLiquidityContent() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
-      <div className="bg-ink text-background py-2 px-6 flex justify-between items-center border-b border-accent/20">
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Liquidity Provision Environment</span>
         <div className="flex gap-4 text-[10px] font-bold uppercase tracking-widest opacity-60">
           <span>YIELD_SOURCE: DET_v3</span>
@@ -154,7 +154,7 @@ function AddLiquidityContent() {
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-ghost pb-6">
            <div>
-              <h1 className="text-5xl font-black tracking-tighter uppercase text-ink">LIQUIDITY</h1>
+              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">LIQUIDITY</h1>
               <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Automated Market Making Protocol</p>
            </div>
         </div>
