@@ -152,15 +152,15 @@ export default function SwapPage() {
             <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Market Telemetry</h4>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-[10px] uppercase font-black text-text-muted">STX/BTC</span>
+                <span className="text-[10px] uppercase font-black text-ink/40">STX/BTC</span>
                 <span className="text-[10px] font-black text-ink">0.000042</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[10px] uppercase font-black text-text-muted">GAS (FIXED)</span>
+                <span className="text-[10px] uppercase font-black text-ink/40">GAS (FIXED)</span>
                 <span className="text-[10px] font-black text-success">LOW</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[10px] uppercase font-black text-text-muted">CONX_RELAY</span>
+                <span className="text-[10px] uppercase font-black text-ink/40">CONX_RELAY</span>
                 <span className="text-[10px] font-black text-ink">ACTIVE</span>
               </div>
             </div>
@@ -168,7 +168,7 @@ export default function SwapPage() {
 
           <div className="p-4 bg-ink/5 border border-ghost rounded-sm">
             <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 mb-2">Instructions</h4>
-            <p className="text-[10px] leading-relaxed text-text-secondary">
+            <p className="text-[10px] leading-relaxed text-ink-light">
               Input asset quantities for direct automated routing. Path aggregation is hardware-attested for deterministic execution.
             </p>
           </div>
@@ -219,6 +219,7 @@ export default function SwapPage() {
                         onSelect={(id) => { setFromToken(id); setToAmount(""); }}
                         balances={balances}
                         className="w-1/3"
+                        aria-label="Select input asset"
                       />
                       <Input
                         type="text"
@@ -258,6 +259,7 @@ export default function SwapPage() {
                         onSelect={(id) => { setToToken(id); setToAmount(""); }}
                         balances={balances}
                         className="w-1/3"
+                        aria-label="Select output asset"
                       />
                       <Input
                         type="text"

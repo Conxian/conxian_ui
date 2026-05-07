@@ -30,14 +30,14 @@ export const Toast = ({ message, type, onClose }: ToastProps) => {
   }, [type, onClose]);
 
   return (
-    <div className="rounded-md border border-accent/20 bg-background-light p-4 shadow-lg flex items-start gap-3 max-w-sm">
+    <div className="rounded-md border border-accent/20 bg-neutral-light p-4 shadow-lg flex items-start gap-3 max-w-sm">
       {icons[type]}
-      <p className="text-sm text-text flex-1 leading-5">{message}</p>
+      <p className="text-sm text-ink flex-1 leading-5">{message}</p>
       <Button
         variant="ghost"
         size="icon"
         onClick={onClose}
-        className="h-8 w-8 text-text-secondary hover:text-text"
+        className="h-8 w-8 text-ink-light hover:text-ink"
         aria-label="Close"
       >
         <XCircleIcon className="w-5 h-5" />

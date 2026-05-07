@@ -123,7 +123,7 @@ export default function Home() {
                      <div className="inline-block p-4 border-2 border-dashed border-ghost rounded-sm opacity-30">
                         <span className="text-xs font-black uppercase tracking-[0.2em]">Awaiting First Packet...</span>
                      </div>
-                     <p className="text-[10px] text-text-muted italic">Hardware-attested telemetry requires node synchronization. Current progress: 98.4%</p>
+                     <p className="text-[10px] text-ink/40 italic">Hardware-attested telemetry requires node synchronization. Current progress: 98.4%</p>
                   </div>
                </CardContent>
             </Card>
@@ -135,7 +135,7 @@ export default function Home() {
                      <span>SYSTEM AUTH</span>
                   </div>
                   <CardContent className="p-6 space-y-4">
-                     <p className="text-[10px] leading-relaxed text-text-secondary">
+                     <p className="text-[10px] leading-relaxed text-ink-light">
                         Authorized hardware access for high-frequency protocol interaction.
                      </p>
                      <div className="p-3 bg-neutral-light border border-ghost rounded-sm font-mono text-[10px]">
@@ -151,7 +151,7 @@ export default function Home() {
                      <span>BENCHMARKS</span>
                   </div>
                   <CardContent className="p-6">
-                     <p className="text-[10px] text-text-secondary leading-relaxed mb-4">
+                     <p className="text-[10px] text-ink-light leading-relaxed mb-4">
                         Real-time efficiency ratings against traditional liquidity providers.
                      </p>
                      <div className="space-y-3">

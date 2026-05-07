@@ -56,7 +56,7 @@ export default function SystemStatus() {
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-24">
-            <div className="animate-pulse text-text-secondary">Fetching telemetry...</div>
+            <div className="animate-pulse text-ink-light">Fetching telemetry...</div>
           </div>
         </CardContent>
       </Card>
@@ -94,8 +94,8 @@ export default function SystemStatus() {
             <CurrencyDollarIcon className="w-8 h-8 text-primary" />
           </div>
           <div className="ml-4">
-            <div className="text-xs font-medium text-text-secondary uppercase tracking-wider">Total Value Locked</div>
-            <div className="text-2xl font-bold text-text">${tvl}</div>
+            <div className="text-xs font-medium text-ink-light uppercase tracking-wider">Total Value Locked</div>
+            <div className="text-2xl font-bold text-ink">${tvl}</div>
           </div>
         </div>
         <div className="flex items-center">
@@ -103,8 +103,8 @@ export default function SystemStatus() {
             <ShieldCheckIcon className="w-8 h-8 text-accent" />
           </div>
           <div className="ml-4">
-            <div className="text-xs font-medium text-text-secondary uppercase tracking-wider">Active Vaults</div>
-            <div className="text-2xl font-bold text-text">
+            <div className="text-xs font-medium text-ink-light uppercase tracking-wider">Active Vaults</div>
+            <div className="text-2xl font-bold text-ink">
               {activeVaults}
             </div>
           </div>
@@ -114,8 +114,8 @@ export default function SystemStatus() {
             <ArrowTrendingUpIcon className="w-8 h-8 text-success" />
           </div>
           <div className="ml-4">
-            <div className="text-xs font-medium text-text-secondary uppercase tracking-wider">APY (Median)</div>
-            <div className="text-2xl font-bold text-text text-success">{apy}%</div>
+            <div className="text-xs font-medium text-ink-light uppercase tracking-wider">APY (Median)</div>
+            <div className="text-2xl font-bold text-ink text-success">{apy}%</div>
           </div>
         </div>
       </CardContent>

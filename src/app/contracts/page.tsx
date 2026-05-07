@@ -31,10 +31,10 @@ export default function ContractsPage() {
   return (
     <div className="p-6 space-y-6 bg-background min-h-screen">
       <div>
-        <h1 className="text-3xl font-black tracking-tight text-text-primary">
+        <h1 className="text-3xl font-black tracking-tight text-ink">
           Contract Explorer
         </h1>
-        <p className="text-text-secondary">
+        <p className="text-ink-light">
           Inspect and interact with Conxian smart contracts.
         </p>
       </div>
@@ -43,7 +43,7 @@ export default function ContractsPage() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">
+              <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">
                 Target Contract
               </CardTitle>
             </CardHeader>
@@ -76,7 +76,7 @@ export default function ContractsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">
+              <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">
                 Registry Quick-Links
               </CardTitle>
             </CardHeader>
@@ -93,8 +93,8 @@ export default function ContractsPage() {
                     }}
                     className="w-full justify-between h-auto p-2 font-normal hover:bg-neutral-light"
                   >
-                    <span className="text-text-primary">{c.label}</span>
-                    <span className="text-text-muted opacity-0 group-hover:opacity-100 text-[10px] font-mono">
+                    <span className="text-ink">{c.label}</span>
+                    <span className="text-ink/40 opacity-0 group-hover:opacity-100 text-[10px] font-mono">
                       {c.id.split(".")[1]}
                     </span>
                   </Button>
@@ -108,7 +108,7 @@ export default function ContractsPage() {
           {iface ? (
             <Card>
               <CardHeader>
-                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">
+                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">
                   Interface Details
                 </CardTitle>
               </CardHeader>
@@ -134,7 +134,7 @@ export default function ContractsPage() {
               </CardContent>
             </Card>
           ) : (
-            <div className="flex flex-col items-center justify-center h-[300px] text-text-muted border-2 border-dashed border-accent/10 rounded-sm">
+            <div className="flex flex-col items-center justify-center h-[300px] text-ink/40 border-2 border-dashed border-accent/10 rounded-sm">
               <p className="text-sm italic">
                 Load a contract interface to see details
               </p>

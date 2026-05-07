@@ -80,10 +80,10 @@ export default function RouterPage() {
   return (
     <div className="p-6 space-y-6 bg-background min-h-screen">
       <div>
-        <h1 className="text-3xl font-black tracking-tight text-text-primary">
+        <h1 className="text-3xl font-black tracking-tight text-ink">
           Router Simulator
         </h1>
-        <p className="text-text-secondary">
+        <p className="text-ink-light">
           Simulate multi-hop routing and pathfinding on-chain.
         </p>
       </div>
@@ -93,7 +93,7 @@ export default function RouterPage() {
           <div className="space-y-4 p-6 bg-background-paper border border-ghost rounded-xl">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">
+                <label className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">
                   Target Router
                 </label>
                 <select
@@ -109,7 +109,7 @@ export default function RouterPage() {
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">
+                <label className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">
                   Function
                 </label>
                 <Input
@@ -121,7 +121,7 @@ export default function RouterPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">
+              <label className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">
                 Arguments
               </label>
               <ClarityArgBuilder
@@ -138,7 +138,7 @@ export default function RouterPage() {
               {loading ? "Simulating..." : "Run Simulation"}
             </Button>
             {status && (
-              <p className="text-xs text-center text-text-muted mt-2">
+              <p className="text-xs text-center text-ink/40 mt-2">
                 {status}
               </p>
             )}
@@ -147,7 +147,7 @@ export default function RouterPage() {
 
         <div className="space-y-6">
           <div className="p-6 bg-background-paper border border-ghost rounded-xl min-h-[400px]">
-            <h3 className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary mb-4">
+            <h3 className="text-xs font-black uppercase tracking-[0.2em] text-ink-light mb-4">
               Simulation Result
             </h3>
             {result ? (
@@ -172,7 +172,7 @@ export default function RouterPage() {
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center h-[300px] text-text-muted border-2 border-dashed border-accent/10 rounded-sm">
+              <div className="flex flex-col items-center justify-center h-[300px] text-ink/40 border-2 border-dashed border-accent/10 rounded-sm">
                 <p className="text-sm italic">
                   Run a simulation to see results
                 </p>

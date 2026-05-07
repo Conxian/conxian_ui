@@ -71,6 +71,7 @@ export default function PoolsPage() {
                 className="bg-neutral-light border border-ghost rounded-sm px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] focus:ring-1 focus:ring-accent focus:outline-none text-ink"
                 value={selected}
                 onChange={(e) => setSelected(e.target.value)}
+                aria-label="Select liquidity pool"
               >
                 {DexPools.map((p) => (
                   <option key={p.id} value={p.id}>{p.label}</option>
@@ -143,13 +144,13 @@ export default function PoolsPage() {
                 <div className="space-y-3 font-mono text-xs">
                   <div className="flex justify-between border-b border-ghost pb-2">
                     <span className="text-ink/40 font-black uppercase">Swap Fee</span>
-                    <span className="text-ink font-black">
+                    <span className="text-ink font-black tabular-nums">
                       {feeInfo?.ok ? String(getTupleField(feeInfo.result!, "swap-fee") || "0") : "0"}
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-ghost pb-2">
                     <span className="text-ink/40 font-black uppercase">Admin Fee</span>
-                    <span className="text-ink font-black">
+                    <span className="text-ink font-black tabular-nums">
                       {feeInfo?.ok ? String(getTupleField(feeInfo.result!, "admin-fee") || "0") : "0"}
                     </span>
                   </div>
@@ -164,13 +165,13 @@ export default function PoolsPage() {
                 <div className="space-y-3 font-mono text-xs">
                   <div className="flex justify-between border-b border-ghost pb-2">
                     <span className="text-ink/40 font-black uppercase">Volume (24h)</span>
-                    <span className="text-ink font-black">
+                    <span className="text-ink font-black tabular-nums">
                       {perf?.ok ? String(getTupleField(perf.result!, "volume-24h") || "0") : "0"}
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-ghost pb-2">
                     <span className="text-ink/40 font-black uppercase">Utilization</span>
-                    <span className="text-ink font-black text-success">
+                    <span className="text-ink font-black text-success tabular-nums">
                       {perf?.ok ? String(getTupleField(perf.result!, "utilization") || "0%") : "0%"}
                     </span>
                   </div>
