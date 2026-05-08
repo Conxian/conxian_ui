@@ -123,10 +123,10 @@ export default function Shielded() {
   }, [fetchWallets]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 bg-background min-h-screen">
       <div>
-        <h1 className="text-3xl font-black text-text">Shielded Wallets</h1>
-        <p className="mt-2 text-sm text-text-secondary">
+        <h1 className="text-3xl font-black text-ink">Shielded Wallets</h1>
+        <p className="mt-2 text-sm text-ink-light">
           Manage your private, shielded assets and transactions using Zero-Knowledge proofs.
         </p>
       </div>
@@ -136,8 +136,8 @@ export default function Shielded() {
           <div className="flex items-center">
             <ShieldCheckIcon className="w-8 h-8 mr-3 text-accent" />
             <div>
-              <CardTitle className="text-xl font-semibold text-text">Wallets</CardTitle>
-              <CardDescription className="text-text-secondary font-medium uppercase tracking-tight text-xs mt-1">
+              <CardTitle className="text-xl font-semibold text-ink">Wallets</CardTitle>
+              <CardDescription className="text-ink-light font-medium uppercase tracking-tight text-xs mt-1">
                 Your Hardware-Attested Private Accounts
               </CardDescription>
             </div>
@@ -149,7 +149,7 @@ export default function Shielded() {
         </CardHeader>
         <CardContent>
           {loading ? (
-            <div className="py-20 text-center animate-pulse text-text-muted">Syncing with privacy layer...</div>
+            <div className="py-20 text-center animate-pulse text-ink/40">Syncing with privacy layer...</div>
           ) : wallets.length > 0 ? (
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {wallets.map((wallet) => (
@@ -158,7 +158,7 @@ export default function Shielded() {
                 className="p-6 rounded-lg border border-ghost bg-neutral-light shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex justify-between items-start mb-4">
-                  <p className="font-mono text-sm font-semibold text-text-primary bg-neutral-light px-2 py-1 rounded">
+                  <p className="font-mono text-sm font-semibold text-ink bg-neutral-light px-2 py-1 rounded">
                     {truncate(wallet.id, 12, 10)}
                   </p>
                   <Badge variant="outline" className="bg-info/10 text-info border-info/20 font-black uppercase tracking-[0.2em] text-[10px]">
@@ -166,13 +166,13 @@ export default function Shielded() {
                   </Badge>
                 </div>
                 <div className="flex items-baseline gap-2 mb-6 border-b border-accent/10 pb-4">
-                  <span className="text-3xl font-black text-text-primary">{wallet.balance}</span>
-                  <span className="text-text-secondary font-semibold text-sm uppercase">STX</span>
+                  <span className="text-3xl font-black text-ink">{wallet.balance}</span>
+                  <span className="text-ink-light font-semibold text-sm uppercase">STX</span>
                 </div>
 
                 <div className="space-y-6 pt-2">
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black text-text-secondary uppercase tracking-[0.2em]">Shielded Transfer</label>
+                    <label className="text-[10px] font-black text-ink-light uppercase tracking-[0.2em]">Shielded Transfer</label>
                     <div className="grid grid-cols-1 gap-2">
                       <Input
                         type="text"
@@ -198,7 +198,7 @@ export default function Shielded() {
                   </div>
 
                   <div className="space-y-3 pt-4 border-t border-accent/5">
-                    <label className="text-[10px] font-black text-text-secondary uppercase tracking-[0.2em]">Shielded Funding</label>
+                    <label className="text-[10px] font-black text-ink-light uppercase tracking-[0.2em]">Shielded Funding</label>
                     <div className="flex items-center space-x-2">
                       <Input
                         type="number"
@@ -219,10 +219,10 @@ export default function Shielded() {
           </ul>
         ) : (
           <div className="py-24 text-center space-y-4">
-             <ShieldCheckIcon className="w-16 h-16 mx-auto text-text-muted/10" />
+             <ShieldCheckIcon className="w-16 h-16 mx-auto text-ink/10" />
              <div className="space-y-1">
-                <p className="text-text font-semibold">No Private Wallets Detected</p>
-                <p className="text-text-secondary text-sm max-w-xs mx-auto">Create a shielded wallet to enable private transactions on the Conxian network.</p>
+                <p className="text-ink font-semibold">No Private Wallets Detected</p>
+                <p className="text-ink-light text-sm max-w-xs mx-auto">Create a shielded wallet to enable private transactions on the Conxian network.</p>
              </div>
              <Button onClick={handleCreateWallet} variant="outline" className="text-accent border-accent/30 mt-4">
                 Deploy Shielded Context

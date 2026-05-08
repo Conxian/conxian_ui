@@ -22,7 +22,7 @@ Non-goals for this pass:
 ## Decisions (Locked)
 
 - Final logo mark: `public/conxian-mark-b.svg`
-- Theme: unify **all routes** (including dev/ops tooling pages) to the same light Tier0 theme using the existing palette (no separate dark/pro theme).
+- Theme: unify **all routes** (including dev/ops tooling pages) to the same light Tier0 theme using the existing palette.
 
 ## Source-of-Truth Theme Tokens (Tailwind)
 

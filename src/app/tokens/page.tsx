@@ -66,8 +66,8 @@ export default function TokensPage() {
   return (
     <div className="space-y-8 bg-background min-h-screen">
       <div>
-        <h1 className="text-3xl font-black text-text tracking-[0.2em] uppercase">My Assets</h1>
-        <p className="mt-2 text-sm text-text-secondary">
+        <h1 className="text-3xl font-black text-ink tracking-[0.2em] uppercase">My Assets</h1>
+        <p className="mt-2 text-sm text-ink-light">
           A real-time overview of your Stacks blockchain holdings.
         </p>
       </div>
@@ -75,7 +75,7 @@ export default function TokensPage() {
       {!address && (
         <Card>
           <CardContent className="pt-6">
-            <p className="text-center text-text">
+            <p className="text-center text-ink">
               Connect your wallet to view balances.
             </p>
           </CardContent>
@@ -87,24 +87,24 @@ export default function TokensPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">STX Balance</CardTitle>
+                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">STX Balance</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-black text-text tabular-nums">
+                <div className="text-3xl font-black text-ink tabular-nums">
                   {stx?.balance ? `${formatAmount(stx.balance, 6)} STX` : "0.00 STX"}
                 </div>
-                <p className="text-xs text-text-muted mt-1 uppercase">Available for transaction</p>
+                <p className="text-xs text-ink/40 mt-1 uppercase">Available for transaction</p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">Launch Contribution</CardTitle>
+                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">Launch Contribution</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-black text-text tabular-nums">
+                <div className="text-3xl font-black text-ink tabular-nums">
                   {userContribution.total} STX
                 </div>
-                <p className="text-xs text-text-muted mt-1 uppercase">Tier: {userContribution.level}</p>
+                <p className="text-xs text-ink/40 mt-1 uppercase">Tier: {userContribution.level}</p>
               </CardContent>
             </Card>
           </div>
@@ -112,7 +112,7 @@ export default function TokensPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-text-secondary">Fungible Tokens</CardTitle>
+                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">Fungible Tokens</CardTitle>
                 <Button
                   onClick={refresh}
                   disabled={loading}
@@ -135,7 +135,7 @@ export default function TokensPage() {
                 <TableBody>
                   {fts.map((t: FungibleTokenBalance) => (
                     <TableRow key={t.asset_identifier}>
-                      <TableCell className="font-mono text-xs text-text-primary break-all">
+                      <TableCell className="font-mono text-xs text-ink break-all">
                         {t.asset_identifier}
                       </TableCell>
                       <TableCell className="text-right font-black tabular-nums">
@@ -145,7 +145,7 @@ export default function TokensPage() {
                   ))}
                   {fts.length === 0 && (
                     <TableRow>
-                      <TableCell className="py-12 text-center text-text-muted italic" colSpan={2}>
+                      <TableCell className="py-12 text-center text-ink/40 italic" colSpan={2}>
                         No fungible tokens detected in this account.
                       </TableCell>
                     </TableRow>

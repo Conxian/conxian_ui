@@ -56,47 +56,47 @@ export function ReadinessDashboard() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.2em]">Hardware Attestation</CardTitle>
+            <CardTitle className="text-[10px] font-bold text-ink-light uppercase tracking-[0.2em]">Hardware Attestation</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
-              <span className="text-sm font-bold text-text tabular-nums">SGX-V3 ACTIVE</span>
+              <span className="text-sm font-bold text-ink tabular-nums">SGX-V3 ACTIVE</span>
             </div>
-            <p className="text-[10px] text-text-muted mt-1 font-mono uppercase">Node ID: 0x2E40...3B1A</p>
+            <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase">Node ID: 0x2E40...3B1A</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.2em]">Security Pillar</CardTitle>
+            <CardTitle className="text-[10px] font-bold text-ink-light uppercase tracking-[0.2em]">Security Pillar</CardTitle>
           </CardHeader>
           <CardContent>
              <div className="flex items-center gap-2">
                 <ShieldCheckIcon className="w-4 h-4 text-success" />
-                <span className="text-sm font-bold text-text">98.2% READY</span>
+                <span className="text-sm font-bold text-ink">98.2% READY</span>
              </div>
-             <p className="text-[10px] text-text-muted mt-1 font-mono uppercase">Audit: Halborn v1.4</p>
+             <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase">Audit: Halborn v1.4</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.2em]">Network Load</CardTitle>
+            <CardTitle className="text-[10px] font-bold text-ink-light uppercase tracking-[0.2em]">Network Load</CardTitle>
           </CardHeader>
           <CardContent>
              <div className="flex items-center gap-2">
                 <GlobeAltIcon className="w-4 h-4 text-info" />
-                <span className="text-sm font-bold text-text tabular-nums">1.2ms LATENCY</span>
+                <span className="text-sm font-bold text-ink tabular-nums">1.2ms LATENCY</span>
              </div>
-             <p className="text-[10px] text-text-muted mt-1 font-mono uppercase">Region: US-EAST-1</p>
+             <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase">Region: US-EAST-1</p>
           </CardContent>
         </Card>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-sm font-bold uppercase tracking-widest text-text-secondary">Institutional Readiness Pillars</CardTitle>
+          <CardTitle className="text-sm font-bold uppercase tracking-widest text-ink-light">Institutional Readiness Pillars</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -104,21 +104,21 @@ export function ReadinessDashboard() {
                 <div className="flex items-start gap-3">
                    <div className="mt-1"><CpuChipIcon className="w-5 h-5 text-accent" /></div>
                    <div>
-                      <h4 className="text-sm font-bold text-text uppercase tracking-tight">Computational Integrity</h4>
-                      <p className="text-xs text-text-secondary mt-1">Conxian nodes utilize Intel SGX and TEE to ensure transaction isolation and privacy, even from node operators.</p>
+                      <h4 className="text-sm font-bold text-ink uppercase tracking-tight">Computational Integrity</h4>
+                      <p className="text-xs text-ink-light mt-1">Conxian nodes utilize Intel SGX and TEE to ensure transaction isolation and privacy, even from node operators.</p>
                    </div>
                 </div>
                 <div className="flex items-start gap-3">
                    <div className="mt-1"><ShieldCheckIcon className="w-5 h-5 text-accent" /></div>
                    <div>
-                      <h4 className="text-sm font-bold text-text uppercase tracking-tight">Compliance Infrastructure</h4>
-                      <p className="text-xs text-text-secondary mt-1">Built-in support for institutional grade RBAC and AML/KYC hooks without compromising decentralized core values.</p>
+                      <h4 className="text-sm font-bold text-ink uppercase tracking-tight">Compliance Infrastructure</h4>
+                      <p className="text-xs text-ink-light mt-1">Built-in support for institutional grade RBAC and AML/KYC hooks without compromising decentralized core values.</p>
                    </div>
                 </div>
              </div>
              <div className="bg-neutral-light p-4 rounded border border-accent/10">
-                <h4 className="text-xs font-bold text-text-secondary uppercase tracking-widest mb-3">Live Telemetry Feed</h4>
-                <div className="space-y-2 font-mono text-[10px] text-text-secondary">
+                <h4 className="text-xs font-bold text-ink-light uppercase tracking-widest mb-3">Live Telemetry Feed</h4>
+                <div className="space-y-2 font-mono text-[10px] text-ink-light">
                    <div className="flex justify-between border-b border-accent/5 pb-1">
                       <span>[SYSLOG] Consensus Reach:</span>
                       <span className="text-success">MATCH</span>

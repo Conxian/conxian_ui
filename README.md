@@ -19,7 +19,7 @@ This repository is maintained by the Conxian team on a best-effort basis while b
 - We prioritize current development and the latest stable release.
 - Support and backports for older snapshots are not guaranteed.
 
-We're iterating on UX toward a brighter, lower-fatigue interface while maintaining the Sovereign Earthy brand. The UI is built on a 60-30-10 palette split: 60% Ivory (#FDFBF7) base, 30% Pure White (#FFFFFF) surface layers, and 10% deep brand accents.
+We're iterating on UX toward a brighter, lower-fatigue interface while maintaining the Sovereign Earthy brand. The UI is built on a 60-30-10 palette split: 60% Ivory (#FDFBF7) base, 30% Pure White (#FFFFFF) surface layers, and 10% deep brand interaction accents.
 
 ## Ownership
 
