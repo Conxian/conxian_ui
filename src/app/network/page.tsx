@@ -79,11 +79,11 @@ export default function NetworkPage() {
               <CardContent className="p-6 space-y-4 font-mono text-[10px] text-ink/60">
                 <div className="space-y-2">
                    <div className="flex justify-between border-b border-ghost pb-1">
-                      <span>CORE_API:</span>
+                      <span className="tracking-widest">CORE_API:</span>
                       <span className="text-ink font-bold truncate ml-4">{AppConfig.coreApiUrl}</span>
                    </div>
                    <div className="flex justify-between border-b border-ghost pb-1">
-                      <span>NETWORK_ID:</span>
+                      <span className="tracking-widest">NETWORK_ID:</span>
                       <span className="text-ink font-bold">{AppConfig.network.toUpperCase()}</span>
                    </div>
                    <div className="flex justify-between border-b border-ghost pb-1">
@@ -118,7 +118,7 @@ export default function NetworkPage() {
               <CardContent className="p-0">
                 <Table>
                   <TableHeader>
-                    <TableRow className="bg-ink/[0.02] border-ghost">
+                    <TableRow className="bg-neutral-light border-ghost">
                       <TableHead className="text-[9px] font-black">TX_ID_VECTOR</TableHead>
                       <TableHead className="text-[9px] font-black">OP_TYPE</TableHead>
                       <TableHead className="text-[9px] font-black">SENDER_ORIGIN</TableHead>

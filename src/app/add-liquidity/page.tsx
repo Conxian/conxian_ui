@@ -242,7 +242,7 @@ function AddLiquidityContent() {
                     </div>
                   </div>
 
-                  <div className="space-y-6 bg-ink/[0.02] p-6 border border-ghost rounded-sm">
+                  <div className="space-y-6 bg-neutral-light p-6 border border-ghost rounded-sm">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Range Parameters</label>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">

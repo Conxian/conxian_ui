@@ -166,7 +166,7 @@ export default function SwapPage() {
             </div>
           </div>
 
-          <div className="p-4 bg-ink/5 border border-ghost rounded-sm">
+          <div className="p-4 bg-neutral-light border border-ghost rounded-sm">
             <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 mb-2">Instructions</h4>
             <p className="text-[10px] leading-relaxed text-ink-light">
               Input asset quantities for direct automated routing. Path aggregation is hardware-attested for deterministic execution.
@@ -273,7 +273,7 @@ export default function SwapPage() {
                   </div>
 
                   {/* Routing Info */}
-                  <div className="p-4 bg-ink/[0.02] border border-ghost rounded-sm space-y-4">
+                  <div className="p-4 bg-neutral-light border border-ghost rounded-sm space-y-4">
                     <div className="flex justify-between items-center">
                        <span className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Slippage Tolerance</span>
                        <div className="flex gap-2">

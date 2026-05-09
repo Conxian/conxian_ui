@@ -161,7 +161,7 @@ export default function LaunchPage() {
                     </div>
                     <Progress
                       value={(phase.funding / phase.target) * 100}
-                      className="h-1 bg-ink/5"
+                      className="h-1 bg-neutral-light"
                     />
                     <div className="flex justify-between text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 tabular-nums">
                       <span>
@@ -197,7 +197,7 @@ export default function LaunchPage() {
                   </Button>
                 </div>
 
-                <div className="p-4 bg-ink/[0.02] border border-ghost rounded-sm flex justify-between items-center">
+                <div className="p-4 bg-neutral-light border border-ghost rounded-sm flex justify-between items-center">
                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Active Contribution:</span>
                    <span className="text-xl font-black text-ink tabular-nums">{userContribution.total} <span className="text-xs opacity-30">STX</span></span>
                 </div>
