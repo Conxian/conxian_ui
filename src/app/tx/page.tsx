@@ -179,13 +179,13 @@ function TxContent() {
                 <BoltIcon className="w-3 h-3 text-accent" />
               </div>
               <CardContent className="p-8 space-y-6">
-                <div className="bg-ink text-white/90 p-6 rounded-sm font-mono text-[11px] leading-relaxed">
+                <div className="bg-neutral-light text-ink p-6 rounded-sm font-mono text-[11px] leading-relaxed border border-accent/20">
                   <p className="text-accent mb-4 font-black tracking-widest">{/* RAW HEX PAYLOAD */}</p>
-                  <div className="space-y-2 break-all opacity-70">
-                    <p><span className="text-white/30">ID:</span> {selected}</p>
-                    <p><span className="text-white/30">FN:</span> {fnName || "---"}</p>
-                    <div className="pt-4 border-t border-white/10">
-                      <p className="text-white/30 mb-2">ARGUMENTS:</p>
+                  <div className="space-y-2 break-all">
+                    <p><span className="opacity-40">ID:</span> {selected}</p>
+                    <p><span className="opacity-40">FN:</span> {fnName || "---"}</p>
+                    <div className="pt-4 border-t border-accent/20">
+                      <p className="opacity-40 mb-2">ARGUMENTS:</p>
                       {args.hex.length > 0 ? (
                         <div className="space-y-1">
                           {args.hex.map((h, i) => <p key={i}>[{i}]: {h}</p>)}

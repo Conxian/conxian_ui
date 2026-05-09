@@ -73,7 +73,7 @@ export default function PositionsPage() {
                 />
               ))
             ) : (
-              <div className="col-span-full py-32 text-center border-2 border-dashed border-ghost rounded-sm bg-ink/[0.01]">
+              <div className="col-span-full py-32 text-center border-2 border-dashed border-ghost rounded-sm bg-neutral-light/50">
                  <div className="mb-6 opacity-20 flex justify-center">
                     <div className="h-16 w-16 border-4 border-ink rounded-full flex items-center justify-center font-black text-2xl tracking-widest">?</div>
                  </div>

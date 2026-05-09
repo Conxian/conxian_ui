@@ -69,8 +69,8 @@ export default function Home() {
               <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Institutional Protocol Access</p>
            </div>
            <div className="text-right hidden md:block">
-              <span className="text-[9px] font-black uppercase text-ink/30">System Epoch</span>
-              <p className="text-xs font-mono font-black text-ink">2026-Q2-LOCKED</p>
+              <span className="text-[9px] font-black uppercase text-ink/30 tracking-widest">System Epoch</span>
+              <p className="text-xs font-mono font-black text-ink tabular-nums">2026-Q2-LOCKED</p>
            </div>
         </div>
 
@@ -114,7 +114,7 @@ export default function Home() {
                   <span className="opacity-40 animate-pulse-soft">LIVE_FEED</span>
                </div>
                <CardContent className="p-0">
-                  <div className="grid grid-cols-4 border-b border-ghost bg-ink/[0.02]">
+                  <div className="grid grid-cols-4 border-b border-ghost bg-neutral-light">
                      {['Asset', 'Pool', 'Slippage', 'Yield'].map(h => (
                        <div key={h} className="p-3 text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 border-r border-ghost last:border-none">{h}</div>
                      ))}
