@@ -153,7 +153,7 @@ export default function SwapPage() {
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-[10px] uppercase font-black text-ink/40">STX/BTC</span>
-                <span className="text-[10px] font-black text-ink">0.000042</span>
+                <span className="text-[10px] font-black text-ink tabular-nums">0.000042</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[10px] uppercase font-black text-ink/40">GAS (FIXED)</span>
@@ -356,11 +356,11 @@ export default function SwapPage() {
                  <div className="space-y-2">
                     <div className="flex justify-between border-b border-ghost pb-1">
                        <span>[BLOCK] HEIGHT:</span>
-                       <span className="text-ink font-black">84,321</span>
+                       <span className="text-ink font-black tabular-nums">84,321</span>
                     </div>
                     <div className="flex justify-between border-b border-ghost pb-1">
                        <span>[TX] MEMPOOL:</span>
-                       <span className="text-ink font-black">142 UNIT</span>
+                       <span className="text-ink font-black tabular-nums">142 UNIT</span>
                     </div>
                     <div className="flex justify-between border-b border-ghost pb-1">
                        <span>[SYNC] ORACLE:</span>
@@ -368,7 +368,7 @@ export default function SwapPage() {
                     </div>
                     <div className="flex justify-between border-b border-ghost pb-1">
                        <span>[PULSE] NODE:</span>
-                       <span className="text-ink font-black">0.12ms</span>
+                       <span className="text-ink font-black tabular-nums">0.12ms</span>
                     </div>
                  </div>
 
