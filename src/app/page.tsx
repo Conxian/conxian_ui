@@ -158,7 +158,7 @@ export default function Home() {
                         {['LATENCY', 'SLIPPAGE', 'COST'].map(m => (
                           <div key={m} className="flex justify-between items-baseline">
                              <span className="text-[10px] font-black text-ink/40 tracking-widest uppercase">{m}</span>
-                             <span className="text-[10px] font-black text-ink uppercase">99th PERCENTILE</span>
+                             <span className="text-[10px] font-black text-ink uppercase tabular-nums">99th PERCENTILE</span>
                           </div>
                         ))}
                      </div>

@@ -37,7 +37,7 @@ export function ReadinessDashboard() {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-primary-dark border-accent/30 overflow-hidden relative">
+        <Card className="bg-neutral-light border-accent/30 overflow-hidden relative">
           <div className="absolute top-0 right-0 p-3 opacity-10">
             <ClockIcon className="w-12 h-12 text-accent" />
           </div>
@@ -45,7 +45,7 @@ export function ReadinessDashboard() {
             <CardTitle className="text-[10px] font-bold text-accent uppercase tracking-[0.2em]">Genesis Countdown</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex gap-2 items-baseline text-primary-foreground">
+            <div className="flex gap-2 items-baseline text-ink">
               <span className="text-3xl font-bold tabular-nums">{timeLeft.days}</span>
               <span className="text-[10px] font-medium uppercase opacity-60">Days</span>
               <span className="text-3xl font-bold tabular-nums">{timeLeft.hours}</span>

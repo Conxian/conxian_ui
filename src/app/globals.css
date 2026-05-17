@@ -36,6 +36,8 @@
   --color-warning: #ca8a04;
   --color-error: #dc2626;
 
+  --color-primary: var(--color-ink);
+
   --font-family-sans: var(--font-inter);
   --font-family-mono: var(--font-jetbrains-mono);
 }
