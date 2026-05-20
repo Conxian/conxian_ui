@@ -29,17 +29,28 @@ export default function ContractsPage() {
   }, [loadInterface]);
 
   return (
-    <div className="p-6 space-y-6 bg-background min-h-screen">
-      <div>
-        <h1 className="text-3xl font-black tracking-tight text-ink">
-          Contract Explorer
-        </h1>
-        <p className="text-ink-light">
-          Inspect and interact with Conxian smart contracts.
-        </p>
+    <div className="flex flex-col min-h-screen bg-background terminal-text">
+      {/* Terminal Top Bar */}
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-ghost">
+        <div className="flex items-center gap-4">
+          <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Contract Explorer</span>
+        </div>
+        <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
+          <span>SOURCE: ON-CHAIN</span>
+          <span>SYNC: 100%</span>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+        <div className="flex justify-between items-end border-b border-ghost pb-6">
+           <div>
+              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">CONTRACTS</h1>
+              <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Institutional Smart Contract Explorer</p>
+           </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
         <div className="space-y-6">
           <Card>
             <CardHeader>
@@ -142,6 +153,7 @@ export default function ContractsPage() {
           )}
         </div>
       </div>
+      </main>
     </div>
   );
 }
