@@ -64,13 +64,26 @@ export default function TokensPage() {
   }, [address, refresh]);
 
   return (
-    <div className="space-y-8 bg-background min-h-screen">
-      <div>
-        <h1 className="text-3xl font-black text-ink tracking-[0.2em] uppercase">My Assets</h1>
-        <p className="mt-2 text-sm text-ink-light">
-          A real-time overview of your Stacks blockchain holdings.
-        </p>
+    <div className="flex flex-col min-h-screen bg-background terminal-text">
+      {/* Terminal Top Bar */}
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
+        <div className="flex items-center gap-4">
+          <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Asset Custody Explorer</span>
+        </div>
+        <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
+          <span>HODL: ACTIVE</span>
+          <span>VALUATION: USD_EST</span>
+        </div>
       </div>
+
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+        <div className="flex justify-between items-end border-b border-ghost pb-6">
+           <div>
+              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">ASSETS</h1>
+              <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Personal Liquidity Distribution</p>
+           </div>
+        </div>
 
       {!address && (
         <Card>
@@ -156,6 +169,7 @@ export default function TokensPage() {
           </Card>
         </>
       )}
+      </main>
     </div>
   );
 }

@@ -6,7 +6,7 @@
 
 ## 1. MANDATORY UI ARCHITECTURE (THE BRIGHT FOUNDATION)
 
-Purge all heavy, default dark-mode backgrounds from main operational views. The UI must feel spacious, bright, and low-fatigue.
+Purge all heavy, default dark-mode backgrounds from main operational views. The UI must feel spacious, bright, and low-fatigue. This is a permanent directive.
 
 *   **Base Canvas (60%)**: Enforce an "Ivory" or warm off-white foundation (`#FDFBF7` / `--color-background`) for all primary application backgrounds and operational zones.
 *   **Surface Layers (30%)**: Use pure white (`#FFFFFF` / `--color-background-paper`) or very subtle contrasting light tones (`#F9F8F6` / `--color-neutral-light`) for data cards, modals, and internal sections. Rely on structural spacing and `border-accent/20` micro-borders rather than heavy drop shadows to create depth.
