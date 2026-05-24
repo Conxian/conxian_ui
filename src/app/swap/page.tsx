@@ -145,7 +145,7 @@ export default function SwapPage() {
         </div>
       </div>
 
-      <main className="flex-1 p-8 max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Telemetry & Sidebar */}
         <div className="lg:col-span-3 space-y-6 hidden lg:block">
           <div className="p-4 bg-neutral-light border border-ghost rounded-sm space-y-4">
@@ -176,9 +176,11 @@ export default function SwapPage() {
 
         {/* Center Column: Execution Matrix */}
         <div className="lg:col-span-6 space-y-8">
-           <div className="mb-6">
-              <h1 className="text-4xl font-black tracking-widest uppercase text-ink leading-none">EXECUTION</h1>
-              <div className="h-1 w-12 bg-accent mt-4" />
+           <div className="flex justify-between items-end border-b border-ghost pb-6 mb-10">
+              <div>
+                 <h1 className="text-5xl font-black tracking-widest uppercase text-ink leading-none">EXECUTION</h1>
+                 <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Direct Protocol Swap Matrix</p>
+              </div>
            </div>
 
            <Tabs defaultValue="direct" className="w-full">

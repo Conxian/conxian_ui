@@ -123,13 +123,26 @@ export default function Shielded() {
   }, [fetchWallets]);
 
   return (
-    <div className="space-y-8 bg-background min-h-screen">
-      <div>
-        <h1 className="text-3xl font-black text-ink">Shielded Wallets</h1>
-        <p className="mt-2 text-sm text-ink-light">
-          Manage your private, shielded assets and transactions using Zero-Knowledge proofs.
-        </p>
+    <div className="flex flex-col min-h-screen bg-background terminal-text">
+      {/* Terminal Top Bar */}
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-ghost">
+        <div className="flex items-center gap-4">
+          <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Privacy Layer Telemetry</span>
+        </div>
+        <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
+          <span>ZK_MODE: ACTIVE</span>
+          <span>ATTESTATION: VERIFIED</span>
+        </div>
       </div>
+
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+        <div className="flex justify-between items-end border-b border-ghost pb-6">
+           <div>
+              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">SHIELDED</h1>
+              <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Zero-Knowledge Private Execution</p>
+           </div>
+        </div>
 
       <Card className="bg-background-paper">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7">
@@ -231,6 +244,7 @@ export default function Shielded() {
         )}
         </CardContent>
       </Card>
+      </main>
     </div>
   );
 }
