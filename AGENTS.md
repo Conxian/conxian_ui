@@ -8,9 +8,9 @@
 
 Purge all heavy, default dark-mode backgrounds from main operational views. The UI must feel spacious, bright, and low-fatigue.
 
-*   **Base Canvas (60%)**: Enforce an "Ivory" or warm off-white foundation (#FDFBF7 / #F9F8F6) for all primary application backgrounds and operational zones.
-*   **Surface Layers (30%)**: Use pure white (#FFFFFF) for data cards, modals, and internal sections. Rely on structural spacing and `border-accent/20` micro-borders rather than heavy drop shadows to create depth.
-*   **Brand & Interaction (10%)**: Reserve deep brand colors (dark earth tones, deep greens/blues, or high-contrast blacks) strictly for typography, crisp iconography, active-state toggles, and primary CTA buttons.
+*   **Base Canvas (60%)**: Enforce an "Ivory" or warm off-white foundation (`#FDFBF7` / `--color-background`) for all primary application backgrounds and operational zones.
+*   **Surface Layers (30%)**: Use pure white (`#FFFFFF` / `--color-background-paper`) or very subtle contrasting light tones (`#F9F8F6` / `--color-neutral-light`) for data cards, modals, and internal sections. Rely on structural spacing and `border-accent/20` micro-borders rather than heavy drop shadows to create depth.
+*   **Brand & Interaction (10%)**: Reserve deep brand colors (`#1A2623` / `--color-ink-deep` or `#333333` / `--color-ink`) strictly for typography, crisp iconography, active-state toggles, and primary CTA buttons.
 
 ## 2. STRUCTURAL BLOCKING & LAYOUT RULES
 
@@ -20,11 +20,14 @@ Purge all heavy, default dark-mode backgrounds from main operational views. The 
 
 ## 3. EXECUTION & ENFORCEMENT PROTOCOL
 
-*   **Audit**: Regularly identify and purge overused dark background variables or design-token drift.
+*   **Audit**: Regularly identify and purge overused dark background variables or design-token drift. Enforce the "Bright Foundation" for all operational views.
 *   **Palette**: Strictly apply the 60-30-10 Ivory-led palette (#FDFBF7 base, #FFFFFF surface).
+    *   **Base (60%)**: `#FDFBF7` (`--color-background`)
+    *   **Surface (30%)**: `#FFFFFF` (`--color-background-paper`) or `#F9F8F6` (`--color-neutral-light`)
+    *   **Brand (10%)**: `#333333` (`--color-ink`) or `#1A2623` (`--color-ink-deep`)
 *   **Contrast**: Ensure all text contrast ratios meet strict institutional accessibility standards (WCAG AAA for financial data, ~12:1 ratio). Primary text should be #333333, secondary text should be #4D4D4D.
-*   **Typography**: Use `tabular-nums` for all financial figures and ensure primary headers and operational labels use `uppercase tracking-widest`.
-*   **Components**: Use canonical UI components (Button, Input, Card, Badge, Table, StatusIndicator, ReadinessDashboard) and standard `border-accent/20` styling to maintain theme consistency.
+*   **Typography**: Use `tabular-nums` for all financial figures and ensure primary headers and operational labels use `uppercase tracking-widest`. All body copy and labels must use `font-black` or `font-bold` for high legibility.
+*   **Components**: Use canonical UI components (Button, Input, Card, Badge, Table, StatusIndicator, ReadinessDashboard) and standard `border-accent/20` styling to maintain theme consistency. Buttons must use `rounded-sm` and `uppercase tracking-[0.2em]`.
 
 ## 4. AGENT SPECIFIC CHECKS
 
@@ -32,3 +35,5 @@ Purge all heavy, default dark-mode backgrounds from main operational views. The 
 - Ensure all new pages wrap content in `bg-background min-h-screen`.
 - Use `StatusIndicator` for health states (operational/degraded/error).
 - Ensure `EnvStatus` is visible on the Dashboard.
+- All numerical data MUST use `tabular-nums`.
+- All operational labels and headers MUST use `uppercase tracking-widest` or `tracking-[0.2em]`.

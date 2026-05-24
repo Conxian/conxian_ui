@@ -1,12 +1,15 @@
 @import "tailwindcss";
 
-@theme {
-  /* MASTER MANIFEST ALIGNMENT - Institutional Terminal Edition */
+:root {
+  /* MASTER MANIFEST PALETTE - BRIGHT FOUNDATION */
+  /* Base Canvas (60%) */
   --color-background: #FDFBF7;
+  /* Surface Layers (30%) */
+  --color-background-paper: #FFFFFF;
   --color-neutral-light: #F9F8F6;
   --color-surface-dim: #F2F0ED;
-  --color-background-paper: #FFFFFF;
 
+  /* Brand & Interaction (10%) */
   --color-ink: #333333;
   --color-ink-light: #4D4D4D;
   --color-ink-deep: #1A2623;
@@ -17,9 +20,34 @@
   --color-success: #16a34a;
   --color-warning: #ca8a04;
   --color-error: #dc2626;
+  --color-info: #2563eb;
+}
+
+@theme {
+  /* MASTER MANIFEST ALIGNMENT - Institutional Terminal Edition */
+  --color-background: var(--color-background);
+  --color-background-paper: var(--color-background-paper);
+  --color-neutral-light: var(--color-neutral-light);
+  --color-surface-dim: var(--color-surface-dim);
+
+  --color-ink: var(--color-ink);
+  --color-ink-light: var(--color-ink-light);
+  --color-ink-deep: var(--color-ink-deep);
+
+  --color-accent: var(--color-accent);
+  --color-accent-dim: var(--color-accent-dim);
+
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-info: var(--color-info);
+
+  --color-primary: var(--color-ink);
 
   --font-family-sans: var(--font-inter);
   --font-family-mono: var(--font-jetbrains-mono);
+
+  --letter-spacing-widest: 0.2em;
 }
 
 body {
@@ -37,17 +65,20 @@ body {
 
 .machined-card {
   background: var(--color-background-paper);
-  border: 1px solid rgba(51, 51, 51, 0.1);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.8) inset,
-    0 4px 12px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(212, 160, 23, 0.2);
+  box-shadow: none;
   position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.machined-card:hover {
+  border-color: rgba(212, 160, 23, 0.4);
 }
 
 .machined-header {
   background: var(--color-neutral-light);
   color: var(--color-ink);
-  border-bottom: 1px solid rgba(51, 51, 51, 0.1);
+  border-bottom: 1px solid rgba(212, 160, 23, 0.2);
   padding: 0.5rem 1rem;
   font-size: 10px;
   font-weight: 800;
@@ -64,13 +95,13 @@ body {
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(51, 51, 51, 0.1);
+  border: 1px solid rgba(212, 160, 23, 0.2);
 }
 
 .border-ghost {
-  border-color: rgba(51, 51, 51, 0.1);
+  border-color: rgba(212, 160, 23, 0.2);
 }
 
 /* Animations */
@@ -103,6 +134,16 @@ body {
 label, .label-terminal {
   color: var(--color-ink-light);
   font-weight: 800;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-ink);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }

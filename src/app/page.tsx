@@ -52,8 +52,8 @@ export default function Home() {
       {/* High-Trust Readiness Banner */}
       <div className="glass-panel py-3 px-8 flex justify-between items-center border-b border-ghost sticky top-0 z-50">
         <div className="flex items-center gap-4">
-          <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Conxian Mainnet Node Alpha</span>
+          <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-ink">Conxian Mainnet Node Alpha</span>
           <Badge variant="outline" className="text-[8px] border-ghost text-ink/40">v4.2.1-attested</Badge>
         </div>
         <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-ink/60">
@@ -69,8 +69,8 @@ export default function Home() {
               <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Institutional Protocol Access</p>
            </div>
            <div className="text-right hidden md:block">
-              <span className="text-[9px] font-black uppercase text-ink/30">System Epoch</span>
-              <p className="text-xs font-mono font-black text-ink">2026-Q2-LOCKED</p>
+              <span className="text-[9px] font-black uppercase text-ink/30 tracking-widest">System Epoch</span>
+              <p className="text-xs font-mono font-black text-ink tabular-nums">2026-Q2-LOCKED</p>
            </div>
         </div>
 
@@ -114,16 +114,16 @@ export default function Home() {
                   <span className="opacity-40 animate-pulse-soft">LIVE_FEED</span>
                </div>
                <CardContent className="p-0">
-                  <div className="grid grid-cols-4 border-b border-ghost bg-ink/[0.02]">
+                  <div className="grid grid-cols-4 border-b border-ghost bg-neutral-light">
                      {['Asset', 'Pool', 'Slippage', 'Yield'].map(h => (
                        <div key={h} className="p-3 text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 border-r border-ghost last:border-none">{h}</div>
                      ))}
                   </div>
                   <div className="p-8 text-center space-y-4">
-                     <div className="inline-block p-4 border-2 border-dashed border-ghost rounded-sm opacity-30">
+                     <div className="inline-block p-4 border border-dashed border-accent/20 rounded-sm opacity-30">
                         <span className="text-xs font-black uppercase tracking-[0.2em]">Awaiting First Packet...</span>
                      </div>
-                     <p className="text-[10px] text-text-muted italic">Hardware-attested telemetry requires node synchronization. Current progress: 98.4%</p>
+                     <p className="text-[10px] text-ink/40 italic">Hardware-attested telemetry requires node synchronization. Current progress: 98.4%</p>
                   </div>
                </CardContent>
             </Card>
@@ -135,13 +135,13 @@ export default function Home() {
                      <span>SYSTEM AUTH</span>
                   </div>
                   <CardContent className="p-6 space-y-4">
-                     <p className="text-[10px] leading-relaxed text-text-secondary">
+                     <p className="text-[10px] leading-relaxed text-ink-light font-bold">
                         Authorized hardware access for high-frequency protocol interaction.
                      </p>
                      <div className="p-3 bg-neutral-light border border-ghost rounded-sm font-mono text-[10px]">
                         <p className="text-success font-black">&gt; ATTESTATION_READY</p>
-                        <p className="opacity-50">&gt; KEY_ROTATION: OK</p>
-                        <p className="opacity-50">&gt; ENCLAVE_ID: 0x42...F1</p>
+                        <p className="text-ink/50">&gt; KEY_ROTATION: OK</p>
+                        <p className="text-ink/50">&gt; ENCLAVE_ID: 0x42...F1</p>
                      </div>
                   </CardContent>
                </Card>
@@ -151,14 +151,14 @@ export default function Home() {
                      <span>BENCHMARKS</span>
                   </div>
                   <CardContent className="p-6">
-                     <p className="text-[10px] text-text-secondary leading-relaxed mb-4">
+                     <p className="text-[10px] text-ink-light leading-relaxed mb-4 font-bold">
                         Real-time efficiency ratings against traditional liquidity providers.
                      </p>
                      <div className="space-y-3">
                         {['LATENCY', 'SLIPPAGE', 'COST'].map(m => (
                           <div key={m} className="flex justify-between items-baseline">
                              <span className="text-[10px] font-black text-ink/40 tracking-widest uppercase">{m}</span>
-                             <span className="text-[10px] font-black text-ink uppercase">99th PERCENTILE</span>
+                             <span className="text-[10px] font-black text-ink uppercase tabular-nums">99th PERCENTILE</span>
                           </div>
                         ))}
                      </div>

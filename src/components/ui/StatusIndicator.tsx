@@ -23,8 +23,8 @@ export default function StatusIndicator({ status, label, className }: StatusIndi
 
   return (
     <div className={cn("flex items-center gap-2", className)}>
-      <div className={cn("h-2 w-2 rounded-full", dotColor, status === "operational" && "animate-pulse")} />
-      <span className={cn("text-[10px] font-bold uppercase tracking-widest", textColor)}>
+      <div className={cn("h-1.5 w-1.5 rounded-full", dotColor, status === "operational" && "animate-pulse")} />
+      <span className={cn("text-[9px] font-black uppercase tracking-[0.2em]", textColor)}>
         {label || status}
       </span>
     </div>

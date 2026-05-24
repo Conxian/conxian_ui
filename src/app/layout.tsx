@@ -25,7 +25,7 @@ export default function RootLayout({
         <link rel="icon" href="/conxian-mark-b.svg" type="image/svg+xml" />
       </head>
       <body
-        className={`${inter.variable} font-sans h-full antialiased text-text`}
+        className={`${inter.variable} font-sans h-full antialiased text-ink`}
       >
         <a
           href="#main-content"

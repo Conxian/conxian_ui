@@ -34,7 +34,7 @@ export default function CoreContracts() {
           <TableBody>
             {contracts.map((contract) => (
               <TableRow key={contract.id}>
-                <TableCell className="font-medium text-text-primary">
+                <TableCell className="font-medium text-ink">
                   {contract.label}
                 </TableCell>
                 <TableCell>
@@ -45,7 +45,7 @@ export default function CoreContracts() {
                 <TableCell>
                   <div className="flex items-center gap-1.5">
                     <div className="h-2 w-2 rounded-full bg-success" />
-                    <span className="text-xs text-text">Active</span>
+                    <span className="text-xs text-ink">Active</span>
                   </div>
                 </TableCell>
                 <TableCell className="text-right">

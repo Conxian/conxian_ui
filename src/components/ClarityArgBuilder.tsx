@@ -75,10 +75,10 @@ const ArgRow = React.memo(function ArgRow({
 
   return (
     <div className="grid gap-2 md:grid-cols-6 items-center">
-      <label htmlFor={`arg-type-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-text-secondary col-span-1">Type</label>
+      <label htmlFor={`arg-type-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-ink-light col-span-1">Type</label>
       <select
         id={`arg-type-${row.id}`}
-        className="border border-accent/20 rounded px-2 py-1 col-span-2 bg-background-light text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="border border-accent/20 rounded px-2 py-1 col-span-2 bg-neutral-light text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         value={row.type}
         onChange={(e) => onUpdate(row.id, { type: e.target.value as ArgType })}
       >
@@ -99,7 +99,7 @@ const ArgRow = React.memo(function ArgRow({
         <option value="optional-some-buffer-hex">optional-some-buffer-hex</option>
       </select>
       <div className="col-span-3 flex items-center gap-2">
-        <label htmlFor={`arg-optional-toggle-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Optional</label>
+        <label htmlFor={`arg-optional-toggle-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-ink-light">Optional</label>
         <input id={`arg-optional-toggle-${row.id}`} type="checkbox" className="accent-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background" checked={Boolean(row.opt) || isOptionalType(row.type)} onChange={(e) => {
           const enabled = e.target.checked;
           if (!enabled) {
@@ -111,7 +111,7 @@ const ArgRow = React.memo(function ArgRow({
           }
         }} />
         {(Boolean(row.opt) || isOptionalType(row.type)) && (
-          <select id={`arg-optional-kind-${row.id}`} aria-label="Optional kind" className="border border-accent/20 rounded px-2 py-1 bg-background-light text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background" value={row.opt ?? inferOptionalMode(row.type) ?? 'some'} onChange={(e) => {
+          <select id={`arg-optional-kind-${row.id}`} aria-label="Optional kind" className="border border-accent/20 rounded px-2 py-1 bg-neutral-light text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background" value={row.opt ?? inferOptionalMode(row.type) ?? 'some'} onChange={(e) => {
             const mode = e.target.value as Row['opt'];
             const base = baseFromOptional(row.type);
             onUpdate(row.id, { type: toOptional(base, mode), opt: mode });
@@ -131,7 +131,7 @@ const ArgRow = React.memo(function ArgRow({
         if (isNone) {
           return (
             <>
-              <label htmlFor={`arg-value-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-text-secondary col-span-1">{labelText}</label>
+              <label htmlFor={`arg-value-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-ink-light col-span-1">{labelText}</label>
               <Input id={`arg-value-${row.id}`} className="col-span-2 opacity-50" disabled aria-disabled="true" value="" readOnly />
             </>
           );
@@ -140,7 +140,7 @@ const ArgRow = React.memo(function ArgRow({
           const checked = (row.value || '').toLowerCase() === 'true';
           return (
             <>
-              <label htmlFor={`arg-value-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-text-secondary col-span-1">{labelText}</label>
+              <label htmlFor={`arg-value-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-ink-light col-span-1">{labelText}</label>
               <input
                 id={`arg-value-${row.id}`}
                 type="checkbox"
@@ -154,7 +154,7 @@ const ArgRow = React.memo(function ArgRow({
         if (base === 'uint' || base === 'int') {
           return (
             <>
-              <label htmlFor={`arg-value-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-text-secondary col-span-1">{labelText}</label>
+              <label htmlFor={`arg-value-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-ink-light col-span-1">{labelText}</label>
               <Input
                 id={`arg-value-${row.id}`}
                 type="number"
@@ -171,7 +171,7 @@ const ArgRow = React.memo(function ArgRow({
         if (base === 'buffer-hex') {
           return (
             <>
-              <label htmlFor={`arg-value-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-text-secondary col-span-1">{labelText}</label>
+              <label htmlFor={`arg-value-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-ink-light col-span-1">{labelText}</label>
               <Input
                 id={`arg-value-${row.id}`}
                 className="col-span-2"
@@ -186,7 +186,7 @@ const ArgRow = React.memo(function ArgRow({
         }
         return (
           <>
-            <label htmlFor={`arg-value-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-text-secondary col-span-1">{labelText}</label>
+            <label htmlFor={`arg-value-${row.id}`} className="text-[10px] font-bold uppercase tracking-widest text-ink-light col-span-1">{labelText}</label>
             <Input
               id={`arg-value-${row.id}`}
               className="col-span-2"
@@ -307,7 +307,7 @@ export default function ClarityArgBuilder({ onChange, preset, paramMeta }: { onC
 
   return (
     <fieldset className="space-y-3" aria-describedby="args-help">
-      <legend className="text-xs font-bold uppercase tracking-widest text-text-secondary mb-2">Function Arguments</legend>
+      <legend className="text-xs font-bold uppercase tracking-widest text-ink-light mb-2">Function Arguments</legend>
       <div className="flex items-center justify-end">
         <Button
           type="button"
@@ -320,7 +320,7 @@ export default function ClarityArgBuilder({ onChange, preset, paramMeta }: { onC
         </Button>
       </div>
       {rows.length === 0 && (
-        <div id="args-help" className="text-xs text-text">
+        <div id="args-help" className="text-xs text-ink">
           No args. Click Add Arg.
         </div>
       )}

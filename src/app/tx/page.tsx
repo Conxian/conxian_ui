@@ -82,19 +82,19 @@ function TxContent() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
-      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-ghost">
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Smart Contract Interaction Forge</span>
-        <div className="flex gap-4 text-[10px] font-bold uppercase tracking-widest opacity-60">
+        <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
           <span>MODE: RAW_CALL</span>
           <span>AUTH: JWT_LOCKED</span>
         </div>
       </div>
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
-        <div className="flex justify-between items-end border-b border-ghost pb-6">
+        <div className="flex justify-between items-end border-b border-accent/20 pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-widest uppercase text-ink">FORGE</h1>
-              <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Manual Transaction Crafting</p>
+              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Manual Transaction Crafting</p>
            </div>
         </div>
 
@@ -108,9 +108,9 @@ function TxContent() {
               <CardContent className="p-8 space-y-8">
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-ink/40">Target Contract</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Target Contract</label>
                     <select
-                      className="w-full bg-neutral-light border border-ghost rounded-sm px-4 py-3 text-xs font-bold uppercase tracking-widest focus:ring-1 focus:ring-accent focus:outline-none"
+                      className="w-full bg-neutral-light border border-accent/20 rounded-sm px-4 py-3 text-xs font-black uppercase tracking-widest focus:ring-1 focus:ring-accent focus:outline-none text-ink"
                       value={selected}
                       onChange={(e) => setSelected(e.target.value)}
                     >
@@ -121,13 +121,13 @@ function TxContent() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-ink/40">Function Entry Point</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Function Entry Point</label>
                     <div className="relative">
                       <Input
                         value={fnName}
                         onChange={(e) => setFnName(e.target.value)}
                         placeholder={abiLoading ? "SYNCHRONIZING ABI..." : "FUNCTION_NAME"}
-                        className={cn("h-12 bg-neutral-light border-ghost font-black text-xs", abiLoading && "animate-pulse")}
+                        className={cn("h-12 bg-neutral-light border-accent/20 font-black text-xs tabular-nums", abiLoading && "animate-pulse")}
                       />
                       {abi?.functions && (
                         <div className="absolute right-2 top-1/2 -translate-y-1/2">
@@ -148,8 +148,8 @@ function TxContent() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-ink/40">Argument Vector Construction</label>
-                  <div className="p-6 bg-neutral-light border border-ghost rounded-sm">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Argument Vector Construction</label>
+                  <div className="p-6 bg-neutral-light border border-accent/20 rounded-sm">
                     <ClarityArgBuilder
                       onChange={onBuild}
                       preset={templateParam === "swap" ? [
@@ -162,7 +162,7 @@ function TxContent() {
                 </div>
 
                 <Button
-                  className="w-full h-14 bg-ink text-background font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light rounded-none transition-all"
+                  className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light rounded-none transition-all"
                   onClick={broadcast}
                   disabled={!fnName || args.cv.length === 0}
                 >
@@ -179,24 +179,24 @@ function TxContent() {
                 <BoltIcon className="w-3 h-3 text-accent" />
               </div>
               <CardContent className="p-8 space-y-6">
-                <div className="bg-ink text-white/90 p-6 rounded-sm font-mono text-[11px] leading-relaxed">
+                <div className="bg-neutral-light text-ink p-6 rounded-sm font-mono text-[11px] leading-relaxed border border-accent/20 font-bold tabular-nums">
                   <p className="text-accent mb-4 font-black tracking-widest">{/* RAW HEX PAYLOAD */}</p>
-                  <div className="space-y-2 break-all opacity-70">
-                    <p><span className="text-white/30">ID:</span> {selected}</p>
-                    <p><span className="text-white/30">FN:</span> {fnName || "---"}</p>
-                    <div className="pt-4 border-t border-white/10">
-                      <p className="text-white/30 mb-2">ARGUMENTS:</p>
+                  <div className="space-y-2 break-all">
+                    <p><span className="opacity-40">ID:</span> {selected}</p>
+                    <p><span className="opacity-40">FN:</span> {fnName || "---"}</p>
+                    <div className="pt-4 border-t border-accent/20">
+                      <p className="opacity-40 mb-2">ARGUMENTS:</p>
                       {args.hex.length > 0 ? (
                         <div className="space-y-1">
                           {args.hex.map((h, i) => <p key={i}>[{i}]: {h}</p>)}
                         </div>
-                      ) : <p className="italic">NO ARGS BUILT</p>}
+                      ) : <p className="italic font-black text-ink/20">NO ARGS BUILT</p>}
                     </div>
                   </div>
                 </div>
 
-                <div className="p-4 bg-accent/5 border border-accent/10 rounded-sm">
-                   <p className="text-[10px] font-bold text-ink-light leading-relaxed uppercase tracking-widest">
+                <div className="p-4 bg-accent/5 border border-accent/20 rounded-sm">
+                   <p className="text-[10px] font-black text-ink-light leading-relaxed uppercase tracking-widest">
                      Deterministic verification required before broadcast. Ensure arguments match Clarity ABI signatures to prevent enclave rejection.
                    </p>
                 </div>
@@ -211,7 +211,7 @@ function TxContent() {
 
 export default function TxPage() {
   return (
-    <Suspense fallback={<div className="p-20 text-center terminal-text animate-pulse">SYNCHRONIZING FORGE...</div>}>
+    <Suspense fallback={<div className="p-20 text-center terminal-text animate-pulse font-black text-ink">SYNCHRONIZING FORGE...</div>}>
       <TxContent />
     </Suspense>
   );

@@ -146,23 +146,23 @@ function AddLiquidityContent() {
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Liquidity Provision Environment</span>
-        <div className="flex gap-4 text-[10px] font-bold uppercase tracking-widest opacity-60">
+        <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
           <span>YIELD_SOURCE: DET_v3</span>
         </div>
       </div>
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
-        <div className="flex justify-between items-end border-b border-ghost pb-6">
+        <div className="flex justify-between items-end border-b border-accent/20 pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-widest uppercase text-ink">LIQUIDITY</h1>
-              <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Automated Market Making Protocol</p>
+              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Automated Market Making Protocol</p>
            </div>
         </div>
 
         <Tabs defaultValue="standard" className="w-full max-w-4xl mx-auto space-y-8">
-          <TabsList className="grid w-full grid-cols-2 bg-neutral-light border-ghost h-12 p-1">
-            <TabsTrigger value="standard" className="uppercase font-black tracking-[0.2em] text-[10px]">Standard (v2)</TabsTrigger>
-            <TabsTrigger value="concentrated" className="uppercase font-black tracking-[0.2em] text-[10px]">Concentrated (CLMM)</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 bg-neutral-light border-accent/20 h-12 p-1">
+            <TabsTrigger value="standard">Standard (v2)</TabsTrigger>
+            <TabsTrigger value="concentrated">Concentrated (CLMM)</TabsTrigger>
           </TabsList>
 
           <TabsContent value="standard">
@@ -185,7 +185,7 @@ function AddLiquidityContent() {
                       type="number"
                       value={amountA}
                       onChange={(e) => setAmountA(e.target.value)}
-                      className="h-14 bg-neutral-light border-ghost text-right font-black text-2xl tabular-nums"
+                      className="h-14 bg-neutral-light border-accent/20 text-right font-black text-2xl tabular-nums"
                       placeholder="0.00"
                     />
                   </div>
@@ -201,7 +201,7 @@ function AddLiquidityContent() {
                       type="number"
                       value={amountB}
                       onChange={(e) => setAmountB(e.target.value)}
-                      className="h-14 bg-neutral-light border-ghost text-right font-black text-2xl tabular-nums"
+                      className="h-14 bg-neutral-light border-accent/20 text-right font-black text-2xl tabular-nums"
                       placeholder="0.00"
                     />
                   </div>
@@ -210,7 +210,7 @@ function AddLiquidityContent() {
                 <Button
                   onClick={() => handleAddLiquidity(false)}
                   disabled={sending}
-                  className="w-full h-14 bg-ink text-background font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light transition-all rounded-none"
+                  className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light transition-all rounded-none"
                 >
                   {sending ? 'TRANSMITTING...' : 'INITIATE PROVISION'}
                 </Button>
@@ -237,21 +237,21 @@ function AddLiquidityContent() {
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
-                      <Input type="number" value={amountA} onChange={e => setAmountA(e.target.value)} className="h-12 bg-neutral-light border-ghost text-right font-black" placeholder="QTY_A" />
-                      <Input type="number" value={amountB} onChange={e => setAmountB(e.target.value)} className="h-12 bg-neutral-light border-ghost text-right font-black" placeholder="QTY_B" />
+                      <Input type="number" value={amountA} onChange={e => setAmountA(e.target.value)} className="h-12 bg-neutral-light border-accent/20 text-right font-black tabular-nums" placeholder="QTY_A" />
+                      <Input type="number" value={amountB} onChange={e => setAmountB(e.target.value)} className="h-12 bg-neutral-light border-accent/20 text-right font-black tabular-nums" placeholder="QTY_B" />
                     </div>
                   </div>
 
-                  <div className="space-y-6 bg-ink/[0.02] p-6 border border-ghost rounded-sm">
+                  <div className="space-y-6 bg-neutral-light p-6 border border-accent/20 rounded-sm">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Range Parameters</label>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <span className="text-[9px] font-black text-ink/30 uppercase tracking-[0.2em]">Lower_Tick</span>
-                        <Input type="number" value={lowerTick} onChange={e => setLowerTick(e.target.value)} className="h-10 bg-white border-ghost text-right font-mono text-xs" />
+                        <Input type="number" value={lowerTick} onChange={e => setLowerTick(e.target.value)} className="h-10 bg-background-paper border-accent/20 text-right font-mono text-xs font-black tabular-nums" />
                       </div>
                       <div className="space-y-2">
                         <span className="text-[9px] font-black text-ink/30 uppercase tracking-[0.2em]">Upper_Tick</span>
-                        <Input type="number" value={upperTick} onChange={e => setUpperTick(e.target.value)} className="h-10 bg-white border-ghost text-right font-mono text-xs" />
+                        <Input type="number" value={upperTick} onChange={e => setUpperTick(e.target.value)} className="h-10 bg-background-paper border-accent/20 text-right font-mono text-xs font-black tabular-nums" />
                       </div>
                     </div>
                   </div>
@@ -260,7 +260,7 @@ function AddLiquidityContent() {
                 <Button
                   onClick={() => handleAddLiquidity(true)}
                   disabled={sending}
-                  className="w-full h-14 bg-ink text-background font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light transition-all rounded-none"
+                  className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light transition-all rounded-none"
                 >
                   {sending ? 'TRANSMITTING...' : 'INITIATE CONCENTRATED PROVISION'}
                 </Button>
@@ -277,7 +277,7 @@ function AddLiquidityContent() {
 
 export default function AddLiquidityPage() {
   return (
-    <Suspense fallback={<div className="p-20 text-center terminal-text animate-pulse">SYNCHRONIZING PROTOCOL...</div>}>
+    <Suspense fallback={<div className="p-20 text-center terminal-text animate-pulse font-black text-ink">SYNCHRONIZING PROTOCOL...</div>}>
       <AddLiquidityContent />
     </Suspense>
   );

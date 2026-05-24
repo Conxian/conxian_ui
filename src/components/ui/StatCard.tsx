@@ -23,7 +23,7 @@ export const StatCard = ({
     </div>
     <CardContent className="p-6">
       {loading ? (
-        <div className="h-10 w-32 bg-ink/5 animate-pulse rounded-sm" />
+        <div className="h-10 w-32 bg-neutral-light animate-pulse rounded-sm" />
       ) : (
         <div className="text-4xl font-black text-ink tracking-widest tabular-nums">{value}</div>
       )}

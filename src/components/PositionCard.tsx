@@ -14,16 +14,16 @@ const PositionCard = React.memo(({ pair, liquidity, balance, onAdd, onRemove }: 
   return (
     <Card className="bg-background-paper border-accent/20">
       <CardHeader>
-        <CardTitle className="text-sm font-bold uppercase tracking-widest text-text-secondary">{pair}</CardTitle>
+        <CardTitle className="text-sm font-bold uppercase tracking-widest text-ink-light">{pair}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted">Liquidity Value</p>
-          <p className="text-xl font-bold text-text tabular-nums">${liquidity.toLocaleString()}</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-ink/40">Liquidity Value</p>
+          <p className="text-xl font-bold text-ink tabular-nums">${liquidity.toLocaleString()}</p>
         </div>
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted">My LP Balance</p>
-          <p className="text-xl font-bold text-text tabular-nums">${balance.toLocaleString()}</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-ink/40">My LP Balance</p>
+          <p className="text-xl font-bold text-ink tabular-nums">${balance.toLocaleString()}</p>
         </div>
         <div className="flex gap-4 pt-4 border-t border-accent/5">
           <Button
