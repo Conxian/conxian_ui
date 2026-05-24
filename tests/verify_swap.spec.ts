@@ -5,7 +5,7 @@ test('Swap page should render and allow token selection', async ({ page }) => {
 
   // Verify heading
   const heading = page.locator('h1');
-  await expect(heading).toContainText('Swap');
+  await expect(heading).toContainText('EXECUTION');
 
   // Open token select
   await page.click('button[aria-label^="Select token"]');
