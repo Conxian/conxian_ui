@@ -52,8 +52,8 @@ export default function Home() {
       {/* High-Trust Readiness Banner */}
       <div className="glass-panel py-3 px-8 flex justify-between items-center border-b border-ghost sticky top-0 z-50">
         <div className="flex items-center gap-4">
-          <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Conxian Mainnet Node Alpha</span>
+          <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-ink">Conxian Mainnet Node Alpha</span>
           <Badge variant="outline" className="text-[8px] border-ghost text-ink/40">v4.2.1-attested</Badge>
         </div>
         <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-ink/60">
@@ -120,7 +120,7 @@ export default function Home() {
                      ))}
                   </div>
                   <div className="p-8 text-center space-y-4">
-                     <div className="inline-block p-4 border-2 border-dashed border-ghost rounded-sm opacity-30">
+                     <div className="inline-block p-4 border border-dashed border-accent/20 rounded-sm opacity-30">
                         <span className="text-xs font-black uppercase tracking-[0.2em]">Awaiting First Packet...</span>
                      </div>
                      <p className="text-[10px] text-ink/40 italic">Hardware-attested telemetry requires node synchronization. Current progress: 98.4%</p>
@@ -135,13 +135,13 @@ export default function Home() {
                      <span>SYSTEM AUTH</span>
                   </div>
                   <CardContent className="p-6 space-y-4">
-                     <p className="text-[10px] leading-relaxed text-ink-light">
+                     <p className="text-[10px] leading-relaxed text-ink-light font-bold">
                         Authorized hardware access for high-frequency protocol interaction.
                      </p>
                      <div className="p-3 bg-neutral-light border border-ghost rounded-sm font-mono text-[10px]">
                         <p className="text-success font-black">&gt; ATTESTATION_READY</p>
-                        <p className="opacity-50">&gt; KEY_ROTATION: OK</p>
-                        <p className="opacity-50">&gt; ENCLAVE_ID: 0x42...F1</p>
+                        <p className="text-ink/50">&gt; KEY_ROTATION: OK</p>
+                        <p className="text-ink/50">&gt; ENCLAVE_ID: 0x42...F1</p>
                      </div>
                   </CardContent>
                </Card>
@@ -151,7 +151,7 @@ export default function Home() {
                      <span>BENCHMARKS</span>
                   </div>
                   <CardContent className="p-6">
-                     <p className="text-[10px] text-ink-light leading-relaxed mb-4">
+                     <p className="text-[10px] text-ink-light leading-relaxed mb-4 font-bold">
                         Real-time efficiency ratings against traditional liquidity providers.
                      </p>
                      <div className="space-y-3">

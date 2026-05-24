@@ -27,10 +27,10 @@ export default function EnvStatus() {
   }, []);
 
   return (
-    <div className="flex items-center gap-4 bg-neutral-light p-3 rounded-lg border border-accent/20" role="status" title={status?.ok ? "Operational" : "Degraded"}>
+    <div className="flex items-center gap-4 bg-neutral-light p-3 rounded-sm border border-accent/20" role="status" title={status?.ok ? "Operational" : "Degraded"}>
       <div className="flex items-center gap-2">
-        <span className="text-xs font-bold text-ink-light uppercase tracking-widest">Network</span>
-        <Badge variant="outline" className="font-mono text-[10px] bg-accent/5 tracking-widest">
+        <span className="text-[10px] font-black text-ink uppercase tracking-widest">Network</span>
+        <Badge variant="outline" className="font-mono text-[9px] bg-accent/5 tracking-widest text-ink/60">
           {AppConfig.network.toUpperCase()}
         </Badge>
       </div>
@@ -38,13 +38,13 @@ export default function EnvStatus() {
       <div className="h-4 w-px bg-accent/20" />
 
       <div className="flex items-center gap-2">
-        <span className="text-xs font-bold text-ink-light uppercase tracking-widest">Core API</span>
+        <span className="text-[10px] font-black text-ink uppercase tracking-widest">Core API</span>
         {loading ? (
-          <div className="h-2 w-2 rounded-full bg-neutral-light animate-pulse" />
+          <div className="h-1.5 w-1.5 rounded-full bg-accent/20 animate-pulse" />
         ) : (
           <div className="flex items-center gap-1.5">
-            <div className={cn("h-2 w-2 rounded-full", status?.ok ? "bg-success" : "bg-error")} />
-            <span className={cn("text-[10px] font-bold uppercase tracking-widest", status?.ok ? "text-success" : "text-error")}>
+            <div className={cn("h-1.5 w-1.5 rounded-full", status?.ok ? "bg-success" : "bg-error")} />
+            <span className={cn("text-[9px] font-black uppercase tracking-widest", status?.ok ? "text-success" : "text-error")}>
               {status?.ok ? "Connected" : "Disconnected"}
             </span>
           </div>
@@ -52,7 +52,7 @@ export default function EnvStatus() {
       </div>
 
       <div className="hidden sm:flex flex-1 justify-end items-center gap-2">
-         <span className="text-[10px] font-mono text-ink/40 truncate max-w-[200px]" title={AppConfig.coreApiUrl}>
+         <span className="text-[9px] font-mono text-ink/40 truncate max-w-[200px] font-black" title={AppConfig.coreApiUrl}>
            {AppConfig.coreApiUrl}
          </span>
       </div>

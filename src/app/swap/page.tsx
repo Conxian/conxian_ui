@@ -4,8 +4,6 @@ import React, { useState, useCallback, useEffect } from "react";
 import {
   Card,
   CardContent,
-
-
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -13,7 +11,6 @@ import { Input } from "@/components/ui/Input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import {
   ArrowsUpDownIcon,
-
   CpuChipIcon,
 } from "@heroicons/react/24/outline";
 import { Tokens } from "@/lib/contracts";
@@ -135,7 +132,7 @@ export default function SwapPage() {
       {/* Terminal Top Bar */}
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
-          <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+          <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
           <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Execution Environment</span>
         </div>
         <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
@@ -148,7 +145,7 @@ export default function SwapPage() {
       <main className="flex-1 p-8 max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Telemetry & Sidebar */}
         <div className="lg:col-span-3 space-y-6 hidden lg:block">
-          <div className="p-4 bg-neutral-light border border-ghost rounded-sm space-y-4">
+          <div className="p-4 bg-neutral-light border border-accent/20 rounded-sm space-y-4">
             <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Market Telemetry</h4>
             <div className="space-y-3">
               <div className="flex justify-between">
@@ -166,9 +163,9 @@ export default function SwapPage() {
             </div>
           </div>
 
-          <div className="p-4 bg-neutral-light border border-ghost rounded-sm">
+          <div className="p-4 bg-neutral-light border border-accent/20 rounded-sm">
             <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 mb-2">Instructions</h4>
-            <p className="text-[10px] leading-relaxed text-ink-light">
+            <p className="text-[10px] leading-relaxed text-ink-light font-bold">
               Input asset quantities for direct automated routing. Path aggregation is hardware-attested for deterministic execution.
             </p>
           </div>
@@ -182,9 +179,9 @@ export default function SwapPage() {
            </div>
 
            <Tabs defaultValue="direct" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 bg-neutral-light border-ghost h-12 p-1 mb-8">
-              <TabsTrigger value="direct" className="uppercase font-black tracking-[0.2em] text-[10px]">Direct Protocol</TabsTrigger>
-              <TabsTrigger value="aggregator" disabled className="uppercase font-black tracking-[0.2em] text-[10px] opacity-30">Multi-Hop Path</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 bg-neutral-light border-accent/20 h-12 p-1 mb-8">
+              <TabsTrigger value="direct">Direct Protocol</TabsTrigger>
+              <TabsTrigger value="aggregator" disabled>Multi-Hop Path</TabsTrigger>
             </TabsList>
 
             <TabsContent value="direct">
@@ -200,7 +197,7 @@ export default function SwapPage() {
                     <div className="flex justify-between items-end">
                       <label htmlFor="from-amount" className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/60">Asset In</label>
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono text-ink/40">BAL: {fromTokenBalance ? formatAmount(fromTokenBalance.balance, fromTokenInfo?.decimals ?? 6) : "0.00"}</span>
+                        <span className="text-[10px] font-mono text-ink/40 font-bold">BAL: {fromTokenBalance ? formatAmount(fromTokenBalance.balance, fromTokenInfo?.decimals ?? 6) : "0.00"}</span>
                         <Button
                           variant="ghost"
                           size="sm"
@@ -212,7 +209,7 @@ export default function SwapPage() {
                         </Button>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4 bg-neutral-light p-4 rounded-sm border border-ghost focus-within:border-accent/40 transition-colors">
+                    <div className="flex items-center gap-4 bg-neutral-light p-4 rounded-sm border border-accent/20 focus-within:border-accent/40 transition-colors">
                       <TokenSelect
                         tokens={Tokens}
                         selectedToken={fromToken}
@@ -226,7 +223,7 @@ export default function SwapPage() {
                         id="from-amount"
                         value={fromAmount}
                         onChange={(e) => /^\d*\.?\d*$/.test(e.target.value) && setFromAmount(e.target.value)}
-                        className="flex-1 text-right font-black text-2xl bg-transparent border-none focus:ring-0 tabular-nums"
+                        className="flex-1 text-right font-black text-2xl bg-transparent border-none focus:ring-0 tabular-nums h-auto p-0"
                         placeholder="0.000000"
                       />
                     </div>
@@ -243,7 +240,7 @@ export default function SwapPage() {
                         setToAmount("");
                       }}
                       aria-label="Invert input and output assets"
-                      className="bg-background-paper p-2 rounded-full border border-ghost hover:border-accent transition-colors shadow-sm group"
+                      className="bg-background-paper p-2 rounded-full border border-accent/20 hover:border-accent transition-colors shadow-sm group"
                     >
                       <ArrowsUpDownIcon className="w-4 h-4 text-ink group-hover:rotate-180 transition-transform duration-500" />
                     </button>
@@ -252,7 +249,7 @@ export default function SwapPage() {
                   {/* To Asset */}
                   <div className="space-y-3">
                     <label htmlFor="to-amount" className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/60">Asset Out</label>
-                    <div className="flex items-center gap-4 bg-neutral-light p-4 rounded-sm border border-ghost focus-within:border-accent/40 transition-colors">
+                    <div className="flex items-center gap-4 bg-neutral-light p-4 rounded-sm border border-accent/20 focus-within:border-accent/40 transition-colors">
                       <TokenSelect
                         tokens={Tokens}
                         selectedToken={toToken}
@@ -266,14 +263,14 @@ export default function SwapPage() {
                         id="to-amount"
                         value={toAmount}
                         readOnly
-                        className="flex-1 text-right font-black text-2xl bg-transparent border-none focus:ring-0 text-ink/40 tabular-nums"
+                        className="flex-1 text-right font-black text-2xl bg-transparent border-none focus:ring-0 text-ink/40 tabular-nums h-auto p-0"
                         placeholder="0.000000"
                       />
                     </div>
                   </div>
 
                   {/* Routing Info */}
-                  <div className="p-4 bg-neutral-light border border-ghost rounded-sm space-y-4">
+                  <div className="p-4 bg-neutral-light border border-accent/20 rounded-sm space-y-4">
                     <div className="flex justify-between items-center">
                        <span className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Slippage Tolerance</span>
                        <div className="flex gap-2">
@@ -286,7 +283,7 @@ export default function SwapPage() {
                             size="sm"
                             className={cn(
                               "text-[9px] font-black px-2 py-0.5 rounded-sm h-7 transition-all",
-                              slippage === v ? "bg-ink text-background border-ink" : "border-ghost text-ink/40 hover:border-ink/20"
+                              slippage === v ? "bg-ink text-background-paper border-ink" : "border-accent/20 text-ink/40 hover:border-accent/40"
                             )}
                            >
                             {v}%
@@ -294,17 +291,17 @@ export default function SwapPage() {
                          ))}
                        </div>
                     </div>
-                    <div className="pt-4 border-t border-ink/5">
+                    <div className="pt-4 border-t border-accent/10">
                       <div className="flex justify-between items-center mb-2">
                         <label className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Aggregated Path</label>
-                        <Badge variant="outline" className="text-[8px] border-ghost text-accent font-black">DET_PATH_V3</Badge>
+                        <Badge variant="outline" className="text-[8px] border-accent/20 text-accent font-black">DET_PATH_V3</Badge>
                       </div>
                       <div className="flex items-center gap-2 text-[10px] font-mono text-ink/60">
-                         <span className="font-black">{fromTokenInfo?.label}</span>
+                         <span className="font-black text-ink">{fromTokenInfo?.label}</span>
                          <span className="text-accent">&rarr;</span>
                          <span className="opacity-40">STX_POOL</span>
                          <span className="text-accent">&rarr;</span>
-                         <span className="font-black">{toTokenInfo?.label}</span>
+                         <span className="font-black text-ink">{toTokenInfo?.label}</span>
                       </div>
                     </div>
                   </div>
@@ -313,20 +310,20 @@ export default function SwapPage() {
                   <Button
                     onClick={handleSwap}
                     disabled={sending || loading || isSameToken || !fromAmount}
-                    className="w-full h-14 bg-ink text-background font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light transition-all rounded-none"
+                    className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light transition-all rounded-none"
                   >
                     {sending ? "TRANSMITTING..." : loading ? "SYNCHRONIZING..." : "EXECUTE PROTOCOL"}
                   </Button>
 
                   {/* Status Overlay */}
                   {(status || txId) && (
-                    <div className="pt-6 border-t border-ghost space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                    <div className="pt-6 border-t border-accent/20 space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-500">
                        <div className="flex justify-between items-center">
                           <span className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Status Log</span>
                           <span className="text-[10px] font-black text-accent uppercase tracking-widest">{status}</span>
                        </div>
                        {txId && (
-                         <div className="flex items-center justify-between p-3 bg-neutral-light border border-ghost rounded-sm">
+                         <div className="flex items-center justify-between p-3 bg-neutral-light border border-accent/20 rounded-sm">
                             <a
                               href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
                               target="_blank" rel="noopener noreferrer"
@@ -354,19 +351,19 @@ export default function SwapPage() {
               </div>
               <CardContent className="p-4 space-y-4 font-mono text-[10px] text-ink/60">
                  <div className="space-y-2">
-                    <div className="flex justify-between border-b border-ghost pb-1">
+                    <div className="flex justify-between border-b border-accent/10 pb-1">
                        <span>[BLOCK] HEIGHT:</span>
                        <span className="text-ink font-black tabular-nums">84,321</span>
                     </div>
-                    <div className="flex justify-between border-b border-ghost pb-1">
+                    <div className="flex justify-between border-b border-accent/10 pb-1">
                        <span>[TX] MEMPOOL:</span>
                        <span className="text-ink font-black tabular-nums">142 UNIT</span>
                     </div>
-                    <div className="flex justify-between border-b border-ghost pb-1">
+                    <div className="flex justify-between border-b border-accent/10 pb-1">
                        <span>[SYNC] ORACLE:</span>
                        <span className="text-success font-black">LOCKED</span>
                     </div>
-                    <div className="flex justify-between border-b border-ghost pb-1">
+                    <div className="flex justify-between border-b border-accent/10 pb-1">
                        <span>[PULSE] NODE:</span>
                        <span className="text-ink font-black tabular-nums">0.12ms</span>
                     </div>
@@ -374,7 +371,7 @@ export default function SwapPage() {
 
                  <div className="pt-4">
                     <h5 className="text-[8px] font-black uppercase text-ink/30 mb-2">Trace Log</h5>
-                    <div className="space-y-1 opacity-50">
+                    <div className="space-y-1 opacity-50 font-bold">
                        <p>&gt; Connection established</p>
                        <p>&gt; Handshake verified</p>
                        <p>&gt; Hardware attestation OK</p>

@@ -67,7 +67,7 @@ export default function LaunchPage() {
       {/* Terminal Top Bar */}
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
-          <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+          <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
           <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Bootstrap Environment</span>
         </div>
         <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
@@ -77,7 +77,7 @@ export default function LaunchPage() {
       </div>
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
-        <div className="flex justify-between items-end border-b border-ghost pb-6">
+        <div className="flex justify-between items-end border-b border-accent/20 pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-widest uppercase text-ink">BOOTSTRAP</h1>
               <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Community Funding Sequence</p>
@@ -89,11 +89,11 @@ export default function LaunchPage() {
         </div>
 
         <Tabs defaultValue="overview" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-4 bg-neutral-light border-ghost h-12 p-1">
-            <TabsTrigger value="overview" className="uppercase font-black tracking-[0.2em] text-[10px]">Sequence Log</TabsTrigger>
-            <TabsTrigger value="contribute" className="uppercase font-black tracking-[0.2em] text-[10px]">Contribute</TabsTrigger>
-            <TabsTrigger value="progress" className="uppercase font-black tracking-[0.2em] text-[10px]">Node Distribution</TabsTrigger>
-            <TabsTrigger value="leaderboard" className="uppercase font-black tracking-[0.2em] text-[10px]">Attribution</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 bg-neutral-light border-accent/20 h-12 p-1">
+            <TabsTrigger value="overview">Sequence Log</TabsTrigger>
+            <TabsTrigger value="contribute">Contribute</TabsTrigger>
+            <TabsTrigger value="progress">Node Distribution</TabsTrigger>
+            <TabsTrigger value="leaderboard">Attribution</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-8">
@@ -152,7 +152,7 @@ export default function LaunchPage() {
                       <Badge
                         variant="outline"
                         className={cn(
-                          "uppercase text-[8px] font-black tracking-[0.2em] px-2 py-0.5 border-ghost",
+                          "uppercase text-[8px] font-black tracking-[0.2em] px-2 py-0.5 border-accent/20",
                           phase.status === "active" ? "text-accent" : "text-ink/30"
                         )}
                       >
@@ -188,18 +188,18 @@ export default function LaunchPage() {
                        value={contributionAmount}
                        onChange={(e) => setContributionAmount(e.target.value)}
                        placeholder="0.00"
-                       className="text-right pr-12 font-black text-2xl h-14 bg-neutral-light border-ghost tabular-nums"
+                       className="text-right pr-12 font-black text-2xl h-14 bg-neutral-light border-accent/20 tabular-nums"
                      />
                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-black text-ink/30 pointer-events-none">STX</span>
                   </div>
-                  <Button onClick={handleContribute} disabled={sending} className="min-w-[160px] h-14 bg-ink text-background font-black uppercase tracking-[0.2em] text-xs hover:bg-ink-light rounded-none">
+                  <Button onClick={handleContribute} disabled={sending} className="min-w-[160px] h-14 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-xs hover:bg-ink-light rounded-none">
                     {sending ? "TRANSMITTING..." : "CONTRIBUTE"}
                   </Button>
                 </div>
 
-                <div className="p-4 bg-neutral-light border border-ghost rounded-sm flex justify-between items-center">
+                <div className="p-4 bg-neutral-light border border-accent/20 rounded-sm flex justify-between items-center">
                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Active Contribution:</span>
-                   <span className="text-xl font-black text-ink tabular-nums">{userContribution.total} <span className="text-xs opacity-30">STX</span></span>
+                   <span className="text-xl font-black text-ink tabular-nums">{userContribution.total} <span className="text-xs opacity-30 font-bold">STX</span></span>
                 </div>
 
                 {txId && (
@@ -209,7 +209,7 @@ export default function LaunchPage() {
                       <a
                         href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
                         target="_blank" rel="noopener noreferrer"
-                        className="text-ink font-mono text-[10px] font-bold mt-1 hover:underline"
+                        className="text-ink font-mono text-[10px] font-black mt-1 hover:underline"
                       >
                         {truncate(txId, 20, 18)}
                       </a>

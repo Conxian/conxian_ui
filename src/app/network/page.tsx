@@ -51,20 +51,20 @@ export default function NetworkPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
-      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-ghost">
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Network Topology Telemetry</span>
-        <div className="flex gap-4 text-[10px] font-bold uppercase tracking-widest opacity-60">
+        <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
           <span>PROTO: STACKS_v2</span>
         </div>
       </div>
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
-        <div className="flex justify-between items-end border-b border-ghost pb-6">
+        <div className="flex justify-between items-end border-b border-accent/20 pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-widest uppercase text-ink">TELEMETRY</h1>
-              <p className="text-accent font-bold uppercase tracking-[0.4em] text-xs mt-2">Real-Time Chain State Analysis</p>
+              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Real-Time Chain State Analysis</p>
            </div>
-           <Button onClick={refresh} disabled={loading} className="h-10 px-6 bg-ink text-background font-black uppercase tracking-widest text-[10px]">
+           <Button onClick={refresh} disabled={loading} className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]">
               {loading ? "SYNCING..." : "REFRESH"}
            </Button>
         </div>
@@ -78,17 +78,17 @@ export default function NetworkPage() {
               </div>
               <CardContent className="p-6 space-y-4 font-mono text-[10px] text-ink/60">
                 <div className="space-y-2">
-                   <div className="flex justify-between border-b border-ghost pb-1">
+                   <div className="flex justify-between border-b border-accent/10 pb-1">
                       <span className="tracking-widest">CORE_API:</span>
-                      <span className="text-ink font-bold truncate ml-4">{AppConfig.coreApiUrl}</span>
+                      <span className="text-ink font-bold truncate ml-4 tabular-nums">{AppConfig.coreApiUrl}</span>
                    </div>
-                   <div className="flex justify-between border-b border-ghost pb-1">
+                   <div className="flex justify-between border-b border-accent/10 pb-1">
                       <span className="tracking-widest">NETWORK_ID:</span>
-                      <span className="text-ink font-bold">{AppConfig.network.toUpperCase()}</span>
+                      <span className="text-ink font-black">{AppConfig.network.toUpperCase()}</span>
                    </div>
-                   <div className="flex justify-between border-b border-ghost pb-1">
+                   <div className="flex justify-between border-b border-accent/10 pb-1">
                       <span>SYNC_STATUS:</span>
-                      <span className={status?.ok ? "text-success font-bold" : "text-error font-bold"}>
+                      <span className={status?.ok ? "text-success font-black" : "text-error font-black"}>
                         {status?.ok ? "LOCKED" : "FAULT"}
                       </span>
                    </div>
@@ -102,7 +102,7 @@ export default function NetworkPage() {
                 <CpuChipIcon className="w-3 h-3 opacity-50" />
               </div>
               <CardContent className="p-4">
-                <pre className="text-[10px] font-mono overflow-auto max-h-[300px] text-ink/70 bg-neutral-light p-4 rounded-sm border border-ghost">
+                <pre className="text-[10px] font-mono overflow-auto max-h-[300px] text-ink/70 bg-neutral-light p-4 rounded-sm border border-accent/20 font-bold tabular-nums">
                   {blocks ? JSON.stringify(blocks, null, 2) : "AWAITING_PACKET..."}
                 </pre>
               </CardContent>
@@ -118,24 +118,24 @@ export default function NetworkPage() {
               <CardContent className="p-0">
                 <Table>
                   <TableHeader>
-                    <TableRow className="bg-neutral-light border-ghost">
-                      <TableHead className="text-[9px] font-black">TX_ID_VECTOR</TableHead>
-                      <TableHead className="text-[9px] font-black">OP_TYPE</TableHead>
-                      <TableHead className="text-[9px] font-black">SENDER_ORIGIN</TableHead>
-                      <TableHead className="text-[9px] font-black text-right">NONCE</TableHead>
+                    <TableRow>
+                      <TableHead>TX_ID_VECTOR</TableHead>
+                      <TableHead>OP_TYPE</TableHead>
+                      <TableHead>SENDER_ORIGIN</TableHead>
+                      <TableHead className="text-right">NONCE</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {mempool.map((tx, idx) => (
-                      <TableRow key={tx?.tx_id || `tx-${idx}`} className="border-ghost hover:bg-neutral-light transition-colors">
-                        <TableCell className="font-mono text-[9px] font-bold text-accent truncate max-w-[120px]">
+                      <TableRow key={tx?.tx_id || `tx-${idx}`}>
+                        <TableCell className="font-mono text-[9px] font-black text-accent truncate max-w-[120px]">
                           {tx?.tx_id || "—"}
                         </TableCell>
                         <TableCell className="text-[9px] font-black text-ink/60 uppercase">{tx?.tx_type || "—"}</TableCell>
-                        <TableCell className="font-mono text-[9px] text-ink/40 truncate max-w-[120px]">
+                        <TableCell className="font-mono text-[9px] text-ink/40 truncate max-w-[120px] font-black">
                           {tx?.sender_address || "—"}
                         </TableCell>
-                        <TableCell className="text-right text-[9px] font-black text-ink">{tx?.nonce ?? "—"}</TableCell>
+                        <TableCell className="text-right text-[9px] font-black text-ink tabular-nums">{tx?.nonce ?? "—"}</TableCell>
                       </TableRow>
                     ))}
                     {mempool.length === 0 && (

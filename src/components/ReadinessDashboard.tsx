@@ -42,61 +42,61 @@ export function ReadinessDashboard() {
             <ClockIcon className="w-12 h-12 text-accent" />
           </div>
           <CardHeader className="pb-2">
-            <CardTitle className="text-[10px] font-bold text-accent uppercase tracking-[0.2em]">Genesis Countdown</CardTitle>
+            <CardTitle className="text-[10px] font-black text-accent uppercase tracking-[0.2em]">Genesis Countdown</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex gap-2 items-baseline text-ink">
-              <span className="text-3xl font-bold tabular-nums">{timeLeft.days}</span>
-              <span className="text-[10px] font-medium uppercase opacity-60">Days</span>
-              <span className="text-3xl font-bold tabular-nums">{timeLeft.hours}</span>
-              <span className="text-[10px] font-medium uppercase opacity-60">H</span>
+              <span className="text-3xl font-black tabular-nums">{timeLeft.days}</span>
+              <span className="text-[10px] font-black uppercase opacity-60">Days</span>
+              <span className="text-3xl font-black tabular-nums">{timeLeft.hours}</span>
+              <span className="text-[10px] font-black uppercase opacity-60">H</span>
             </div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-[10px] font-bold text-ink-light uppercase tracking-[0.2em]">Hardware Attestation</CardTitle>
+            <CardTitle className="text-[10px] font-black text-ink uppercase tracking-[0.2em]">Hardware Attestation</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
-              <span className="text-sm font-bold text-ink tabular-nums">SGX-V3 ACTIVE</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
+              <span className="text-sm font-black text-ink tabular-nums">SGX-V3 ACTIVE</span>
             </div>
-            <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase">Node ID: 0x2E40...3B1A</p>
+            <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase font-black">Node ID: 0x2E40...3B1A</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-[10px] font-bold text-ink-light uppercase tracking-[0.2em]">Security Pillar</CardTitle>
+            <CardTitle className="text-[10px] font-black text-ink uppercase tracking-[0.2em]">Security Pillar</CardTitle>
           </CardHeader>
           <CardContent>
              <div className="flex items-center gap-2">
                 <ShieldCheckIcon className="w-4 h-4 text-success" />
-                <span className="text-sm font-bold text-ink">98.2% READY</span>
+                <span className="text-sm font-black text-ink">98.2% READY</span>
              </div>
-             <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase">Audit: Halborn v1.4</p>
+             <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase font-black">Audit: Halborn v1.4</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-[10px] font-bold text-ink-light uppercase tracking-[0.2em]">Network Load</CardTitle>
+            <CardTitle className="text-[10px] font-black text-ink uppercase tracking-[0.2em]">Network Load</CardTitle>
           </CardHeader>
           <CardContent>
              <div className="flex items-center gap-2">
                 <GlobeAltIcon className="w-4 h-4 text-info" />
-                <span className="text-sm font-bold text-ink tabular-nums">1.2ms LATENCY</span>
+                <span className="text-sm font-black text-ink tabular-nums">1.2ms LATENCY</span>
              </div>
-             <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase">Region: US-EAST-1</p>
+             <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase font-black">Region: US-EAST-1</p>
           </CardContent>
         </Card>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-sm font-bold uppercase tracking-widest text-ink-light">Institutional Readiness Pillars</CardTitle>
+          <CardTitle className="text-sm font-black uppercase tracking-widest text-ink">Institutional Readiness Pillars</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -104,36 +104,36 @@ export function ReadinessDashboard() {
                 <div className="flex items-start gap-3">
                    <div className="mt-1"><CpuChipIcon className="w-5 h-5 text-accent" /></div>
                    <div>
-                      <h4 className="text-sm font-bold text-ink uppercase tracking-tight">Computational Integrity</h4>
-                      <p className="text-xs text-ink-light mt-1">Conxian nodes utilize Intel SGX and TEE to ensure transaction isolation and privacy, even from node operators.</p>
+                      <h4 className="text-sm font-black text-ink uppercase tracking-tight">Computational Integrity</h4>
+                      <p className="text-xs text-ink-light mt-1 font-bold">Conxian nodes utilize Intel SGX and TEE to ensure transaction isolation and privacy, even from node operators.</p>
                    </div>
                 </div>
                 <div className="flex items-start gap-3">
                    <div className="mt-1"><ShieldCheckIcon className="w-5 h-5 text-accent" /></div>
                    <div>
-                      <h4 className="text-sm font-bold text-ink uppercase tracking-tight">Compliance Infrastructure</h4>
-                      <p className="text-xs text-ink-light mt-1">Built-in support for institutional grade RBAC and AML/KYC hooks without compromising decentralized core values.</p>
+                      <h4 className="text-sm font-black text-ink uppercase tracking-tight">Compliance Infrastructure</h4>
+                      <p className="text-xs text-ink-light mt-1 font-bold">Built-in support for institutional grade RBAC and AML/KYC hooks without compromising decentralized core values.</p>
                    </div>
                 </div>
              </div>
-             <div className="bg-neutral-light p-4 rounded border border-accent/10">
-                <h4 className="text-xs font-bold text-ink-light uppercase tracking-widest mb-3">Live Telemetry Feed</h4>
-                <div className="space-y-2 font-mono text-[10px] text-ink-light">
-                   <div className="flex justify-between border-b border-accent/5 pb-1">
+             <div className="bg-neutral-light p-4 rounded-sm border border-accent/20">
+                <h4 className="text-[10px] font-black text-ink uppercase tracking-widest mb-3">Live Telemetry Feed</h4>
+                <div className="space-y-2 font-mono text-[10px] text-ink/60">
+                   <div className="flex justify-between border-b border-accent/10 pb-1">
                       <span>[SYSLOG] Consensus Reach:</span>
-                      <span className="text-success">MATCH</span>
+                      <span className="text-success font-black">MATCH</span>
                    </div>
-                   <div className="flex justify-between border-b border-accent/5 pb-1">
+                   <div className="flex justify-between border-b border-accent/10 pb-1">
                       <span>[ATTEST] TEE Pulse:</span>
-                      <span className="text-success">OK (0.1ms)</span>
+                      <span className="text-success font-black">OK (0.1ms)</span>
                    </div>
-                   <div className="flex justify-between border-b border-accent/5 pb-1">
+                   <div className="flex justify-between border-b border-accent/10 pb-1">
                       <span>[POLICY] Oracle Sync:</span>
-                      <span className="text-success">UP-TO-DATE</span>
+                      <span className="text-success font-black">UP-TO-DATE</span>
                    </div>
                    <div className="flex justify-between">
                       <span>[ALGO] Yield Opt:</span>
-                      <span className="text-info">TUNING...</span>
+                      <span className="text-info font-black">TUNING...</span>
                    </div>
                 </div>
              </div>

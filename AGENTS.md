@@ -26,8 +26,8 @@ Purge all heavy, default dark-mode backgrounds from main operational views. The 
     *   **Surface (30%)**: `#FFFFFF` (`--color-background-paper`) or `#F9F8F6` (`--color-neutral-light`)
     *   **Brand (10%)**: `#333333` (`--color-ink`) or `#1A2623` (`--color-ink-deep`)
 *   **Contrast**: Ensure all text contrast ratios meet strict institutional accessibility standards (WCAG AAA for financial data, ~12:1 ratio). Primary text should be #333333, secondary text should be #4D4D4D.
-*   **Typography**: Use `tabular-nums` for all financial figures and ensure primary headers and operational labels use `uppercase tracking-widest`.
-*   **Components**: Use canonical UI components (Button, Input, Card, Badge, Table, StatusIndicator, ReadinessDashboard) and standard `border-accent/20` styling to maintain theme consistency.
+*   **Typography**: Use `tabular-nums` for all financial figures and ensure primary headers and operational labels use `uppercase tracking-widest`. All body copy and labels must use `font-black` or `font-bold` for high legibility.
+*   **Components**: Use canonical UI components (Button, Input, Card, Badge, Table, StatusIndicator, ReadinessDashboard) and standard `border-accent/20` styling to maintain theme consistency. Buttons must use `rounded-sm` and `uppercase tracking-[0.2em]`.
 
 ## 4. AGENT SPECIFIC CHECKS
 
@@ -35,3 +35,5 @@ Purge all heavy, default dark-mode backgrounds from main operational views. The 
 - Ensure all new pages wrap content in `bg-background min-h-screen`.
 - Use `StatusIndicator` for health states (operational/degraded/error).
 - Ensure `EnvStatus` is visible on the Dashboard.
+- All numerical data MUST use `tabular-nums`.
+- All operational labels and headers MUST use `uppercase tracking-widest` or `tracking-[0.2em]`.

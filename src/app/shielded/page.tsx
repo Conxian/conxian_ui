@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { ShieldCheckIcon, PlusCircleIcon, ArrowUpCircleIcon, ArrowDownCircleIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { useApi } from '@/lib/api-client';
 import { useWallet } from '@/lib/wallet';
 import { Input } from '@/components/ui/Input';
@@ -123,114 +123,125 @@ export default function Shielded() {
   }, [fetchWallets]);
 
   return (
-    <div className="space-y-8 bg-background min-h-screen">
-      <div>
-        <h1 className="text-3xl font-black text-ink">Shielded Wallets</h1>
-        <p className="mt-2 text-sm text-ink-light">
-          Manage your private, shielded assets and transactions using Zero-Knowledge proofs.
-        </p>
+    <div className="flex flex-col min-h-screen bg-background terminal-text">
+       {/* Terminal Top Bar */}
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
+        <div className="flex items-center gap-4">
+          <div className="h-1.5 w-1.5 rounded-full bg-info animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Privacy Layer v1.0 (SHIELDED)</span>
+        </div>
+        <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
+          <span>ZK_PROOFS: ACTIVE</span>
+          <span>MIX_LEVEL: HIGH</span>
+        </div>
       </div>
 
-      <Card className="bg-background-paper">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7">
-          <div className="flex items-center">
-            <ShieldCheckIcon className="w-8 h-8 mr-3 text-accent" />
-            <div>
-              <CardTitle className="text-xl font-semibold text-ink">Wallets</CardTitle>
-              <CardDescription className="text-ink-light font-medium uppercase tracking-tight text-xs mt-1">
-                Your Hardware-Attested Private Accounts
-              </CardDescription>
-            </div>
-          </div>
-          <Button onClick={handleCreateWallet} variant="outline" size="sm" className="border-accent/30 hover:bg-accent/10">
-            <PlusCircleIcon className="w-5 h-5 mr-2" />
-            New Wallet
-          </Button>
-        </CardHeader>
-        <CardContent>
-          {loading ? (
-            <div className="py-20 text-center animate-pulse text-ink/40">Syncing with privacy layer...</div>
-          ) : wallets.length > 0 ? (
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {wallets.map((wallet) => (
-              <li
-                key={wallet.id}
-                className="p-6 rounded-lg border border-ghost bg-neutral-light shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <p className="font-mono text-sm font-semibold text-ink bg-neutral-light px-2 py-1 rounded">
-                    {truncate(wallet.id, 12, 10)}
-                  </p>
-                  <Badge variant="outline" className="bg-info/10 text-info border-info/20 font-black uppercase tracking-[0.2em] text-[10px]">
-                    Shielded
-                  </Badge>
-                </div>
-                <div className="flex items-baseline gap-2 mb-6 border-b border-accent/10 pb-4">
-                  <span className="text-3xl font-black text-ink">{wallet.balance}</span>
-                  <span className="text-ink-light font-semibold text-sm uppercase">STX</span>
-                </div>
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+        <div className="flex justify-between items-end border-b border-accent/20 pb-6">
+           <div>
+              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">SHIELDED</h1>
+              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Zero-Knowledge Private Asset Custody</p>
+           </div>
+           <Button onClick={handleCreateWallet} className="bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px] h-10 px-6">
+              <PlusCircleIcon className="w-4 h-4 mr-2" />
+              DEPLOY_SHIELDED_CONTEXT
+           </Button>
+        </div>
 
-                <div className="space-y-6 pt-2">
-                  <div className="space-y-3">
-                    <label className="text-[10px] font-black text-ink-light uppercase tracking-[0.2em]">Shielded Transfer</label>
-                    <div className="grid grid-cols-1 gap-2">
-                      <Input
-                        type="text"
-                        placeholder="Recipient Principal"
-                        value={recipient}
-                        onChange={(e) => setRecipient(e.target.value)}
-                        className="text-xs h-9"
-                      />
+        <Card className="machined-card">
+          <div className="machined-header">
+             <div className="flex items-center">
+                <ShieldCheckIcon className="w-3 h-3 mr-2 text-accent" />
+                <span>PRIVATE_HARDWARE_ENCLAVES</span>
+             </div>
+          </div>
+          <CardContent className="p-8">
+            {loading ? (
+              <div className="py-20 text-center animate-pulse text-ink/40 font-black uppercase text-[10px] tracking-[0.2em]">Syncing with privacy layer...</div>
+            ) : wallets.length > 0 ? (
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {wallets.map((wallet) => (
+                <li
+                  key={wallet.id}
+                  className="p-8 rounded-sm border border-accent/20 bg-neutral-light/30 transition-all hover:bg-neutral-light/50"
+                >
+                  <div className="flex justify-between items-start mb-6">
+                    <p className="font-mono text-[10px] font-black text-ink bg-background-paper border border-accent/10 px-3 py-1.5 rounded-sm tabular-nums">
+                      {truncate(wallet.id, 12, 10)}
+                    </p>
+                    <Badge variant="secondary">
+                      Shielded
+                    </Badge>
+                  </div>
+                  <div className="flex items-baseline gap-2 mb-8 border-b border-accent/10 pb-6">
+                    <span className="text-4xl font-black text-ink tabular-nums">{wallet.balance}</span>
+                    <span className="text-ink/40 font-black text-sm uppercase tracking-widest">STX</span>
+                  </div>
+
+                  <div className="space-y-8 pt-2">
+                    <div className="space-y-4">
+                      <label className="text-[9px] font-black text-ink/40 uppercase tracking-[0.2em]">Shielded Transfer Vector</label>
+                      <div className="grid grid-cols-1 gap-3">
+                        <Input
+                          type="text"
+                          placeholder="RECIPIENT_PRINCIPAL"
+                          value={recipient}
+                          onChange={(e) => setRecipient(e.target.value)}
+                          className="bg-background-paper border-accent/20 font-black text-[10px] h-10"
+                        />
+                        <div className="flex items-center space-x-2">
+                          <Input
+                            type="number"
+                            placeholder="QTY"
+                            value={sendAmount}
+                            onChange={(e) => setSendAmount(e.target.value)}
+                            className="bg-background-paper border-accent/20 font-black text-[10px] h-10 flex-1 tabular-nums"
+                          />
+                          <Button onClick={() => handleSendFunds(wallet.id)} className="shrink-0 h-10 px-6 bg-ink text-background-paper font-black uppercase text-[10px] tracking-widest">
+                            <ArrowUpCircleIcon className="w-3 h-3 mr-2" />
+                            EXEC_SEND
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4 pt-6 border-t border-accent/10">
+                      <label className="text-[9px] font-black text-ink/40 uppercase tracking-[0.2em]">Shielded Funding Protocol</label>
                       <div className="flex items-center space-x-2">
                         <Input
                           type="number"
-                          placeholder="Amount"
-                          value={sendAmount}
-                          onChange={(e) => setSendAmount(e.target.value)}
-                          className="text-xs h-9 flex-1"
+                          placeholder="QTY_TO_SHIELD"
+                          value={receiveAmount}
+                          onChange={(e) => setReceiveAmount(e.target.value)}
+                          className="bg-background-paper border-accent/20 font-black text-[10px] h-10 flex-1 tabular-nums"
                         />
-                        <Button onClick={() => handleSendFunds(wallet.id)} size="sm" className="shrink-0 h-9 px-4">
-                          <ArrowUpCircleIcon className="w-4 h-4 mr-1.5" />
-                          Send
+                        <Button onClick={() => handleReceiveFunds(wallet.id)} variant="outline" className="shrink-0 h-10 px-6 font-black uppercase text-[10px] tracking-widest border-accent/20 text-ink/60 hover:text-ink">
+                          <ArrowDownCircleIcon className="w-3 h-3 mr-2" />
+                          EXEC_SHIELD
                         </Button>
                       </div>
                     </div>
                   </div>
-
-                  <div className="space-y-3 pt-4 border-t border-accent/5">
-                    <label className="text-[10px] font-black text-ink-light uppercase tracking-[0.2em]">Shielded Funding</label>
-                    <div className="flex items-center space-x-2">
-                      <Input
-                        type="number"
-                        placeholder="Amount to Shield"
-                        value={receiveAmount}
-                        onChange={(e) => setReceiveAmount(e.target.value)}
-                        className="text-xs h-9"
-                      />
-                      <Button onClick={() => handleReceiveFunds(wallet.id)} size="sm" variant="secondary" className="shrink-0 h-9 px-4">
-                        <ArrowDownCircleIcon className="w-4 h-4 mr-1.5" />
-                        Shield
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div className="py-24 text-center space-y-4">
-             <ShieldCheckIcon className="w-16 h-16 mx-auto text-ink/10" />
-             <div className="space-y-1">
-                <p className="text-ink font-semibold">No Private Wallets Detected</p>
-                <p className="text-ink-light text-sm max-w-xs mx-auto">Create a shielded wallet to enable private transactions on the Conxian network.</p>
-             </div>
-             <Button onClick={handleCreateWallet} variant="outline" className="text-accent border-accent/30 mt-4">
-                Deploy Shielded Context
-             </Button>
-          </div>
-        )}
-        </CardContent>
-      </Card>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="py-24 text-center space-y-6">
+               <ShieldCheckIcon className="w-16 h-16 mx-auto text-ink/10" />
+               <div className="space-y-2">
+                  <p className="text-ink font-black uppercase tracking-[0.2em] text-sm">No Private Wallets Detected</p>
+                  <p className="text-ink-light text-[10px] max-w-xs mx-auto font-bold uppercase tracking-widest leading-relaxed">
+                    Deploy a shielded context to enable hardware-attested private transactions.
+                  </p>
+               </div>
+               <Button onClick={handleCreateWallet} className="bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px] h-12 px-8 mt-6">
+                  DEPLOY_SHIELDED_CONTEXT
+               </Button>
+            </div>
+          )}
+          </CardContent>
+        </Card>
+      </main>
     </div>
   );
 }

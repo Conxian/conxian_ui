@@ -49,9 +49,9 @@ export default function PoolsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       {/* Terminal Top Bar */}
-      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-ghost">
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
-          <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+          <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
           <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Reserve Explorer</span>
         </div>
         <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
@@ -61,14 +61,14 @@ export default function PoolsPage() {
       </div>
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
-        <div className="flex justify-between items-end border-b border-ghost pb-6">
+        <div className="flex justify-between items-end border-b border-accent/20 pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-widest uppercase text-ink">RESERVES</h1>
               <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">On-Chain Asset Telemetry</p>
            </div>
            <div className="flex gap-4">
               <select
-                className="bg-neutral-light border border-ghost rounded-sm px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] focus:ring-1 focus:ring-accent focus:outline-none text-ink"
+                className="bg-neutral-light border border-accent/20 rounded-sm px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] focus:ring-1 focus:ring-accent focus:outline-none text-ink font-bold"
                 value={selected}
                 onChange={(e) => setSelected(e.target.value)}
                 aria-label="Select liquidity pool"
@@ -77,7 +77,7 @@ export default function PoolsPage() {
                   <option key={p.id} value={p.id}>{p.label}</option>
                 ))}
               </select>
-              <Button onClick={refresh} disabled={loading} className="h-10 px-6 bg-ink text-background font-black uppercase tracking-[0.2em] text-[10px]">
+              <Button onClick={refresh} disabled={loading} className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]">
                 {loading ? "SYNCING..." : "REFRESH"}
               </Button>
            </div>
@@ -142,13 +142,13 @@ export default function PoolsPage() {
                   Fee Configuration
                 </h3>
                 <div className="space-y-3 font-mono text-xs">
-                  <div className="flex justify-between border-b border-ghost pb-2">
+                  <div className="flex justify-between border-b border-accent/10 pb-2">
                     <span className="text-ink/40 font-black uppercase">Swap Fee</span>
                     <span className="text-ink font-black tabular-nums">
                       {feeInfo?.ok ? String(getTupleField(feeInfo.result!, "swap-fee") || "0") : "0"}
                     </span>
                   </div>
-                  <div className="flex justify-between border-b border-ghost pb-2">
+                  <div className="flex justify-between border-b border-accent/10 pb-2">
                     <span className="text-ink/40 font-black uppercase">Admin Fee</span>
                     <span className="text-ink font-black tabular-nums">
                       {feeInfo?.ok ? String(getTupleField(feeInfo.result!, "admin-fee") || "0") : "0"}
@@ -163,15 +163,15 @@ export default function PoolsPage() {
                   Operational Status
                 </h3>
                 <div className="space-y-3 font-mono text-xs">
-                  <div className="flex justify-between border-b border-ghost pb-2">
+                  <div className="flex justify-between border-b border-accent/10 pb-2">
                     <span className="text-ink/40 font-black uppercase">Volume (24h)</span>
                     <span className="text-ink font-black tabular-nums">
                       {perf?.ok ? String(getTupleField(perf.result!, "volume-24h") || "0") : "0"}
                     </span>
                   </div>
-                  <div className="flex justify-between border-b border-ghost pb-2">
+                  <div className="flex justify-between border-b border-accent/10 pb-2">
                     <span className="text-ink/40 font-black uppercase">Utilization</span>
-                    <span className="text-ink font-black text-success tabular-nums">
+                    <span className="text-success font-black tabular-nums">
                       {perf?.ok ? String(getTupleField(perf.result!, "utilization") || "0%") : "0%"}
                     </span>
                   </div>

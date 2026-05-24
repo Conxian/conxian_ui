@@ -6,9 +6,10 @@ import {
   getContractInterface,
 } from "@/lib/core-api";
 import { Button } from "@/components/ui/Button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { AppConfig } from "@/lib/config";
+import { CodeBracketSquareIcon, LinkIcon } from "@heroicons/react/24/outline";
 
 export default function ContractsPage() {
   const [principal, setPrincipal] = React.useState<string>(BASE_PRINCIPAL);
@@ -29,119 +30,132 @@ export default function ContractsPage() {
   }, [loadInterface]);
 
   return (
-    <div className="p-6 space-y-6 bg-background min-h-screen">
-      <div>
-        <h1 className="text-3xl font-black tracking-tight text-ink">
-          Contract Explorer
-        </h1>
-        <p className="text-ink-light">
-          Inspect and interact with Conxian smart contracts.
-        </p>
+    <div className="flex flex-col min-h-screen bg-background terminal-text">
+       {/* Terminal Top Bar */}
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
+        <div className="flex items-center gap-4">
+          <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Contract Interface Debugger</span>
+        </div>
+        <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
+          <span>ABI: DYNAMIC</span>
+          <span>COMPILER: v0.24</span>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">
-                Target Contract
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Principal</label>
-                <Input
-                  value={principal}
-                  onChange={(e) => setPrincipal(e.target.value)}
-                  placeholder="ST..."
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Contract Name</label>
-                <Input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="dex-factory"
-                />
-              </div>
-              <Button
-                className="w-full"
-                onClick={loadInterface}
-                disabled={loading}
-              >
-                {loading ? "Loading..." : "Load Interface"}
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">
-                Registry Quick-Links
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 max-h-[400px] overflow-auto">
-                {CoreContracts.map((c) => (
-                  <Button
-                    key={c.id}
-                    variant="ghost"
-                    onClick={() => {
-                      const [p, n] = c.id.split(".");
-                      setPrincipal(p);
-                      setName(n);
-                    }}
-                    className="w-full justify-between h-auto p-2 font-normal hover:bg-neutral-light"
-                  >
-                    <span className="text-ink">{c.label}</span>
-                    <span className="text-ink/40 opacity-0 group-hover:opacity-100 text-[10px] font-mono">
-                      {c.id.split(".")[1]}
-                    </span>
-                  </Button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+        <div className="flex justify-between items-end border-b border-accent/20 pb-6">
+           <div>
+              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">CONTRACTS</h1>
+              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Smart Contract State Investigation</p>
+           </div>
         </div>
 
-        <div className="space-y-6">
-          {iface ? (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-ink-light">
-                  Interface Details
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="bg-neutral-light p-4 rounded-sm border border-ghost">
-                  <pre className="text-xs font-mono overflow-auto max-h-[300px] whitespace-pre-wrap">
-                    {JSON.stringify(iface, null, 2)}
-                  </pre>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <div className="space-y-8">
+            <Card className="machined-card">
+              <div className="machined-header">
+                <span>TARGET CONTRACT DEFINITION</span>
+                <CodeBracketSquareIcon className="w-3 h-3" />
+              </div>
+              <CardContent className="p-8 space-y-6">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Principal Origin</label>
+                    <Input
+                      value={principal}
+                      onChange={(e) => setPrincipal(e.target.value)}
+                      placeholder="ST..."
+                      className="bg-neutral-light border-accent/20 font-black text-xs tabular-nums"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Contract Identifier</label>
+                    <Input
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="dex-factory"
+                      className="bg-neutral-light border-accent/20 font-black text-xs"
+                    />
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-accent/10">
-                  <a
-                    href={explorerContractUrl(
-                      `${principal}.${name}`,
-                      AppConfig.network as "devnet" | "testnet" | "mainnet"
-                    )}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent text-xs hover:underline"
-                  >
-                    View in Explorer →
-                  </a>
+                <Button
+                  className="w-full h-12 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-[10px]"
+                  onClick={loadInterface}
+                  disabled={loading}
+                >
+                  {loading ? "SYNCHRONIZING..." : "LOAD_INTERFACE_SCHEMA"}
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="machined-card">
+              <div className="machined-header">
+                <span>PROTOCOL REGISTRY QUICK-ACCESS</span>
+              </div>
+              <CardContent className="p-4">
+                <div className="space-y-1 max-h-[350px] overflow-auto pr-2">
+                  {CoreContracts.map((c) => (
+                    <Button
+                      key={c.id}
+                      variant="ghost"
+                      onClick={() => {
+                        const [p, n] = c.id.split(".");
+                        setPrincipal(p);
+                        setName(n);
+                      }}
+                      className="w-full justify-between h-10 p-3 font-black text-[10px] uppercase tracking-widest hover:bg-neutral-light rounded-sm border border-transparent hover:border-accent/10 transition-all group"
+                    >
+                      <span className="text-ink">{c.label}</span>
+                      <span className="text-ink/30 font-mono text-[8px] font-black opacity-0 group-hover:opacity-100 transition-opacity">
+                        {c.id.split(".")[1]}
+                      </span>
+                    </Button>
+                  ))}
                 </div>
               </CardContent>
             </Card>
-          ) : (
-            <div className="flex flex-col items-center justify-center h-[300px] text-ink/40 border-2 border-dashed border-accent/10 rounded-sm">
-              <p className="text-sm italic">
-                Load a contract interface to see details
-              </p>
-            </div>
-          )}
+          </div>
+
+          <div className="space-y-8">
+            {iface ? (
+              <Card className="machined-card">
+                <div className="machined-header">
+                  <span>INTERFACE_SCHEMA_OUTPUT</span>
+                </div>
+                <CardContent className="p-6 space-y-6">
+                  <div className="bg-neutral-light p-6 rounded-sm border border-accent/20 font-mono text-[10px] leading-relaxed font-bold tabular-nums">
+                    <pre className="overflow-auto max-h-[500px] whitespace-pre-wrap text-ink/70">
+                      {JSON.stringify(iface, null, 2)}
+                    </pre>
+                  </div>
+                  <div className="pt-4 border-t border-accent/10 flex justify-end">
+                    <a
+                      href={explorerContractUrl(
+                        `${principal}.${name}`,
+                        AppConfig.network as "devnet" | "testnet" | "mainnet"
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent text-[10px] font-black uppercase tracking-widest hover:underline flex items-center gap-2"
+                    >
+                      <LinkIcon className="w-3 h-3" />
+                      VIEW_IN_EXPLORER
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-[400px] text-ink/20 border-2 border-dashed border-accent/10 rounded-sm bg-neutral-light/30">
+                <CodeBracketSquareIcon className="w-12 h-12 mb-4 opacity-10" />
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] italic">
+                  Awaiting Interface Selection...
+                </p>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

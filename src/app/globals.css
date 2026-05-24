@@ -1,11 +1,15 @@
 @import "tailwindcss";
 
 :root {
+  /* MASTER MANIFEST PALETTE - BRIGHT FOUNDATION */
+  /* Base Canvas (60%) */
   --color-background: #FDFBF7;
+  /* Surface Layers (30%) */
+  --color-background-paper: #FFFFFF;
   --color-neutral-light: #F9F8F6;
   --color-surface-dim: #F2F0ED;
-  --color-background-paper: #FFFFFF;
 
+  /* Brand & Interaction (10%) */
   --color-ink: #333333;
   --color-ink-light: #4D4D4D;
   --color-ink-deep: #1A2623;
@@ -16,30 +20,34 @@
   --color-success: #16a34a;
   --color-warning: #ca8a04;
   --color-error: #dc2626;
+  --color-info: #2563eb;
 }
 
 @theme {
   /* MASTER MANIFEST ALIGNMENT - Institutional Terminal Edition */
   --color-background: var(--color-background);
+  --color-background-paper: var(--color-background-paper);
   --color-neutral-light: var(--color-neutral-light);
   --color-surface-dim: var(--color-surface-dim);
-  --color-background-paper: var(--color-background-paper);
 
   --color-ink: var(--color-ink);
-  --color-ink-light: #4D4D4D;
-  --color-ink-deep: #1A2623;
+  --color-ink-light: var(--color-ink-light);
+  --color-ink-deep: var(--color-ink-deep);
 
-  --color-accent: #D4A017;
-  --color-accent-dim: rgba(212, 160, 23, 0.1);
+  --color-accent: var(--color-accent);
+  --color-accent-dim: var(--color-accent-dim);
 
-  --color-success: #16a34a;
-  --color-warning: #ca8a04;
-  --color-error: #dc2626;
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-info: var(--color-info);
 
   --color-primary: var(--color-ink);
 
   --font-family-sans: var(--font-inter);
   --font-family-mono: var(--font-jetbrains-mono);
+
+  --letter-spacing-widest: 0.2em;
 }
 
 body {
@@ -60,6 +68,11 @@ body {
   border: 1px solid rgba(212, 160, 23, 0.2);
   box-shadow: none;
   position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.machined-card:hover {
+  border-color: rgba(212, 160, 23, 0.4);
 }
 
 .machined-header {
@@ -82,7 +95,7 @@ body {
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(212, 160, 23, 0.2);
 }
@@ -127,4 +140,10 @@ label, .label-terminal {
 
 .tabular-nums {
   font-variant-numeric: tabular-nums;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-ink);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
