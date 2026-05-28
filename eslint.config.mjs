@@ -1,27 +1,22 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import js from "@eslint/js";
+import ts from "typescript-eslint";
+import reactPlugin from "eslint-plugin-react";
+import nextPlugin from "@next/eslint-plugin-next";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
+export default ts.config(
+  js.configs.recommended,
+  ...ts.configs.recommended,
   {
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-    ],
-  },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-  {
+    files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+    plugins: {
+      react: reactPlugin,
+      "@next/next": nextPlugin,
+    },
     rules: {
+      ...reactPlugin.configs.recommended.rules,
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs["core-web-vitals"].rules,
+      "react/react-in-jsx-scope": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
@@ -31,8 +26,20 @@ const eslintConfig = [
         }
       ],
       "@typescript-eslint/no-require-imports": "off"
-    }
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
   },
-];
-
-export default eslintConfig;
+  {
+    ignores: [
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "build/**",
+      "next-env.d.ts",
+    ],
+  }
+);
