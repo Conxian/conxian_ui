@@ -27,7 +27,7 @@ test('capture screenshots', async ({ page }) => {
       const filename = path === '/' ? 'home' : path.replace(/\//g, '');
       await page.screenshot({ path: `docs/screenshots/${filename}.png`, fullPage: true });
     } catch (e) {
-      console.error(`Failed to capture ${path}: ${e.message}`);
+      console.error(`Failed to capture ${path}: $((e as Error).message)`);
     }
   }
 });

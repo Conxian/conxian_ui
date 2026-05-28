@@ -1,7 +1,7 @@
 
 import { render, screen, act, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import ConnectWallet from '@/components/ConnectWallet';
 import EnvStatus from '@/components/EnvStatus';
 import LaunchPage from '@/app/launch/page';
@@ -32,7 +32,7 @@ vi.mock('@/lib/wallet', async (importOriginal) => {
   };
 });
 
-const mockedUseWallet = useWallet as vi.Mock;
+const mockedUseWallet = (useWallet as any) as Mock;
 
 // Mock the useSelfLaunch hook
 vi.mock('@/lib/hooks/use-self-launch', () => ({

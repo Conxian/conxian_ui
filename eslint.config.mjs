@@ -1,7 +1,7 @@
 import js from "@eslint/js";
 import ts from "typescript-eslint";
 
-export default ts.config(
+export default [
   {
     ignores: [
       "**/node_modules/**",
@@ -20,4 +20,4 @@ export default ts.config(
       "@typescript-eslint/no-explicit-any": "off"
     }
   }
-);
+];

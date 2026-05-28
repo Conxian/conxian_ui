@@ -9,7 +9,7 @@
     "start": "npx serve@latest out -p ${PORT:-10000} -s",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:run": "vitest run",
+    "test:run": "./scripts/run-tests.sh",
     "prepare": "node scripts/prepare.cjs"
   },
   "dependencies": {
