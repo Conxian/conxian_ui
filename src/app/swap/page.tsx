@@ -174,7 +174,7 @@ export default function SwapPage() {
         {/* Center Column: Execution Matrix */}
         <div className="lg:col-span-6 space-y-8">
            <div className="mb-6">
-              <h1 className="text-4xl font-black tracking-widest uppercase text-ink leading-none">EXECUTION</h1>
+              <h1 className="text-5xl font-black tracking-widest uppercase text-ink leading-none">EXECUTION</h1>
               <div className="h-1 w-12 bg-accent mt-4" />
            </div>
 
