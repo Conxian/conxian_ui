@@ -8,7 +8,7 @@ import {
   AddressBalances,
   FungibleTokenBalance,
 } from "@/lib/core-api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import {
   Table,
