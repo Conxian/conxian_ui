@@ -15,4 +15,8 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  // Force JSX transformation
+  esbuild: {
+    jsx: 'automatic',
+  },
 });
