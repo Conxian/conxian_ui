@@ -1,6 +1,6 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import SwapPage from '@/app/swap/page';
 import { WalletProvider, useWallet } from '@/lib/wallet';
 import { getFungibleTokenBalances } from '@/lib/core-api';
@@ -42,8 +42,8 @@ vi.mock('@/lib/wallet', async (importOriginal) => {
   };
 });
 
-const mockedUseWallet = useWallet as vi.Mock;
-const mockedGetBalances = getFungibleTokenBalances as vi.Mock;
+const mockedUseWallet = (useWallet as any) as Mock;
+const mockedGetBalances = (getFungibleTokenBalances as any) as Mock;
 
 describe('SwapPage', () => {
   beforeEach(() => {

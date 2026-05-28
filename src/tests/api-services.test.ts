@@ -102,7 +102,7 @@ describe("API Service", () => {
     it("should get system health", async () => {
       const result = await ApiService.getSystemHealth();
       expect(result.success).toBe(true);
-      expect(result.result?.result).toEqual(mockHexValue);
+      expect((result.result as any)?.result).toEqual(mockHexValue);
       expect(mockGetSystemHealth).toHaveBeenCalled();
     });
 
@@ -110,7 +110,7 @@ describe("API Service", () => {
       const user = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM";
       const result = await ApiService.getStakingInfo(user);
       expect(result.success).toBe(true);
-      expect(result.result?.result).toEqual(mockHexValue);
+      expect((result.result as any)?.result).toEqual(mockHexValue);
       expect(mockGetStakingInfo).toHaveBeenCalledWith(user);
     });
 
