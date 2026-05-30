@@ -12,3 +12,11 @@ services:
         value: "1"
       - key: NEXT_PUBLIC_CORE_API_URL
         value: https://api.testnet.hiro.so
+      - key: NEXT_PUBLIC_GATEWAY_URL
+        value: https://gateway.conxian-labs.com
+      - key: NEXT_PUBLIC_VAULT_URL
+        value: https://vault.conxian-labs.com
+      - key: NEXT_PUBLIC_NEXUS_URL
+        value: https://nexus.conxian-labs.com
+      - key: NEXT_PUBLIC_CONXIAN_API_KEY
+        value: "your-api-key"

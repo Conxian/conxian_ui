@@ -6,6 +6,7 @@ import {
 } from '@stacks/transactions';
 import { CoreContracts, BASE_PRINCIPAL } from './contracts';
 import { callReadOnly } from './core-api';
+import { IntentManager, Intent } from './intent-manager';
 
 // --- Types ---
 
@@ -46,6 +47,7 @@ const findContract = (idPart: string): string | undefined => {
 
 export class ContractInteractions {
   private static readonly SENDER_ADDRESS = BASE_PRINCIPAL;
+  private static readonly intentManager = new IntentManager();
 
   private static async executeReadOnly<T>(
     contractIdentifier: string,
@@ -177,30 +179,30 @@ export class ContractInteractions {
   static getYieldStrategies = () =>
     this.executeReadOnly("cxd-staking", "get-staking-info");
 
-  // --- Transactions (Placeholders/Mocks to be implemented) ---
+  // --- Transactions ---
   static swap = async (
-    _fromToken: string,
-    _toToken: string,
-    _amount: number
-  ) => ({ success: false, error: "Not implemented for mainnet" });
-  static addLiquidity = async (_poolName: string, _amount: number) => ({
-    success: false,
-    error: "Not implemented for mainnet",
-  });
-  static removeLiquidity = async (_poolName: string, _percentage: number) => ({
-    success: false,
-    error: "Not implemented for mainnet",
-  });
-  static executeIntent = async (_intent: unknown) => ({
-    status: "failed",
-    error: "Intent engine not active on mainnet",
-  });
+    fromToken: string,
+    toToken: string,
+    amount: number
+  ) => this.executeIntent({ type: "swap", fromToken, toToken, amount });
+
+  static addLiquidity = async (poolName: string, amount: number) =>
+    this.executeIntent({ type: "add-liquidity", poolName, amount });
+
+  static removeLiquidity = async (poolName: string, percentage: number) =>
+    this.executeIntent({ type: "remove-liquidity", poolName, percentage });
+
+  static executeIntent = async (intent: Intent | unknown) => {
+    return this.intentManager.execute(intent as Intent);
+  };
+
   static setAllowance = async (
-    _tokenId: string,
-    _spender: string,
-    _amount: number
-  ) => ({ success: false, error: "Not implemented for mainnet" });
-  static getBalance = async (_address: string) => ({
+    tokenId: string,
+    spender: string,
+    amount: number
+  ) => this.executeIntent({ type: "set-allowance", tokenId, spender, amount });
+
+  static getBalance = async (address: string) => ({
     success: true,
     balance: 0,
   });
@@ -223,25 +225,20 @@ export class ContractInteractions {
     return [];
   };
 
-  // --- Shielded Wallet (Placeholders) ---
-  static createShieldedWallet = async () => ({ success: false, error: "Shielded engine not active on mainnet" });
-  static getShieldedWallets = async (_user: string) => ({
-    success: true,
-    result: { value: [] },
-  });
-  static getShieldedWalletBalance = async (_walletId: string) => ({
-    success: true,
-    result: 0,
-  });
+  // --- Shielded Wallet ---
+  static createShieldedWallet = async () => this.executeIntent({ type: "create-shielded-wallet" });
+  static getShieldedWallets = async (user: string) => this.executeIntent({ type: "list-shielded-wallets", user });
+  static getShieldedWalletBalance = async (walletId: string) => this.intentManager.getShieldedBalance(walletId);
   static sendFromShieldedWallet = async (
-    _walletId: string,
-    _recipient: string,
-    _amount: number
-  ) => ({ success: false, error: "Shielded engine not active on mainnet" });
+    walletId: string,
+    recipient: string,
+    amount: number
+  ) => this.executeIntent({ type: "shielded-send", walletId, recipient, amount });
+
   static receiveToShieldedWallet = async (
-    _walletId: string,
-    _amount: number
-  ) => ({ success: false, error: "Shielded engine not active on mainnet" });
+    walletId: string,
+    amount: number
+  ) => this.executeIntent({ type: "shielded-receive", walletId, amount });
 
   static createNewWallet = async () => this.createShieldedWallet();
   static fetchUserWallets = (user: string) => this.getShieldedWallets(user);
