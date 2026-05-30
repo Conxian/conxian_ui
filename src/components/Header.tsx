@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 
 const navigation = [
+  { name: "SDK", href: "/sdk" },
   { name: "Execute", href: "/swap" },
   { name: "Reserves", href: "/pools" },
   { name: "Bootstrap", href: "/launch" },
@@ -43,7 +44,6 @@ export default function Header() {
             </span>
           </Link>
           
-          {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:gap-x-8">
             {navigation.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -88,7 +88,6 @@ export default function Header() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-white/10 bg-ink-deep">
           <div className="space-y-1 px-6 pb-6 pt-4">
