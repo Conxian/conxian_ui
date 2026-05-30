@@ -18,5 +18,3 @@ services:
         value: https://vault.conxian-labs.com
       - key: NEXT_PUBLIC_NEXUS_URL
         value: https://nexus.conxian-labs.com
-      - key: NEXT_PUBLIC_CONXIAN_API_KEY
-        value: "your-api-key"
