@@ -18,7 +18,7 @@ export const AppConfig = {
   gatewayUrl: process.env.NEXT_PUBLIC_GATEWAY_URL || "https://gateway.conxian-labs.com",
   vaultUrl: process.env.NEXT_PUBLIC_VAULT_URL || "https://vault.conxian-labs.com",
   nexusUrl: process.env.NEXT_PUBLIC_NEXUS_URL || "https://nexus.conxian-labs.com",
-  apiKey: process.env.NEXT_PUBLIC_CONXIAN_API_KEY || "your-api-key",
+  apiKey: process.env.NEXT_PUBLIC_CONXIAN_API_KEY || "",
   contracts: {
     router: `${BASE_PRINCIPAL}.swap-router`,
     factory: `${BASE_PRINCIPAL}.dex-factory-v2`,
