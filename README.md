@@ -1,28 +1,31 @@
 # Conxian UI
 
-Conxian UI is a supporting or reference UI surface in the Conxian portfolio.
+Public interface work for interacting with and demonstrating Conxian ecosystem capabilities.
 
-## Role
+## Purpose
 
-This repository is intended for UI work that supports, demonstrates, or experiments with Conxian platform capabilities. It is not a primary strategic repo in the builder-platform architecture.
+Provide a public interface layer for Conxian features, demos, and user-facing flows where a web-based surface is appropriate.
 
-## Owns
+## Status
 
-- supporting UI assets or interface experiments
-- optional visual surfaces that help demonstrate ecosystem capabilities
-- narrow interface work that does not overlap heavily with the primary reference client or public site
+Active development.
 
-## Does not own
+## Scope
 
-- canonical integration logic
-- shared-core ownership
-- protocol identity
-- the strategic center of the portfolio
+This repository contains interface work and related UI assets. It does not own canonical protocol logic, shared-core libraries, or private internal operations.
 
-## Relationship to the rest of the portfolio
+## Governance relation
 
-- `conxius-wallet` is the primary reference client
-- `conxian-labs-site` is the public narrative and entry surface
-- infrastructure and integration concerns belong in the strategic platform repos
+This repository is maintained by Conxian Labs as part of the public application and interface layer for the Conxian ecosystem.
 
-This repo should remain narrow, supporting, and non-overlapping.
+## Relationship to the portfolio
+
+- `Conxian` is the protocol core
+- `conxius-wallet` is the wallet and reference client
+- `conxian-labs-site` is the corporate and public information surface
+
+## Contact
+
+- General: [info@conxian-labs.com](mailto:info@conxian-labs.com)
+- Support: [support@conxian-labs.com](mailto:support@conxian-labs.com)
+- Security: [security@conxian-labs.com](mailto:security@conxian-labs.com)
