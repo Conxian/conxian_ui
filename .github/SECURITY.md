@@ -2,17 +2,19 @@
 
 ## Reporting a Vulnerability
 
-The Conxian-Labs team takes security seriously. If you discover a security vulnerability within this repository, please reach out to us at security@conxian-labs.com.
+Do **not** report vulnerabilities in public GitHub issues.
 
-Please do not report security vulnerabilities via public GitHub issues.
+Report privately using one of these channels:
+
+1. GitHub private vulnerability reporting for this repository.
+2. Email [security@conxian-labs.com](mailto:security@conxian-labs.com).
 
 ## Supported Versions
 
-We currently only provide security updates for the latest stable version of the Conxian UI.
+We provide security updates for the latest maintained UI release line.
 
 ## Disclosure Process
 
-1. Once a report is received, we will acknowledge it within 48 hours.
-2. We will work to investigate and remediate the issue as quickly as possible.
-3. We will keep the reporter informed of our progress.
-4. Once the issue is resolved, we will publish a security advisory if applicable.
+1. we acknowledge valid reports within 48 hours
+2. we investigate and remediate privately
+3. we coordinate any public disclosure after remediation
