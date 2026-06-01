@@ -240,7 +240,7 @@ export default function SwapPage() {
                         setToAmount("");
                       }}
                       aria-label="Invert input and output assets"
-                      className="bg-background-paper p-2 rounded-full border border-accent/20 hover:border-accent transition-colors shadow-sm group"
+                      className="bg-background-paper p-2 rounded-full border border-accent/20 hover:border-accent transition-colors shadow-none group"
                     >
                       <ArrowsUpDownIcon className="w-4 h-4 text-ink group-hover:rotate-180 transition-transform duration-500" />
                     </button>

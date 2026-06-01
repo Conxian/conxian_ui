@@ -12,7 +12,7 @@ const badgeVariants = cva(
         secondary:
           "bg-accent/10 text-accent border-accent/20",
         destructive:
-          "border-transparent bg-error text-white",
+          "border-transparent bg-error text-background-paper",
         outline: "border-accent/20 bg-transparent text-ink/60 hover:text-ink",
         success: "bg-success/10 text-success border-success/20",
       },

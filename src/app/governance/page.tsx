@@ -55,7 +55,7 @@ export default function GovernancePage() {
                 <PlusIcon className="w-3 h-3 text-accent" />
               </div>
               <CardContent className="p-6">
-                <p className="text-[10px] text-ink-light font-bold mb-6 uppercase tracking-wider">
+                <p className="text-[10px] text-ink-light font-bold mb-6 uppercase tracking-widest">
                   Define "If-Then" logic for automated institutional voting mandates.
                 </p>
 

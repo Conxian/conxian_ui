@@ -19,9 +19,9 @@ export default function SandboxPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
-      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
+      <div className="bg-neutral-light text-ink font-black py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-3">
-          <CodeBracketIcon className="w-4 h-4 text-accent" />
+          <CodeBracketIcon className="w-4 h-4 text-ink" />
           <span className="text-[10px] font-black uppercase tracking-[0.3em]">Institutional Developer Sandbox</span>
         </div>
         <div className="flex gap-4">
@@ -30,7 +30,7 @@ export default function SandboxPage() {
                key={mode}
                onClick={() => setActiveTab(mode.toLowerCase())}
                className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-sm transition-colors ${
-                 activeTab === mode.toLowerCase() ? "bg-accent text-white" : "text-ink/40 hover:bg-neutral-light"
+                 activeTab === mode.toLowerCase() ? "bg-accent text-ink" : "text-ink/40 hover:bg-neutral-light"
                }`}
              >
                {mode}
@@ -43,13 +43,13 @@ export default function SandboxPage() {
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-widest uppercase text-ink">TIME-TRAVEL</h1>
-              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Smart Contract State Simulation</p>
+              <p className="text-ink font-black uppercase tracking-[0.4em] text-xs mt-2">Smart Contract State Simulation</p>
            </div>
            <div className="flex gap-3">
-              <Button variant="outline" className="h-10 px-4 border-accent/40 text-accent font-black uppercase tracking-[0.2em] text-[10px]">
+              <Button variant="outline" className="h-10 px-4 border-accent/40 text-ink font-black uppercase tracking-[0.2em] text-[10px]">
                  <ArrowUturnLeftIcon className="w-4 h-4 mr-2" /> UNDO
               </Button>
-              <Button variant="outline" className="h-10 px-4 border-accent/40 text-accent font-black uppercase tracking-[0.2em] text-[10px]">
+              <Button variant="outline" className="h-10 px-4 border-accent/40 text-ink font-black uppercase tracking-[0.2em] text-[10px]">
                  REDO <ArrowUturnRightIcon className="w-4 h-4 ml-2" />
               </Button>
            </div>
@@ -61,7 +61,7 @@ export default function SandboxPage() {
             <Card className="machined-card">
               <div className="machined-header">
                 <span>TRANSACTION_COMPOSER</span>
-                <CubeIcon className="w-3 h-3 text-accent" />
+                <CubeIcon className="w-3 h-3 text-ink" />
               </div>
               <CardContent className="p-6">
                 <div className="space-y-6">
@@ -69,7 +69,7 @@ export default function SandboxPage() {
                     <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest mb-4">Execution Payload</p>
                     <div className="space-y-3 font-mono text-[11px]">
                       <div className="flex gap-4 p-3 bg-background border border-accent/10 rounded-sm">
-                        <span className="text-accent font-black uppercase">[CALL]</span>
+                        <span className="text-ink font-black uppercase">[CALL]</span>
                         <span className="text-ink font-bold">UniswapV2Router02.swapExactTokensForTokens</span>
                       </div>
                       <div className="pl-8 space-y-2 text-ink/60">
@@ -84,25 +84,25 @@ export default function SandboxPage() {
                     </div>
                   </div>
 
-                  <div className="flex justify-between items-center bg-ink-deep p-6 rounded-sm text-white">
+                  <div className="flex justify-between items-center bg-neutral-light border border-ghost p-6 rounded-sm text-ink">
                     <div>
                        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-50 mb-1">Execution Status</p>
                        <p className="text-lg font-black tracking-widest uppercase">Block #18,492,015</p>
                     </div>
                     <div className="flex items-center gap-6">
                        <div className="flex gap-2">
-                          <Button size="icon" variant="outline" className="h-10 w-10 border-white/20 hover:bg-white/10">
-                            <BackwardIcon className="w-5 h-5 text-white" />
+                          <Button size="icon" variant="outline" className="h-10 w-10 border-accent/20 hover:bg-accent/5">
+                            <BackwardIcon className="w-5 h-5 text-ink" />
                           </Button>
                           <Button size="icon" variant="outline" className="h-10 w-10 bg-accent border-none hover:bg-accent/80">
-                            <PlayIcon className="w-5 h-5 text-white" />
+                            <PlayIcon className="w-5 h-5 text-ink" />
                           </Button>
-                          <Button size="icon" variant="outline" className="h-10 w-10 border-white/20 hover:bg-white/10">
-                            <ForwardIcon className="w-5 h-5 text-white" />
+                          <Button size="icon" variant="outline" className="h-10 w-10 border-accent/20 hover:bg-accent/5">
+                            <ForwardIcon className="w-5 h-5 text-ink" />
                           </Button>
                        </div>
                        <div className="text-right">
-                          <p className="text-[10px] font-black uppercase tracking-widest text-accent">T+ 45ms</p>
+                          <p className="text-[10px] font-black uppercase tracking-widest text-ink">T+ 45ms</p>
                           <p className="text-[9px] font-mono opacity-40">TTL: 120ms</p>
                        </div>
                     </div>
@@ -118,7 +118,7 @@ export default function SandboxPage() {
               </div>
               <CardContent className="p-0">
                 <div className="p-6 font-mono text-[10px] text-ink/70 space-y-2 bg-neutral-light max-h-[300px] overflow-auto">
-                   <p className="text-accent font-bold">[0x00] JUMPDEST</p>
+                   <p className="text-ink font-bold">[0x00] JUMPDEST</p>
                    <p>[0x01] PUSH1 0x80</p>
                    <p>[0x03] PUSH1 0x40</p>
                    <p>[0x05] MSTORE</p>
@@ -156,7 +156,7 @@ export default function SandboxPage() {
 
                   <div className="pt-6 border-t border-accent/10">
                     <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest mb-4">Contract State Diff</p>
-                    <div className="p-4 bg-ink text-white font-mono text-[9px] rounded-sm">
+                    <div className="p-4 bg-ink text-background-paper font-mono text-[9px] rounded-sm">
                        <p className="text-success">+ reserves.0: 142.1k</p>
                        <p className="text-error">- reserves.1: 82.5k</p>
                        <p className="opacity-50">  lastBlock: 18492015</p>

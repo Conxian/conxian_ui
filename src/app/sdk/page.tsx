@@ -119,7 +119,7 @@ export default function SdkPage() {
                   <Button variant="outline" className="font-black tracking-widest uppercase text-[10px]">View Core Specs</Button>
                 </a>
                 <Link href="/network">
-                  <Button className="bg-ink text-white font-black tracking-widest uppercase text-[10px]">Monitor Live Nodes</Button>
+                  <Button className="bg-ink text-background-paper font-black tracking-widest uppercase text-[10px]">Monitor Live Nodes</Button>
                 </Link>
               </div>
             </div>
@@ -179,10 +179,10 @@ export default function SdkPage() {
                 <span>INSTALLATION_PROTOCOL</span>
               </div>
               <CardContent className="p-6">
-                <div className="p-4 bg-ink text-white font-mono text-[10px] rounded-sm relative group tabular-nums">
+                <div className="p-4 bg-ink text-background-paper font-mono text-[10px] rounded-sm relative group tabular-nums">
                   <div className="flex justify-between items-start gap-4">
                     <pre className="whitespace-pre-wrap break-all opacity-80">{installCommand}</pre>
-                    <CopyButton textToCopy={installCommand} ariaLabel="SDK install command" className="text-white opacity-40 group-hover:opacity-100" />
+                    <CopyButton textToCopy={installCommand} ariaLabel="SDK install command" className="text-background-paper opacity-40 group-hover:opacity-100" />
                   </div>
                 </div>
                 <p className="mt-4 text-[9px] text-ink-light font-bold uppercase tracking-widest leading-relaxed">

@@ -48,7 +48,7 @@ const TokenSelect: React.FC<TokenSelectProps> = ({ tokens, selectedToken, onSele
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-label={`Select token, current selection is ${selectedTokenInfo?.label || 'None'}`}
-        className="flex items-center justify-between w-full h-14 px-4 py-2 border-ghost bg-neutral-light hover:bg-ink hover:text-white group transition-all"
+        className="flex items-center justify-between w-full h-14 px-4 py-2 border-ghost bg-neutral-light hover:bg-ink hover:text-background-paper group transition-all"
       >
         <div className="flex items-center overflow-hidden">
           {selectedTokenInfo && (
@@ -77,7 +77,7 @@ const TokenSelect: React.FC<TokenSelectProps> = ({ tokens, selectedToken, onSele
       </Button>
 
       {isOpen && (
-        <div className="absolute z-10 w-full mt-1 bg-white border border-ghost rounded-sm shadow-2xl overflow-hidden max-h-60 overflow-y-auto animate-in fade-in slide-in-from-top-2">
+        <div className="absolute z-10 w-full mt-1 bg-background-paper border border-ghost rounded-sm shadow-2xl overflow-hidden max-h-60 overflow-y-auto animate-in fade-in slide-in-from-top-2">
           <ul className="py-1" role="listbox">
             {tokens.map((token) => (
               <li
