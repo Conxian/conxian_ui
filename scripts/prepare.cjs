@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+/* eslint-disable no-undef, no-console */
+
 const generatedDir = path.join(__dirname, '..', 'src', 'lib', 'generated');
 const baseJsonPath = path.join(generatedDir, 'base.json');
 
