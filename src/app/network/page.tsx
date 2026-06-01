@@ -58,7 +58,7 @@ export default function NetworkPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
-      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
+      <div className="bg-neutral-light text-ink font-black py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Network Topology Telemetry</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
           <span>SYSTEM_NOMINAL</span>
@@ -70,7 +70,7 @@ export default function NetworkPage() {
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-widest uppercase text-ink">TELEMETRY</h1>
-              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">SCADA-Inspired Network Observability</p>
+              <p className="text-ink font-black uppercase tracking-[0.4em] text-xs mt-2">SCADA-Inspired Network Observability</p>
            </div>
            <Button onClick={refresh} disabled={loading} className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]">
               {loading ? "SYNCING..." : "REFRESH"}
@@ -106,7 +106,7 @@ export default function NetworkPage() {
             <Card className="machined-card">
               <div className="machined-header">
                 <span>PREDICTIVE_TELEMETRY_ENGINE</span>
-                <BoltIcon className="w-3 h-3 text-accent" />
+                <BoltIcon className="w-3 h-3 text-ink" />
               </div>
               <CardContent className="p-6">
                  <p className="text-[10px] text-ink/40 font-black uppercase tracking-widest mb-6">AI-Forecasting: Gas Volatility & Congestion</p>
@@ -120,7 +120,7 @@ export default function NetworkPage() {
                     <div className="absolute bottom-2 left-0 right-0 flex justify-between px-6 text-[8px] font-black text-ink/30 uppercase tracking-widest">
                        <span>T-60m</span>
                        <span>T-30m</span>
-                       <span className="text-accent">NOW</span>
+                       <span className="text-ink">NOW</span>
                        <span>+30m</span>
                        <span>+60m</span>
                     </div>
@@ -137,12 +137,12 @@ export default function NetworkPage() {
               </div>
               <CardContent className="p-6">
                 <div className="grid grid-cols-3 gap-6">
-                  <div className="col-span-2 h-48 bg-ink-deep rounded-sm relative flex items-center justify-center">
-                     <GlobeAltIcon className="w-32 h-32 text-background-paper/5 opacity-40 animate-pulse-soft" />
+                  <div className="col-span-2 h-48 bg-neutral-light border border-ghost rounded-sm relative flex items-center justify-center">
+                     <GlobeAltIcon className="w-32 h-32 text-ink/10 animate-pulse-soft" />
                      <div className="absolute top-1/4 left-1/4 h-2 w-2 bg-success rounded-full animate-ping" title="US-EAST" />
                      <div className="absolute top-1/3 left-2/3 h-2 w-2 bg-error rounded-full animate-ping" title="EU-CENTRAL" />
                      <div className="absolute bottom-1/4 left-1/2 h-2 w-2 bg-success rounded-full animate-ping" title="AP-SOUTH" />
-                     <span className="absolute bottom-3 left-4 text-[8px] font-mono text-background-paper/40 font-bold uppercase tracking-widest">Global Infrastructure Health Feed</span>
+                     <span className="absolute bottom-3 left-4 text-[8px] font-mono text-ink/30 font-bold uppercase tracking-widest">Global Infrastructure Health Feed</span>
                   </div>
                   <div className="space-y-4">
                      <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest">Regional Health</p>
@@ -193,7 +193,7 @@ export default function NetworkPage() {
             <Card className="machined-card">
               <div className="machined-header">
                 <span>MEMPOOL_STREAM</span>
-                <BoltIcon className="w-3 h-3 text-accent" />
+                <BoltIcon className="w-3 h-3 text-ink" />
               </div>
               <CardContent className="p-0 overflow-auto max-h-[400px]">
                 <Table>
@@ -206,7 +206,7 @@ export default function NetworkPage() {
                   <TableBody>
                     {mempool.map((tx, idx) => (
                       <TableRow key={tx?.tx_id || `tx-${idx}`}>
-                        <TableCell className="font-mono text-[9px] font-black text-accent truncate max-w-[120px]">
+                        <TableCell className="font-mono text-[9px] font-black text-ink truncate max-w-[120px]">
                           {tx?.tx_id || "—"}
                         </TableCell>
                         <TableCell className="text-right text-[9px] font-black text-ink tabular-nums">{tx?.nonce ?? "—"}</TableCell>
