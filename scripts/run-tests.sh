@@ -1,7 +1,7 @@
 #!/bin/bash
 # Temporary swap JSX for Vitest
 sed -i 's/"jsx": "preserve"/"jsx": "react-jsx"/' tsconfig.json
-pnpm vitest run
+pnpm exec vitest run
 status=$?
 # Restore for Next.js
 sed -i 's/"jsx": "react-jsx"/"jsx": "preserve"/' tsconfig.json
