@@ -11,13 +11,14 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 
 const navigation = [
-  { name: "SDK", href: "/sdk" },
+  { name: "Dashboard", href: "/" },
+  { name: "Governance", href: "/governance" },
+  { name: "Sandbox", href: "/sandbox" },
+  { name: "Monitor", href: "/network" },
   { name: "Execute", href: "/swap" },
   { name: "Reserves", href: "/pools" },
   { name: "Bootstrap", href: "/launch" },
   { name: "Portfolio", href: "/positions" },
-  { name: "Forge", href: "/tx" },
-  { name: "Telemetry", href: "/network" },
 ];
 
 export default function Header() {
