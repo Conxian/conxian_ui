@@ -138,11 +138,11 @@ export default function NetworkPage() {
               <CardContent className="p-6">
                 <div className="grid grid-cols-3 gap-6">
                   <div className="col-span-2 h-48 bg-ink-deep rounded-sm relative flex items-center justify-center">
-                     <GlobeAltIcon className="w-32 h-32 text-white/5 opacity-40 animate-pulse-soft" />
+                     <GlobeAltIcon className="w-32 h-32 text-background-paper/5 opacity-40 animate-pulse-soft" />
                      <div className="absolute top-1/4 left-1/4 h-2 w-2 bg-success rounded-full animate-ping" title="US-EAST" />
                      <div className="absolute top-1/3 left-2/3 h-2 w-2 bg-error rounded-full animate-ping" title="EU-CENTRAL" />
                      <div className="absolute bottom-1/4 left-1/2 h-2 w-2 bg-success rounded-full animate-ping" title="AP-SOUTH" />
-                     <span className="absolute bottom-3 left-4 text-[8px] font-mono text-white/40 font-bold uppercase tracking-widest">Global Infrastructure Health Feed</span>
+                     <span className="absolute bottom-3 left-4 text-[8px] font-mono text-background-paper/40 font-bold uppercase tracking-widest">Global Infrastructure Health Feed</span>
                   </div>
                   <div className="space-y-4">
                      <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest">Regional Health</p>

@@ -40,7 +40,7 @@ export default function Header() {
                 priority
               />
             </div>
-            <span className="text-xl font-black tracking-[-0.05em] text-white">
+            <span className="text-xl font-black tracking-[-0.05em] text-background-paper">
               CONXIAN<span className="text-accent">_</span>
             </span>
           </Link>
@@ -56,7 +56,7 @@ export default function Header() {
                     "text-[10px] font-black uppercase tracking-[0.2em] leading-6 transition-all duration-300",
                     isActive
                       ? "text-accent"
-                      : "text-white/40 hover:text-white"
+                      : "text-background-paper/40 hover:text-background-paper"
                   )}
                 >
                   {item.name}
@@ -67,7 +67,7 @@ export default function Header() {
         </div>
 
         <div className="flex flex-1 justify-end items-center gap-x-6">
-          <div className="hidden sm:flex items-center rounded-sm border border-white/10 bg-white/5 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-white/50">
+          <div className="hidden sm:flex items-center rounded-sm border border-background-paper/10 bg-background-paper/5 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-background-paper/50">
              {AppConfig.network.toUpperCase()}
           </div>
           <ConnectWallet />
@@ -75,7 +75,7 @@ export default function Header() {
           <div className="flex lg:hidden">
             <Button
               variant="ghost"
-              className="-m-2.5 p-2.5 text-white/80 hover:text-white"
+              className="-m-2.5 p-2.5 text-background-paper/80 hover:text-background-paper"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">Open main menu</span>
@@ -90,7 +90,7 @@ export default function Header() {
       </nav>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-white/10 bg-ink-deep">
+        <div className="lg:hidden border-t border-background-paper/10 bg-ink-deep">
           <div className="space-y-1 px-6 pb-6 pt-4">
             {navigation.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -103,7 +103,7 @@ export default function Header() {
                     "block px-3 py-4 text-xs font-black uppercase tracking-widest",
                     isActive
                       ? "text-accent"
-                      : "text-white/60 hover:text-white"
+                      : "text-background-paper/60 hover:text-background-paper"
                   )}
                 >
                   {item.name}

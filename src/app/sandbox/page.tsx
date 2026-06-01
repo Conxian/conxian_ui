@@ -30,7 +30,7 @@ export default function SandboxPage() {
                key={mode}
                onClick={() => setActiveTab(mode.toLowerCase())}
                className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-sm transition-colors ${
-                 activeTab === mode.toLowerCase() ? "bg-accent text-white" : "text-ink/40 hover:bg-neutral-light"
+                 activeTab === mode.toLowerCase() ? "bg-accent text-background-paper" : "text-ink/40 hover:bg-neutral-light"
                }`}
              >
                {mode}
@@ -84,21 +84,21 @@ export default function SandboxPage() {
                     </div>
                   </div>
 
-                  <div className="flex justify-between items-center bg-ink-deep p-6 rounded-sm text-white">
+                  <div className="flex justify-between items-center bg-ink-deep p-6 rounded-sm text-background-paper">
                     <div>
                        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-50 mb-1">Execution Status</p>
                        <p className="text-lg font-black tracking-widest uppercase">Block #18,492,015</p>
                     </div>
                     <div className="flex items-center gap-6">
                        <div className="flex gap-2">
-                          <Button size="icon" variant="outline" className="h-10 w-10 border-white/20 hover:bg-white/10">
-                            <BackwardIcon className="w-5 h-5 text-white" />
+                          <Button size="icon" variant="outline" className="h-10 w-10 border-background-paper/20 hover:bg-background-paper/10">
+                            <BackwardIcon className="w-5 h-5 text-background-paper" />
                           </Button>
                           <Button size="icon" variant="outline" className="h-10 w-10 bg-accent border-none hover:bg-accent/80">
-                            <PlayIcon className="w-5 h-5 text-white" />
+                            <PlayIcon className="w-5 h-5 text-background-paper" />
                           </Button>
-                          <Button size="icon" variant="outline" className="h-10 w-10 border-white/20 hover:bg-white/10">
-                            <ForwardIcon className="w-5 h-5 text-white" />
+                          <Button size="icon" variant="outline" className="h-10 w-10 border-background-paper/20 hover:bg-background-paper/10">
+                            <ForwardIcon className="w-5 h-5 text-background-paper" />
                           </Button>
                        </div>
                        <div className="text-right">
@@ -156,7 +156,7 @@ export default function SandboxPage() {
 
                   <div className="pt-6 border-t border-accent/10">
                     <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest mb-4">Contract State Diff</p>
-                    <div className="p-4 bg-ink text-white font-mono text-[9px] rounded-sm">
+                    <div className="p-4 bg-ink text-background-paper font-mono text-[9px] rounded-sm">
                        <p className="text-success">+ reserves.0: 142.1k</p>
                        <p className="text-error">- reserves.1: 82.5k</p>
                        <p className="opacity-50">  lastBlock: 18492015</p>

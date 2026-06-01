@@ -70,7 +70,7 @@ export default function SystemStatus() {
           <CardTitle>System Status</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-sm text-error font-medium">{error}</div>
+          <div className="text-sm text-error font-bold">{error}</div>
         </CardContent>
       </Card>
     );
@@ -94,7 +94,7 @@ export default function SystemStatus() {
             <CurrencyDollarIcon className="w-8 h-8 text-primary" />
           </div>
           <div className="ml-4">
-            <div className="text-xs font-medium text-ink-light uppercase tracking-wider">Total Value Locked</div>
+            <div className="text-xs font-bold text-ink-light uppercase tracking-widest">Total Value Locked</div>
             <div className="text-2xl font-bold text-ink">${tvl}</div>
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function SystemStatus() {
             <ShieldCheckIcon className="w-8 h-8 text-accent" />
           </div>
           <div className="ml-4">
-            <div className="text-xs font-medium text-ink-light uppercase tracking-wider">Active Vaults</div>
+            <div className="text-xs font-bold text-ink-light uppercase tracking-widest">Active Vaults</div>
             <div className="text-2xl font-bold text-ink">
               {activeVaults}
             </div>
@@ -114,7 +114,7 @@ export default function SystemStatus() {
             <ArrowTrendingUpIcon className="w-8 h-8 text-success" />
           </div>
           <div className="ml-4">
-            <div className="text-xs font-medium text-ink-light uppercase tracking-wider">APY (Median)</div>
+            <div className="text-xs font-bold text-ink-light uppercase tracking-widest">APY (Median)</div>
             <div className="text-2xl font-bold text-ink text-success">{apy}%</div>
           </div>
         </div>

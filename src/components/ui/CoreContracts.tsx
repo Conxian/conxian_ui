@@ -34,7 +34,7 @@ export default function CoreContracts() {
           <TableBody>
             {contracts.map((contract) => (
               <TableRow key={contract.id}>
-                <TableCell className="font-medium text-ink">
+                <TableCell className="font-bold text-ink">
                   {contract.label}
                 </TableCell>
                 <TableCell>
@@ -53,7 +53,7 @@ export default function CoreContracts() {
                     href={explorerContractUrl(contract.id, NETWORK === "devnet" ? "testnet" : NETWORK)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-accent hover:underline font-medium"
+                    className="text-xs text-accent hover:underline font-bold"
                   >
                     View
                   </a>
