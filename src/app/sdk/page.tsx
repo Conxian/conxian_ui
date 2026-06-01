@@ -9,242 +9,213 @@ import CopyButton from "@/components/CopyButton";
 
 const installCommand = "cargo add conxius-enclave-sdk && cargo add lib-conxian-core";
 const configSnippet = `{
-  \"gateway_url\": \"https://gateway.conxian-labs.com\",
-  \"kms_endpoint\": \"https://vault.conxian-labs.com\",
-  \"nexus_url\": \"https://nexus.conxian-labs.com\",
-  \"api_key\": \"<render-managed-or-dashboard-issued-key>\"
+  "gateway_url": "https://gateway.conxian-labs.com",
+  "kms_endpoint": "https://vault.conxian-labs.com",
+  "nexus_url": "https://nexus.conxian-labs.com",
+  "api_key": "[AUTH_TOKEN_REQUIRED]"
 }`;
 
 const repoCards = [
   {
-    title: "Conxian Core",
-    href: "https://github.com/Conxian/lib-conxian-core",
-    description: "Shared protocol primitives, models, and reusable logic for gateway, platform, and downstream integrations.",
-    badge: "Core primitives",
+    title: "Conxian Protocol",
+    href: "https://github.com/Conxian/Conxian",
+    description: "The core protocol standards, governance logic, and immutable ledger definitions.",
+    badge: "Protocol Root",
   },
   {
     title: "Conxius Enclave SDK",
     href: "https://github.com/Conxian/conxius-enclave-sdk",
-    description: "Hardware-backed signing, attestation, policy, and secure transaction coordination for sovereign deployments.",
-    badge: "Secure compute",
+    description: "Hardware-backed signing, attestation, and secure transaction coordination.",
+    badge: "Secure Compute",
+  },
+  {
+    title: "Conxian UI",
+    href: "https://github.com/Conxian/conxian_ui",
+    description: "Institutional-grade interface for interacting with protocol reserves and governance.",
+    badge: "Interface Layer",
   },
 ];
 
 const offerCards = [
   {
-    title: "Open SDK path",
-    description: "Use the SDKs locally, build against public repos, and integrate into internal tooling without buying the SDK itself.",
+    title: "Open SDK Path",
+    description: "Integrate with protocol primitives using open-source building blocks and local verification.",
     icon: CodeBracketIcon,
   },
   {
-    title: "Hosted acceleration",
-    description: "Use Conxian Labs-operated gateway, vault, and nexus services when speed, support, or managed operations matter.",
+    title: "Hosted Acceleration",
+    description: "Utilize Conxian Labs-operated gateways for high-frequency institutional execution.",
     icon: BoltIcon,
   },
   {
-    title: "Enterprise deployment",
-    description: "Add sovereign controls, architecture reviews, SLAs, and production support for institutional programs.",
+    title: "Enterprise Delivery",
+    description: "Dedicated architecture review, institutional SLAs, and custom compliance hooks.",
     icon: ShieldCheckIcon,
   },
 ];
 
 const renderCards = [
   {
-    title: "Interactive onboarding",
-    description: "Plan selector, config builder, issued credentials, and guided integration steps fit a Render-backed portal well.",
+    title: "Institutional Portal",
+    description: "Secure credential issuance and environment management via authenticated dashboard.",
   },
   {
-    title: "Live proof surface",
-    description: "Use a deployed app to show API health, sample payloads, environment status, and interactive demos without exposing internals.",
+    title: "Real-Time Telemetry",
+    description: "Hardware-attested proof of API health and consensus synchronicity.",
   },
   {
-    title: "Sales to engineering bridge",
-    description: "A Render surface can connect pricing, contact capture, sandbox access, and technical validation in one path.",
+    title: "GTM Integration",
+    description: "Unified path from technical validation to production institutional support.",
   },
 ];
 
 export default function SdkPage() {
   return (
-    <div className="space-y-10 terminal-text pb-10">
-      <section className="machined-card overflow-hidden">
-        <div className="machined-header">
-          <div className="flex items-center gap-3">
-            <CpuChipIcon className="w-3 h-3" />
-            <span>SDK STOREFRONT SURFACE</span>
-          </div>
-          <span className="opacity-50">FIRST_PASS</span>
+    <div className="flex flex-col min-h-screen bg-background terminal-text">
+      {/* Top Bar placeholder */}
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
+        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Developer Integration Surface</span>
+        <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
+          <span>SDK_VERSION: v2.0.4</span>
         </div>
-        <div className="grid gap-8 px-8 py-10 lg:grid-cols-[1.4fr_0.9fr]">
-          <div className="space-y-6">
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="secondary">Open SDK</Badge>
-              <Badge variant="outline">Hosted services optional</Badge>
-              <Badge variant="outline">Render-ready portal candidate</Badge>
-            </div>
-            <div className="space-y-4">
-              <h1 className="text-4xl font-black tracking-[0.12em] text-ink">BUILD AGAINST CONXIAN WITHOUT LOSING THE SALES PATH</h1>
-              <p className="max-w-3xl text-sm leading-7 text-ink-light font-bold">
-                This surface turns the SDK story into a usable public entry point: open-source building blocks, hosted service acceleration,
-                and a clearer path into production support. It is meant to sit between the public site narrative and the deeper technical repos.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <a href="https://github.com/Conxian/lib-conxian-core" target="_blank" rel="noreferrer">
-                <Button variant="secondary">View core repo</Button>
-              </a>
-              <a href="https://github.com/Conxian/conxius-enclave-sdk" target="_blank" rel="noreferrer">
-                <Button variant="outline">View enclave SDK</Button>
-              </a>
-              <Link href="/network">
-                <Button variant="outline">See live surface</Button>
-              </Link>
-            </div>
-          </div>
-          <Card className="h-full">
-            <CardHeader>
-              <CardDescription>Proposed public packaging</CardDescription>
-              <CardTitle>Offer boundary</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-[11px] leading-6 text-ink-light font-bold">
-              <p><span className="text-ink">Open:</span> SDK source, local integration, repo access, and self-managed engineering work.</p>
-              <p><span className="text-ink">Paid:</span> managed gateway, vault, nexus, support, and enterprise delivery layers.</p>
-              <p><span className="text-ink">Not transferred:</span> custody, signing control, or ownership of user assets.</p>
-            </CardContent>
-          </Card>
+      </div>
+
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-12">
+        <div className="flex justify-between items-end border-b border-accent/20 pb-6">
+           <div>
+              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">SDK_CORE</h1>
+              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Institutional-Grade Build Patterns</p>
+           </div>
+           <div className="flex gap-4">
+              <Button className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]">
+                 GENERATE_API_KEY
+              </Button>
+           </div>
         </div>
-      </section>
 
-      <section className="grid gap-6 lg:grid-cols-3">
-        {offerCards.map(({ title, description, icon: Icon }) => (
-          <Card key={title}>
-            <CardHeader>
-              <div className="mb-4 inline-flex w-fit rounded-sm border border-accent/20 bg-accent/5 p-3 text-accent">
-                <Icon className="h-5 w-5" />
-              </div>
-              <CardTitle>{title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-[11px] leading-6 text-ink-light font-bold">{description}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card>
+        <section className="machined-card overflow-hidden">
           <div className="machined-header">
-            <span>SDK FAMILY MAP</span>
-            <span className="opacity-40">PUBLIC_REPOS</span>
+            <div className="flex items-center gap-3">
+              <CpuChipIcon className="w-3 h-3" />
+              <span>INTEGRATION_MODELS</span>
+            </div>
+            <span className="opacity-50 font-mono">STATUS: PRODUCTION_READY</span>
           </div>
-          <CardContent className="space-y-4 pt-6">
-            {repoCards.map((repo) => (
-              <div key={repo.title} className="rounded-sm border border-accent/15 bg-neutral-light p-4">
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <CircleStackIcon className="h-4 w-4 text-accent" />
-                    <h3 className="text-xs font-black tracking-[0.2em] text-ink">{repo.title}</h3>
-                  </div>
-                  <Badge variant="outline">{repo.badge}</Badge>
-                </div>
-                <p className="mb-3 text-[11px] leading-6 text-ink-light font-bold">{repo.description}</p>
-                <a href={repo.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-accent">
-                  Open repository
-                  <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" />
+          <div className="grid gap-8 px-8 py-10 lg:grid-cols-[1.4fr_0.9fr]">
+            <div className="space-y-6">
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary" className="font-black">OPEN_SDK</Badge>
+                <Badge variant="outline" className="font-black border-accent/30 text-accent">ATTESTED_GATEWAY</Badge>
+              </div>
+              <div className="space-y-4">
+                <h2 className="text-3xl font-black tracking-widest text-ink">BUILD WITH CRYPTOGRAPHIC PRECISION</h2>
+                <p className="max-w-3xl text-xs leading-relaxed text-ink-light font-bold uppercase tracking-wider">
+                  The Conxian SDK family provides the foundational building blocks for institutional digital asset ecosystems.
+                  Bridge the gap between decentralized protocol primitives and enterprise-grade performance.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <a href="https://github.com/Conxian/lib-conxian-core" target="_blank" rel="noreferrer">
+                  <Button variant="outline" className="font-black tracking-widest uppercase text-[10px]">View Core Specs</Button>
                 </a>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <div className="machined-header">
-            <span>STARTER COMMAND</span>
-            <span className="opacity-40">COPY_READY</span>
-          </div>
-          <CardContent className="space-y-4 pt-6">
-            <div className="rounded-sm border border-accent/15 bg-neutral-light p-4 font-mono text-[11px] leading-6 text-ink">
-              <div className="flex items-start justify-between gap-4">
-                <pre className="whitespace-pre-wrap break-all">{installCommand}</pre>
-                <CopyButton textToCopy={installCommand} ariaLabel="SDK install command" />
+                <Link href="/network">
+                  <Button className="bg-ink text-white font-black tracking-widest uppercase text-[10px]">Monitor Live Nodes</Button>
+                </Link>
               </div>
             </div>
-            <p className="text-[11px] leading-6 text-ink-light font-bold">
-              The storefront should eventually issue generated snippets per plan, environment, and service entitlement instead of relying on static docs alone.
-            </p>
-          </CardContent>
-        </Card>
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[1fr_1fr]">
-        <Card>
-          <div className="machined-header">
-            <span>HOSTED SERVICE WIRING</span>
-            <span className="opacity-40">RENDER_FIT</span>
+            <Card className="bg-neutral-light border-accent/20">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-[10px] font-black uppercase tracking-widest text-accent">TRUST_BOUNDARY</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4 text-[10px] leading-relaxed text-ink-light font-bold uppercase tracking-wide">
+                <p><span className="text-ink">Open:</span> Protocol primitives & local verification logic.</p>
+                <p><span className="text-ink">Managed:</span> High-frequency gateways & institutional support.</p>
+                <p><span className="text-ink">Sovereign:</span> Private key custody & signing authority remains with the institution.</p>
+              </CardContent>
+            </Card>
           </div>
-          <CardContent className="pt-6">
-            <div className="rounded-sm border border-accent/15 bg-neutral-light p-4 font-mono text-[11px] leading-6 text-ink">
-              <div className="flex items-start justify-between gap-4">
-                <pre className="whitespace-pre-wrap break-all">{configSnippet}</pre>
-                <CopyButton textToCopy={configSnippet} ariaLabel="hosted service config" />
-              </div>
+        </section>
+
+        <section className="grid gap-6 lg:grid-cols-3">
+          {offerCards.map(({ title, description, icon: Icon }) => (
+            <Card key={title} className="machined-card">
+              <CardContent className="p-6">
+                <div className="mb-4 inline-flex w-fit rounded-sm border border-accent/20 bg-accent/5 p-3 text-accent">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="text-sm font-black uppercase tracking-widest text-ink mb-2">{title}</h3>
+                <p className="text-[10px] leading-relaxed text-ink-light font-bold uppercase tracking-wide">{description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </section>
+
+        <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <Card className="machined-card">
+            <div className="machined-header">
+              <span>CANONICAL_REPOSITORIES</span>
+              <CircleStackIcon className="w-3 h-3" />
             </div>
-          </CardContent>
-        </Card>
+            <CardContent className="space-y-4 p-6">
+              {repoCards.map((repo) => (
+                <div key={repo.title} className="p-4 border border-accent/10 bg-neutral-light rounded-sm group hover:border-accent/40 transition-colors">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xs font-black uppercase tracking-widest text-ink">{repo.title}</h3>
+                    <Badge variant="outline" className="text-[8px] font-black border-accent/20">{repo.badge}</Badge>
+                  </div>
+                  <p className="text-[10px] text-ink-light font-bold uppercase tracking-wide mb-4">{repo.description}</p>
+                  <a href={repo.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-accent hover:underline">
+                    Access Source
+                    <ArrowTopRightOnSquareIcon className="h-3 w-3" />
+                  </a>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
 
-        <Card>
-          <div className="machined-header">
-            <span>WHY RENDER FOR THE NEXT STEP</span>
-            <span className="opacity-40">INTERACTIVE_LAYER</span>
-          </div>
-          <CardContent className="space-y-4 pt-6">
-            {renderCards.map((card) => (
-              <div key={card.title} className="rounded-sm border border-accent/15 bg-neutral-light p-4">
-                <h3 className="mb-2 text-xs font-black tracking-[0.2em] text-ink">{card.title}</h3>
-                <p className="text-[11px] leading-6 text-ink-light font-bold">{card.description}</p>
+          <div className="space-y-6">
+            <Card className="machined-card">
+              <div className="machined-header">
+                <span>INSTALLATION_PROTOCOL</span>
               </div>
-            ))}
-          </CardContent>
-        </Card>
-      </section>
+              <CardContent className="p-6">
+                <div className="p-4 bg-ink text-white font-mono text-[10px] rounded-sm relative group tabular-nums">
+                  <div className="flex justify-between items-start gap-4">
+                    <pre className="whitespace-pre-wrap break-all opacity-80">{installCommand}</pre>
+                    <CopyButton textToCopy={installCommand} ariaLabel="SDK install command" className="text-white opacity-40 group-hover:opacity-100" />
+                  </div>
+                </div>
+                <p className="mt-4 text-[9px] text-ink-light font-bold uppercase tracking-widest leading-relaxed">
+                  Utilize standard cargo dependency management for secure enclave coordination.
+                </p>
+              </CardContent>
+            </Card>
 
-      <section className="grid gap-6 lg:grid-cols-3">
-        <Card>
-          <CardHeader>
-            <CardDescription>Next planning layer</CardDescription>
-            <CardTitle>Portal capabilities</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2 text-[11px] leading-6 text-ink-light font-bold">
-            <p>- API key issuance and environment selection</p>
-            <p>- interactive config generation</p>
-            <p>- sandbox and health visibility</p>
-            <p>- plan comparison and enterprise capture</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardDescription>Gaps found in current public story</CardDescription>
-            <CardTitle>Immediate cleanup</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2 text-[11px] leading-6 text-ink-light font-bold">
-            <p>- unify repo naming across site and app</p>
-            <p>- remove placeholder credential language from the site</p>
-            <p>- present SDK as a family, not a single vague package</p>
-            <p>- align docs, pricing, and enterprise paths</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardDescription>Suggested public flow</CardDescription>
-            <CardTitle>Entry sequence</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2 text-[11px] leading-6 text-ink-light font-bold">
-            <p>- learn the SDK shape</p>
-            <p>- pick open vs hosted path</p>
-            <p>- generate config</p>
-            <p>- move into docs, repos, or enterprise</p>
-          </CardContent>
-        </Card>
-      </section>
+            <Card className="machined-card">
+              <div className="machined-header">
+                <span>CONFIGURATION_TEMPLATE</span>
+              </div>
+              <CardContent className="p-6">
+                <div className="p-4 bg-neutral-light border border-accent/20 font-mono text-[10px] text-ink rounded-sm relative group tabular-nums">
+                  <div className="flex justify-between items-start gap-4">
+                    <pre className="whitespace-pre-wrap break-all opacity-80">{configSnippet}</pre>
+                    <CopyButton textToCopy={configSnippet} ariaLabel="config snippet" className="opacity-40 group-hover:opacity-100" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        <section className="grid gap-6 lg:grid-cols-3 border-t border-accent/20 pt-12">
+          {renderCards.map((card) => (
+            <div key={card.title} className="space-y-2">
+               <h4 className="text-[10px] font-black uppercase tracking-widest text-accent">{card.title}</h4>
+               <p className="text-[10px] text-ink-light font-bold uppercase tracking-widest leading-relaxed">{card.description}</p>
+            </div>
+          ))}
+        </section>
+      </main>
     </div>
   );
 }
