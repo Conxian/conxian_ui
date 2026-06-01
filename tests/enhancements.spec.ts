@@ -17,3 +17,9 @@ test('capture telemetry enhancement', async ({ page }) => {
   await page.waitForLoadState('networkidle');
   await page.screenshot({ path: 'docs/screenshots/telemetry_enhanced.png', fullPage: true });
 });
+
+test('capture sdk storefront', async ({ page }) => {
+  await page.goto('/sdk');
+  await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'docs/screenshots/sdk_storefront.png', fullPage: true });
+});
