@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import {
   ArrowsUpDownIcon,
   CpuChipIcon,
+  ArrowPathIcon,
 } from "@heroicons/react/24/outline";
 import { Tokens } from "@/lib/contracts";
 import { useWallet } from "@/lib/wallet";
@@ -310,32 +311,44 @@ export default function SwapPage() {
                   <Button
                     onClick={handleSwap}
                     disabled={sending || loading || isSameToken || !fromAmount}
-                    className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light transition-all rounded-none"
+                    className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light transition-all rounded-none flex items-center justify-center gap-3"
                   >
-                    {sending ? "TRANSMITTING..." : loading ? "SYNCHRONIZING..." : "EXECUTE PROTOCOL"}
+                    {(sending || loading) && <ArrowPathIcon className="w-5 h-5 animate-spin" aria-hidden="true" />}
+                    <span>{sending ? "TRANSMITTING..." : loading ? "SYNCHRONIZING..." : "EXECUTE PROTOCOL"}</span>
                   </Button>
 
                   {/* Status Overlay */}
-                  {(status || txId) && (
-                    <div className="pt-6 border-t border-accent/20 space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                       <div className="flex justify-between items-center">
-                          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Status Log</span>
-                          <span className="text-[10px] font-black text-accent uppercase tracking-widest">{status}</span>
+                  <div className="pt-6 border-t border-accent/20 space-y-3 min-h-[120px] flex flex-col justify-start">
+                     <div className="flex justify-between items-center">
+                        <span className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Status Log</span>
+                        <span
+                          className={cn(
+                            "text-[10px] font-black uppercase tracking-widest transition-colors duration-300",
+                            status ? "text-accent" : "text-ink/20"
+                          )}
+                          aria-live="polite"
+                        >
+                          {status || "IDLE: AWAITING COMMAND"}
+                        </span>
+                     </div>
+
+                     {txId ? (
+                       <div className="flex items-center justify-between p-3 bg-neutral-light border border-accent/20 rounded-sm animate-in fade-in slide-in-from-bottom-2 duration-500">
+                          <a
+                            href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
+                            target="_blank" rel="noopener noreferrer"
+                            className="text-[10px] font-mono font-black text-ink hover:underline"
+                          >
+                            TX: {truncate(txId, 16, 14)}
+                          </a>
+                          <CopyButton textToCopy={txId} ariaLabel="Copy Tx" className="h-4 w-4 opacity-50" />
                        </div>
-                       {txId && (
-                         <div className="flex items-center justify-between p-3 bg-neutral-light border border-accent/20 rounded-sm">
-                            <a
-                              href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
-                              target="_blank" rel="noopener noreferrer"
-                              className="text-[10px] font-mono font-black text-ink hover:underline"
-                            >
-                              TX: {truncate(txId, 16, 14)}
-                            </a>
-                            <CopyButton textToCopy={txId} ariaLabel="Copy Tx" className="h-4 w-4 opacity-50" />
-                         </div>
-                       )}
-                    </div>
-                  )}
+                     ) : (
+                       <div className="flex-1 flex flex-col items-center justify-center border border-dashed border-accent/10 rounded-sm bg-neutral-light/30 opacity-40">
+                         <div className="h-1 w-12 bg-accent/20 animate-pulse-soft" />
+                       </div>
+                     )}
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
