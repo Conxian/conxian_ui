@@ -21,21 +21,28 @@ export default function PositionsPage() {
   const api = useApi();
   const router = useRouter();
 
-  const handleAdd = useCallback((pair: string) => {
-    const params = new URLSearchParams({ pair });
-    router.push(`/add-liquidity?${params.toString()}`);
-  }, [router]);
+  const handleAdd = useCallback(
+    (pair: string) => {
+      const params = new URLSearchParams({ pair });
+      router.push(`/add-liquidity?${params.toString()}`);
+    },
+    [router],
+  );
 
-  const handleRemove = useCallback((pair: string) => {
-    const params = new URLSearchParams({ template: 'pool-remove-liquidity', pair });
-    router.push(`/tx?${params.toString()}`);
-  }, [router]);
+  const handleRemove = useCallback(
+    (pair: string) => {
+      const params = new URLSearchParams({ template: 'pool-remove-liquidity', pair });
+      router.push(`/tx?${params.toString()}`);
+    },
+    [router],
+  );
 
   useEffect(() => {
     if (stxAddress) {
-      api.getPositions(stxAddress)
+      api
+        .getPositions(stxAddress)
         .then(setPositions)
-        .catch(err => {
+        .catch((err) => {
           console.error('Error fetching positions:', err);
           setStatus('Failed to load positions.');
         });
@@ -45,18 +52,20 @@ export default function PositionsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
-        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Asset Custody Interface</span>
+        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Positions</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>HODL: ACTIVE</span>
+          <span>Wallet Connected</span>
         </div>
       </div>
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
-           <div>
-              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">PORTFOLIO</h1>
-              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Active Liquidity & Staking Positions</p>
-           </div>
+          <div>
+            <h1 className="text-5xl font-black tracking-widest uppercase text-ink">POSITIONS</h1>
+            <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">
+              Active Liquidity Positions
+            </p>
+          </div>
         </div>
 
         {stxAddress ? (
@@ -74,24 +83,37 @@ export default function PositionsPage() {
               ))
             ) : (
               <div className="col-span-full py-32 text-center border border-dashed border-accent/20 rounded-sm bg-neutral-light/50">
-                 <div className="mb-6 opacity-20 flex justify-center">
-                    <div className="h-16 w-16 border-4 border-ink rounded-full flex items-center justify-center font-black text-2xl tracking-widest">?</div>
-                 </div>
-                 <p className="text-ink/40 font-black uppercase tracking-widest text-xs">Zero active positions detected in custody.</p>
-                 <Button onClick={() => router.push('/swap')} className="mt-8 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px] h-12 px-8 rounded-none">
-                   SYNC_LIQUIDITY_POOLS
-                 </Button>
+                <div className="mb-6 opacity-20 flex justify-center">
+                  <div className="h-16 w-16 border-4 border-ink rounded-full flex items-center justify-center font-black text-2xl tracking-widest">
+                    ?
+                  </div>
+                </div>
+                <p className="text-ink/40 font-black uppercase tracking-widest text-xs">
+                  No positions found.
+                </p>
+                <Button
+                  onClick={() => router.push('/swap')}
+                  className="mt-8 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px] h-12 px-8 rounded-none"
+                >
+                  ADD_LIQUIDITY
+                </Button>
               </div>
             )}
           </div>
         ) : (
           <div className="text-center py-32 machined-card max-w-xl mx-auto">
-            <p className="text-ink/60 mb-8 font-black uppercase tracking-widest text-xs">Authorization required for asset disclosure.</p>
+            <p className="text-ink/60 mb-8 font-black uppercase tracking-widest text-xs">
+              Connect wallet to view positions.
+            </p>
             <ConnectWallet />
           </div>
         )}
 
-        {status && <p className="text-center font-mono text-[10px] text-error font-black uppercase tracking-widest mt-10">{status}</p>}
+        {status && (
+          <p className="text-center font-mono text-[10px] text-error font-black uppercase tracking-widest mt-10">
+            {status}
+          </p>
+        )}
       </main>
     </div>
   );

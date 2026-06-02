@@ -31,23 +31,22 @@ export default function PoolsPage() {
         callReadOnly(contractAddress, contractName, "get-performance-metrics", DEFAULT_SENDER, []),
       ]);
 
-      if (results[0].status === 'fulfilled') setReserves(results[0].value);
-      else logger.error("Failed to fetch reserves", { module: 'Pools', pool: selected, error: results[0].reason });
+      if (results[0].status === "fulfilled") setReserves(results[0].value);
+      else logger.error("Failed to fetch reserves", { module: "Pools", pool: selected, error: results[0].reason });
 
-      if (results[1].status === 'fulfilled') setTotalSupply(results[1].value);
-      else logger.warn("Failed to fetch total supply", { module: 'Pools', pool: selected, error: results[1].reason });
+      if (results[1].status === "fulfilled") setTotalSupply(results[1].value);
+      else logger.warn("Failed to fetch total supply", { module: "Pools", pool: selected, error: results[1].reason });
 
-      if (results[2].status === 'fulfilled') setPrice(results[2].value);
-      else logger.warn("Failed to fetch price", { module: 'Pools', pool: selected, error: results[2].reason });
+      if (results[2].status === "fulfilled") setPrice(results[2].value);
+      else logger.warn("Failed to fetch price", { module: "Pools", pool: selected, error: results[2].reason });
 
-      if (results[3].status === 'fulfilled') setFeeInfo(results[3].value);
-      else logger.warn("Failed to fetch fee info", { module: 'Pools', pool: selected, error: results[3].reason });
+      if (results[3].status === "fulfilled") setFeeInfo(results[3].value);
+      else logger.warn("Failed to fetch fee info", { module: "Pools", pool: selected, error: results[3].reason });
 
-      if (results[4].status === 'fulfilled') setPerf(results[4].value);
-      else logger.warn("Failed to fetch performance metrics", { module: 'Pools', pool: selected, error: results[4].reason });
-
+      if (results[4].status === "fulfilled") setPerf(results[4].value);
+      else logger.warn("Failed to fetch performance metrics", { module: "Pools", pool: selected, error: results[4].reason });
     } catch (e) {
-      logger.error("Critical failure in pools refresh", { module: 'Pools', pool: selected, error: e });
+      logger.error("Critical failure in pools refresh", { module: "Pools", pool: selected, error: e });
     } finally {
       setLoading(false);
     }
@@ -59,9 +58,8 @@ export default function PoolsPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
-       {/* UI code continues... (preserving existing structure) */}
-       <div className="bg-neutral-light text-ink font-black py-2 px-6 flex justify-between items-center border-b border-accent/20">
-        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Institutional Liquidity Monitor</span>
+      <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
+        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Pools</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
           <span>POOL_ACTIVE</span>
           <span>ORACLE_SYNC: 100%</span>
@@ -70,59 +68,64 @@ export default function PoolsPage() {
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
-           <div>
-              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">POOLS</h1>
-              <p className="text-ink font-black uppercase tracking-[0.4em] text-xs mt-2">DEX Liquidity Inventory</p>
-           </div>
-           <Button onClick={refresh} disabled={loading} className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]">
-              {loading ? "SYNCING..." : "REFRESH"}
-           </Button>
+          <div>
+            <h1 className="text-5xl font-black tracking-widest uppercase text-ink">POOLS</h1>
+            <p className="text-ink font-black uppercase tracking-[0.4em] text-xs mt-2">
+              Liquidity Pools
+            </p>
+          </div>
+          <Button
+            onClick={refresh}
+            disabled={loading}
+            className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]"
+          >
+            {loading ? "UPDATING..." : "REFRESH"}
+          </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-           <Card className="machined-card col-span-2">
-              <div className="machined-header">
-                 <span>SELECT_LIQUIDITY_VECTOR</span>
+          <Card className="machined-card col-span-2">
+            <div className="machined-header">
+              <span>SELECT_POOL</span>
+            </div>
+            <CardContent className="p-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {DexPools.map((p) => (
+                  <Button
+                    key={p.id}
+                    variant={selected === p.id ? "default" : "outline"}
+                    onClick={() => setSelected(p.id)}
+                    className="h-12 font-black uppercase tracking-widest text-[9px] border-accent/20"
+                  >
+                    {p.label}
+                  </Button>
+                ))}
               </div>
-              <CardContent className="p-6">
-                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {DexPools.map(p => (
-                      <Button
-                        key={p.id}
-                        variant={selected === p.id ? "default" : "outline"}
-                        onClick={() => setSelected(p.id)}
-                        className="h-12 font-black uppercase tracking-widest text-[9px] border-accent/20"
-                      >
-                        {p.label}
-                      </Button>
-                    ))}
-                 </div>
-              </CardContent>
-           </Card>
+            </CardContent>
+          </Card>
 
-           <Card className="machined-card">
-              <div className="machined-header">
-                 <span>NODE_STATUS</span>
+          <Card className="machined-card">
+            <div className="machined-header">
+              <span>POOL_STATUS</span>
+            </div>
+            <CardContent className="p-6 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+                <span className="text-[10px] font-black uppercase tracking-widest">Live Data Available</span>
               </div>
-              <CardContent className="p-6 space-y-4">
-                 <div className="flex items-center gap-3">
-                    <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Live Telemetry Active</span>
-                 </div>
-                 <p className="text-[9px] text-ink/40 leading-relaxed font-bold">
-                    Direct hardware connection to protocol enclaves established. Data is attested by SGX-V3.
-                 </p>
-              </CardContent>
-           </Card>
+              <p className="text-[9px] text-ink/40 leading-relaxed font-bold">
+                Pool data is synced and available for reading from the protocol.
+              </p>
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Analytics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {[
-            { label: "POOL_RESERVES", value: reserves?.ok ? "FETCHED" : "AWAITING...", icon: ChartBarIcon },
-            { label: "LP_TOTAL_SUPPLY", value: totalSupply?.ok ? "FETCHED" : "AWAITING...", icon: CpuChipIcon },
-            { label: "REALTIME_PRICE", value: price?.ok ? "SYNCHRONIZED" : "AWAITING...", icon: ChartBarIcon },
-            { label: "FEE_STRUCTURE", value: feeInfo?.ok ? "0.3% FIXED" : "AWAITING...", icon: CpuChipIcon }
+            { label: "RESERVES", value: reserves?.ok ? "FETCHED" : "AWAITING...", icon: ChartBarIcon },
+            { label: "LP SUPPLY", value: totalSupply?.ok ? "FETCHED" : "AWAITING...", icon: CpuChipIcon },
+            { label: "POOL PRICE", value: price?.ok ? "SYNCHRONIZED" : "AWAITING...", icon: ChartBarIcon },
+            { label: "FEES", value: feeInfo?.ok ? "0.3% FIXED" : "AWAITING...", icon: CpuChipIcon },
           ].map((m, i) => (
             <Card key={i} className="machined-card">
               <CardContent className="p-4">
