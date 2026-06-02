@@ -1,4 +1,5 @@
 import { AppConfig } from "./config";
+import { logger } from "./logger";
 
 export interface Intent {
   type: string;
@@ -15,7 +16,7 @@ export class IntentManager {
   }
 
   async execute(intent: Intent) {
-    console.log("Sending action to gateway:", this.gatewayUrl, intent);
+    logger.info("Sending action to gateway", { gatewayUrl: this.gatewayUrl, intent });
 
     try {
       const response = await fetch(`${this.gatewayUrl}/v1/intent/execute`, {
@@ -35,7 +36,7 @@ export class IntentManager {
       return await response.json();
     } catch (error: unknown) {
       const msg = error instanceof Error ? error.message : String(error);
-      console.error("Action failed:", msg);
+      logger.error("Action failed", { error: msg });
       return {
         status: "failed",
         error: msg,

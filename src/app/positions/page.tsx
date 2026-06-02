@@ -7,6 +7,7 @@ import { useApi } from '@/lib/api-client';
 import ConnectWallet from '@/components/ConnectWallet';
 import PositionCard from '@/components/PositionCard';
 import { Button } from '@/components/ui/Button';
+import { logger } from '@/lib/logger';
 
 interface Position {
   pair: string;
@@ -43,7 +44,7 @@ export default function PositionsPage() {
         .getPositions(stxAddress)
         .then(setPositions)
         .catch((err) => {
-          console.error('Error fetching positions:', err);
+          logger.error('Error fetching positions', { error: err, stxAddress });
           setStatus('Failed to load positions.');
         });
     }

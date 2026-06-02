@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { openContractCall } from "@stacks/connect";
 import { PostConditionMode } from "@stacks/transactions";
 import { SelfLaunchContract, LaunchPhase, CommunityStats } from '@/lib/contracts/self-launch';
+import { logger } from '@/lib/logger';
 
 interface LaunchState {
   currentPhase: LaunchPhase | null;
@@ -67,6 +68,7 @@ export function useSelfLaunch(network: 'mainnet' | 'testnet' | 'devnet' = 'testn
         error: error instanceof Error ? error.message : 'Unknown error',
         isLoading: false
       }));
+      logger.error('Failed to refresh launch data', { error });
     }
   }, [contract]);
 
@@ -127,7 +129,7 @@ export function useSelfLaunch(network: 'mainnet' | 'testnet' | 'devnet' = 'testn
         }
       }));
     } catch (error) {
-      console.error('Error fetching user contribution:', error);
+      logger.error('Error fetching user contribution', { error, address });
     }
   }, [contract]);
 

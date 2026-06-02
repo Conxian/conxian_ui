@@ -15,6 +15,7 @@ import {
 import { useApi } from "@/lib/api-client";
 import StatusIndicator from "@/components/ui/StatusIndicator";
 import { ApiResult } from "@/lib/contract-interactions";
+import { logger } from "@/lib/logger";
 
 interface DashboardMetrics {
   systemHealth: ApiResult<Record<string, unknown>>;
@@ -37,7 +38,7 @@ export default function SystemStatus() {
         setError(null);
       } catch (err) {
         setError("Failed to fetch system metrics");
-        console.error(err);
+        logger.error("Failed to fetch system metrics", { error: err });
       } finally {
         setLoading(false);
       }

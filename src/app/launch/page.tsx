@@ -2,17 +2,18 @@
 
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
 import { Progress } from "@/components/ui/Progress";
 import { Badge } from "@/components/ui/Badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { useWallet } from "@/lib/wallet";
 import { useSelfLaunch } from "@/lib/hooks/use-self-launch";
 import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
 import { AppConfig } from "@/lib/config";
 import CopyButton from "@/components/CopyButton";
 import { truncate, cn } from "@/lib/utils";
 import { BoltIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
+import { logger } from "@/lib/logger";
 
 export default function LaunchPage() {
   const { stxAddress, connectWallet, addToast } = useWallet();
@@ -52,7 +53,7 @@ export default function LaunchPage() {
         refreshData();
       }
     } catch (e) {
-      console.error(e);
+      logger.error("Contribution failed", { error: e });
     } finally {
       setSending(false);
     }

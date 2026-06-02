@@ -16,6 +16,7 @@ import {
   noneCV,
   someCV,
 } from "@stacks/transactions";
+import { logger } from "@/lib/logger";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
@@ -281,7 +282,7 @@ export default function ClarityArgBuilder({ onChange, preset, paramMeta }: { onC
           default: break;
         }
       } catch (e) {
-        console.warn(`Failed to build clarity value for ${effectiveType}:`, e);
+        logger.warn(`Failed to build clarity value for ${effectiveType}`, { error: e });
       }
     }
     const hex = cvs.map((cv) => cvToHex(cv));
