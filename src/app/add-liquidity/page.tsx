@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useState, Suspense, useEffect } from "react";
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { Tokens } from "@/lib/contracts";
@@ -53,91 +50,90 @@ function AddLiquidityContent() {
       return;
     }
     setSending(true);
-    setStatus("SYNCHRONIZING_LIQUIDITY_PROTOCOL...");
+    setStatus("Submitting liquidity...");
 
     try {
-        const factoryAddress = AppConfig.contracts.factory.split(".")[0];
-        const contractName = AppConfig.contracts.factory.split(".")[1];
+      const factoryAddress = AppConfig.contracts.factory.split(".")[0];
+      const contractName = AppConfig.contracts.factory.split(".")[1];
 
-        const getPoolArgs = [
-            contractPrincipalCV(...(tokenA.split(".") as [string, string])),
-            contractPrincipalCV(...(tokenB.split(".") as [string, string]))
-        ].map(cvToHex);
+      const getPoolArgs = [
+        contractPrincipalCV(...(tokenA.split(".") as [string, string])),
+        contractPrincipalCV(...(tokenB.split(".") as [string, string])),
+      ].map(cvToHex);
 
-        const poolRes = await callReadOnly(
-            factoryAddress,
-            contractName,
-            "get-pool",
-            factoryAddress,
-            getPoolArgs
-        );
+      const poolRes = await callReadOnly(
+        factoryAddress,
+        contractName,
+        "get-pool",
+        factoryAddress,
+        getPoolArgs,
+      );
 
-        let poolPrincipal = "";
-        if (poolRes.ok && poolRes.result) {
-            const decoded = decodeResultHex(poolRes.result);
-            if (decoded && decoded.ok) {
-              const poolField = getTupleField(decoded.value, "pool");
-              const principal = getPrincipalValue(poolField);
-              if (principal) poolPrincipal = principal;
-            }
+      let poolPrincipal = "";
+      if (poolRes.ok && poolRes.result) {
+        const decoded = decodeResultHex(poolRes.result);
+        if (decoded && decoded.ok) {
+          const poolField = getTupleField(decoded.value, "pool");
+          const principal = getPrincipalValue(poolField);
+          if (principal) poolPrincipal = principal;
         }
+      }
 
-        if (!poolPrincipal) {
-            setStatus("PROTOCOL_ERROR: POOL_NOT_DETECTED");
-            setSending(false);
-            return;
-        }
+      if (!poolPrincipal) {
+        setStatus("Pool not found.");
+        setSending(false);
+        return;
+      }
 
-        const tokenAInfo = Tokens.find(t => t.id === tokenA);
-        const tokenBInfo = Tokens.find(t => t.id === tokenB);
+      const tokenAInfo = Tokens.find((t) => t.id === tokenA);
+      const tokenBInfo = Tokens.find((t) => t.id === tokenB);
 
-        const sorted = [tokenA, tokenB].sort();
-        const t0 = sorted[0];
-        const t1 = sorted[1];
-        
-        const amt0 = t0 === tokenA ? amountA : amountB;
-        const amt1 = t1 === tokenB ? amountB : amountA;
+      const sorted = [tokenA, tokenB].sort();
+      const t0 = sorted[0];
+      const t1 = sorted[1];
 
-        const t0Info = t0 === tokenA ? tokenAInfo : tokenBInfo;
-        const t1Info = t1 === tokenB ? tokenBInfo : tokenAInfo;
+      const amt0 = t0 === tokenA ? amountA : amountB;
+      const amt1 = t1 === tokenB ? amountB : amountA;
 
-        const amt0Int = BigInt(parseAmount(amt0, t0Info?.decimals || 6));
-        const amt1Int = BigInt(parseAmount(amt1, t1Info?.decimals || 6));
+      const t0Info = t0 === tokenA ? tokenAInfo : tokenBInfo;
+      const t1Info = t1 === tokenB ? tokenBInfo : tokenAInfo;
 
-        const [poolAddr, poolName] = poolPrincipal.split(".");
+      const amt0Int = BigInt(parseAmount(amt0, t0Info?.decimals || 6));
+      const amt1Int = BigInt(parseAmount(amt1, t1Info?.decimals || 6));
 
-        const functionName = isConcentrated ? "add-liquidity-concentrated" : "add-liquidity";
-        const functionArgs: Array<any> /* eslint-disable-line @typescript-eslint/no-explicit-any */ = [
-            uintCV(amt0Int),
-            uintCV(amt1Int),
-            contractPrincipalCV(...(t0.split(".") as [string, string])),
-            contractPrincipalCV(...(t1.split(".") as [string, string]))
-        ];
+      const [poolAddr, poolName] = poolPrincipal.split(".");
 
-        if (isConcentrated) {
-            functionArgs.push(intCV(BigInt(lowerTick)));
-            functionArgs.push(intCV(BigInt(upperTick)));
-        }
+      const functionName = isConcentrated ? "add-liquidity-concentrated" : "add-liquidity";
+      const functionArgs: Array<any> = [
+        uintCV(amt0Int),
+        uintCV(amt1Int),
+        contractPrincipalCV(...(t0.split(".") as [string, string])),
+        contractPrincipalCV(...(t1.split(".") as [string, string])),
+      ];
 
-        await openContractCall({
-            contractAddress: poolAddr,
-            contractName: poolName,
-            functionName: functionName,
-            functionArgs: functionArgs as any /* eslint-disable-line @typescript-eslint/no-explicit-any */,
-            postConditionMode: PostConditionMode.Allow,
-            onFinish: () => {
-                setStatus("BROADCAST_SUCCESS");
-                setSending(false);
-            },
-            onCancel: () => {
-                setStatus("ABORTED");
-                setSending(false);
-            }
-        });
+      if (isConcentrated) {
+        functionArgs.push(intCV(BigInt(lowerTick)));
+        functionArgs.push(intCV(BigInt(upperTick)));
+      }
 
+      await openContractCall({
+        contractAddress: poolAddr,
+        contractName: poolName,
+        functionName,
+        functionArgs: functionArgs as any,
+        postConditionMode: PostConditionMode.Allow,
+        onFinish: () => {
+          setStatus("Transaction submitted.");
+          setSending(false);
+        },
+        onCancel: () => {
+          setStatus("Transaction cancelled.");
+          setSending(false);
+        },
+      });
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : String(e);
-      setStatus(`FAULT: ${msg}`);
+      setStatus(`Error: ${msg}`);
       setSending(false);
     }
   };
@@ -145,18 +141,20 @@ function AddLiquidityContent() {
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
-        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Liquidity Provision Environment</span>
+        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Add Liquidity</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>YIELD_SOURCE: DET_v3</span>
+          <span>POOL_TYPE: V2 / CLMM</span>
         </div>
       </div>
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
-           <div>
-              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">LIQUIDITY</h1>
-              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Automated Market Making Protocol</p>
-           </div>
+          <div>
+            <h1 className="text-5xl font-black tracking-widest uppercase text-ink">LIQUIDITY</h1>
+            <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">
+              Add Liquidity
+            </p>
+          </div>
         </div>
 
         <Tabs defaultValue="standard" className="w-full max-w-4xl mx-auto space-y-8">
@@ -168,19 +166,14 @@ function AddLiquidityContent() {
           <TabsContent value="standard">
             <Card className="machined-card">
               <div className="machined-header">
-                 <span>EXECUTION_VECTOR_STANDARD</span>
-                 <CpuChipIcon className="w-3 h-3" />
+                <span>STANDARD_LIQUIDITY</span>
+                <CpuChipIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-8 space-y-10">
                 <div className="grid grid-cols-2 gap-10">
                   <div className="space-y-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Asset Alpha</label>
-                    <TokenSelect
-                      tokens={Tokens}
-                      selectedToken={tokenA}
-                      onSelect={(id) => setTokenA(id)}
-                      balances={balances}
-                    />
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Token A</label>
+                    <TokenSelect tokens={Tokens} selectedToken={tokenA} onSelect={(id) => setTokenA(id)} balances={balances} />
                     <Input
                       type="number"
                       value={amountA}
@@ -190,13 +183,8 @@ function AddLiquidityContent() {
                     />
                   </div>
                   <div className="space-y-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Asset Beta</label>
-                    <TokenSelect
-                      tokens={Tokens}
-                      selectedToken={tokenB}
-                      onSelect={(id) => setTokenB(id)}
-                      balances={balances}
-                    />
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Token B</label>
+                    <TokenSelect tokens={Tokens} selectedToken={tokenB} onSelect={(id) => setTokenB(id)} balances={balances} />
                     <Input
                       type="number"
                       value={amountB}
@@ -212,10 +200,14 @@ function AddLiquidityContent() {
                   disabled={sending}
                   className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light transition-all rounded-none"
                 >
-                  {sending ? 'TRANSMITTING...' : 'INITIATE PROVISION'}
+                  {sending ? 'SUBMITTING...' : 'ADD LIQUIDITY'}
                 </Button>
 
-                {status && <p className="text-center font-mono text-[10px] text-accent uppercase font-black tracking-[0.2em]">{status}</p>}
+                {status && (
+                  <p className="text-center font-mono text-[10px] text-accent uppercase font-black tracking-[0.2em]">
+                    {status}
+                  </p>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
@@ -223,35 +215,35 @@ function AddLiquidityContent() {
           <TabsContent value="concentrated">
             <Card className="machined-card">
               <div className="machined-header">
-                 <span>EXECUTION_VECTOR_CONCENTRATED</span>
-                 <BoltIcon className="w-3 h-3 text-accent" />
+                <span>CONCENTRATED_LIQUIDITY</span>
+                <BoltIcon className="w-3 h-3 text-accent" />
               </div>
               <CardContent className="p-8 space-y-10">
                 <div className="grid grid-cols-2 gap-10">
                   <div className="space-y-6">
                     <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Pair Configuration</label>
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Pool Configuration</label>
                       <div className="grid grid-cols-2 gap-2">
-                        <TokenSelect tokens={Tokens} selectedToken={tokenA} onSelect={id => setTokenA(id)} balances={balances} />
-                        <TokenSelect tokens={Tokens} selectedToken={tokenB} onSelect={id => setTokenB(id)} balances={balances} />
+                        <TokenSelect tokens={Tokens} selectedToken={tokenA} onSelect={(id) => setTokenA(id)} balances={balances} />
+                        <TokenSelect tokens={Tokens} selectedToken={tokenB} onSelect={(id) => setTokenB(id)} balances={balances} />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
-                      <Input type="number" value={amountA} onChange={e => setAmountA(e.target.value)} className="h-12 bg-neutral-light border-accent/20 text-right font-black tabular-nums" placeholder="QTY_A" />
-                      <Input type="number" value={amountB} onChange={e => setAmountB(e.target.value)} className="h-12 bg-neutral-light border-accent/20 text-right font-black tabular-nums" placeholder="QTY_B" />
+                      <Input type="number" value={amountA} onChange={(e) => setAmountA(e.target.value)} className="h-12 bg-neutral-light border-accent/20 text-right font-black tabular-nums" placeholder="AMOUNT_A" />
+                      <Input type="number" value={amountB} onChange={(e) => setAmountB(e.target.value)} className="h-12 bg-neutral-light border-accent/20 text-right font-black tabular-nums" placeholder="AMOUNT_B" />
                     </div>
                   </div>
 
                   <div className="space-y-6 bg-neutral-light p-6 border border-accent/20 rounded-sm">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Range Parameters</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Range Settings</label>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <span className="text-[9px] font-black text-ink/30 uppercase tracking-[0.2em]">Lower_Tick</span>
-                        <Input type="number" value={lowerTick} onChange={e => setLowerTick(e.target.value)} className="h-10 bg-background-paper border-accent/20 text-right font-mono text-xs font-black tabular-nums" />
+                        <span className="text-[9px] font-black text-ink/30 uppercase tracking-[0.2em]">Lower Tick</span>
+                        <Input type="number" value={lowerTick} onChange={(e) => setLowerTick(e.target.value)} className="h-10 bg-background-paper border-accent/20 text-right font-mono text-xs font-black tabular-nums" />
                       </div>
                       <div className="space-y-2">
-                        <span className="text-[9px] font-black text-ink/30 uppercase tracking-[0.2em]">Upper_Tick</span>
-                        <Input type="number" value={upperTick} onChange={e => setUpperTick(e.target.value)} className="h-10 bg-background-paper border-accent/20 text-right font-mono text-xs font-black tabular-nums" />
+                        <span className="text-[9px] font-black text-ink/30 uppercase tracking-[0.2em]">Upper Tick</span>
+                        <Input type="number" value={upperTick} onChange={(e) => setUpperTick(e.target.value)} className="h-10 bg-background-paper border-accent/20 text-right font-mono text-xs font-black tabular-nums" />
                       </div>
                     </div>
                   </div>
@@ -262,10 +254,14 @@ function AddLiquidityContent() {
                   disabled={sending}
                   className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light transition-all rounded-none"
                 >
-                  {sending ? 'TRANSMITTING...' : 'INITIATE CONCENTRATED PROVISION'}
+                  {sending ? 'SUBMITTING...' : 'ADD CONCENTRATED LIQUIDITY'}
                 </Button>
 
-                {status && <p className="text-center font-mono text-[10px] text-accent uppercase font-black tracking-[0.2em]">{status}</p>}
+                {status && (
+                  <p className="text-center font-mono text-[10px] text-accent uppercase font-black tracking-[0.2em]">
+                    {status}
+                  </p>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
@@ -277,7 +273,7 @@ function AddLiquidityContent() {
 
 export default function AddLiquidityPage() {
   return (
-    <Suspense fallback={<div className="p-20 text-center terminal-text animate-pulse font-black text-ink">SYNCHRONIZING PROTOCOL...</div>}>
+    <Suspense fallback={<div className="p-20 text-center terminal-text animate-pulse font-black text-ink">Loading liquidity page...</div>}>
       <AddLiquidityContent />
     </Suspense>
   );
