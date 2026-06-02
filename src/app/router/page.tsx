@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card, CardContent } from "@/components/ui/Card";
 import { CpuChipIcon, BoltIcon } from "@heroicons/react/24/outline";
+import { logger } from "@/lib/logger";
 
 interface ContractAbi {
   functions?: Array<{ name: string }>;
@@ -34,7 +35,7 @@ export default function RouterPage() {
     if (!selected) return;
     const [principal, name] = selected.split(".") as [string, string];
     const iface = (await getContractInterface(principal, name)) as ContractAbi;
-    console.log("ABI loaded for", principal, name, iface?.functions?.length);
+    logger.info("ABI loaded", { principal, name, functions: iface?.functions?.length });
   }, [selected]);
 
   React.useEffect(() => {
@@ -52,7 +53,7 @@ export default function RouterPage() {
       setStatus(res.ok ? "Success" : "Failed");
     } catch (e) {
       setStatus("Error calling contract");
-      console.error(e);
+      logger.error("Error calling contract", { error: e });
     } finally {
       setLoading(false);
     }
