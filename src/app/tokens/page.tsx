@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/Table";
 import { formatAmount } from "@/lib/utils";
 import { useSelfLaunch } from "@/lib/hooks/use-self-launch";
+import { logger } from "@/lib/logger";
 
 export default function TokensPage() {
   const [address, setAddress] = React.useState<string>("");
@@ -32,15 +33,23 @@ export default function TokensPage() {
     if (!address) return;
     setLoading(true);
     try {
-      const [balances, fungibles] = await Promise.all([
+      const results = await Promise.allSettled([
         getAddressBalances(address),
         getFungibleTokenBalances(address),
         getUserContribution(address)
       ]);
-      setStx(balances?.stx || null);
-      setFts(fungibles || []);
+
+      const balances = results[0];
+      const fungibles = results[1];
+
+      if (balances.status === 'fulfilled') setStx(balances.value?.stx || null);
+      else logger.error("Failed to fetch address balances", { module: 'Tokens', address, error: balances.reason });
+
+      if (fungibles.status === 'fulfilled') setFts(fungibles.value || []);
+      else logger.error("Failed to fetch fungible token balances", { module: 'Tokens', address, error: fungibles.reason });
+
     } catch (err) {
-      console.error("Failed to refresh balances", err);
+      logger.error("Failed to refresh token balances", { module: 'Tokens', address, error: err });
     } finally {
       setLoading(false);
     }

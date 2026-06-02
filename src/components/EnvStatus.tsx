@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/Badge";
 import { getStatus, CoreStatus } from "@/lib/core-api";
 import { AppConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
+import { logger } from "@/lib/logger";
 
 export default function EnvStatus() {
   const [status, setStatus] = useState<CoreStatus | null>(null);
@@ -16,7 +17,7 @@ export default function EnvStatus() {
         const s = await getStatus();
         setStatus(s);
       } catch (err) {
-        console.error(err);
+        logger.error("Network connectivity check failed", { module: 'EnvStatus', error: err });
       } finally {
         setLoading(false);
       }

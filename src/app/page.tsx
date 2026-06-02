@@ -14,6 +14,7 @@ import { StatCard } from "@/components/ui/StatCard";
 import { VStack } from "@/components/ui/VStack";
 import { useApi } from "@/lib/api-client";
 import { ApiResult } from "@/lib/contract-interactions";
+import { logger } from "@/lib/logger";
 
 interface DashboardMetrics {
   systemHealth: ApiResult<Record<string, unknown>>;
@@ -33,7 +34,7 @@ export default function Home() {
         const data = await api.getDashboardMetrics() as DashboardMetrics;
         setMetrics(data);
       } catch (err) {
-        console.error("Failed to fetch dashboard metrics", err);
+        logger.error("Failed to fetch dashboard metrics", { module: 'Dashboard', error: err });
       } finally {
         setLoading(false);
       }
