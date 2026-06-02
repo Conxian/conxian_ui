@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { logger } from "@/lib/logger";
 import {
   Card,
   CardContent,
@@ -54,9 +55,11 @@ export default function LaunchPage() {
         setTxId(res.txId);
         setContributionAmount("");
         refreshData();
+        logger.info("Contribution successful", { module: "LaunchPage", user: stxAddress, amount: contributionAmount, txId: res.txId });
       }
     } catch (e) {
-      console.error(e);
+      logger.error("Launch contribution error", { module: "LaunchPage", error: e });
+      addToast("Failed to process contribution.", "error");
     } finally {
       setSending(false);
     }

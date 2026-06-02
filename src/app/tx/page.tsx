@@ -4,10 +4,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AppConfig } from "@/lib/config";
 import { CoreContracts, Tokens } from "@/lib/contracts";
-
-import ClarityArgBuilder, {
-  BuiltArgs,
-} from "@/components/ClarityArgBuilder";
+import ClarityArgBuilder, { BuiltArgs } from "@/components/ClarityArgBuilder";
 import { openContractCall } from "@stacks/connect";
 import { createNetwork } from "@stacks/network";
 import type { StacksNetwork } from "@stacks/network";
@@ -55,7 +52,7 @@ function TxContent() {
 
   useEffect(() => {
     if (!selected) return;
-    const [p, n] = selected.split(".");
+    const [p, n] = selected.split(".") as [string, string];
     setAbiLoading(true);
     getContractInterface(p, n)
       .then((res) => setAbi(res as ContractAbi))
@@ -83,26 +80,26 @@ function TxContent() {
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
-        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Smart Contract Interaction Forge</span>
+        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Transaction Builder</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
           <span>MODE: RAW_CALL</span>
-          <span>AUTH: JWT_LOCKED</span>
+          <span>AUTH: WALLET</span>
         </div>
       </div>
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
-           <div>
-              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">FORGE</h1>
-              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Manual Transaction Crafting</p>
-           </div>
+          <div>
+            <h1 className="text-5xl font-black tracking-widest uppercase text-ink">TRANSACTIONS</h1>
+            <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Manual Transaction Builder</p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="lg:col-span-7 space-y-6">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>CONTRACT CONFIGURATION</span>
+                <span>CONTRACT_CONFIGURATION</span>
                 <CodeBracketSquareIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-8 space-y-8">
@@ -121,12 +118,12 @@ function TxContent() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Function Entry Point</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Function</label>
                     <div className="relative">
                       <Input
                         value={fnName}
                         onChange={(e) => setFnName(e.target.value)}
-                        placeholder={abiLoading ? "SYNCHRONIZING ABI..." : "FUNCTION_NAME"}
+                        placeholder={abiLoading ? "LOADING ABI..." : "FUNCTION_NAME"}
                         className={cn("h-12 bg-neutral-light border-accent/20 font-black text-xs tabular-nums", abiLoading && "animate-pulse")}
                       />
                       {abi?.functions && (
@@ -148,15 +145,19 @@ function TxContent() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Argument Vector Construction</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Arguments</label>
                   <div className="p-6 bg-neutral-light border border-accent/20 rounded-sm">
                     <ClarityArgBuilder
                       onChange={onBuild}
-                      preset={templateParam === "swap" ? [
-                        { type: "principal", value: Tokens[0]?.id || "" },
-                        { type: "principal", value: Tokens[1]?.id || "" },
-                        { type: "uint", value: "1000" },
-                      ] : undefined}
+                      preset={
+                        templateParam === "swap"
+                          ? [
+                              { type: "principal", value: Tokens[0]?.id || "" },
+                              { type: "principal", value: Tokens[1]?.id || "" },
+                              { type: "uint", value: "1000" },
+                            ]
+                          : undefined
+                      }
                     />
                   </div>
                 </div>
@@ -166,7 +167,7 @@ function TxContent() {
                   onClick={broadcast}
                   disabled={!fnName || args.cv.length === 0}
                 >
-                  EXECUTE TRANSACTION PROTOCOL
+                  SUBMIT TRANSACTION
                 </Button>
               </CardContent>
             </Card>
@@ -175,7 +176,7 @@ function TxContent() {
           <div className="lg:col-span-5 space-y-6">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>TRANSACTION PAYLOAD ANALYZER</span>
+                <span>TRANSACTION_PREVIEW</span>
                 <BoltIcon className="w-3 h-3 text-accent" />
               </div>
               <CardContent className="p-8 space-y-6">
@@ -190,15 +191,17 @@ function TxContent() {
                         <div className="space-y-1">
                           {args.hex.map((h, i) => <p key={i}>[{i}]: {h}</p>)}
                         </div>
-                      ) : <p className="italic font-black text-ink/20">NO ARGS BUILT</p>}
+                      ) : (
+                        <p className="italic font-black text-ink/20">NO ARGS BUILT</p>
+                      )}
                     </div>
                   </div>
                 </div>
 
                 <div className="p-4 bg-accent/5 border border-accent/20 rounded-sm">
-                   <p className="text-[10px] font-black text-ink-light leading-relaxed uppercase tracking-widest">
-                     Deterministic verification required before broadcast. Ensure arguments match Clarity ABI signatures to prevent enclave rejection.
-                   </p>
+                  <p className="text-[10px] font-black text-ink-light leading-relaxed uppercase tracking-widest">
+                    Review arguments carefully before signing. Make sure they match the contract ABI to avoid rejected transactions.
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -211,7 +214,7 @@ function TxContent() {
 
 export default function TxPage() {
   return (
-    <Suspense fallback={<div className="p-20 text-center terminal-text animate-pulse font-black text-ink">SYNCHRONIZING FORGE...</div>}>
+    <Suspense fallback={<div className="p-20 text-center terminal-text animate-pulse font-black text-ink">Loading transaction builder...</div>}>
       <TxContent />
     </Suspense>
   );

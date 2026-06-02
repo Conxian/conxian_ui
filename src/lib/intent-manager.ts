@@ -1,59 +1,47 @@
+import { logger } from "./logger";
 import { AppConfig } from "./config";
 
 export interface Intent {
   type: string;
-  [key: string]: string | number | boolean | unknown;
+  payload?: any;
+  [key: string]: any;
 }
 
 export class IntentManager {
   private gatewayUrl: string;
-  private apiKey: string;
 
   constructor() {
     this.gatewayUrl = AppConfig.gatewayUrl;
-    this.apiKey = AppConfig.apiKey;
   }
 
   async execute(intent: Intent) {
-    console.log("Executing intent via gateway:", this.gatewayUrl, intent);
+    logger.info("Executing intent via gateway", { module: "IntentManager", gateway: this.gatewayUrl, intent });
 
     try {
       const response = await fetch(`${this.gatewayUrl}/v1/intent/execute`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": this.apiKey,
         },
         body: JSON.stringify(intent),
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `Gateway returned status ${response.status}`);
+        const msg = await response.text();
+        logger.error("Intent execution failed", { module: "IntentManager", message: msg });
+        throw new Error(msg);
       }
 
       return await response.json();
-    } catch (error: unknown) {
-      const msg = error instanceof Error ? error.message : String(error);
-      console.error("Intent execution failed:", msg);
-      return {
-        status: "failed",
-        error: msg,
-      };
+    } catch (e) {
+      logger.error("Network error during intent execution", { module: "IntentManager", error: e });
+      throw e;
     }
   }
 
   async getShieldedBalance(walletId: string) {
-    try {
-      const response = await fetch(`${this.gatewayUrl}/v1/shielded/balance/${walletId}`, {
-        headers: {
-          "x-api-key": this.apiKey,
-        },
-      });
-      if (!response.ok) throw new Error("Failed to fetch shielded balance");
-      return await response.json();
-    } catch (error: unknown) {
-      return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
-    }
+    return this.execute({ type: "get-shielded-balance", walletId });
   }
 }
+
+export const intentManager = new IntentManager();

@@ -1,3 +1,4 @@
+import { logger } from "./logger";
 import { userSession } from "@/lib/wallet";
 import { STACKS_MAINNET } from "@stacks/network";
 import { fetchCallReadOnlyFunction } from "@stacks/transactions";
@@ -32,7 +33,7 @@ export async function hasBitcoinMonkeyNft(): Promise<boolean> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return result && (result as any).value.some((owner: any) => owner.value === userAddress);
   } catch (error) {
-    console.error("Error checking for Bitcoin Monkey NFT:", error);
+    logger.error("Error checking for Bitcoin Monkey NFT", { module: "NFTTheming", error: error });
     return false;
   }
 }

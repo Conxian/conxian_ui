@@ -1,4 +1,5 @@
 "use client";
+import { logger } from "@/lib/logger";
 
 import { useEffect, useState } from "react";
 import {
@@ -37,7 +38,7 @@ export default function SystemStatus() {
         setError(null);
       } catch (err) {
         setError("Failed to fetch system metrics");
-        console.error(err);
+        logger.error("SystemStatus error", { module: "SystemStatus", error: err });
       } finally {
         setLoading(false);
       }

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { logger } from "@/lib/logger";
 import { CoreContracts, Tokens } from "@/lib/contracts";
 import {
   callReadOnly,
@@ -47,9 +48,12 @@ export default function RouterPage() {
   const loadInterface = React.useCallback(async () => {
     if (!selected) return;
     const [principal, name] = selected.split(".") as [string, string];
-    const iface = (await getContractInterface(principal, name)) as ContractAbi;
-    // Removed unused setFnList logic for brevity in this manual Forge tool
-    console.log("ABI loaded for", principal, name, iface?.functions?.length);
+    try {
+      const iface = (await getContractInterface(principal, name)) as ContractAbi;
+      logger.info("ABI loaded for", { module: "RouterPage", principal, name, functions: iface?.functions?.length });
+    } catch (e) {
+      logger.error("Failed to load ABI", { module: "RouterPage", principal, name, error: e });
+    }
   }, [selected]);
 
   React.useEffect(() => {
@@ -71,9 +75,12 @@ export default function RouterPage() {
       );
       setResult(res);
       setStatus(res.ok ? "Success" : "Failed");
+      if (!res.ok) {
+        logger.warn("Contract call returned error", { module: "RouterPage", principal, name, fnName, error: res.error });
+      }
     } catch (e) {
       setStatus("Error calling contract");
-      console.error(e);
+      logger.error("Router execution error", { module: "RouterPage", error: e });
     } finally {
       setLoading(false);
     }

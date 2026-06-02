@@ -1,4 +1,5 @@
 "use client";
+import { logger } from "@/lib/logger";
 
 import React from "react";
 import {
@@ -41,9 +42,6 @@ export type BuiltArgs = { cv: ClarityValue[]; hex: string[] };
 type Row = { id: string; type: ArgType; value: string; opt?: 'none' | 'some' | null };
 type ParamMeta = { name?: string; type?: string };
 
-// ⚡ Bolt: Memoize the ArgRow component to prevent re-renders of the entire list.
-// When one argument's value changes, only that specific row component will re-render,
-// not all of them. This significantly improves UI performance for functions with many arguments.
 const ArgRow = React.memo(function ArgRow({
   row,
   onUpdate,
@@ -55,7 +53,6 @@ const ArgRow = React.memo(function ArgRow({
   onRemove: (id: string) => void;
   paramMeta?: ParamMeta;
 }) {
-  // These helpers are pure functions, so duplicating them here is safe and avoids prop-drilling.
   const isOptionalType = (t: ArgType): boolean => t.startsWith('optional-');
   const inferOptionalMode = (t: ArgType): Row['opt'] => {
     if (!isOptionalType(t)) return null;
@@ -63,7 +60,7 @@ const ArgRow = React.memo(function ArgRow({
   };
   const baseFromOptional = (t: ArgType): ArgType => {
     if (!isOptionalType(t)) return t;
-    if (t === 'optional-none') return 'uint'; // default base
+    if (t === 'optional-none') return 'uint';
     const m = t.replace('optional-some-', '') as ArgType;
     return (['uint','int','bool','principal','ascii','utf8','buffer-hex'] as ArgType[]).includes(m) ? m : 'uint';
   };
@@ -198,13 +195,7 @@ const ArgRow = React.memo(function ArgRow({
         );
       })()}
       <div className="text-right">
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={() => onRemove(row.id)}
-          className="text-xs h-7 px-2"
-        >
+        <Button type="button" variant="outline" size="sm" onClick={() => onRemove(row.id)} className="text-xs h-7 px-2">
           Remove
         </Button>
       </div>
@@ -215,7 +206,6 @@ const ArgRow = React.memo(function ArgRow({
 export default function ClarityArgBuilder({ onChange, preset, paramMeta }: { onChange: (args: BuiltArgs) => void; preset?: Array<{ type: ArgType; value?: string }>; paramMeta?: Array<ParamMeta> }) {
   const [rows, setRows] = React.useState<Row[]>([]);
 
-  // Helpers (defined here because they are used in `build` and `useEffect`)
   const isOptionalType = React.useCallback((t: ArgType): boolean => t.startsWith('optional-'), []);
   const toOptional = React.useCallback((base: ArgType, mode: Row['opt']): ArgType => {
     if (!mode) return base;
@@ -223,10 +213,9 @@ export default function ClarityArgBuilder({ onChange, preset, paramMeta }: { onC
     return (`optional-some-${base}`) as ArgType;
   }, []);
 
-  // Apply preset rows when provided
   React.useEffect(() => {
     if (preset) {
-      const built: Row[] = preset.map(p => ({
+      const built: Row[] = preset.map((p) => ({
         id: crypto.randomUUID(),
         type: p.type,
         value: p.value ?? "",
@@ -254,9 +243,8 @@ export default function ClarityArgBuilder({ onChange, preset, paramMeta }: { onC
       const { type, value, opt } = row;
       const effectiveType: ArgType = isOptionalType(type) ? type : toOptional(type, opt ?? null);
 
-      // Helper to handle principal strings correctly (contract vs standard)
       const parsePrincipal = (p: string) => {
-        if (!p || p.trim() === "") return standardPrincipalCV("SP000000000000000000002Q6VF78"); // default to burn or some safe placeholder if empty
+        if (!p || p.trim() === "") return standardPrincipalCV("SP000000000000000000002Q6VF78");
         if (p.includes(".")) {
           const [addr, name] = p.split(".");
           return contractPrincipalCV(addr, name);
@@ -272,29 +260,29 @@ export default function ClarityArgBuilder({ onChange, preset, paramMeta }: { onC
           case "principal": cvs.push(parsePrincipal(value)); break;
           case "ascii": cvs.push(stringAsciiCV(value)); break;
           case "utf8": cvs.push(stringUtf8CV(value)); break;
-        case "buffer-hex": {
-          const hex = value.startsWith("0x") ? value.slice(2) : value;
-          const bytes = new Uint8Array(hex.match(/.{1,2}/g)?.map((b) => parseInt(b, 16)) || []);
-          cvs.push(bufferCV(bytes));
-          break;
-        }
-        case "optional-none": cvs.push(noneCV()); break;
-        case "optional-some-uint": cvs.push(someCV(uintCV(BigInt(value || "0")))); break;
-        case "optional-some-int": cvs.push(someCV(intCV(BigInt(value || "0")))); break;
-        case "optional-some-bool": cvs.push(someCV((value || "").toLowerCase() === "true" ? trueCV() : falseCV())); break;
-        case "optional-some-principal": cvs.push(someCV(parsePrincipal(value))); break;
-        case "optional-some-ascii": cvs.push(someCV(stringAsciiCV(value))); break;
-        case "optional-some-utf8": cvs.push(someCV(stringUtf8CV(value))); break;
-        case "optional-some-buffer-hex": {
-          const hex = value.startsWith("0x") ? value.slice(2) : value;
-          const bytes = new Uint8Array(hex.match(/.{1,2}/g)?.map((b) => parseInt(b, 16)) || []);
-          cvs.push(someCV(bufferCV(bytes)));
-          break;
-        }
+          case "buffer-hex": {
+            const hex = value.startsWith("0x") ? value.slice(2) : value;
+            const bytes = new Uint8Array(hex.match(/.{1,2}/g)?.map((b) => parseInt(b, 16)) || []);
+            cvs.push(bufferCV(bytes));
+            break;
+          }
+          case "optional-none": cvs.push(noneCV()); break;
+          case "optional-some-uint": cvs.push(someCV(uintCV(BigInt(value || "0")))); break;
+          case "optional-some-int": cvs.push(someCV(intCV(BigInt(value || "0")))); break;
+          case "optional-some-bool": cvs.push(someCV((value || "").toLowerCase() === "true" ? trueCV() : falseCV())); break;
+          case "optional-some-principal": cvs.push(someCV(parsePrincipal(value))); break;
+          case "optional-some-ascii": cvs.push(someCV(stringAsciiCV(value))); break;
+          case "optional-some-utf8": cvs.push(someCV(stringUtf8CV(value))); break;
+          case "optional-some-buffer-hex": {
+            const hex = value.startsWith("0x") ? value.slice(2) : value;
+            const bytes = new Uint8Array(hex.match(/.{1,2}/g)?.map((b) => parseInt(b, 16)) || []);
+            cvs.push(someCV(bufferCV(bytes)));
+            break;
+          }
           default: break;
         }
       } catch (e) {
-        console.warn(`Failed to build CV for ${effectiveType}:`, e);
+        logger.warn(`Failed to build clarity value for ${effectiveType}`, { module: "ClarityArgBuilder", error: e });
       }
     }
     const hex = cvs.map((cv) => cvToHex(cv));
@@ -309,30 +297,18 @@ export default function ClarityArgBuilder({ onChange, preset, paramMeta }: { onC
     <fieldset className="space-y-3" aria-describedby="args-help">
       <legend className="text-xs font-bold uppercase tracking-widest text-ink-light mb-2">Function Arguments</legend>
       <div className="flex items-center justify-end">
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={addRow}
-          className="text-xs h-7 px-2"
-        >
-          Add Arg
+        <Button type="button" variant="outline" size="sm" onClick={addRow} className="text-xs h-7 px-2">
+          Add Argument
         </Button>
       </div>
       {rows.length === 0 && (
         <div id="args-help" className="text-xs text-ink">
-          No args. Click Add Arg.
+          No arguments yet. Click Add Argument.
         </div>
       )}
       <div className="space-y-2">
         {rows.map((row, idx) => (
-          <ArgRow
-            key={row.id}
-            row={row}
-            onUpdate={updateRow}
-            onRemove={removeRow}
-            paramMeta={paramMeta?.[idx]}
-          />
+          <ArgRow key={row.id} row={row} onUpdate={updateRow} onRemove={removeRow} paramMeta={paramMeta?.[idx]} />
         ))}
       </div>
     </fieldset>

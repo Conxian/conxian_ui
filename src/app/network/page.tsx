@@ -18,14 +18,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/Table";
-import { AppConfig } from "@/lib/config";
+import { logger } from "@/lib/logger";
 import {
   CpuChipIcon,
   GlobeAltIcon,
   BoltIcon,
   ChartBarIcon,
   MapIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
 
 export default function NetworkPage() {
@@ -37,16 +37,18 @@ export default function NetworkPage() {
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
-      const [s, b, m] = await Promise.all([
-        getStatus(),
-        getNetworkBlockTimes(),
-        getMempool(20),
-      ]);
-      setStatus(s);
-      setBlocks(b);
-      setMempool(m || []);
+      const [s, b, m] = await Promise.allSettled([getStatus(), getNetworkBlockTimes(), getMempool(20)]);
+
+      if (s.status === 'fulfilled') setStatus(s.value);
+      else logger.error('Failed to fetch core status', { module: 'Network', error: s.reason });
+
+      if (b.status === 'fulfilled') setBlocks(b.value);
+      else logger.warn('Failed to fetch block times', { module: 'Network', error: b.reason });
+
+      if (m.status === 'fulfilled') setMempool(m.value || []);
+      else logger.warn('Failed to fetch mempool', { module: 'Network', error: m.reason });
     } catch (e) {
-      console.error(e);
+      logger.error('Critical failure in network refresh', { module: 'Network', error: e });
     } finally {
       setLoading(false);
     }
@@ -59,31 +61,32 @@ export default function NetworkPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       <div className="bg-neutral-light text-ink font-black py-2 px-6 flex justify-between items-center border-b border-accent/20">
-        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Network Topology Telemetry</span>
+        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Network Status</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>SYSTEM_NOMINAL</span>
+          <span>SYSTEM_READY</span>
           <span>UPTIME: 99.998%</span>
         </div>
       </div>
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
-           <div>
-              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">TELEMETRY</h1>
-              <p className="text-ink font-black uppercase tracking-[0.4em] text-xs mt-2">SCADA-Inspired Network Observability</p>
-           </div>
-           <Button onClick={refresh} disabled={loading} className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]">
-              {loading ? "SYNCING..." : "REFRESH"}
-           </Button>
+          <div>
+            <h1 className="text-5xl font-black tracking-widest uppercase text-ink">NETWORK</h1>
+            <p className="text-ink font-black uppercase tracking-[0.4em] text-xs mt-2">
+              Network Status and Activity
+            </p>
+          </div>
+          <Button onClick={refresh} disabled={loading} className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]">
+            {loading ? 'UPDATING...' : 'REFRESH'}
+          </Button>
         </div>
 
-        {/* High-Level SCADA Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {[
-            { label: "Global TPS", value: "14,204", detail: "+12% Shift", icon: ChartBarIcon },
-            { label: "Avg Block Time", value: "402ms", detail: "Steady", icon: CpuChipIcon },
-            { label: "Active Nodes", value: "3,142", detail: "-2 Offline", icon: GlobeAltIcon },
-            { label: "Gas Volatility", value: "HIGH", detail: "PREDICTIVE_WARN", icon: BoltIcon, color: "text-error" }
+            { label: 'Global TPS', value: '14,204', detail: '+12% Shift', icon: ChartBarIcon },
+            { label: 'Avg Block Time', value: '402ms', detail: 'Steady', icon: CpuChipIcon },
+            { label: 'Active Nodes', value: '3,142', detail: '-2 Offline', icon: GlobeAltIcon },
+            { label: 'Gas Volatility', value: 'HIGH', detail: 'Predictive Warn', icon: BoltIcon, color: 'text-error' },
           ].map((m, i) => (
             <Card key={i} className="machined-card">
               <CardContent className="p-4">
@@ -92,8 +95,8 @@ export default function NetworkPage() {
                   <m.icon className="w-3 h-3 opacity-20" />
                 </div>
                 <div className="flex justify-between items-end">
-                   <span className={`text-2xl font-black tabular-nums ${m.color || "text-ink"}`}>{m.value}</span>
-                   <span className="text-[8px] font-black uppercase opacity-60 mb-1">{m.detail}</span>
+                  <span className={`text-2xl font-black tabular-nums ${m.color || 'text-ink'}`}>{m.value}</span>
+                  <span className="text-[8px] font-black uppercase opacity-60 mb-1">{m.detail}</span>
                 </div>
               </CardContent>
             </Card>
@@ -102,63 +105,66 @@ export default function NetworkPage() {
 
         <div className="grid gap-8 md:grid-cols-12 items-start">
           <div className="md:col-span-8 space-y-6">
-            {/* Predictive Telemetry */}
             <Card className="machined-card">
               <div className="machined-header">
-                <span>PREDICTIVE_TELEMETRY_ENGINE</span>
+                <span>NETWORK_FORECAST</span>
                 <BoltIcon className="w-3 h-3 text-ink" />
               </div>
               <CardContent className="p-6">
-                 <p className="text-[10px] text-ink/40 font-black uppercase tracking-widest mb-6">AI-Forecasting: Gas Volatility & Congestion</p>
-                 <div className="h-40 bg-neutral-light border border-ghost rounded-sm flex items-center justify-center relative overflow-hidden">
-                    {/* Visual graph placeholder */}
-                    <div className="absolute inset-0 flex items-end px-4 pb-8 gap-1">
-                       {[0.4, 0.6, 0.5, 0.8, 0.9, 0.7, 0.4, 0.5, 0.6, 0.8, 0.9, 0.7, 0.8, 0.6].map((h, i) => (
-                         <div key={i} className="flex-1 bg-accent/20 border-t-2 border-accent" style={{ height: `${h * 100}%` }} />
-                       ))}
-                    </div>
-                    <div className="absolute bottom-2 left-0 right-0 flex justify-between px-6 text-[8px] font-black text-ink/30 uppercase tracking-widest">
-                       <span>T-60m</span>
-                       <span>T-30m</span>
-                       <span className="text-ink">NOW</span>
-                       <span>+30m</span>
-                       <span>+60m</span>
-                    </div>
-                    <span className="relative z-10 text-[10px] font-black uppercase tracking-[0.3em] opacity-30 bg-background-paper/80 px-4 py-2 border border-ghost rounded-sm">Processing Neural Vector...</span>
-                 </div>
+                <p className="text-[10px] text-ink/40 font-black uppercase tracking-widest mb-6">
+                  Predicted gas volatility and congestion
+                </p>
+                <div className="h-40 bg-neutral-light border border-ghost rounded-sm flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-end px-4 pb-8 gap-1">
+                    {[0.4, 0.6, 0.5, 0.8, 0.9, 0.7, 0.4, 0.5, 0.6, 0.8, 0.9, 0.7, 0.8, 0.6].map((h, i) => (
+                      <div key={i} className="flex-1 bg-accent/20 border-t-2 border-accent" style={{ height: `${h * 100}%` }} />
+                    ))}
+                  </div>
+                  <div className="absolute bottom-2 left-0 right-0 flex justify-between px-6 text-[8px] font-black text-ink/30 uppercase tracking-widest">
+                    <span>T-60m</span>
+                    <span>T-30m</span>
+                    <span className="text-ink">NOW</span>
+                    <span>+30m</span>
+                    <span>+60m</span>
+                  </div>
+                  <span className="relative z-10 text-[10px] font-black uppercase tracking-[0.3em] opacity-30 bg-background-paper/80 px-4 py-2 border border-ghost rounded-sm">
+                    Processing forecast...
+                  </span>
+                </div>
               </CardContent>
             </Card>
 
-            {/* Geospatial Node Map */}
             <Card className="machined-card">
               <div className="machined-header">
-                <span>GEOSPATIAL_NODE_TOPOLOGY</span>
+                <span>NODE_TOPOLOGY</span>
                 <MapIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-6">
                 <div className="grid grid-cols-3 gap-6">
                   <div className="col-span-2 h-48 bg-neutral-light border border-ghost rounded-sm relative flex items-center justify-center">
-                     <GlobeAltIcon className="w-32 h-32 text-ink/10 animate-pulse-soft" />
-                     <div className="absolute top-1/4 left-1/4 h-2 w-2 bg-success rounded-full animate-ping" title="US-EAST" />
-                     <div className="absolute top-1/3 left-2/3 h-2 w-2 bg-error rounded-full animate-ping" title="EU-CENTRAL" />
-                     <div className="absolute bottom-1/4 left-1/2 h-2 w-2 bg-success rounded-full animate-ping" title="AP-SOUTH" />
-                     <span className="absolute bottom-3 left-4 text-[8px] font-mono text-ink/30 font-bold uppercase tracking-widest">Global Infrastructure Health Feed</span>
+                    <GlobeAltIcon className="w-32 h-32 text-ink/10 animate-pulse-soft" />
+                    <div className="absolute top-1/4 left-1/4 h-2 w-2 bg-success rounded-full animate-ping" title="US-EAST" />
+                    <div className="absolute top-1/3 left-2/3 h-2 w-2 bg-error rounded-full animate-ping" title="EU-CENTRAL" />
+                    <div className="absolute bottom-1/4 left-1/2 h-2 w-2 bg-success rounded-full animate-ping" title="AP-SOUTH" />
+                    <span className="absolute bottom-3 left-4 text-[8px] font-mono text-ink/30 font-bold uppercase tracking-widest">
+                      Global infrastructure status
+                    </span>
                   </div>
                   <div className="space-y-4">
-                     <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest">Regional Health</p>
-                     <div className="space-y-2">
-                        {[
-                          { region: "US-EAST", status: "NOMINAL", color: "text-success" },
-                          { region: "EU-CENTRAL", status: "DEGRADED", color: "text-error" },
-                          { region: "AP-SOUTH", status: "NOMINAL", color: "text-success" },
-                          { region: "SA-EAST", status: "STANDBY", color: "text-ink/40" }
-                        ].map((r, i) => (
-                          <div key={i} className="flex justify-between items-center text-[9px] font-black">
-                            <span className="text-ink/60">{r.region}</span>
-                            <span className={r.color}>{r.status}</span>
-                          </div>
-                        ))}
-                     </div>
+                    <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest">Regional Health</p>
+                    <div className="space-y-2">
+                      {[
+                        { region: 'US-EAST', status: 'NOMINAL', color: 'text-success' },
+                        { region: 'EU-CENTRAL', status: 'DEGRADED', color: 'text-error' },
+                        { region: 'AP-SOUTH', status: 'NOMINAL', color: 'text-success' },
+                        { region: 'SA-EAST', status: 'STANDBY', color: 'text-ink/40' },
+                      ].map((r, i) => (
+                        <div key={i} className="flex justify-between items-center text-[9px] font-black">
+                          <span className="text-ink/60">{r.region}</span>
+                          <span className={r.color}>{r.status}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -166,10 +172,9 @@ export default function NetworkPage() {
           </div>
 
           <div className="md:col-span-4 space-y-6">
-            {/* Emergency Incident Command */}
             <Card className="machined-card border-error/40">
               <div className="machined-header bg-error/5 border-error/20">
-                <span className="text-error">INCIDENT_COMMAND_CENTER</span>
+                <span className="text-error">INCIDENTS</span>
                 <ExclamationTriangleIcon className="w-3 h-3 text-error" />
               </div>
               <CardContent className="p-6">
@@ -192,30 +197,28 @@ export default function NetworkPage() {
 
             <Card className="machined-card">
               <div className="machined-header">
-                <span>MEMPOOL_STREAM</span>
+                <span>MEMPOOL</span>
                 <BoltIcon className="w-3 h-3 text-ink" />
               </div>
               <CardContent className="p-0 overflow-auto max-h-[400px]">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>TX_VECTOR</TableHead>
+                      <TableHead>TRANSACTION</TableHead>
                       <TableHead className="text-right">NONCE</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {mempool.map((tx, idx) => (
                       <TableRow key={tx?.tx_id || `tx-${idx}`}>
-                        <TableCell className="font-mono text-[9px] font-black text-ink truncate max-w-[120px]">
-                          {tx?.tx_id || "—"}
-                        </TableCell>
-                        <TableCell className="text-right text-[9px] font-black text-ink tabular-nums">{tx?.nonce ?? "—"}</TableCell>
+                        <TableCell className="font-mono text-[9px] font-black text-ink truncate max-w-[120px]">{tx?.tx_id || '—'}</TableCell>
+                        <TableCell className="text-right text-[9px] font-black text-ink tabular-nums">{tx?.nonce ?? '—'}</TableCell>
                       </TableRow>
                     ))}
                     {mempool.length === 0 && (
                       <TableRow>
                         <TableCell className="py-10 text-center font-black uppercase text-[10px] text-ink/20" colSpan={2}>
-                          AWAITING_PACKET...
+                          Awaiting transactions...
                         </TableCell>
                       </TableRow>
                     )}

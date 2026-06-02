@@ -4,29 +4,30 @@ Public interface work for interacting with and demonstrating Conxian ecosystem c
 
 ## Purpose
 
-Provide a public interface layer for Conxian features, demos, and user-facing flows where a web-based surface is appropriate.
+Provide a public web interface layer for Conxian features, demos, and user-facing flows where a browser-based surface is appropriate.
 
 ## Status
 
-Active development.
+**Active development.** This repository is the public web interface layer for the Conxian ecosystem and should be treated as a product-facing application surface rather than a protocol source of truth.
 
 ## Scope
 
-This repository contains interface work and related UI assets. It does not own canonical protocol logic, shared-core libraries, or private internal operations.
+This repository contains interface work, UI assets, and application flows. It does not own canonical protocol logic, shared-core libraries, or private internal operations.
 
 ## Governance relation
 
-This repository is maintained by Conxian Labs as part of the public application and interface layer for the Conxian ecosystem.
+This repository is maintained by Conxian Labs as part of the public application and interface layer for the Conxian ecosystem. Governance of the protocol itself is expected to decentralize progressively after mainnet.
 
-## Relationship to the portfolio
+## Relationship to the Conxian stack
 
-- `Conxian` is the protocol core
-- `conxius-wallet` is the wallet and reference client
-- `conxian-labs-site` is the corporate and public information surface
+- `Conxian` is the protocol core.
+- `conxius-wallet` is the wallet and reference client.
+- `conxian-gateway` is the middleware and institutional integration surface.
+- `conxian-labs-site` is the corporate and public information surface.
 
 ## Deployment
 
-This repository deploys to Render as a Node web service serving the static Next export from `out/`.
+This repository deploys to Render as a Node web service.
 
 ### Required Render settings
 
@@ -42,8 +43,33 @@ This repository deploys to Render as a Node web service serving the static Next 
 - Secrets must be stored in Render secrets, not committed to the repository.
 - Do not use placeholder API keys in repo config or deploy blueprints.
 
+## Release discipline
+
+- Follow Semantic Versioning.
+- Create annotated tags as `vX.Y.Z`.
+- Document each release in [CHANGELOG.md](CHANGELOG.md).
+- Use [RELEASE.md](RELEASE.md) for the release workflow.
+
+## Security
+
+Do not disclose vulnerabilities publicly. Use [SECURITY.md](SECURITY.md) or `security@conxian-labs.com`.
+
+## Policies
+
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [SECURITY.md](SECURITY.md)
+- [CODEOWNERS](CODEOWNERS)
+- [LICENSE](LICENSE)
+- [REPO_OWNERSHIP.md](REPO_OWNERSHIP.md)
+- [CHANGELOG.md](CHANGELOG.md)
+- [RELEASE.md](RELEASE.md)
+
 ## Contact
 
 - General: [info@conxian-labs.com](mailto:info@conxian-labs.com)
 - Support: [support@conxian-labs.com](mailto:support@conxian-labs.com)
 - Security: [security@conxian-labs.com](mailto:security@conxian-labs.com)
+
+## License
+
+See [LICENSE](LICENSE).

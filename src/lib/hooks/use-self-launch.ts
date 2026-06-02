@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 // src/lib/hooks/use-self-launch.ts - React hook for launch system
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { openContractCall } from "@stacks/connect";
@@ -127,7 +128,7 @@ export function useSelfLaunch(network: 'mainnet' | 'testnet' | 'devnet' = 'testn
         }
       }));
     } catch (error) {
-      console.error('Error fetching user contribution:', error);
+      logger.error('Error fetching user contribution', { module: 'useSelfLaunch', error: error });
     }
   }, [contract]);
 
