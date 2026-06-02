@@ -15,7 +15,7 @@ export class IntentManager {
   }
 
   async execute(intent: Intent) {
-    console.log("Executing intent via gateway:", this.gatewayUrl, intent);
+    console.log("Sending action to gateway:", this.gatewayUrl, intent);
 
     try {
       const response = await fetch(`${this.gatewayUrl}/v1/intent/execute`, {
@@ -35,7 +35,7 @@ export class IntentManager {
       return await response.json();
     } catch (error: unknown) {
       const msg = error instanceof Error ? error.message : String(error);
-      console.error("Intent execution failed:", msg);
+      console.error("Action failed:", msg);
       return {
         status: "failed",
         error: msg,
@@ -50,7 +50,7 @@ export class IntentManager {
           "x-api-key": this.apiKey,
         },
       });
-      if (!response.ok) throw new Error("Failed to fetch shielded balance");
+      if (!response.ok) throw new Error("Failed to fetch private balance");
       return await response.json();
     } catch (error: unknown) {
       return { success: false, error: error instanceof Error ? error.message : "Unknown error" };

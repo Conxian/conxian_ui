@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Progress } from "@/components/ui/Progress";
 import { Badge } from "@/components/ui/Badge";
@@ -25,17 +22,16 @@ export default function LaunchPage() {
     communityStats,
     userContribution,
     contribute,
-    refreshData
+    refreshData,
   } = useSelfLaunch();
 
   const [contributionAmount, setContributionAmount] = useState("");
   const [sending, setSending] = useState(false);
   const [txId, setTxId] = useState("");
 
-  // Hardcoded phases for roadmap display since they aren't dynamic yet
   const phases = [
     { id: '1', name: 'Alpha Genesis', target: 50000, funding: 50000, contributors: 42, status: 'completed' },
-    { id: '2', name: 'Infrastructure expansion', target: 250000, funding: fundingProgress.current, contributors: communityStats?.totalContributors || 0, status: 'active' },
+    { id: '2', name: 'Infrastructure Expansion', target: 250000, funding: fundingProgress.current, contributors: communityStats?.totalContributors || 0, status: 'active' },
     { id: '3', name: 'Mainnet Readiness', target: 1000000, funding: 0, contributors: 0, status: 'pending' },
   ];
 
@@ -64,109 +60,99 @@ export default function LaunchPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
-      {/* Terminal Top Bar */}
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
           <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Bootstrap Environment</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Launch</span>
         </div>
         <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>ALLOCATION: OPEN</span>
-          <span>QUORUM: 94.2%</span>
+          <span>Funding: Open</span>
+          <span>Quorum: 94.2%</span>
         </div>
       </div>
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
-           <div>
-              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">BOOTSTRAP</h1>
-              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Community Funding Sequence</p>
-           </div>
-           <div className="text-right hidden md:block">
-              <span className="text-[9px] font-black uppercase text-ink/30">Target Phase</span>
-              <p className="text-xs font-mono font-black text-ink">{currentPhase?.name || "SEQUENCING..."}</p>
-           </div>
+          <div>
+            <h1 className="text-5xl font-black tracking-widest uppercase text-ink">LAUNCH</h1>
+            <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">
+              Community Funding
+            </p>
+          </div>
+          <div className="text-right hidden md:block">
+            <span className="text-[9px] font-black uppercase text-ink/30">Current Phase</span>
+            <p className="text-xs font-mono font-black text-ink">{currentPhase?.name || "Loading..."}</p>
+          </div>
         </div>
 
         <Tabs defaultValue="overview" className="space-y-8">
           <TabsList className="grid w-full grid-cols-4 bg-neutral-light border-accent/20 h-12 p-1">
-            <TabsTrigger value="overview">Sequence Log</TabsTrigger>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="contribute">Contribute</TabsTrigger>
-            <TabsTrigger value="progress">Node Distribution</TabsTrigger>
-            <TabsTrigger value="leaderboard">Attribution</TabsTrigger>
+            <TabsTrigger value="progress">Progress</TabsTrigger>
+            <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card className="machined-card">
                 <div className="machined-header">
-                   <span>CURRENT PHASE</span>
-                   <BoltIcon className="w-3 h-3" />
+                  <span>CURRENT_PHASE</span>
+                  <BoltIcon className="w-3 h-3" />
                 </div>
                 <CardContent className="p-6">
-                  <div className="text-3xl font-black text-ink uppercase tracking-widest">
-                    {currentPhase?.name || 'N/A'}
-                  </div>
-                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Core Infrastructure Deployment</p>
+                  <div className="text-3xl font-black text-ink uppercase tracking-widest">{currentPhase?.name || 'N/A'}</div>
+                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Core Infrastructure Rollout</p>
                 </CardContent>
               </Card>
 
               <Card className="machined-card">
                 <div className="machined-header">
-                   <span>TOTAL RAISED</span>
-                   <div className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  <span>TOTAL_RAISED</span>
+                  <div className="h-1.5 w-1.5 rounded-full bg-accent" />
                 </div>
                 <CardContent className="p-6">
                   <div className="text-3xl font-black text-ink tabular-nums">
                     {fundingProgress.current.toLocaleString()} <span className="text-lg opacity-40">STX</span>
                   </div>
-                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Community Pool Funding</p>
+                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Community Funding</p>
                 </CardContent>
               </Card>
 
               <Card className="machined-card">
                 <div className="machined-header">
-                   <span>CONTRIBUTORS</span>
-                   <GlobeAltIcon className="w-3 h-3" />
+                  <span>CONTRIBUTORS</span>
+                  <GlobeAltIcon className="w-3 h-3" />
                 </div>
                 <CardContent className="p-6">
-                  <div className="text-3xl font-black text-ink tabular-nums">
-                    {communityStats?.totalContributors || 0}
-                  </div>
-                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Verified Active Nodes</p>
+                  <div className="text-3xl font-black text-ink tabular-nums">{communityStats?.totalContributors || 0}</div>
+                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Active Contributors</p>
                 </CardContent>
               </Card>
             </div>
 
             <Card className="machined-card">
               <div className="machined-header">
-                <span>LAUNCH ROADMAP</span>
+                <span>LAUNCH_ROADMAP</span>
               </div>
               <CardContent className="p-8 space-y-8">
                 {phases.map((phase) => (
                   <div key={phase.id} className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="font-black text-ink uppercase tracking-[0.2em] text-xs">
-                        {phase.name}
-                      </span>
+                      <span className="font-black text-ink uppercase tracking-[0.2em] text-xs">{phase.name}</span>
                       <Badge
                         variant="outline"
                         className={cn(
                           "uppercase text-[8px] font-black tracking-[0.2em] px-2 py-0.5 border-accent/20",
-                          phase.status === "active" ? "text-accent" : "text-ink/30"
+                          phase.status === "active" ? "text-accent" : "text-ink/30",
                         )}
                       >
                         {phase.status}
                       </Badge>
                     </div>
-                    <Progress
-                      value={(phase.funding / phase.target) * 100}
-                      className="h-1 bg-neutral-light"
-                    />
+                    <Progress value={(phase.funding / phase.target) * 100} className="h-1 bg-neutral-light" />
                     <div className="flex justify-between text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 tabular-nums">
-                      <span>
-                        {phase.funding.toLocaleString()} / {phase.target.toLocaleString()} STX
-                      </span>
+                      <span>{phase.funding.toLocaleString()} / {phase.target.toLocaleString()} STX</span>
                       <span>{phase.contributors} MEMBERS</span>
                     </div>
                   </div>
@@ -178,28 +164,28 @@ export default function LaunchPage() {
           <TabsContent value="contribute" className="space-y-8">
             <Card className="machined-card max-w-2xl mx-auto">
               <div className="machined-header">
-                <span>FUNDING PARTICIPATION</span>
+                <span>CONTRIBUTE</span>
               </div>
               <CardContent className="p-8 space-y-8">
                 <div className="flex items-center gap-4">
                   <div className="relative flex-1">
-                     <Input
-                       type="number"
-                       value={contributionAmount}
-                       onChange={(e) => setContributionAmount(e.target.value)}
-                       placeholder="0.00"
-                       className="text-right pr-12 font-black text-2xl h-14 bg-neutral-light border-accent/20 tabular-nums"
-                     />
-                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-black text-ink/30 pointer-events-none">STX</span>
+                    <Input
+                      type="number"
+                      value={contributionAmount}
+                      onChange={(e) => setContributionAmount(e.target.value)}
+                      placeholder="0.00"
+                      className="text-right pr-12 font-black text-2xl h-14 bg-neutral-light border-accent/20 tabular-nums"
+                    />
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-black text-ink/30 pointer-events-none">STX</span>
                   </div>
                   <Button onClick={handleContribute} disabled={sending} className="min-w-[160px] h-14 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-xs hover:bg-ink-light rounded-none">
-                    {sending ? "TRANSMITTING..." : "CONTRIBUTE"}
+                    {sending ? "SUBMITTING..." : "CONTRIBUTE"}
                   </Button>
                 </div>
 
                 <div className="p-4 bg-neutral-light border border-accent/20 rounded-sm flex justify-between items-center">
-                   <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Active Contribution:</span>
-                   <span className="text-xl font-black text-ink tabular-nums">{userContribution.total} <span className="text-xs opacity-30 font-bold">STX</span></span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Your Contribution:</span>
+                  <span className="text-xl font-black text-ink tabular-nums">{userContribution.total} <span className="text-xs opacity-30 font-bold">STX</span></span>
                 </div>
 
                 {txId && (
@@ -208,7 +194,8 @@ export default function LaunchPage() {
                       <span className="text-[9px] font-black text-accent uppercase tracking-[0.2em]">TRANSACTION_SUCCESS</span>
                       <a
                         href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
-                        target="_blank" rel="noopener noreferrer"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-ink font-mono text-[10px] font-black mt-1 hover:underline"
                       >
                         {truncate(txId, 20, 18)}

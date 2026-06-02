@@ -14,11 +14,11 @@ const navigation = [
   { name: "Dashboard", href: "/" },
   { name: "Governance", href: "/governance" },
   { name: "Sandbox", href: "/sandbox" },
-  { name: "Monitor", href: "/network" },
-  { name: "Execute", href: "/swap" },
-  { name: "Reserves", href: "/pools" },
-  { name: "Bootstrap", href: "/launch" },
-  { name: "Portfolio", href: "/positions" },
+  { name: "Network", href: "/network" },
+  { name: "Swap", href: "/swap" },
+  { name: "Pools", href: "/pools" },
+  { name: "Launch", href: "/launch" },
+  { name: "Positions", href: "/positions" },
 ];
 
 export default function Header() {
@@ -44,7 +44,7 @@ export default function Header() {
               CONXIAN<span className="text-accent">_</span>
             </span>
           </Link>
-          
+
           <div className="hidden lg:flex lg:gap-x-8">
             {navigation.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -54,9 +54,7 @@ export default function Header() {
                   href={item.href}
                   className={cn(
                     "text-[10px] font-black uppercase tracking-[0.2em] leading-6 transition-all duration-300",
-                    isActive
-                      ? "text-accent"
-                      : "text-background-paper/40 hover:text-background-paper"
+                    isActive ? "text-accent" : "text-background-paper/40 hover:text-background-paper",
                   )}
                 >
                   {item.name}
@@ -68,10 +66,10 @@ export default function Header() {
 
         <div className="flex flex-1 justify-end items-center gap-x-6">
           <div className="hidden sm:flex items-center rounded-sm border border-background-paper/10 bg-background-paper/5 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-background-paper/50">
-             {AppConfig.network.toUpperCase()}
+            {AppConfig.network.toUpperCase()}
           </div>
           <ConnectWallet />
-          
+
           <div className="flex lg:hidden">
             <Button
               variant="ghost"
@@ -101,9 +99,7 @@ export default function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={cn(
                     "block px-3 py-4 text-xs font-black uppercase tracking-widest",
-                    isActive
-                      ? "text-accent"
-                      : "text-background-paper/60 hover:text-background-paper"
+                    isActive ? "text-accent" : "text-background-paper/60 hover:text-background-paper",
                   )}
                 >
                   {item.name}
