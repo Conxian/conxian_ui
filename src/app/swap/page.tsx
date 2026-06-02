@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/Input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import {
   ArrowsUpDownIcon,
-  CpuChipIcon,
 } from "@heroicons/react/24/outline";
 import { Tokens } from "@/lib/contracts";
 import { useWallet } from "@/lib/wallet";
@@ -30,6 +29,7 @@ import { formatAmount, parseAmount, truncate } from "@/lib/utils";
 import TokenSelect from "@/components/ui/TokenSelect";
 import CopyButton from "@/components/CopyButton";
 import { cn } from "@/lib/utils";
+import { logger } from "@/lib/logger";
 
 export default function SwapPage() {
   const { stxAddress } = useWallet();
@@ -56,21 +56,41 @@ export default function SwapPage() {
     }
     setLoading(true);
     try {
+      // Simulate protocol sync for institutional feel
       setTimeout(() => {
         const amt = parseFloat(fromAmount) * 0.997;
         setToAmount(amt.toFixed(6));
         setLoading(false);
       }, 300);
     } catch (e) {
-      console.error(e);
+      logger.error("Failed to calculate swap estimate", { module: 'Swap', error: e });
       setLoading(false);
     }
   }, [fromAmount, isSameToken]);
+
+  useEffect(() => {
+    getEstimate();
+  }, [getEstimate]);
+
+  const refreshBalances = useCallback(async () => {
+    if (!stxAddress) return;
+    try {
+      const b = await getFungibleTokenBalances(stxAddress);
+      setBalances(b || []);
+    } catch (e) {
+      logger.error("Failed to fetch swap balances", { module: 'Swap', address: stxAddress, error: e });
+    }
+  }, [stxAddress]);
+
+  useEffect(() => {
+    refreshBalances();
+  }, [refreshBalances]);
 
   const handleSwap = async () => {
     if (!fromAmount || isSameToken) return;
     setSending(true);
     setStatus("Initiating swap protocol...");
+    logger.info("Initiating swap protocol", { module: 'Swap', fromToken, toToken, fromAmount });
 
     try {
       const routerAddress = AppConfig.contracts.router.split(".")[0];
@@ -98,106 +118,64 @@ export default function SwapPage() {
           functionName: "swap-direct",
           functionArgs,
           postConditionMode: PostConditionMode.Allow,
-          postConditions: [],
           onFinish: (data) => {
-              setTxId(data.txId);
-              setStatus("Transaction broadcast successful.");
-              setSending(false);
+            logger.info("Swap transaction broadcast successfully", { module: 'Swap', txId: data.txId });
+            setTxId(data.txId);
+            setStatus("Transmitted to mempool.");
+            setSending(false);
           },
           onCancel: () => {
-              setStatus("Transaction aborted.");
-              setSending(false);
+            logger.warn("Swap transaction cancelled by user", { module: 'Swap' });
+            setStatus("Cancelled by operator.");
+            setSending(false);
           }
       });
-      
-    } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : String(e);
-      setStatus(`Error: ${msg}`);
+    } catch (e) {
+      logger.error("Failed to execute swap protocol", { module: 'Swap', error: e });
+      setStatus("Execution failed.");
       setSending(false);
     }
   };
 
-  useEffect(() => {
-    getEstimate();
-  }, [getEstimate]);
-
-  useEffect(() => {
-    if (stxAddress) {
-      getFungibleTokenBalances(stxAddress).then(setBalances);
-    }
-  }, [stxAddress]);
-
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
-      {/* Terminal Top Bar */}
+       {/* Terminal Top Bar */}
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
           <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Execution Environment</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Execution Interface</span>
         </div>
         <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>MTU: 1500</span>
-          <span>LATENCY: 0.08ms</span>
-          <span>SEQ: #84,321</span>
+          <span>STATUS: NOMINAL</span>
+          <span>ORACLE_SYNC: 100%</span>
         </div>
       </div>
 
-      <main className="flex-1 p-8 max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Telemetry & Sidebar */}
-        <div className="lg:col-span-3 space-y-6 hidden lg:block">
-          <div className="p-4 bg-neutral-light border border-accent/20 rounded-sm space-y-4">
-            <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40">Market Telemetry</h4>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-[10px] uppercase font-black text-ink/40">STX/BTC</span>
-                <span className="text-[10px] font-black text-ink tabular-nums">0.000042</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-[10px] uppercase font-black text-ink/40">GAS (FIXED)</span>
-                <span className="text-[10px] font-black text-success">LOW</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-[10px] uppercase font-black text-ink/40">CONX_RELAY</span>
-                <span className="text-[10px] font-black text-ink">ACTIVE</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-4 bg-neutral-light border border-accent/20 rounded-sm">
-            <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 mb-2">Instructions</h4>
-            <p className="text-[10px] leading-relaxed text-ink-light font-bold">
-              Input asset quantities for direct automated routing. Path aggregation is hardware-attested for deterministic execution.
-            </p>
-          </div>
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+        <div className="flex justify-between items-end border-b border-accent/20 pb-6">
+           <div>
+              <h1 className="text-5xl font-black tracking-widest uppercase text-ink">EXECUTION</h1>
+              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">DEX Routing & Settlement</p>
+           </div>
         </div>
 
-        {/* Center Column: Execution Matrix */}
-        <div className="lg:col-span-6 space-y-8">
-           <div className="mb-6">
-              <h1 className="text-5xl font-black tracking-widest uppercase text-ink leading-none">EXECUTION</h1>
-              <div className="h-1 w-12 bg-accent mt-4" />
-           </div>
-
-           <Tabs defaultValue="direct" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 bg-neutral-light border-accent/20 h-12 p-1 mb-8">
-              <TabsTrigger value="direct">Direct Protocol</TabsTrigger>
-              <TabsTrigger value="aggregator" disabled>Multi-Hop Path</TabsTrigger>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+           <Tabs defaultValue="swap" className="lg:col-span-9">
+            <TabsList className="bg-neutral-light p-1 h-12 rounded-sm border border-accent/20">
+              <TabsTrigger value="swap" className="data-[state=active]:bg-ink data-[state=active]:text-background-paper font-black uppercase tracking-widest text-[10px] px-8 h-full">Direct Swap</TabsTrigger>
+              <TabsTrigger value="limit" disabled className="font-black uppercase tracking-widest text-[10px] px-8 h-full opacity-40">Limit Order (SOON)</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="direct">
-              <Card className="machined-card">
-                <div className="machined-header">
-                  <span>EXECUTION MATRIX V4.1</span>
-                  <CpuChipIcon className="w-3 h-3 opacity-50" />
-                </div>
-
-                <CardContent className="p-8 space-y-6">
+            <TabsContent value="swap" className="mt-8">
+              <Card className="machined-card shadow-none">
+                <CardContent className="p-8 space-y-8">
                   {/* From Asset */}
                   <div className="space-y-3">
-                    <div className="flex justify-between items-end">
+                    <div className="flex justify-between items-center">
                       <label htmlFor="from-amount" className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/60">Asset In</label>
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono text-ink/40 font-bold">BAL: {fromTokenBalance ? formatAmount(fromTokenBalance.balance, fromTokenInfo?.decimals ?? 6) : "0.00"}</span>
+                        <span className="text-[9px] font-black uppercase text-ink/30">Balance:</span>
+                        <span className="text-[10px] font-black text-ink tabular-nums">{fromTokenBalance ? formatAmount(fromTokenBalance.balance, fromTokenInfo?.decimals ?? 6) : "0.00"}</span>
                         <Button
                           variant="ghost"
                           size="sm"
@@ -340,46 +318,46 @@ export default function SwapPage() {
               </Card>
             </TabsContent>
            </Tabs>
-        </div>
 
-        {/* Right Column: Live Telemetry Feed */}
-        <div className="lg:col-span-3 space-y-6">
-           <Card className="machined-card">
-              <div className="machined-header">
-                <span>LIVE TELEMETRY</span>
-                <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
-              </div>
-              <CardContent className="p-4 space-y-4 font-mono text-[10px] text-ink/60">
-                 <div className="space-y-2">
-                    <div className="flex justify-between border-b border-accent/10 pb-1">
-                       <span>[BLOCK] HEIGHT:</span>
-                       <span className="text-ink font-black tabular-nums">84,321</span>
-                    </div>
-                    <div className="flex justify-between border-b border-accent/10 pb-1">
-                       <span>[TX] MEMPOOL:</span>
-                       <span className="text-ink font-black tabular-nums">142 UNIT</span>
-                    </div>
-                    <div className="flex justify-between border-b border-accent/10 pb-1">
-                       <span>[SYNC] ORACLE:</span>
-                       <span className="text-success font-black">LOCKED</span>
-                    </div>
-                    <div className="flex justify-between border-b border-accent/10 pb-1">
-                       <span>[PULSE] NODE:</span>
-                       <span className="text-ink font-black tabular-nums">0.12ms</span>
-                    </div>
+           {/* Right Column: Live Telemetry Feed */}
+           <div className="lg:col-span-3 space-y-6">
+              <Card className="machined-card">
+                 <div className="machined-header">
+                   <span>LIVE TELEMETRY</span>
+                   <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
                  </div>
+                 <CardContent className="p-4 space-y-4 font-mono text-[10px] text-ink/60">
+                    <div className="space-y-2">
+                       <div className="flex justify-between border-b border-accent/10 pb-1">
+                          <span>[BLOCK] HEIGHT:</span>
+                          <span className="text-ink font-black tabular-nums">84,321</span>
+                       </div>
+                       <div className="flex justify-between border-b border-accent/10 pb-1">
+                          <span>[TX] MEMPOOL:</span>
+                          <span className="text-ink font-black tabular-nums">142 UNIT</span>
+                       </div>
+                       <div className="flex justify-between border-b border-accent/10 pb-1">
+                          <span>[SYNC] ORACLE:</span>
+                          <span className="text-success font-black">LOCKED</span>
+                       </div>
+                       <div className="flex justify-between border-b border-accent/10 pb-1">
+                          <span>[PULSE] NODE:</span>
+                          <span className="text-ink font-black tabular-nums">0.12ms</span>
+                       </div>
+                    </div>
 
-                 <div className="pt-4">
-                    <h5 className="text-[8px] font-black uppercase text-ink/30 mb-2">Trace Log</h5>
-                    <div className="space-y-1 opacity-50 font-bold">
-                       <p>&gt; Connection established</p>
-                       <p>&gt; Handshake verified</p>
-                       <p>&gt; Hardware attestation OK</p>
-                       <p>&gt; Subscribing to events...</p>
+                    <div className="pt-4">
+                       <h5 className="text-[8px] font-black uppercase text-ink/30 mb-2">Trace Log</h5>
+                       <div className="space-y-1 opacity-50 font-bold">
+                          <p>&gt; Connection established</p>
+                          <p>&gt; Handshake verified</p>
+                          <p>&gt; Hardware attestation OK</p>
+                          <p>&gt; Subscribing to events...</p>
+                       </div>
                     </div>
-                 </div>
-              </CardContent>
-           </Card>
+                 </CardContent>
+              </Card>
+           </div>
         </div>
       </main>
     </div>

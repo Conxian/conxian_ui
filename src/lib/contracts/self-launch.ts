@@ -3,6 +3,7 @@ import { StacksNetwork, STACKS_TESTNET, STACKS_MAINNET } from "@stacks/network";
 import { callReadOnly, ReadOnlyResponse } from "../core-api";
 import { standardPrincipalCV, uintCV, cvToHex, hexToCV, cvToJSON } from "@stacks/transactions";
 import { BASE_PRINCIPAL } from "../contracts";
+import { logger } from "../logger";
 
 export interface LaunchPhase {
   id: string;
@@ -76,13 +77,13 @@ export class SelfLaunchContract {
             systemHealth: Number(data.value?.systemHealth?.value || 0),
           };
         } catch (e) {
-          console.warn("CV deserialization failed for getLaunchStatus: ", e);
+          logger.warn("CV deserialization failed for getLaunchStatus", { module: 'SelfLaunch', error: e });
           return this.getEmptyLaunchStatus();
         }
       }
       return this.getEmptyLaunchStatus();
     } catch (e) {
-      console.warn("Error in getLaunchStatus:", e);
+      logger.error("Failed to fetch launch status", { module: 'SelfLaunch', error: e });
       return this.getEmptyLaunchStatus();
     }
   }
@@ -103,13 +104,13 @@ export class SelfLaunchContract {
             tokensMinted: Number(data.value?.tokensMinted?.value || 0),
           };
         } catch (e) {
-          console.warn("CV deserialization failed for getFundingProgress: ", e);
+          logger.warn("CV deserialization failed for getFundingProgress", { module: 'SelfLaunch', error: e });
           return this.getEmptyFundingProgress();
         }
       }
       return this.getEmptyFundingProgress();
     } catch (e) {
-      console.warn("Error in getFundingProgress", e);
+      logger.error("Failed to fetch funding progress", { module: 'SelfLaunch', error: e });
       return this.getEmptyFundingProgress();
     }
   }
@@ -124,7 +125,8 @@ export class SelfLaunchContract {
         averageContribution: 0,
         topContributors: [],
       };
-    } catch (_e) {
+    } catch (e) {
+      logger.warn("Failed to fetch community stats", { module: 'SelfLaunch', error: e });
       return {
         totalContributors: 0,
         totalFunding: 0,
@@ -139,7 +141,8 @@ export class SelfLaunchContract {
       const args = [cvToHex(standardPrincipalCV(contributor))];
       const _result = await this.readOnlyCall("get-contributor-level", args);
       return "none";
-    } catch (_e) {
+    } catch (e) {
+      logger.warn("Failed to fetch contributor level", { module: 'SelfLaunch', contributor, error: e });
       return "none";
     }
   }

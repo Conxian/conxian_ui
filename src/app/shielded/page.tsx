@@ -1,28 +1,36 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import { ShieldCheckIcon, PlusCircleIcon, ArrowUpCircleIcon, ArrowDownCircleIcon } from '@heroicons/react/24/outline';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Card, CardContent } from '@/components/ui/Card';
-import { useApi } from '@/lib/api-client';
-import { useWallet } from '@/lib/wallet';
-import { Input } from '@/components/ui/Input';
-import { truncate } from '@/lib/utils';
+import React, { useState, useEffect, useCallback } from "react";
+import { Card, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { Input } from "@/components/ui/Input";
+import {
+  PlusCircleIcon,
+  ArrowUpCircleIcon,
+  ArrowDownCircleIcon,
+  ShieldCheckIcon,
+} from "@heroicons/react/24/outline";
+import { useWallet } from "@/lib/wallet";
+import { truncate } from "@/lib/utils";
+import { useApi } from "@/lib/api-client";
+import { useToasts } from "@/hooks/useToasts";
+import { logger } from "@/lib/logger";
 
 interface ShieldedWallet {
   id: string;
   balance: string;
 }
 
-export default function Shielded() {
+export default function ShieldedPage() {
+  const { stxAddress } = useWallet();
+  const api = useApi();
+  const { addToast } = useToasts();
   const [wallets, setWallets] = useState<ShieldedWallet[]>([]);
   const [loading, setLoading] = useState(false);
-  const [sendAmount, setSendAmount] = useState('');
-  const [recipient, setRecipient] = useState('');
-  const [receiveAmount, setReceiveAmount] = useState('');
-  const { stxAddress, addToast } = useWallet();
-  const api = useApi();
+  const [recipient, setRecipient] = useState("");
+  const [sendAmount, setSendAmount] = useState("");
+  const [receiveAmount, setReceiveAmount] = useState("");
 
   const fetchWallets = useCallback(async () => {
     if (!stxAddress) return;
@@ -45,7 +53,7 @@ export default function Shielded() {
         setWallets(walletDetails);
       }
     } catch (error) {
-      console.error('Error fetching shielded wallets:', error);
+      logger.error('Error fetching shielded wallets', { module: 'Shielded', address: stxAddress, error });
       addToast('Failed to load shielded wallets.', 'error');
     } finally {
       setLoading(false);
@@ -58,17 +66,21 @@ export default function Shielded() {
       return;
     }
     try {
+      logger.info("Initiating shielded wallet creation", { module: 'Shielded', address: stxAddress });
       const res = (await api.createNewWallet()) as { success: boolean; txId?: string; error?: string };
       if (res.txId) {
+        logger.info("Shielded wallet creation broadcast", { module: 'Shielded', txId: res.txId });
         addToast(`Wallet creation initiated. Tx ID: ${truncate(res.txId, 8, 8)}`, 'success');
       } else if (res.success) {
+        logger.info("Shielded wallet created directly", { module: 'Shielded' });
         addToast('New shielded wallet created!', 'success');
       } else {
+        logger.error("Shielded wallet creation failed", { module: 'Shielded', error: res.error });
         addToast(res.error || 'Failed to create shielded wallet.', 'error');
       }
       fetchWallets();
     } catch (error) {
-      console.error(error);
+      logger.error("Critical failure in wallet creation", { module: 'Shielded', error });
       addToast('Failed to create shielded wallet.', 'error');
     }
   };
@@ -79,19 +91,23 @@ export default function Shielded() {
       return;
     }
     try {
+      logger.info("Initiating shielded transfer", { module: 'Shielded', walletId, recipient, amount: sendAmount });
       const res = (await api.sendFunds(walletId, recipient, parseInt(sendAmount, 10))) as { success: boolean; txId?: string; error?: string };
       if (res.txId) {
+        logger.info("Shielded transfer broadcast", { module: 'Shielded', txId: res.txId });
         addToast(`Shielded transfer initiated. Tx ID: ${truncate(res.txId, 8, 8)}`, 'success');
       } else if (res.success) {
+        logger.info("Shielded transfer successful", { module: 'Shielded' });
         addToast('Funds sent successfully!', 'success');
       } else {
+        logger.error("Shielded transfer failed", { module: 'Shielded', error: res.error });
         addToast(res.error || 'Failed to send funds.', 'error');
       }
       setSendAmount('');
       setRecipient('');
       fetchWallets();
     } catch (error) {
-      console.error(error);
+      logger.error("Critical failure in shielded transfer", { module: 'Shielded', error });
       addToast('Failed to send funds.', 'error');
     }
   };
@@ -102,18 +118,22 @@ export default function Shielded() {
       return;
     }
     try {
+      logger.info("Initiating shielding protocol", { module: 'Shielded', walletId, amount: receiveAmount });
       const res = (await api.receiveFunds(walletId, parseInt(receiveAmount, 10))) as { success: boolean; txId?: string; error?: string };
       if (res.txId) {
+        logger.info("Shielding transaction broadcast", { module: 'Shielded', txId: res.txId });
         addToast(`Funding initiated. Tx ID: ${truncate(res.txId, 8, 8)}`, 'success');
       } else if (res.success) {
+        logger.info("Shielding successful", { module: 'Shielded' });
         addToast('Funds received successfully!', 'success');
       } else {
+        logger.error("Shielding failed", { module: 'Shielded', error: res.error });
         addToast(res.error || 'Failed to receive funds.', 'error');
       }
       setReceiveAmount('');
       fetchWallets();
     } catch (error) {
-      console.error(error);
+      logger.error("Critical failure in shielding protocol", { module: 'Shielded', error });
       addToast('Failed to receive funds.', 'error');
     }
   };

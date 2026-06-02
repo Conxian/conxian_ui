@@ -19,6 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/Table";
 import { AppConfig } from "@/lib/config";
+import { logger } from "@/lib/logger";
 import {
   CpuChipIcon,
   GlobeAltIcon,
@@ -37,16 +38,23 @@ export default function NetworkPage() {
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
-      const [s, b, m] = await Promise.all([
+      const [s, b, m] = await Promise.allSettled([
         getStatus(),
         getNetworkBlockTimes(),
         getMempool(20),
       ]);
-      setStatus(s);
-      setBlocks(b);
-      setMempool(m || []);
+
+      if (s.status === 'fulfilled') setStatus(s.value);
+      else logger.error("Failed to fetch core status", { module: 'Telemetry', error: s.reason });
+
+      if (b.status === 'fulfilled') setBlocks(b.value);
+      else logger.warn("Failed to fetch block times", { module: 'Telemetry', error: b.reason });
+
+      if (m.status === 'fulfilled') setMempool(m.value || []);
+      else logger.warn("Failed to fetch mempool", { module: 'Telemetry', error: m.reason });
+
     } catch (e) {
-      console.error(e);
+      logger.error("Critical failure in telemetry refresh", { module: 'Telemetry', error: e });
     } finally {
       setLoading(false);
     }
