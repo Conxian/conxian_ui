@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx serve@latest out -l ${PORT:-10000} -s",
+    "start": "npx serve@latest out -l 0.0.0.0:${PORT:-10000} -s",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "./scripts/run-tests.sh",
