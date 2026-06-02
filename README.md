@@ -43,6 +43,13 @@ This repository deploys to Render as a Node web service.
 - Secrets must be stored in Render secrets, not committed to the repository.
 - Do not use placeholder API keys in repo config or deploy blueprints.
 
+## Release discipline
+
+- Follow Semantic Versioning.
+- Create annotated tags as `vX.Y.Z`.
+- Document each release in [CHANGELOG.md](CHANGELOG.md).
+- Use [RELEASE.md](RELEASE.md) for the release workflow.
+
 ## Security
 
 Do not disclose vulnerabilities publicly. Use [SECURITY.md](SECURITY.md) or `security@conxian-labs.com`.
@@ -54,6 +61,8 @@ Do not disclose vulnerabilities publicly. Use [SECURITY.md](SECURITY.md) or `sec
 - [CODEOWNERS](CODEOWNERS)
 - [LICENSE](LICENSE)
 - [REPO_OWNERSHIP.md](REPO_OWNERSHIP.md)
+- [CHANGELOG.md](CHANGELOG.md)
+- [RELEASE.md](RELEASE.md)
 
 ## Contact
 
