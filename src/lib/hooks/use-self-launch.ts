@@ -1,9 +1,9 @@
-import { logger } from "@/lib/logger";
 // src/lib/hooks/use-self-launch.ts - React hook for launch system
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { openContractCall } from "@stacks/connect";
 import { PostConditionMode } from "@stacks/transactions";
 import { SelfLaunchContract, LaunchPhase, CommunityStats } from '@/lib/contracts/self-launch';
+import { logger } from '@/lib/logger';
 
 interface LaunchState {
   currentPhase: LaunchPhase | null;
@@ -68,6 +68,10 @@ export function useSelfLaunch(network: 'mainnet' | 'testnet' | 'devnet' = 'testn
         error: error instanceof Error ? error.message : 'Unknown error',
         isLoading: false
       }));
+      logger.error('Failed to refresh launch data', {
+        module: 'useSelfLaunch',
+        error,
+      });
     }
   }, [contract]);
 
@@ -128,7 +132,11 @@ export function useSelfLaunch(network: 'mainnet' | 'testnet' | 'devnet' = 'testn
         }
       }));
     } catch (error) {
-      logger.error('Error fetching user contribution', { module: 'useSelfLaunch', error: error });
+      logger.error('Error fetching user contribution', {
+        module: 'useSelfLaunch',
+        error,
+        address,
+      });
     }
   }, [contract]);
 

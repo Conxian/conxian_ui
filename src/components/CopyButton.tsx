@@ -1,5 +1,4 @@
 "use client";
-import { logger } from "@/lib/logger";
 
 import React, { useState, memo, useCallback } from "react";
 import {
@@ -9,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/Button";
 
+import { logger } from "@/lib/logger";
 interface CopyButtonProps {
   textToCopy: string;
   ariaLabel: string;
@@ -35,7 +35,11 @@ const CopyButton = ({ textToCopy, ariaLabel, className }: CopyButtonProps) => {
       setError(true);
       setStatusMessage(`Failed to copy ${ariaLabel}`);
       setTitle(`Failed to copy ${ariaLabel}`);
-      logger.error("Failed to copy text", { module: "CopyButton", error: err });
+      logger.error("Failed to copy text", {
+        module: "CopyButton",
+        error: err,
+        ariaLabel,
+      });
     } finally {
       setTimeout(() => {
         setCopied(false);

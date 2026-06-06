@@ -1,5 +1,4 @@
 "use client";
-import { logger } from "@/lib/logger";
 
 import React from "react";
 import {
@@ -17,6 +16,7 @@ import {
   noneCV,
   someCV,
 } from "@stacks/transactions";
+import { logger } from "@/lib/logger";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
@@ -281,8 +281,11 @@ export default function ClarityArgBuilder({ onChange, preset, paramMeta }: { onC
           }
           default: break;
         }
-      } catch (e) {
-        logger.warn(`Failed to build clarity value for ${effectiveType}`, { module: "ClarityArgBuilder", error: e });
+      } catch (error) {
+        logger.warn(`Failed to build clarity value for ${effectiveType}`, {
+          module: "ClarityArgBuilder",
+          error,
+        });
       }
     }
     const hex = cvs.map((cv) => cvToHex(cv));

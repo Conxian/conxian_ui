@@ -1,7 +1,7 @@
-import { logger } from "./logger";
 import { userSession } from "@/lib/wallet";
 import { STACKS_MAINNET } from "@stacks/network";
 import { fetchCallReadOnlyFunction } from "@stacks/transactions";
+import { logger } from "./logger";
 
 const MONKEY_CONTRACT_ADDRESS = "SP2KAF9RF86PVX3NEE27DFV1CQX0T4WGR41X3S45C";
 const MONKEY_CONTRACT_NAME = "bitcoin-monkeys";
@@ -33,7 +33,11 @@ export async function hasBitcoinMonkeyNft(): Promise<boolean> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return result && (result as any).value.some((owner: any) => owner.value === userAddress);
   } catch (error) {
-    logger.error("Error checking for Bitcoin Monkey NFT", { module: "NFTTheming", error: error });
+    logger.error("Error checking for Bitcoin Monkey NFT", {
+      module: "NFTTheming",
+      error,
+      userAddress,
+    });
     return false;
   }
 }

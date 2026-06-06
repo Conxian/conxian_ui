@@ -1,5 +1,4 @@
-"use client";
-import { logger } from "@/lib/logger";
+'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -8,6 +7,7 @@ import { useApi } from '@/lib/api-client';
 import ConnectWallet from '@/components/ConnectWallet';
 import PositionCard from '@/components/PositionCard';
 import { Button } from '@/components/ui/Button';
+import { logger } from '@/lib/logger';
 
 interface Position {
   pair: string;
@@ -44,7 +44,11 @@ export default function PositionsPage() {
         .getPositions(stxAddress)
         .then(setPositions)
         .catch((err) => {
-          logger.error('Error fetching positions', { module: 'PositionsPage', error: err });
+          logger.error('Error fetching positions', {
+            module: 'PositionsPage',
+            error: err,
+            stxAddress,
+          });
           setStatus('Failed to load positions.');
         });
     }
@@ -96,7 +100,7 @@ export default function PositionsPage() {
                   onClick={() => router.push('/swap')}
                   className="mt-8 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px] h-12 px-8 rounded-none"
                 >
-                  ADD_LIQUIDITY
+                  Add Liquidity
                 </Button>
               </div>
             )}

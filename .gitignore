@@ -48,3 +48,10 @@ test-results/
 node_modules/
 playwright-report/
 .env
+
+# local workspace / agent metadata
+.idx/
+.jules/
+.Jules/
+.gemini/
+.vscode/
