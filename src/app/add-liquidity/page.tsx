@@ -143,7 +143,7 @@ function AddLiquidityContent() {
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Add Liquidity</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>POOL_TYPE: V2 / CLMM</span>
+          <span>Pool Type: V2 / CLMM</span>
         </div>
       </div>
 
@@ -166,7 +166,7 @@ function AddLiquidityContent() {
           <TabsContent value="standard">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>STANDARD_LIQUIDITY</span>
+                <span>STANDARD LIQUIDITY</span>
                 <CpuChipIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-8 space-y-10">
@@ -215,7 +215,7 @@ function AddLiquidityContent() {
           <TabsContent value="concentrated">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>CONCENTRATED_LIQUIDITY</span>
+                <span>CONCENTRATED LIQUIDITY</span>
                 <BoltIcon className="w-3 h-3 text-accent" />
               </div>
               <CardContent className="p-8 space-y-10">

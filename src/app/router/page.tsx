@@ -82,11 +82,11 @@ export default function RouterPage() {
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
           <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Swap Router</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Router</span>
         </div>
         <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>HOPS: MAX_4</span>
-          <span>EST_ACCURACY: 99.9%</span>
+          <span>Hops: Max 4</span>
+          <span>Accuracy: 99.9%</span>
         </div>
       </div>
 
@@ -102,7 +102,7 @@ export default function RouterPage() {
           <div className="lg:col-span-7 space-y-8">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>Simulation Parameters</span>
+                <span>SIMULATION PARAMETERS</span>
                 <CpuChipIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-8 space-y-8">
@@ -156,7 +156,7 @@ export default function RouterPage() {
           <div className="lg:col-span-5 space-y-8">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>Simulation Output</span>
+                <span>SIMULATION OUTPUT</span>
                 <BoltIcon className="w-3 h-3 text-accent" />
               </div>
               <CardContent className="p-8">

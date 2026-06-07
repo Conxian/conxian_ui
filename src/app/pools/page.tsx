@@ -61,8 +61,8 @@ export default function PoolsPage() {
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Pools</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>POOL_ACTIVE</span>
-          <span>ORACLE_SYNC: 100%</span>
+          <span>Pool Active</span>
+          <span>Oracle Sync: 100%</span>
         </div>
       </div>
 
@@ -86,7 +86,7 @@ export default function PoolsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="machined-card col-span-2">
             <div className="machined-header">
-              <span>SELECT_POOL</span>
+              <span>SELECT POOL</span>
             </div>
             <CardContent className="p-6">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -106,7 +106,7 @@ export default function PoolsPage() {
 
           <Card className="machined-card">
             <div className="machined-header">
-              <span>POOL_STATUS</span>
+              <span>POOL STATUS</span>
             </div>
             <CardContent className="p-6 space-y-4">
               <div className="flex items-center gap-3">

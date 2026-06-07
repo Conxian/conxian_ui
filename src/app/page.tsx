@@ -55,7 +55,7 @@ export default function Home() {
         <div className="flex items-center gap-4">
           <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
           <span className="text-[10px] font-black uppercase tracking-[0.3em] text-ink">
-            Conxian Protocol Dashboard
+            Conxian Dashboard
           </span>
           <Badge variant="outline" className="text-[8px] border-ghost text-ink/40">
             v4.2.1-attested
@@ -121,7 +121,7 @@ export default function Home() {
               <div className="machined-header">
                 <div className="flex items-center gap-3">
                   <CpuChipIcon className="w-3 h-3" />
-                  <span>PROTOCOL ACTIVITY</span>
+                  <span>MARKET ACTIVITY</span>
                 </div>
                 <span className="opacity-40 animate-pulse-soft">LIVE_FEED</span>
               </div>
@@ -139,7 +139,7 @@ export default function Home() {
                 <div className="p-8 text-center space-y-4">
                   <div className="inline-block p-4 border border-dashed border-accent/20 rounded-sm opacity-30">
                     <span className="text-xs font-black uppercase tracking-[0.2em]">
-                      Awaiting First Update...
+                      Awaiting Data...
                     </span>
                   </div>
                   <p className="text-[10px] text-ink/40 italic">

@@ -22,5 +22,11 @@
 - **Tests:** All 24 unit tests passed (`pnpm test:run`).
 - **Visuals:** Core pages verified via Playwright screenshots in prior cycles.
 
+### 4. UI/UX Standardization
+- **Nomenclature Audit:** Audited all public-facing pages for nomenclature consistency.
+- **Simplified Terminology:** Replaced operator-grade and internal BOS terminology (e.g., "Institutional Asset Custody", "Protocol Execution Interface") with standard product language (e.g., "Tokens", "Swap").
+- **Style Alignment:** Ensured consistent use of `tabular-nums` for financial data and `uppercase tracking-widest` for headers across all pages.
+- **Terminal Top Bar Hardening:** Standardized the status bar nomenclature across all operational views.
+
 ## Current Status
-The application is now production-ready and deployment-hardened. Institutional observability is fully implemented across the entire source tree.
+The application is now production-ready, deployment-hardened, and UI-standardized for public use. Institutional observability and simplified product nomenclature are fully implemented across the entire source tree.

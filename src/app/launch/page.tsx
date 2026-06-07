@@ -31,9 +31,9 @@ export default function LaunchPage() {
   const [txId, setTxId] = useState("");
 
   const phases = [
-    { id: '1', name: 'Alpha Genesis', target: 50000, funding: 50000, contributors: 42, status: 'completed' },
-    { id: '2', name: 'Infrastructure Expansion', target: 250000, funding: fundingProgress.current, contributors: communityStats?.totalContributors || 0, status: 'active' },
-    { id: '3', name: 'Mainnet Readiness', target: 1000000, funding: 0, contributors: 0, status: 'pending' },
+    { id: "1", name: "Alpha Genesis", target: 50000, funding: 50000, contributors: 42, status: "completed" },
+    { id: "2", name: "Infrastructure Expansion", target: 250000, funding: fundingProgress.current, contributors: communityStats?.totalContributors || 0, status: "active" },
+    { id: "3", name: "Mainnet Readiness", target: 1000000, funding: 0, contributors: 0, status: "pending" },
   ];
 
   const handleContribute = async () => {
@@ -141,7 +141,7 @@ export default function LaunchPage() {
 
             <Card className="machined-card">
               <div className="machined-header">
-                <span>Launch Roadmap</span>
+                <span>ROADMAP</span>
               </div>
               <CardContent className="p-8 space-y-8">
                 {phases.map((phase) => (

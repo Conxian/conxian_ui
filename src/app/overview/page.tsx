@@ -8,9 +8,9 @@ export default function Overview() {
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
-        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Protocol Overview</span>
+        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Overview</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>DOC_VERSION: v1.4</span>
+          <span>Version: v1.4</span>
         </div>
       </div>
 

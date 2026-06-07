@@ -78,11 +78,11 @@ export default function TokensPage() {
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
           <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Institutional Asset Custody</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Tokens</span>
         </div>
         <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>SAFE: LOCKED</span>
-          <span>ENTROPY: 256bit</span>
+          <span>Safe: Locked</span>
+          <span>Entropy: 256bit</span>
         </div>
       </div>
 
@@ -90,7 +90,7 @@ export default function TokensPage() {
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-widest uppercase text-ink">TOKENS</h1>
-              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Real-Time Ledger Audit</p>
+              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Asset Inventory</p>
            </div>
         </div>
 
@@ -133,7 +133,7 @@ export default function TokensPage() {
 
             <Card className="machined-card">
               <div className="machined-header">
-                <span>FUNGIBLE TOKEN INVENTORY</span>
+                <span>TOKEN INVENTORY</span>
                 <Button
                   onClick={refresh}
                   disabled={loading}
@@ -148,8 +148,8 @@ export default function TokensPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>ASSET_IDENTIFIER_VECTOR</TableHead>
-                      <TableHead className="text-right">BALANCE_UNIT</TableHead>
+                      <TableHead>ASSET</TableHead>
+                      <TableHead className="text-right">BALANCE</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -166,7 +166,7 @@ export default function TokensPage() {
                     {fts.length === 0 && (
                       <TableRow>
                         <TableCell className="py-20 text-center text-ink/20 font-black uppercase tracking-widest text-[10px]" colSpan={2}>
-                          NO_FUNGIBLE_ASSETS_DETECTED
+                          NO ASSETS DETECTED
                         </TableCell>
                       </TableRow>
                     )}
