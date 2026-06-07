@@ -4,6 +4,11 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  oxc: {
+    jsx: {
+      runtime: 'automatic',
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
@@ -14,9 +19,5 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
-  },
-  // Force JSX transformation
-  esbuild: {
-    jsx: 'automatic',
   },
 });

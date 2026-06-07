@@ -34,8 +34,17 @@ export default function RouterPage() {
   const loadInterface = React.useCallback(async () => {
     if (!selected) return;
     const [principal, name] = selected.split(".") as [string, string];
-    const iface = (await getContractInterface(principal, name)) as ContractAbi;
-    logger.info("ABI loaded", { principal, name, functions: iface?.functions?.length });
+    try {
+      const iface = (await getContractInterface(principal, name)) as ContractAbi;
+      logger.info("ABI loaded", {
+        module: "RouterPage",
+        principal,
+        name,
+        functions: iface?.functions?.length,
+      });
+    } catch (error) {
+      logger.error("Failed to load ABI", { module: "RouterPage", principal, name, error });
+    }
   }, [selected]);
 
   React.useEffect(() => {
@@ -51,9 +60,18 @@ export default function RouterPage() {
       const res = await callReadOnly(principal, name, fnName, principal, args.hex);
       setResult(res);
       setStatus(res.ok ? "Success" : "Failed");
-    } catch (e) {
+      if (!res.ok) {
+        logger.warn("Contract call returned error", {
+          module: "RouterPage",
+          principal,
+          name,
+          fnName,
+          error: res.error,
+        });
+      }
+    } catch (error) {
       setStatus("Error calling contract");
-      logger.error("Error calling contract", { error: e });
+      logger.error("Router execution error", { module: "RouterPage", error });
     } finally {
       setLoading(false);
     }
@@ -64,7 +82,7 @@ export default function RouterPage() {
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
           <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Routing Simulator</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Swap Router</span>
         </div>
         <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
           <span>HOPS: MAX_4</span>
@@ -75,8 +93,8 @@ export default function RouterPage() {
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
           <div>
-            <h1 className="text-5xl font-black tracking-widest uppercase text-ink">ROUTING</h1>
-            <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Route Estimation</p>
+            <h1 className="text-5xl font-black tracking-widest uppercase text-ink">ROUTER</h1>
+            <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Swap Route Estimation</p>
           </div>
         </div>
 
@@ -84,7 +102,7 @@ export default function RouterPage() {
           <div className="lg:col-span-7 space-y-8">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>SIMULATION_PARAMETERS</span>
+                <span>Simulation Parameters</span>
                 <CpuChipIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-8 space-y-8">
@@ -124,7 +142,7 @@ export default function RouterPage() {
                   onClick={execute}
                   disabled={loading || !fnName}
                 >
-                  {loading ? "SIMULATING..." : "RUN_SIMULATION"}
+                  {loading ? "SIMULATING..." : "Run Simulation"}
                 </Button>
                 {status && (
                   <p className="text-center font-mono text-[10px] text-accent uppercase font-black tracking-[0.2em]">
@@ -138,7 +156,7 @@ export default function RouterPage() {
           <div className="lg:col-span-5 space-y-8">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>SIMULATION_OUTPUT</span>
+                <span>Simulation Output</span>
                 <BoltIcon className="w-3 h-3 text-accent" />
               </div>
               <CardContent className="p-8">
@@ -149,7 +167,7 @@ export default function RouterPage() {
                         result.ok ? 'bg-success/5 border-success/20 text-success' : 'bg-error/5 border-error/20 text-error'
                       }`}
                     >
-                      {result.ok ? 'SIMULATION_SUCCESS' : 'SIMULATION_ERROR'}
+                      {result.ok ? 'Simulation Success' : 'Simulation Error'}
                     </div>
                     <div className="bg-neutral-light p-6 rounded-sm border border-accent/20 font-mono text-[10px] font-bold tabular-nums">
                       <pre className="whitespace-pre-wrap break-all overflow-auto max-h-[400px] text-ink/70">

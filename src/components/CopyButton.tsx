@@ -35,7 +35,11 @@ const CopyButton = ({ textToCopy, ariaLabel, className }: CopyButtonProps) => {
       setError(true);
       setStatusMessage(`Failed to copy ${ariaLabel}`);
       setTitle(`Failed to copy ${ariaLabel}`);
-      logger.error("Failed to copy text", { error: err, ariaLabel });
+      logger.error("Failed to copy text", {
+        module: "CopyButton",
+        error: err,
+        ariaLabel,
+      });
     } finally {
       setTimeout(() => {
         setCopied(false);

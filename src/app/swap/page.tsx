@@ -1,4 +1,5 @@
 "use client";
+import { logger } from "@/lib/logger";
 
 import React, { useState, useCallback, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/Card";
@@ -17,7 +18,6 @@ import { formatAmount, parseAmount, truncate } from "@/lib/utils";
 import TokenSelect from "@/components/ui/TokenSelect";
 import CopyButton from "@/components/CopyButton";
 import { cn } from "@/lib/utils";
-import { logger } from "@/lib/logger";
 
 export default function SwapPage() {
   const { stxAddress } = useWallet();

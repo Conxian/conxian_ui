@@ -33,7 +33,11 @@ export async function hasBitcoinMonkeyNft(): Promise<boolean> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return result && (result as any).value.some((owner: any) => owner.value === userAddress);
   } catch (error) {
-    logger.error("Error checking for Bitcoin Monkey NFT", { error, userAddress });
+    logger.error("Error checking for Bitcoin Monkey NFT", {
+      module: "NFTTheming",
+      error,
+      userAddress,
+    });
     return false;
   }
 }

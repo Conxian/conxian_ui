@@ -68,7 +68,10 @@ export function useSelfLaunch(network: 'mainnet' | 'testnet' | 'devnet' = 'testn
         error: error instanceof Error ? error.message : 'Unknown error',
         isLoading: false
       }));
-      logger.error('Failed to refresh launch data', { error });
+      logger.error('Failed to refresh launch data', {
+        module: 'useSelfLaunch',
+        error,
+      });
     }
   }, [contract]);
 
@@ -129,7 +132,11 @@ export function useSelfLaunch(network: 'mainnet' | 'testnet' | 'devnet' = 'testn
         }
       }));
     } catch (error) {
-      logger.error('Error fetching user contribution', { error, address });
+      logger.error('Error fetching user contribution', {
+        module: 'useSelfLaunch',
+        error,
+        address,
+      });
     }
   }, [contract]);
 

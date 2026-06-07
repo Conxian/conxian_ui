@@ -38,7 +38,10 @@ export default function SystemStatus() {
         setError(null);
       } catch (err) {
         setError("Failed to fetch system metrics");
-        logger.error("Failed to fetch system metrics", { error: err });
+        logger.error("Failed to fetch system metrics", {
+          module: "SystemStatus",
+          error: err,
+        });
       } finally {
         setLoading(false);
       }

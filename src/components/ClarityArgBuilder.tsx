@@ -281,8 +281,11 @@ export default function ClarityArgBuilder({ onChange, preset, paramMeta }: { onC
           }
           default: break;
         }
-      } catch (e) {
-        logger.warn(`Failed to build clarity value for ${effectiveType}`, { error: e });
+      } catch (error) {
+        logger.warn(`Failed to build clarity value for ${effectiveType}`, {
+          module: "ClarityArgBuilder",
+          error,
+        });
       }
     }
     const hex = cvs.map((cv) => cvToHex(cv));

@@ -51,9 +51,16 @@ export default function LaunchPage() {
         setTxId(res.txId);
         setContributionAmount("");
         refreshData();
+        logger.info("Contribution successful", {
+          module: "LaunchPage",
+          user: stxAddress,
+          amount: contributionAmount,
+          txId: res.txId,
+        });
       }
-    } catch (e) {
-      logger.error("Contribution failed", { error: e });
+    } catch (error) {
+      logger.error("Launch contribution error", { module: "LaunchPage", error });
+      addToast("Failed to process contribution.", "error");
     } finally {
       setSending(false);
     }
@@ -98,7 +105,7 @@ export default function LaunchPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card className="machined-card">
                 <div className="machined-header">
-                  <span>CURRENT_PHASE</span>
+                  <span>Current Phase</span>
                   <BoltIcon className="w-3 h-3" />
                 </div>
                 <CardContent className="p-6">
@@ -109,7 +116,7 @@ export default function LaunchPage() {
 
               <Card className="machined-card">
                 <div className="machined-header">
-                  <span>TOTAL_RAISED</span>
+                  <span>Total Raised</span>
                   <div className="h-1.5 w-1.5 rounded-full bg-accent" />
                 </div>
                 <CardContent className="p-6">
@@ -134,7 +141,7 @@ export default function LaunchPage() {
 
             <Card className="machined-card">
               <div className="machined-header">
-                <span>LAUNCH_ROADMAP</span>
+                <span>Launch Roadmap</span>
               </div>
               <CardContent className="p-8 space-y-8">
                 {phases.map((phase) => (
@@ -192,7 +199,7 @@ export default function LaunchPage() {
                 {txId && (
                   <div className="p-4 border border-accent/20 bg-accent/5 rounded-sm flex items-center justify-between animate-in fade-in slide-in-from-bottom-2">
                     <div className="flex flex-col">
-                      <span className="text-[9px] font-black text-accent uppercase tracking-[0.2em]">TRANSACTION_SUCCESS</span>
+                      <span className="text-[9px] font-black text-accent uppercase tracking-[0.2em]">Transaction Success</span>
                       <a
                         href={`https://explorer.hiro.so/txid/${txId}?chain=${AppConfig.network}`}
                         target="_blank"
