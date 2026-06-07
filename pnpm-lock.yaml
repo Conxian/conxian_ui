@@ -45,6 +45,12 @@ importers:
       '@stacks/transactions':
         specifier: ^7.4.0
         version: 7.4.0
+      '@tailwindcss/postcss':
+        specifier: 4.1.14
+        version: 4.1.14
+      autoprefixer:
+        specifier: ^10.4.23
+        version: 10.4.24(postcss@8.5.15)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -69,6 +75,12 @@ importers:
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
+      tailwindcss:
+        specifier: ^4
+        version: 4.1.18
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
     devDependencies:
       '@eslint/js':
         specifier: ^9.16.0
@@ -76,9 +88,6 @@ importers:
       '@playwright/test':
         specifier: ^1.57.0
         version: 1.58.1
-      '@tailwindcss/postcss':
-        specifier: 4.1.14
-        version: 4.1.14
       '@testing-library/jest-dom':
         specifier: ^6.9.1
         version: 6.9.1
@@ -103,9 +112,6 @@ importers:
       '@vitest/ui':
         specifier: ^4.0.15
         version: 4.0.18(vitest@4.0.18)
-      autoprefixer:
-        specifier: ^10.4.23
-        version: 10.4.24(postcss@8.5.15)
       dotenv:
         specifier: ^17.2.3
         version: 17.2.3
@@ -118,12 +124,6 @@ importers:
       jsdom:
         specifier: ^23.2.0
         version: 23.2.0
-      tailwindcss:
-        specifier: ^4
-        version: 4.1.18
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
       typescript-eslint:
         specifier: ^8.18.0
         version: 8.60.0(eslint@9.16.0(jiti@2.6.1))(typescript@5.9.3)

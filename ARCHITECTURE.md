@@ -47,7 +47,7 @@ The Conxian UI is built with Next.js 15, React 19, and Tailwind CSS v4. It follo
 *   **Launch (`src/app/launch/page.tsx`)**: Community self-launch dashboard for bootstrap funding.
 *   **Pools Explorer (`src/app/pools/page.tsx`)**: Real-time telemetry for liquidity pools.
 *   **Overview (`src/app/overview/page.tsx`)**: High-level system health and readiness dashboard.
-*   **Shielded (`src/app/shielded/page.tsx`)**: Privacy-focused wallet management.
+*   **Shielded (`src/app/shielded/page.tsx`)**: Privacy-focused account management.
 *   **Reusable UI**: Components in `src/components/ui` ensuring consistency through the 60-30-10 Ivory foundation.
 
 ## 6. The User's Journey: A Data Flow Story
