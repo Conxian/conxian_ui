@@ -142,23 +142,23 @@ export default function ShieldedPage() {
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
           <div className="h-1.5 w-1.5 rounded-full bg-info animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Private Wallets</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Shielded</span>
         </div>
         <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>ZK_PROOFS: ACTIVE</span>
-          <span>PRIVACY_MODE: HIGH</span>
+          <span>ZK-Proofs: Active</span>
+          <span>Status: Ready</span>
         </div>
       </div>
 
       <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
           <div>
-            <h1 className="text-5xl font-black tracking-widest uppercase text-ink">PRIVATE</h1>
-            <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Private Wallets and Transfers</p>
+            <h1 className="text-5xl font-black tracking-widest uppercase text-ink">SHIELDED</h1>
+            <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Private Accounts and Transfers</p>
           </div>
           <Button onClick={handleCreateWallet} className="bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px] h-10 px-6">
             <PlusCircleIcon className="w-4 h-4 mr-2" />
-            CREATE_PRIVATE_WALLET
+            CREATE ACCOUNT
           </Button>
         </div>
 
@@ -166,7 +166,7 @@ export default function ShieldedPage() {
           <div className="machined-header">
             <div className="flex items-center">
               <ShieldCheckIcon className="w-3 h-3 mr-2 text-accent" />
-              <span>PRIVATE_WALLETS</span>
+              <span>SHIELDED ACCOUNTS</span>
             </div>
           </div>
           <CardContent className="p-8">

@@ -47,7 +47,7 @@ export default function GovernancePage() {
           </div>
           <div className="flex gap-4">
             <Button className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]">
-              VIEW_PROPOSALS
+              VIEW PROPOSALS
             </Button>
           </div>
         </div>
@@ -56,7 +56,7 @@ export default function GovernancePage() {
           <div className="md:col-span-7 space-y-6">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>VOTING_POLICY</span>
+                <span>VOTING POLICY</span>
                 <PlusIcon className="w-3 h-3 text-accent" />
               </div>
               <CardContent className="p-6">
@@ -87,7 +87,7 @@ export default function GovernancePage() {
 
                 <div className="mt-6 flex justify-end">
                   <Button variant="outline" className="text-[10px] h-9 px-4 font-black tracking-widest uppercase">
-                    SAVE_POLICY_v2.4
+                    SAVE POLICY
                   </Button>
                 </div>
               </CardContent>
@@ -95,7 +95,7 @@ export default function GovernancePage() {
 
             <Card className="machined-card">
               <div className="machined-header">
-                <span>VOTING_HISTORY</span>
+                <span>VOTING HISTORY</span>
                 <ArrowDownTrayIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-0">
@@ -185,7 +185,7 @@ export default function GovernancePage() {
 
             <Card className="machined-card">
               <div className="machined-header">
-                <span>CONNECTED_ACCOUNT</span>
+                <span>ACCOUNT</span>
               </div>
               <CardContent className="p-6">
                 <div className="flex items-center gap-4">

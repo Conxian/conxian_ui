@@ -35,11 +35,11 @@ export default function ContractsPage() {
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
           <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Contract Interface Debugger</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Contracts</span>
         </div>
         <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>ABI: DYNAMIC</span>
-          <span>COMPILER: v0.24</span>
+          <span>ABI: Dynamic</span>
+          <span>Status: Ready</span>
         </div>
       </div>
 
@@ -47,7 +47,7 @@ export default function ContractsPage() {
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-widest uppercase text-ink">CONTRACTS</h1>
-              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Smart Contract State Investigation</p>
+              <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">Interface Explorer</p>
            </div>
         </div>
 
@@ -55,7 +55,7 @@ export default function ContractsPage() {
           <div className="space-y-8">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>TARGET CONTRACT DEFINITION</span>
+                <span>TARGET CONTRACT</span>
                 <CodeBracketSquareIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-8 space-y-6">
@@ -84,14 +84,14 @@ export default function ContractsPage() {
                   onClick={loadInterface}
                   disabled={loading}
                 >
-                  {loading ? "SYNCHRONIZING..." : "LOAD_INTERFACE_SCHEMA"}
+                  {loading ? "SYNCING..." : "LOAD INTERFACE"}
                 </Button>
               </CardContent>
             </Card>
 
             <Card className="machined-card">
               <div className="machined-header">
-                <span>PROTOCOL REGISTRY QUICK-ACCESS</span>
+                <span>QUICK ACCESS</span>
               </div>
               <CardContent className="p-4">
                 <div className="space-y-1 max-h-[350px] overflow-auto pr-2">
@@ -121,7 +121,7 @@ export default function ContractsPage() {
             {iface ? (
               <Card className="machined-card">
                 <div className="machined-header">
-                  <span>INTERFACE_SCHEMA_OUTPUT</span>
+                  <span>INTERFACE OUTPUT</span>
                 </div>
                 <CardContent className="p-6 space-y-6">
                   <div className="bg-neutral-light p-6 rounded-sm border border-accent/20 font-mono text-[10px] leading-relaxed font-bold tabular-nums">
@@ -140,7 +140,7 @@ export default function ContractsPage() {
                       className="text-accent text-[10px] font-black uppercase tracking-widest hover:underline flex items-center gap-2"
                     >
                       <LinkIcon className="w-3 h-3" />
-                      VIEW_IN_EXPLORER
+                      VIEW IN EXPLORER
                     </a>
                   </div>
                 </CardContent>

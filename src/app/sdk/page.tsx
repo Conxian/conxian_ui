@@ -96,7 +96,7 @@ export default function SdkPage() {
           </div>
           <div className="flex gap-4">
             <Button className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]">
-              CREATE_API_KEY
+              CREATE API KEY
             </Button>
           </div>
         </div>
@@ -105,9 +105,9 @@ export default function SdkPage() {
           <div className="machined-header">
             <div className="flex items-center gap-3">
               <CpuChipIcon className="w-3 h-3" />
-              <span>INTEGRATION_MODELS</span>
+              <span>INTEGRATION MODELS</span>
             </div>
-            <span className="opacity-50 font-mono">STATUS: PRODUCTION_READY</span>
+            <span className="opacity-50 font-mono">STATUS: READY</span>
           </div>
           <div className="grid gap-8 px-8 py-10 lg:grid-cols-[1.4fr_0.9fr]">
             <div className="space-y-6">
@@ -176,7 +176,7 @@ export default function SdkPage() {
         <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
           <Card className="machined-card">
             <div className="machined-header">
-              <span>CANONICAL_REPOSITORIES</span>
+              <span>REPOSITORIES</span>
               <CircleStackIcon className="w-3 h-3" />
             </div>
             <CardContent className="space-y-4 p-6">

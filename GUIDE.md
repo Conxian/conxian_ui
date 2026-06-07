@@ -40,13 +40,13 @@ Access the "Add Liquidity" page to contribute tokens to liquidity pools, enablin
 
 ![Add Liquidity](docs/images/add_liquidity_page.png)
 
-#### My Positions
-Visit "My Positions" (Portfolio) to view and manage your current liquidity positions. Here, you can see your share in various pools and remove liquidity when desired.
+#### Positions
+Visit "Positions" to view and manage your current liquidity positions. Here, you can see your share in various pools and remove liquidity when desired.
 
 ![Positions](docs/images/positions_page.png)
 
-#### Shielded Wallets
-Explore "Shielded Wallets" for enhanced privacy. Create new shielded wallets, manage existing ones, and perform private transactions (send/receive funds).
+#### Shielded
+Explore "Shielded" for enhanced privacy. Create new shielded accounts, manage existing ones, and perform private transactions (send/receive funds).
 
 ![Shielded Wallets](docs/images/shielded_page.png)
 

@@ -80,10 +80,10 @@ function TxContent() {
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
-        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Transaction Builder</span>
+        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Transactions</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>MODE: RAW_CALL</span>
-          <span>AUTH: WALLET</span>
+          <span>Mode: Direct</span>
+          <span>Auth: Wallet</span>
         </div>
       </div>
 
@@ -99,7 +99,7 @@ function TxContent() {
           <div className="lg:col-span-7 space-y-6">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>CONTRACT_CONFIGURATION</span>
+                <span>CONFIGURATION</span>
                 <CodeBracketSquareIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-8 space-y-8">
@@ -176,7 +176,7 @@ function TxContent() {
           <div className="lg:col-span-5 space-y-6">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>TRANSACTION_PREVIEW</span>
+                <span>PREVIEW</span>
                 <BoltIcon className="w-3 h-3 text-accent" />
               </div>
               <CardContent className="p-8 space-y-6">

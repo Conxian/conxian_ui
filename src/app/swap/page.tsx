@@ -134,7 +134,7 @@ export default function SwapPage() {
         </div>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
           <span>Status: Ready</span>
-          <span>ORACLE_SYNC: 100%</span>
+          <span>Oracle Sync: 100%</span>
         </div>
       </div>
 
@@ -297,13 +297,13 @@ export default function SwapPage() {
                           Route
                         </label>
                         <Badge variant="outline" className="text-[8px] border-accent/20 text-accent font-black">
-                          DET_PATH_V3
+                          OPTIMIZED
                         </Badge>
                       </div>
                       <div className="flex items-center gap-2 text-[10px] font-mono text-ink/60">
                         <span className="font-black text-ink">{fromTokenInfo?.label}</span>
                         <span className="text-accent">&rarr;</span>
-                        <span className="opacity-40">STX_POOL</span>
+                        <span className="opacity-40 font-bold uppercase tracking-widest">STX Pool</span>
                         <span className="text-accent">&rarr;</span>
                         <span className="font-black text-ink">{toTokenInfo?.label}</span>
                       </div>

@@ -61,10 +61,10 @@ export default function NetworkPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background terminal-text">
       <div className="bg-neutral-light text-ink font-black py-2 px-6 flex justify-between items-center border-b border-accent/20">
-        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Network Status</span>
+        <span className="text-[10px] font-black uppercase tracking-[0.3em]">Network</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
-          <span>SYSTEM_READY</span>
-          <span>UPTIME: 99.998%</span>
+          <span>Ready</span>
+          <span>Uptime: 99.998%</span>
         </div>
       </div>
 
@@ -107,7 +107,7 @@ export default function NetworkPage() {
           <div className="md:col-span-8 space-y-6">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>NETWORK_FORECAST</span>
+                <span>NETWORK FORECAST</span>
                 <BoltIcon className="w-3 h-3 text-ink" />
               </div>
               <CardContent className="p-6">
@@ -136,7 +136,7 @@ export default function NetworkPage() {
 
             <Card className="machined-card">
               <div className="machined-header">
-                <span>NODE_TOPOLOGY</span>
+                <span>TOPOLOGY</span>
                 <MapIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-6">
