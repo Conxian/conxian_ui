@@ -22,7 +22,7 @@ export default function SandboxPage() {
       <div className="bg-neutral-light text-ink font-black py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-3">
           <CodeBracketIcon className="w-4 h-4 text-ink" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Developer Sandbox</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Sandbox</span>
         </div>
         <div className="flex gap-4">
           {["Mainnet", "Testnet", "Simulation"].map((mode) => (
@@ -43,7 +43,7 @@ export default function SandboxPage() {
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
           <div>
             <h1 className="text-5xl font-black tracking-widest uppercase text-ink">SANDBOX</h1>
-            <p className="text-ink font-black uppercase tracking-[0.4em] text-xs mt-2">Contract State Simulation</p>
+            <p className="text-accent font-black uppercase tracking-[0.4em] text-xs mt-2">State Simulation</p>
           </div>
           <div className="flex gap-3">
             <Button variant="outline" className="h-10 px-4 border-accent/40 text-ink font-black uppercase tracking-[0.2em] text-[10px]">
@@ -59,7 +59,7 @@ export default function SandboxPage() {
           <div className="md:col-span-8 space-y-6">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>TRANSACTION_COMPOSER</span>
+                <span>COMPOSER</span>
                 <CubeIcon className="w-3 h-3 text-ink" />
               </div>
               <CardContent className="p-6">
@@ -112,7 +112,7 @@ export default function SandboxPage() {
 
             <Card className="machined-card">
               <div className="machined-header">
-                <span>TRACE_DEBUGGER</span>
+                <span>DEBUGGER</span>
                 <CpuChipIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-0">
@@ -134,7 +134,7 @@ export default function SandboxPage() {
           <div className="md:col-span-4 space-y-6">
             <Card className="machined-card">
               <div className="machined-header">
-                <span>STATE_PREVIEW</span>
+                <span>PREVIEW</span>
               </div>
               <CardContent className="p-6">
                 <div className="space-y-6">

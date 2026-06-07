@@ -64,7 +64,7 @@ export default function NetworkPage() {
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Network</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
           <span>Ready</span>
-          <span>UPTIME: 99.998%</span>
+          <span>Uptime: 99.998%</span>
         </div>
       </div>
 
