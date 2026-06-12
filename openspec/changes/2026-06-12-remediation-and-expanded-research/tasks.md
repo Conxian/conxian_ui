@@ -14,3 +14,5 @@
 - [x] Run pnpm test:run
 - [x] Run pnpm build
 - [x] Verify layout stability and accessibility
+- [x] Fix Render port binding in package.json
+- [x] Verify production build and serve locally

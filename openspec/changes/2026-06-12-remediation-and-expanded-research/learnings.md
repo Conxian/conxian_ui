@@ -10,3 +10,7 @@
 
 ## Research as a Foundation
 - Using Context7 to understand the underlying protocol (sBTC, BOLT) helps identify potential UI requirements, such as handling long confirmation times or specific error states.
+
+## Deployment Hardening
+- Render environments require explicit IPv4 binding for 'serve' to avoid 'Unknown --listen endpoint scheme' or port scan timeouts.
+- Using 'tcp://0.0.0.0:${PORT}' ensures the server is reachable on the correct interface and port provided by Render.
