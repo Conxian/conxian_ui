@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import SwapPage from '@/app/swap/page';
@@ -40,7 +40,6 @@ describe('SwapPage', () => {
       stxAddress: mockStxAddress,
     });
 
-    // Mock balances for all tokens
     (getFungibleTokenBalances as Mock).mockResolvedValue(
       Tokens.map(token => ({
         asset_identifier: token.id,
@@ -50,21 +49,27 @@ describe('SwapPage', () => {
   });
 
   it('renders the "MAX" button when balance is available', async () => {
-    render(<SwapPage />);
+    await act(async () => {
+      render(<SwapPage />);
+    });
     const maxButton = await screen.findByRole('button', { name: /set maximum amount/i });
     expect(maxButton).toBeInTheDocument();
   });
 
   it('sets the amount to max when "MAX" is clicked', async () => {
     const user = userEvent.setup();
-    render(<SwapPage />);
+    await act(async () => {
+      render(<SwapPage />);
+    });
 
-    // Wait for the formatted balance: formatAmount("100000000", 6) -> "100"
-    // Since my formatAmount trims trailing zeros.
+    // Wait for balance display
     const balanceDisplay = await screen.findByText("100", {}, { timeout: 5000 });
     expect(balanceDisplay).toBeInTheDocument();
 
     const maxButton = screen.getByRole('button', { name: /set maximum amount/i });
+
+    // userEvent handles act() internally for the click itself,
+    // but sometimes the subsequent state updates in the component need assistance.
     await user.click(maxButton);
 
     const input = screen.getByLabelText(/Asset In/i) as HTMLInputElement;
@@ -74,7 +79,9 @@ describe('SwapPage', () => {
   });
 
   it('slippage buttons are accessible buttons and have aria-pressed', async () => {
-    render(<SwapPage />);
+    await act(async () => {
+      render(<SwapPage />);
+    });
     const slippageButton = screen.getByRole('button', { name: '0.5%' });
     expect(slippageButton).toBeInTheDocument();
     expect(slippageButton).toHaveAttribute('aria-pressed', 'true');
