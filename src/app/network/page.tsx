@@ -154,9 +154,9 @@ export default function NetworkPage() {
                     <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest">Regional Health</p>
                     <div className="space-y-2">
                       {[
-                        { region: 'US-EAST', status: 'NOMINAL', color: 'text-success' },
+                        { region: 'US-EAST', status: 'READY', color: 'text-success' },
                         { region: 'EU-CENTRAL', status: 'DEGRADED', color: 'text-error' },
-                        { region: 'AP-SOUTH', status: 'NOMINAL', color: 'text-success' },
+                        { region: 'AP-SOUTH', status: 'READY', color: 'text-success' },
                         { region: 'SA-EAST', status: 'STANDBY', color: 'text-ink/40' },
                       ].map((r, i) => (
                         <div key={i} className="flex justify-between items-center text-[9px] font-black">
