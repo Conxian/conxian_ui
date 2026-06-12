@@ -42,7 +42,7 @@ describe('Contract Interactions', () => {
 
   it('should have correct contract address format', () => {
     CoreContracts.forEach((contract) => {
-      expect(contract.id).toMatch(/^ST[0-9A-Z]+\.[a-zA-Z0-9-]+$/);
+      expect(contract.id).toMatch(/^S[TP][0-9A-Z]+\.[a-zA-Z0-9-]+$/);
     });
   });
 

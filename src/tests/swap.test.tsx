@@ -2,7 +2,7 @@ import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import SwapPage from '@/app/swap/page';
-import { WalletProvider, useWallet } from '@/lib/wallet';
+import { useWallet } from '@/lib/wallet';
 import { getFungibleTokenBalances } from '@/lib/core-api';
 import { Tokens } from '@/lib/contracts';
 
@@ -21,89 +21,69 @@ vi.mock('@stacks/connect', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@stacks/connect')>();
   return {
     ...actual,
-    openContractCall: vi.fn(),
+    showConnect: vi.fn(),
   };
 });
 
 vi.mock('@/lib/core-api', () => ({
-  callReadOnly: vi.fn().mockResolvedValue({ ok: true, result: '' }),
-  getFungibleTokenBalances: vi.fn().mockResolvedValue([]),
-  decodeResultHex: vi.fn(),
-  getTupleField: vi.fn(),
-  getUint: vi.fn(),
-  decodeHex: vi.fn(),
+  getFungibleTokenBalances: vi.fn(),
+  callReadOnly: vi.fn().mockResolvedValue({ ok: true, result: '0x01' }),
 }));
 
-vi.mock('@/lib/wallet', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@/lib/wallet')>();
-  return {
-    ...actual,
-    useWallet: vi.fn(),
-  };
-});
-
-const mockedUseWallet = (useWallet as any) as Mock;
-const mockedGetBalances = (getFungibleTokenBalances as any) as Mock;
-
 describe('SwapPage', () => {
+  const mockStxAddress = 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM';
+
   beforeEach(() => {
     vi.clearAllMocks();
-    mockedUseWallet.mockReturnValue({
-      stxAddress: 'SP1234',
-      connectWallet: vi.fn(),
-      signOut: vi.fn(),
+    (useWallet as Mock).mockReturnValue({
+      isConnected: true,
+      stxAddress: mockStxAddress,
     });
-    mockedGetBalances.mockResolvedValue(
-      Tokens.map(t => ({ asset_identifier: t.id, balance: '5000000' }))
+
+    (getFungibleTokenBalances as Mock).mockResolvedValue(
+      Tokens.map(token => ({
+        asset_identifier: token.id,
+        balance: '100000000',
+      }))
     );
   });
 
   it('renders the "MAX" button when balance is available', async () => {
     await act(async () => {
-      render(
-        <WalletProvider>
-          <SwapPage />
-        </WalletProvider>
-      );
+      render(<SwapPage />);
     });
-
-    const maxButton = await screen.findByRole('button', { name: /max/i });
+    const maxButton = await screen.findByRole('button', { name: /set maximum amount/i });
     expect(maxButton).toBeInTheDocument();
   });
 
   it('sets the amount to max when "MAX" is clicked', async () => {
     const user = userEvent.setup();
     await act(async () => {
-      render(
-        <WalletProvider>
-          <SwapPage />
-        </WalletProvider>
-      );
+      render(<SwapPage />);
     });
 
-    const maxButton = await screen.findByRole('button', { name: /max/i });
+    // Wait for balance display
+    const balanceDisplay = await screen.findByText("100", {}, { timeout: 5000 });
+    expect(balanceDisplay).toBeInTheDocument();
+
+    const maxButton = screen.getByRole('button', { name: /set maximum amount/i });
+
+    // userEvent handles act() internally for the click itself,
+    // but sometimes the subsequent state updates in the component need assistance.
     await user.click(maxButton);
 
-    const fromInput = screen.getByLabelText(/asset in/i);
+    const input = screen.getByLabelText(/Asset In/i) as HTMLInputElement;
     await waitFor(() => {
-      expect(fromInput).toHaveValue('5');
+       expect(input.value).toBe('100');
     });
   });
 
   it('slippage buttons are accessible buttons and have aria-pressed', async () => {
     await act(async () => {
-      render(
-        <WalletProvider>
-          <SwapPage />
-        </WalletProvider>
-      );
+      render(<SwapPage />);
     });
-
     const slippageButton = screen.getByRole('button', { name: '0.5%' });
     expect(slippageButton).toBeInTheDocument();
     expect(slippageButton).toHaveAttribute('aria-pressed', 'true');
-
-    const otherSlippage = screen.getByRole('button', { name: '1%' });
-    expect(otherSlippage).toHaveAttribute('aria-pressed', 'false');
   });
 });

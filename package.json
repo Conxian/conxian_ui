@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "serve out -l ${PORT:-10000} -s",
+    "start": "serve out -p ${PORT:-10000} -s",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "./scripts/run-tests.sh",
