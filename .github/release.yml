@@ -1,0 +1,32 @@
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+      - no-release-notes
+  categories:
+    - title: "🛡 Security & Dependency Hardening"
+      labels:
+        - security
+        - dependencies
+        - dependency-review
+        - hardening
+    - title: "📜 Governance Policies & Standards"
+      labels:
+        - governance
+        - policy
+        - compliance
+        - codeowners
+    - title: "🧩 Templates & Automation"
+      labels:
+        - template
+        - workflows
+        - ci
+        - docs
+    - title: "🔧 Maintenance"
+      labels:
+        - chore
+        - maintenance
+        - housekeeping
+    - title: "Other Changes"
+      labels:
+        - "*"

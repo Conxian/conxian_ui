@@ -1,12 +1,24 @@
+# Conxian UI governance and ownership registry
+
+# Verified maintainers with admin access
 * @botshelomokoka @admin-conxian-labs
 
+# Security and governance-sensitive files
 /CODEOWNERS @botshelomokoka @admin-conxian-labs
-/README.md @botshelomokoka @admin-conxian-labs
 /SECURITY.md @botshelomokoka @admin-conxian-labs
+/SUPPORT.md @botshelomokoka @admin-conxian-labs
 /CONTRIBUTING.md @botshelomokoka @admin-conxian-labs
+/.github/release.yml @botshelomokoka @admin-conxian-labs
+/.github/ISSUE_TEMPLATE/** @botshelomokoka @admin-conxian-labs
+/.github/PULL_REQUEST_TEMPLATE* @botshelomokoka @admin-conxian-labs
+/.github/workflows/** @botshelomokoka @admin-conxian-labs
+
+# Repository docs and deployment controls
+/README.md @botshelomokoka @admin-conxian-labs
 /REPO_OWNERSHIP.md @botshelomokoka @admin-conxian-labs
 /render.yaml @botshelomokoka @admin-conxian-labs
-/.github/workflows/** @botshelomokoka @admin-conxian-labs
+
+# Application surfaces
 /src/** @botshelomokoka @admin-conxian-labs
 /public/** @botshelomokoka @admin-conxian-labs
 /tests/** @botshelomokoka @admin-conxian-labs

@@ -1,0 +1,39 @@
+name: "Governance request"
+description: "Propose or request a change to repository-level governance controls."
+title: "[GOVERNANCE] <short request>"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for policy, process, and governance-control changes in Conxian UI.
+
+        For support routing details, see [SUPPORT.md](https://github.com/Conxian/Conxian_UI/blob/main/SUPPORT.md).
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What problem or need is driving this request?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the change you want and why.
+    validations:
+      required: true
+  - type: textarea
+    id: affected
+    attributes:
+      label: Affected governance artifacts
+      description: Which files/workflows/templates are in scope?
+      placeholder: CODEOWNERS, SECURITY.md, SUPPORT.md, .github/release.yml, templates, workflows
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks and rollout notes
+      description: Any security/compliance/release risks and suggested rollout approach.
+    validations:
+      required: false

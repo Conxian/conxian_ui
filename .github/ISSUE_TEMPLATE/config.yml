@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Governance support routing
+    url: https://github.com/Conxian/Conxian_UI/blob/main/SUPPORT.md
+    about: Start here for general support, governance requests, and issue-routing guidance.
+  - name: Private security vulnerability reporting
+    url: https://github.com/Conxian/Conxian_UI/blob/main/SECURITY.md
+    about: Do not open public issues for vulnerabilities. Use GitHub private advisories or the security email documented in SECURITY.md.
