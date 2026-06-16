@@ -1,0 +1,58 @@
+name: "[BOUNTY] Conxian Job Card (CJCS v2.0)"
+description: "Submit a strictly formatted task for permissionless execution and yield settlement."
+title: "[BOUNTY] <Module Name> - <Short Description>"
+labels: ["bounty", "cxn-core", "status: ready"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Conxian Bounty Protocol (CBP)
+        **WARNING:** This is a machine-readable Job Card. Do not request permission to execute. Open a Draft PR referencing this issue ID to automatically trigger the `/claim` webhook and assign this task to your handle. Settlement is Yield-Only via the Conxian Treasury Oracle.
+  - type: textarea
+    id: context-floor
+    attributes:
+      label: "[CONTEXT FLOOR]"
+      description: "A one-sentence summary of where this module fits within the multi-dimensional Conxian ecosystem."
+      placeholder: "e.g., This bridges the Nexus ERP adapter to the ISO 20022 schema for Pillar 1."
+    validations:
+      required: true
+  - type: textarea
+    id: strict-inputs
+    attributes:
+      label: "[STRICT INPUTS]"
+      description: "The exact data parameters, JSON-LD schemas, or on-chain payloads this function will receive."
+      placeholder: "e.g., CJCS v2.0 JSON-LD payload containing sender_address, amount_sBTC."
+    validations:
+      required: true
+  - type: textarea
+    id: strict-outputs
+    attributes:
+      label: "[STRICT OUTPUTS]"
+      description: "The exact data shape, state change, or Clarity trait that must be returned."
+      placeholder: "e.g., Validated XML payload strictly matching the pacs.008 schema."
+    validations:
+      required: true
+  - type: textarea
+    id: execution-rules
+    attributes:
+      label: "[EXECUTION RULES]"
+      description: "Immutable constraints the developer/agent must follow."
+      placeholder: "e.g., Must use native Stacks calls. No custom bridges. Must be offline-first compatible."
+    validations:
+      required: true
+  - type: textarea
+    id: verification-criteria
+    attributes:
+      label: "[VERIFICATION CRITERIA]"
+      description: "The specific test cases the PR must pass via CI/CD and BitVM2 to trigger the merge and yield payout."
+      placeholder: "e.g., Clarinet test suite must prove execution within 144 blocks."
+    validations:
+      required: true
+  - type: input
+    id: yield-allocation
+    attributes:
+      label: "[YIELD ALLOCATION]"
+      description: "The exact bounty reward streamed via the SLA Enforcer upon verification."
+      placeholder: "e.g., 500 STX (Liquid Yield Stream)"
+    validations:
+      required: true

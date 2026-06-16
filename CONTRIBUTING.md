@@ -88,3 +88,22 @@ The application includes a comprehensive contract interaction system (`src/lib/c
 *   Contract ABIs are retrieved on demand from the configured Core API via `GET /v2/contracts/interface/{principal}/{name}`.
 *   Read-only calls are sent via `POST /v2/contracts/call-read/...` with hex-encoded Clarity args.
 *   If a template function is not present in the selected contract ABI, the UI will show a "Template not supported" status.
+
+## Governance-Sensitive Changes
+
+If your PR changes governance or security-control files, complete the checklist in [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md) and request CODEOWNERS review before merge.
+
+Sensitive files include:
+
+- `CODEOWNERS`
+- `SECURITY.md`
+- `SUPPORT.md`
+- `.github/ISSUE_TEMPLATE/**`
+- `.github/PULL_REQUEST_TEMPLATE*`
+- `.github/workflows/**`
+- `.github/release.yml`
+
+## Support and Security Routing
+
+- For support and governance-routing guidance, refer to [SUPPORT.md](SUPPORT.md).
+- For private vulnerability reporting requirements, refer to [SECURITY.md](SECURITY.md).

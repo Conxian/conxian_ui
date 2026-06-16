@@ -1,0 +1,49 @@
+name: "Bug report"
+description: "Report a defect in Conxian UI code, docs, or repository automation."
+title: "[BUG] <short summary>"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this issue.
+
+        **Security notice:** do not report vulnerabilities here. Use the private process documented in [SECURITY.md](https://github.com/Conxian/Conxian_UI/blob/main/SECURITY.md).
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is broken?
+      placeholder: A concise description of the bug.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Include exact steps, links, and screenshots/logs if helpful.
+      placeholder: |
+        1. Go to ...
+        2. Submit ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should have happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened?
+    validations:
+      required: true
+  - type: input
+    id: references
+    attributes:
+      label: Related links
+      description: Link any related issue, PR, run, or doc.
+      placeholder: https://github.com/Conxian/Conxian_UI/issues/123
