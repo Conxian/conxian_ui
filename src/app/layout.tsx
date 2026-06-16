@@ -11,7 +11,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Conxian UI",
-  description: "UI for interacting with Conxian contracts on Stacks",
+  description:
+    "Public interaction layer for the Conxian protocol, maintained by Conxian-Labs.",
 };
 
 export default function RootLayout({
