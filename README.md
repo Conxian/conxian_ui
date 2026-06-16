@@ -1,14 +1,14 @@
 # Conxian UI
 
-Public interface work for interacting with and demonstrating Conxian ecosystem capabilities.
+Public interaction and application-facing interface work for the broader Conxian ecosystem.
 
 ## Purpose
 
-Provide a public web interface layer for Conxian features, demos, and user-facing flows where a browser-based surface is appropriate.
+Provide a public interaction layer for Conxian features, demos, and user-facing flows where a browser-based surface is appropriate.
 
 ## Status
 
-**Active development.** This repository is the public web interface layer for the Conxian ecosystem and should be treated as a product-facing application surface rather than a protocol source of truth.
+**Active development.** This repository is a public interaction and interface layer. It should be treated as an application-facing surface, not as the protocol source of truth and not as the Labs operating authority.
 
 ## Scope
 
@@ -16,14 +16,14 @@ This repository contains interface work, UI assets, and application flows. It do
 
 ## Governance relation
 
-This repository is maintained by Conxian Labs as part of the public application and interface layer for the Conxian ecosystem. Governance of the protocol itself is expected to decentralize progressively after mainnet.
+This repository is maintained by Conxian-Labs as part of the public interaction layer around the Conxian ecosystem. Governance of the Conxian protocol remains separate from this interface surface.
 
 ## Relationship to the Conxian stack
 
-- `Conxian` is the protocol core.
+- `Conxian` is the protocol and DAO-facing core.
 - `conxius-wallet` is the wallet and reference client.
-- `conxian-gateway` is the middleware and institutional integration surface.
-- `conxian-labs-site` is the corporate and public information surface.
+- `conxian-gateway` is the middleware and integration surface.
+- `conxian-labs-site` is the Labs portfolio and public information surface.
 
 ## Deployment
 
