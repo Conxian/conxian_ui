@@ -346,7 +346,7 @@ export default function SwapPage() {
                         <CopyButton textToCopy={txId} ariaLabel="Copy Tx" className="h-4 w-4 opacity-50" />
                       </div>
                     ) : (
-                      <div className="flex-1 flex flex-col items-center justify-center border border-dashed border-accent/10 rounded-sm bg-neutral-light/30 opacity-40">
+                      <div className="flex-1 flex flex-col bg-background terminal-text">
                         <div className="h-1 w-12 bg-accent/20 animate-pulse-soft" />
                       </div>
                     )}
