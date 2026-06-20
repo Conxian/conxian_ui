@@ -22,11 +22,12 @@
 - **Tests:** All 24 unit tests passed (`pnpm test:run`).
 - **Visuals:** Core pages verified via Playwright screenshots in prior cycles.
 
-### 4. UI/UX Standardization
-- **Nomenclature Audit:** Audited all public-facing pages for nomenclature consistency.
-- **Simplified Terminology:** Replaced operator-grade and internal BOS terminology (e.g., "Institutional Asset Custody", "Protocol Execution Interface") with standard product language (e.g., "Tokens", "Swap").
-- **Style Alignment:** Ensured consistent use of `tabular-nums` for financial data and `uppercase tracking-widest` for headers across all pages.
-- **Terminal Top Bar Hardening:** Standardized the status bar nomenclature across all operational views.
+### 4. UI/UX Standardization (The Bright Foundation)
+- **Palette Injection:** Implemented the Conxian Master Manifest palette: Ivory foundation (#FDFBF7), white surface layers (#FFFFFF), and deep ink brand colors (#333333).
+- **Global Layout Refactoring:** Simplified `layout.tsx` and standardized operational pages with the `flex flex-col min-h-screen bg-background terminal-text` root wrapper and `max-w-7xl` main containers.
+- **Accessibility & Contrast:** Hardened accessibility by replacing all low-contrast `text-ink/40` labels with `text-ink-light` to meet institutional WCAG standards.
+- **Institutional Styling:** Enforced `tabular-nums` for all numeric data and standardized `uppercase tracking-widest` across all operational labels and headers.
+- **Terminal Top Bar Hardening:** Standardized the status bar styling and nomenclature across all operational views.
 
 ## Current Status
 The application is now production-ready, deployment-hardened, and UI-standardized for public use. Institutional observability and simplified product nomenclature are fully implemented across the entire source tree.

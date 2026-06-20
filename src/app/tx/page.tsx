@@ -78,7 +78,7 @@ function TxContent() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background terminal-text">
+    <div className="flex-1 flex flex-col bg-background terminal-text">
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Transactions</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
@@ -87,7 +87,7 @@ function TxContent() {
         </div>
       </div>
 
-      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
           <div>
             <h1 className="text-5xl font-black tracking-widest uppercase text-ink">TRANSACTIONS</h1>
@@ -105,7 +105,7 @@ function TxContent() {
               <CardContent className="p-8 space-y-8">
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Target Contract</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Target Contract</label>
                     <select
                       className="w-full bg-neutral-light border border-accent/20 rounded-sm px-4 py-3 text-xs font-black uppercase tracking-widest focus:ring-1 focus:ring-accent focus:outline-none text-ink"
                       value={selected}
@@ -118,7 +118,7 @@ function TxContent() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Function</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Function</label>
                     <div className="relative">
                       <Input
                         value={fnName}
@@ -145,7 +145,7 @@ function TxContent() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Arguments</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Arguments</label>
                   <div className="p-6 bg-neutral-light border border-accent/20 rounded-sm">
                     <ClarityArgBuilder
                       onChange={onBuild}
@@ -192,7 +192,7 @@ function TxContent() {
                           {args.hex.map((h, i) => <p key={i}>[{i}]: {h}</p>)}
                         </div>
                       ) : (
-                        <p className="italic font-black text-ink/20">NO ARGS BUILT</p>
+                        <p className="italic font-black text-ink-light">NO ARGS BUILT</p>
                       )}
                     </div>
                   </div>

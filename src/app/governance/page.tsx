@@ -21,7 +21,7 @@ import {
 
 export default function GovernancePage() {
   return (
-    <div className="flex flex-col min-h-screen bg-background terminal-text">
+    <div className="flex-1 flex flex-col bg-background terminal-text">
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-3">
           <ScaleIcon className="w-4 h-4 text-accent" />
@@ -37,7 +37,7 @@ export default function GovernancePage() {
         </div>
       </div>
 
-      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
           <div>
             <h1 className="text-5xl font-black tracking-widest uppercase text-ink">GOVERNANCE</h1>
@@ -143,7 +143,7 @@ export default function GovernancePage() {
                 <div className="space-y-6">
                   <div>
                     <div className="flex justify-between items-baseline mb-2">
-                      <span className="text-[10px] font-black text-ink/40 tracking-widest uppercase">Voting Power</span>
+                      <span className="text-[10px] font-black text-ink-light tracking-widest uppercase">Voting Power</span>
                       <span className="text-xl font-black text-ink tabular-nums">14.2%</span>
                     </div>
                     <div className="h-1.5 w-full bg-neutral-light rounded-full overflow-hidden">
@@ -153,11 +153,11 @@ export default function GovernancePage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 bg-neutral-light border border-accent/10 rounded-sm">
-                      <p className="text-[9px] font-black text-ink/40 uppercase tracking-widest mb-1">Delegate Uptime</p>
+                      <p className="text-[9px] font-black text-ink-light uppercase tracking-widest mb-1">Delegate Uptime</p>
                       <p className="text-lg font-black text-success tabular-nums">99.98%</p>
                     </div>
                     <div className="p-4 bg-neutral-light border border-accent/10 rounded-sm">
-                      <p className="text-[9px] font-black text-ink/40 uppercase tracking-widest mb-1">Active Policies</p>
+                      <p className="text-[9px] font-black text-ink-light uppercase tracking-widest mb-1">Active Policies</p>
                       <p className="text-lg font-black text-ink tabular-nums">12</p>
                     </div>
                   </div>
@@ -176,7 +176,7 @@ export default function GovernancePage() {
                         <ShieldCheckIcon className="w-3 h-3 text-success" />
                         <span className="text-[10px] font-mono font-bold">0x2B...7C19</span>
                       </div>
-                      <span className="text-[9px] font-black text-ink/40 uppercase">Backup</span>
+                      <span className="text-[9px] font-black text-ink-light uppercase">Backup</span>
                     </div>
                   </div>
                 </div>
@@ -193,7 +193,7 @@ export default function GovernancePage() {
                     <ScaleIcon className="w-6 h-6 text-accent" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest">Signed In As</p>
+                    <p className="text-[10px] font-black text-ink-light uppercase tracking-widest">Signed In As</p>
                     <p className="text-xs font-mono font-black text-ink uppercase">SYS.ADMIN.0x8A...3F92</p>
                   </div>
                 </div>

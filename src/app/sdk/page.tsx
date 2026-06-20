@@ -78,7 +78,7 @@ const renderCards = [
 
 export default function SdkPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-background terminal-text">
+    <div className="flex-1 flex flex-col bg-background terminal-text">
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Developer Integrations</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
@@ -86,7 +86,7 @@ export default function SdkPage() {
         </div>
       </div>
 
-      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-12">
+      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
           <div>
             <h1 className="text-5xl font-black tracking-widest uppercase text-ink">SDK</h1>
@@ -119,7 +119,7 @@ export default function SdkPage() {
               </div>
               <div className="space-y-4">
                 <h2 className="text-3xl font-black tracking-widest text-ink">BUILD WITH SHARED PROTOCOL PRIMITIVES</h2>
-                <p className="max-w-3xl text-xs leading-relaxed text-ink-light font-bold uppercase tracking-wider">
+                <p className="max-w-3xl text-xs leading-relaxed text-ink-light font-bold uppercase tracking-widest">
                   The Conxian SDK family provides the core building blocks for developers integrating with protocol services, hardware-backed signing, and managed APIs.
                 </p>
               </div>
@@ -142,7 +142,7 @@ export default function SdkPage() {
                   SECURITY_MODEL
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4 text-[10px] leading-relaxed text-ink-light font-bold uppercase tracking-wide">
+              <CardContent className="space-y-4 text-[10px] leading-relaxed text-ink-light font-bold uppercase tracking-widest">
                 <p>
                   <span className="text-ink">Open:</span> Protocol primitives and local verification logic.
                 </p>
@@ -165,7 +165,7 @@ export default function SdkPage() {
                   <Icon className="h-5 w-5" />
                 </div>
                 <h3 className="text-sm font-black uppercase tracking-widest text-ink mb-2">{title}</h3>
-                <p className="text-[10px] leading-relaxed text-ink-light font-bold uppercase tracking-wide">
+                <p className="text-[10px] leading-relaxed text-ink-light font-bold uppercase tracking-widest">
                   {description}
                 </p>
               </CardContent>
@@ -191,7 +191,7 @@ export default function SdkPage() {
                       {repo.badge}
                     </Badge>
                   </div>
-                  <p className="text-[10px] text-ink-light font-bold uppercase tracking-wide mb-4">
+                  <p className="text-[10px] text-ink-light font-bold uppercase tracking-widest mb-4">
                     {repo.description}
                   </p>
                   <a

@@ -73,7 +73,7 @@ export default function TokensPage() {
   }, [address, refresh]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background terminal-text">
+    <div className="flex-1 flex flex-col bg-background terminal-text">
        {/* Terminal Top Bar */}
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
@@ -86,7 +86,7 @@ export default function TokensPage() {
         </div>
       </div>
 
-      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-widest uppercase text-ink">TOKENS</h1>
@@ -97,7 +97,7 @@ export default function TokensPage() {
         {!address && (
           <Card className="machined-card max-w-xl mx-auto">
             <CardContent className="pt-6">
-              <p className="text-center text-ink/40 font-black uppercase tracking-widest text-[10px] py-12">
+              <p className="text-center text-ink-light font-black uppercase tracking-widest text-[10px] py-12">
                 Authorization Required to Disclose Ledger State.
               </p>
             </CardContent>
@@ -115,7 +115,7 @@ export default function TokensPage() {
                   <div className="text-3xl font-black text-ink tabular-nums">
                     {stx?.balance ? `${formatAmount(stx.balance, 6)}` : "0.00"} <span className="text-lg opacity-40">STX</span>
                   </div>
-                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Available for transaction</p>
+                  <p className="text-[9px] text-ink-light mt-3 font-black uppercase tracking-[0.2em]">Available for transaction</p>
                 </CardContent>
               </Card>
               <Card className="machined-card">
@@ -126,7 +126,7 @@ export default function TokensPage() {
                   <div className="text-3xl font-black text-ink tabular-nums">
                     {userContribution.total} <span className="text-lg opacity-40">STX</span>
                   </div>
-                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Current Tier: {userContribution.level}</p>
+                  <p className="text-[9px] text-ink-light mt-3 font-black uppercase tracking-[0.2em]">Current Tier: {userContribution.level}</p>
                 </CardContent>
               </Card>
             </div>
@@ -165,7 +165,7 @@ export default function TokensPage() {
                     ))}
                     {fts.length === 0 && (
                       <TableRow>
-                        <TableCell className="py-20 text-center text-ink/20 font-black uppercase tracking-widest text-[10px]" colSpan={2}>
+                        <TableCell className="py-20 text-center text-ink-light font-black uppercase tracking-widest text-[10px]" colSpan={2}>
                           NO ASSETS DETECTED
                         </TableCell>
                       </TableRow>

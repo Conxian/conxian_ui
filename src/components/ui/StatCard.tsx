@@ -30,7 +30,7 @@ export const StatCard = ({
       {subtext && (
         <div className="mt-3 flex items-center gap-2">
            <div className="h-1 w-1 rounded-full bg-accent" />
-           <p className="text-[9px] font-black text-ink/40 uppercase tracking-[0.2em]">{subtext}</p>
+           <p className="text-[9px] font-black text-ink-light uppercase tracking-[0.2em]">{subtext}</p>
         </div>
       )}
     </CardContent>

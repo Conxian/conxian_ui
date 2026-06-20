@@ -59,7 +59,7 @@ export default function NetworkPage() {
   }, [refresh]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background terminal-text">
+    <div className="flex-1 flex flex-col bg-background terminal-text">
       <div className="bg-neutral-light text-ink font-black py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Network</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
@@ -68,7 +68,7 @@ export default function NetworkPage() {
         </div>
       </div>
 
-      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
           <div>
             <h1 className="text-5xl font-black tracking-widest uppercase text-ink">NETWORK</h1>
@@ -91,7 +91,7 @@ export default function NetworkPage() {
             <Card key={i} className="machined-card">
               <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-[9px] font-black text-ink/40 uppercase tracking-widest">{m.label}</span>
+                  <span className="text-[9px] font-black text-ink-light uppercase tracking-widest">{m.label}</span>
                   <m.icon className="w-3 h-3 opacity-20" />
                 </div>
                 <div className="flex justify-between items-end">
@@ -111,7 +111,7 @@ export default function NetworkPage() {
                 <BoltIcon className="w-3 h-3 text-ink" />
               </div>
               <CardContent className="p-6">
-                <p className="text-[10px] text-ink/40 font-black uppercase tracking-widest mb-6">
+                <p className="text-[10px] text-ink-light font-black uppercase tracking-widest mb-6">
                   Predicted gas volatility and congestion
                 </p>
                 <div className="h-40 bg-neutral-light border border-ghost rounded-sm flex items-center justify-center relative overflow-hidden">
@@ -120,7 +120,7 @@ export default function NetworkPage() {
                       <div key={i} className="flex-1 bg-accent/20 border-t-2 border-accent" style={{ height: `${h * 100}%` }} />
                     ))}
                   </div>
-                  <div className="absolute bottom-2 left-0 right-0 flex justify-between px-6 text-[8px] font-black text-ink/30 uppercase tracking-widest">
+                  <div className="absolute bottom-2 left-0 right-0 flex justify-between px-6 text-[8px] font-black text-ink-light uppercase tracking-widest">
                     <span>T-60m</span>
                     <span>T-30m</span>
                     <span className="text-ink">NOW</span>
@@ -146,21 +146,21 @@ export default function NetworkPage() {
                     <div className="absolute top-1/4 left-1/4 h-2 w-2 bg-success rounded-full animate-ping" title="US-EAST" />
                     <div className="absolute top-1/3 left-2/3 h-2 w-2 bg-error rounded-full animate-ping" title="EU-CENTRAL" />
                     <div className="absolute bottom-1/4 left-1/2 h-2 w-2 bg-success rounded-full animate-ping" title="AP-SOUTH" />
-                    <span className="absolute bottom-3 left-4 text-[8px] font-mono text-ink/30 font-bold uppercase tracking-widest">
+                    <span className="absolute bottom-3 left-4 text-[8px] font-mono text-ink-light font-bold uppercase tracking-widest">
                       Global infrastructure status
                     </span>
                   </div>
                   <div className="space-y-4">
-                    <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest">Regional Health</p>
+                    <p className="text-[10px] font-black text-ink-light uppercase tracking-widest">Regional Health</p>
                     <div className="space-y-2">
                       {[
                         { region: 'US-EAST', status: 'READY', color: 'text-success' },
                         { region: 'EU-CENTRAL', status: 'DEGRADED', color: 'text-error' },
                         { region: 'AP-SOUTH', status: 'READY', color: 'text-success' },
-                        { region: 'SA-EAST', status: 'STANDBY', color: 'text-ink/40' },
+                        { region: 'SA-EAST', status: 'STANDBY', color: 'text-ink-light' },
                       ].map((r, i) => (
                         <div key={i} className="flex justify-between items-center text-[9px] font-black">
-                          <span className="text-ink/60">{r.region}</span>
+                          <span className="text-ink-light">{r.region}</span>
                           <span className={r.color}>{r.status}</span>
                         </div>
                       ))}
@@ -217,7 +217,7 @@ export default function NetworkPage() {
                     ))}
                     {mempool.length === 0 && (
                       <TableRow>
-                        <TableCell className="py-10 text-center font-black uppercase text-[10px] text-ink/20" colSpan={2}>
+                        <TableCell className="py-10 text-center font-black uppercase text-[10px] text-ink-light" colSpan={2}>
                           Awaiting transactions...
                         </TableCell>
                       </TableRow>

@@ -32,7 +32,8 @@ Purge all heavy, default dark-mode backgrounds from main operational views. The 
 ## 4. AGENT SPECIFIC CHECKS
 
 - Run `pnpm test` before every submission.
-- Ensure all new pages wrap content in `bg-background min-h-screen`.
+- Ensure all operational pages wrap content in `<div className="flex flex-col min-h-screen bg-background terminal-text">`.
+- Operational content must be within `<main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">`.
 - Use `StatusIndicator` for health states (operational/degraded/error).
 - Ensure `EnvStatus` is visible on the Dashboard.
 - All numerical data MUST use `tabular-nums`.

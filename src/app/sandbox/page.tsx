@@ -18,7 +18,7 @@ export default function SandboxPage() {
   const [activeTab, setActiveTab] = useState("simulation");
 
   return (
-    <div className="flex flex-col min-h-screen bg-background terminal-text">
+    <div className="flex-1 flex flex-col bg-background terminal-text">
       <div className="bg-neutral-light text-ink font-black py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-3">
           <CodeBracketIcon className="w-4 h-4 text-ink" />
@@ -30,7 +30,7 @@ export default function SandboxPage() {
               key={mode}
               onClick={() => setActiveTab(mode.toLowerCase())}
               className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-sm transition-colors ${
-                activeTab === mode.toLowerCase() ? "bg-accent text-ink" : "text-ink/40 hover:bg-neutral-light"
+                activeTab === mode.toLowerCase() ? "bg-accent text-ink" : "text-ink-light hover:bg-neutral-light"
               }`}
             >
               {mode}
@@ -39,7 +39,7 @@ export default function SandboxPage() {
         </div>
       </div>
 
-      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
           <div>
             <h1 className="text-5xl font-black tracking-widest uppercase text-ink">SANDBOX</h1>
@@ -65,13 +65,13 @@ export default function SandboxPage() {
               <CardContent className="p-6">
                 <div className="space-y-6">
                   <div className="p-6 bg-neutral-light border border-dashed border-accent/30 rounded-sm">
-                    <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest mb-4">Execution Payload</p>
+                    <p className="text-[10px] font-black text-ink-light uppercase tracking-widest mb-4">Execution Payload</p>
                     <div className="space-y-3 font-mono text-[11px]">
                       <div className="flex gap-4 p-3 bg-background border border-accent/10 rounded-sm">
                         <span className="text-ink font-black uppercase">[CALL]</span>
                         <span className="text-ink font-bold">UniswapV2Router02.swapExactTokensForTokens</span>
                       </div>
-                      <div className="pl-8 space-y-2 text-ink/60">
+                      <div className="pl-8 space-y-2 text-ink-light">
                         <p>├── path: [WETH, USDC]</p>
                         <p>├── amountIn: 1.000000000000000000</p>
                         <p>└── amountOutMin: 1850.000000</p>
@@ -139,7 +139,7 @@ export default function SandboxPage() {
               <CardContent className="p-6">
                 <div className="space-y-6">
                   <div>
-                    <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest mb-4">Asset Balance Changes</p>
+                    <p className="text-[10px] font-black text-ink-light uppercase tracking-widest mb-4">Asset Balance Changes</p>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center p-3 border border-ghost rounded-sm bg-neutral-light">
                         <span className="text-xs font-black text-ink">WETH</span>
@@ -153,7 +153,7 @@ export default function SandboxPage() {
                   </div>
 
                   <div className="pt-6 border-t border-accent/10">
-                    <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest mb-4">Contract State Diff</p>
+                    <p className="text-[10px] font-black text-ink-light uppercase tracking-widest mb-4">Contract State Diff</p>
                     <div className="p-4 bg-ink text-background-paper font-mono text-[9px] rounded-sm">
                       <p className="text-success">+ reserves.0: 142.1k</p>
                       <p className="text-error">- reserves.1: 82.5k</p>

@@ -57,7 +57,7 @@ export default function PoolsPage() {
   }, [refresh]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background terminal-text">
+    <div className="flex-1 flex flex-col bg-background terminal-text">
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <span className="text-[10px] font-black uppercase tracking-[0.3em]">Pools</span>
         <div className="flex gap-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
@@ -66,7 +66,7 @@ export default function PoolsPage() {
         </div>
       </div>
 
-      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
           <div>
             <h1 className="text-5xl font-black tracking-widest uppercase text-ink">POOLS</h1>
@@ -113,7 +113,7 @@ export default function PoolsPage() {
                 <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
                 <span className="text-[10px] font-black uppercase tracking-widest">Live Data Available</span>
               </div>
-              <p className="text-[9px] text-ink/40 leading-relaxed font-bold">
+              <p className="text-[9px] text-ink-light leading-relaxed font-bold">
                 Pool data is synced and available for reading from the protocol.
               </p>
             </CardContent>
@@ -130,7 +130,7 @@ export default function PoolsPage() {
             <Card key={i} className="machined-card">
               <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-[9px] font-black text-ink/40 uppercase tracking-widest">{m.label}</span>
+                  <span className="text-[9px] font-black text-ink-light uppercase tracking-widest">{m.label}</span>
                   <m.icon className="w-3 h-3 opacity-20" />
                 </div>
                 <div className="text-lg font-black tabular-nums text-ink">{m.value}</div>

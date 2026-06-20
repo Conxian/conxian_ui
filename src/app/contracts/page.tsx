@@ -30,7 +30,7 @@ export default function ContractsPage() {
   }, [loadInterface]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background terminal-text">
+    <div className="flex-1 flex flex-col bg-background terminal-text">
        {/* Terminal Top Bar */}
       <div className="bg-neutral-light text-ink py-2 px-6 flex justify-between items-center border-b border-accent/20">
         <div className="flex items-center gap-4">
@@ -43,7 +43,7 @@ export default function ContractsPage() {
         </div>
       </div>
 
-      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
+      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
            <div>
               <h1 className="text-5xl font-black tracking-widest uppercase text-ink">CONTRACTS</h1>
@@ -61,7 +61,7 @@ export default function ContractsPage() {
               <CardContent className="p-8 space-y-6">
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Principal Origin</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Principal Origin</label>
                     <Input
                       value={principal}
                       onChange={(e) => setPrincipal(e.target.value)}
@@ -70,7 +70,7 @@ export default function ContractsPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Contract Identifier</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Contract Identifier</label>
                     <Input
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -107,7 +107,7 @@ export default function ContractsPage() {
                       className="w-full justify-between h-10 p-3 font-black text-[10px] uppercase tracking-widest hover:bg-neutral-light rounded-sm border border-transparent hover:border-accent/10 transition-all group"
                     >
                       <span className="text-ink">{c.label}</span>
-                      <span className="text-ink/30 font-mono text-[8px] font-black opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="text-ink-light font-mono text-[8px] font-black opacity-0 group-hover:opacity-100 transition-opacity">
                         {c.id.split(".")[1]}
                       </span>
                     </Button>
@@ -146,7 +146,7 @@ export default function ContractsPage() {
                 </CardContent>
               </Card>
             ) : (
-              <div className="flex flex-col items-center justify-center h-[400px] text-ink/20 border-2 border-dashed border-accent/10 rounded-sm bg-neutral-light/30">
+              <div className="flex flex-col items-center justify-center h-[400px] text-ink-light border-2 border-dashed border-accent/10 rounded-sm bg-neutral-light/30">
                 <CodeBracketSquareIcon className="w-12 h-12 mb-4 opacity-10" />
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] italic">
                   Awaiting Interface Selection...
