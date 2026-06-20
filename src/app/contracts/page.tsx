@@ -61,7 +61,7 @@ export default function ContractsPage() {
               <CardContent className="p-8 space-y-6">
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Principal Origin</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Principal Origin</label>
                     <Input
                       value={principal}
                       onChange={(e) => setPrincipal(e.target.value)}
@@ -70,7 +70,7 @@ export default function ContractsPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Contract Identifier</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Contract Identifier</label>
                     <Input
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -107,7 +107,7 @@ export default function ContractsPage() {
                       className="w-full justify-between h-10 p-3 font-black text-[10px] uppercase tracking-widest hover:bg-neutral-light rounded-sm border border-transparent hover:border-accent/10 transition-all group"
                     >
                       <span className="text-ink">{c.label}</span>
-                      <span className="text-ink/30 font-mono text-[8px] font-black opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="text-ink-light font-mono text-[8px] font-black opacity-0 group-hover:opacity-100 transition-opacity">
                         {c.id.split(".")[1]}
                       </span>
                     </Button>
@@ -146,7 +146,7 @@ export default function ContractsPage() {
                 </CardContent>
               </Card>
             ) : (
-              <div className="flex flex-col items-center justify-center h-[400px] text-ink/20 border-2 border-dashed border-accent/10 rounded-sm bg-neutral-light/30">
+              <div className="flex flex-col items-center justify-center h-[400px] text-ink-light border-2 border-dashed border-accent/10 rounded-sm bg-neutral-light/30">
                 <CodeBracketSquareIcon className="w-12 h-12 mb-4 opacity-10" />
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] italic">
                   Awaiting Interface Selection...

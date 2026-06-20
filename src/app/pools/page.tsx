@@ -113,7 +113,7 @@ export default function PoolsPage() {
                 <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
                 <span className="text-[10px] font-black uppercase tracking-widest">Live Data Available</span>
               </div>
-              <p className="text-[9px] text-ink/40 leading-relaxed font-bold">
+              <p className="text-[9px] text-ink-light leading-relaxed font-bold">
                 Pool data is synced and available for reading from the protocol.
               </p>
             </CardContent>
@@ -130,7 +130,7 @@ export default function PoolsPage() {
             <Card key={i} className="machined-card">
               <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-[9px] font-black text-ink/40 uppercase tracking-widest">{m.label}</span>
+                  <span className="text-[9px] font-black text-ink-light uppercase tracking-widest">{m.label}</span>
                   <m.icon className="w-3 h-3 opacity-20" />
                 </div>
                 <div className="text-lg font-black tabular-nums text-ink">{m.value}</div>

@@ -30,7 +30,7 @@ export default function SandboxPage() {
               key={mode}
               onClick={() => setActiveTab(mode.toLowerCase())}
               className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-sm transition-colors ${
-                activeTab === mode.toLowerCase() ? "bg-accent text-ink" : "text-ink/40 hover:bg-neutral-light"
+                activeTab === mode.toLowerCase() ? "bg-accent text-ink" : "text-ink-light hover:bg-neutral-light"
               }`}
             >
               {mode}
@@ -65,13 +65,13 @@ export default function SandboxPage() {
               <CardContent className="p-6">
                 <div className="space-y-6">
                   <div className="p-6 bg-neutral-light border border-dashed border-accent/30 rounded-sm">
-                    <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest mb-4">Execution Payload</p>
+                    <p className="text-[10px] font-black text-ink-light uppercase tracking-widest mb-4">Execution Payload</p>
                     <div className="space-y-3 font-mono text-[11px]">
                       <div className="flex gap-4 p-3 bg-background border border-accent/10 rounded-sm">
                         <span className="text-ink font-black uppercase">[CALL]</span>
                         <span className="text-ink font-bold">UniswapV2Router02.swapExactTokensForTokens</span>
                       </div>
-                      <div className="pl-8 space-y-2 text-ink/60">
+                      <div className="pl-8 space-y-2 text-ink-light">
                         <p>├── path: [WETH, USDC]</p>
                         <p>├── amountIn: 1.000000000000000000</p>
                         <p>└── amountOutMin: 1850.000000</p>
@@ -139,7 +139,7 @@ export default function SandboxPage() {
               <CardContent className="p-6">
                 <div className="space-y-6">
                   <div>
-                    <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest mb-4">Asset Balance Changes</p>
+                    <p className="text-[10px] font-black text-ink-light uppercase tracking-widest mb-4">Asset Balance Changes</p>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center p-3 border border-ghost rounded-sm bg-neutral-light">
                         <span className="text-xs font-black text-ink">WETH</span>
@@ -153,7 +153,7 @@ export default function SandboxPage() {
                   </div>
 
                   <div className="pt-6 border-t border-accent/10">
-                    <p className="text-[10px] font-black text-ink/40 uppercase tracking-widest mb-4">Contract State Diff</p>
+                    <p className="text-[10px] font-black text-ink-light uppercase tracking-widest mb-4">Contract State Diff</p>
                     <div className="p-4 bg-ink text-background-paper font-mono text-[9px] rounded-sm">
                       <p className="text-success">+ reserves.0: 142.1k</p>
                       <p className="text-error">- reserves.1: 82.5k</p>

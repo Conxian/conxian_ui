@@ -105,7 +105,7 @@ function TxContent() {
               <CardContent className="p-8 space-y-8">
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Target Contract</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Target Contract</label>
                     <select
                       className="w-full bg-neutral-light border border-accent/20 rounded-sm px-4 py-3 text-xs font-black uppercase tracking-widest focus:ring-1 focus:ring-accent focus:outline-none text-ink"
                       value={selected}
@@ -118,7 +118,7 @@ function TxContent() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Function</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Function</label>
                     <div className="relative">
                       <Input
                         value={fnName}
@@ -145,7 +145,7 @@ function TxContent() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Arguments</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Arguments</label>
                   <div className="p-6 bg-neutral-light border border-accent/20 rounded-sm">
                     <ClarityArgBuilder
                       onChange={onBuild}
@@ -192,7 +192,7 @@ function TxContent() {
                           {args.hex.map((h, i) => <p key={i}>[{i}]: {h}</p>)}
                         </div>
                       ) : (
-                        <p className="italic font-black text-ink/20">NO ARGS BUILT</p>
+                        <p className="italic font-black text-ink-light">NO ARGS BUILT</p>
                       )}
                     </div>
                   </div>

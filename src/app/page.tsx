@@ -57,11 +57,11 @@ export default function Home() {
           <span className="text-[10px] font-black uppercase tracking-[0.3em] text-ink">
             Conxian Dashboard
           </span>
-          <Badge variant="outline" className="text-[8px] border-ghost text-ink/40">
+          <Badge variant="outline" className="text-[8px] border-ghost text-ink-light">
             v4.2.1-attested
           </Badge>
         </div>
-        <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-ink/60">
+        <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">
           <span>
             Uptime: <span className="text-success">99.998%</span>
           </span>
@@ -80,7 +80,7 @@ export default function Home() {
             </p>
           </div>
           <div className="text-right hidden md:block">
-            <span className="text-[9px] font-black uppercase text-ink/30 tracking-widest">
+            <span className="text-[9px] font-black uppercase text-ink-light tracking-widest">
               System Epoch
             </span>
             <p className="text-xs font-mono font-black text-ink tabular-nums">2026-Q2-LOCKED</p>
@@ -130,7 +130,7 @@ export default function Home() {
                   {["Asset", "Pool", "Slippage", "Yield"].map((h) => (
                     <div
                       key={h}
-                      className="p-3 text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 border-r border-ghost last:border-none"
+                      className="p-3 text-[9px] font-black uppercase tracking-[0.2em] text-ink-light border-r border-ghost last:border-none"
                     >
                       {h}
                     </div>
@@ -142,7 +142,7 @@ export default function Home() {
                       Awaiting Data...
                     </span>
                   </div>
-                  <p className="text-[10px] text-ink/40 italic">
+                  <p className="text-[10px] text-ink-light italic">
                     Live activity appears after node synchronization. Current progress: 98.4%
                   </p>
                 </div>
@@ -160,8 +160,8 @@ export default function Home() {
                   </p>
                   <div className="p-3 bg-neutral-light border border-ghost rounded-sm font-mono text-[10px]">
                     <p className="text-success font-black">&gt; CONNECTION_READY</p>
-                    <p className="text-ink/50">&gt; KEY_ROTATION: OK</p>
-                    <p className="text-ink/50">&gt; ENCLAVE_ID: 0x42...F1</p>
+                    <p className="text-ink-light">&gt; KEY_ROTATION: OK</p>
+                    <p className="text-ink-light">&gt; ENCLAVE_ID: 0x42...F1</p>
                   </div>
                 </CardContent>
               </Card>
@@ -177,7 +177,7 @@ export default function Home() {
                   <div className="space-y-3">
                     {["LATENCY", "SLIPPAGE", "COST"].map((m) => (
                       <div key={m} className="flex justify-between items-baseline">
-                        <span className="text-[10px] font-black text-ink/40 tracking-widest uppercase">
+                        <span className="text-[10px] font-black text-ink-light tracking-widest uppercase">
                           {m}
                         </span>
                         <span className="text-[10px] font-black text-ink uppercase tabular-nums">

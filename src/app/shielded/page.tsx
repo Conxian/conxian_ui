@@ -171,7 +171,7 @@ export default function ShieldedPage() {
           </div>
           <CardContent className="p-8">
             {loading ? (
-              <div className="py-20 text-center animate-pulse text-ink/40 font-black uppercase text-[10px] tracking-[0.2em]">Loading private wallets...</div>
+              <div className="py-20 text-center animate-pulse text-ink-light font-black uppercase text-[10px] tracking-[0.2em]">Loading private wallets...</div>
             ) : wallets.length > 0 ? (
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {wallets.map((wallet) => (
@@ -184,12 +184,12 @@ export default function ShieldedPage() {
                     </div>
                     <div className="flex items-baseline gap-2 mb-8 border-b border-accent/10 pb-6">
                       <span className="text-4xl font-black text-ink tabular-nums">{wallet.balance}</span>
-                      <span className="text-ink/40 font-black text-sm uppercase tracking-widest">STX</span>
+                      <span className="text-ink-light font-black text-sm uppercase tracking-widest">STX</span>
                     </div>
 
                     <div className="space-y-8 pt-2">
                       <div className="space-y-4">
-                        <label className="text-[9px] font-black text-ink/40 uppercase tracking-[0.2em]">Send Funds</label>
+                        <label className="text-[9px] font-black text-ink-light uppercase tracking-[0.2em]">Send Funds</label>
                         <div className="grid grid-cols-1 gap-3">
                           <Input type="text" placeholder="RECIPIENT_ADDRESS" value={recipient} onChange={(e) => setRecipient(e.target.value)} className="bg-background-paper border-accent/20 font-black text-[10px] h-10" />
                           <div className="flex items-center space-x-2">
@@ -203,10 +203,10 @@ export default function ShieldedPage() {
                       </div>
 
                       <div className="space-y-4 pt-6 border-t border-accent/10">
-                        <label className="text-[9px] font-black text-ink/40 uppercase tracking-[0.2em]">Receive Funds</label>
+                        <label className="text-[9px] font-black text-ink-light uppercase tracking-[0.2em]">Receive Funds</label>
                         <div className="flex items-center space-x-2">
                           <Input type="number" placeholder="AMOUNT" value={receiveAmount} onChange={(e) => setReceiveAmount(e.target.value)} className="bg-background-paper border-accent/20 font-black text-[10px] h-10 flex-1 tabular-nums" />
-                          <Button onClick={() => handleReceiveFunds(wallet.id)} variant="outline" className="shrink-0 h-10 px-6 font-black uppercase text-[10px] tracking-widest border-accent/20 text-ink/60 hover:text-ink">
+                          <Button onClick={() => handleReceiveFunds(wallet.id)} variant="outline" className="shrink-0 h-10 px-6 font-black uppercase text-[10px] tracking-widest border-accent/20 text-ink-light hover:text-ink">
                             <ArrowDownCircleIcon className="w-3 h-3 mr-2" />
                             RECEIVE
                           </Button>

@@ -93,7 +93,7 @@ export default function PositionsPage() {
                     ?
                   </div>
                 </div>
-                <p className="text-ink/40 font-black uppercase tracking-widest text-xs">
+                <p className="text-ink-light font-black uppercase tracking-widest text-xs">
                   No positions found.
                 </p>
                 <Button
@@ -107,7 +107,7 @@ export default function PositionsPage() {
           </div>
         ) : (
           <div className="text-center py-32 machined-card max-w-xl mx-auto">
-            <p className="text-ink/60 mb-8 font-black uppercase tracking-widest text-xs">
+            <p className="text-ink-light mb-8 font-black uppercase tracking-widest text-xs">
               Connect wallet to view positions.
             </p>
             <ConnectWallet />

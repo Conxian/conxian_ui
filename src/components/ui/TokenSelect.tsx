@@ -98,7 +98,7 @@ const TokenSelect: React.FC<TokenSelectProps> = ({ tokens, selectedToken, onSele
                   <TokenIcon token={token.label} className="w-8 h-8 mr-4 shrink-0" />
                   <div className="flex flex-col overflow-hidden">
                     <span className="text-xs font-black uppercase tracking-widest">{token.label}</span>
-                    <span className="text-[8px] font-mono text-ink/40 truncate">{truncate(token.id, 12, 10)}</span>
+                    <span className="text-[8px] font-mono text-ink-light truncate">{truncate(token.id, 12, 10)}</span>
                   </div>
                 </div>
                 <div className="text-right ml-2 shrink-0">

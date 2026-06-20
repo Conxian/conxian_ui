@@ -14,7 +14,7 @@ export default function Overview() {
         </div>
       </div>
 
-      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-12">
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="flex justify-between items-end border-b border-accent/20 pb-6">
           <div>
             <h1 className="text-5xl font-black tracking-widest uppercase text-ink">OVERVIEW</h1>
@@ -22,7 +22,7 @@ export default function Overview() {
           </div>
         </div>
 
-        <section className="space-y-12">
+        <section className="space-y-10">
           <ReadinessDashboard />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <SystemStatus />

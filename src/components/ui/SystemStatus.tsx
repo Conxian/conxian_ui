@@ -94,32 +94,32 @@ export default function SystemStatus() {
       </CardHeader>
       <CardContent className="grid gap-6 md:grid-cols-3">
         <div className="flex items-center">
-          <div className="p-2 bg-primary/10 rounded-lg">
-            <CurrencyDollarIcon className="w-8 h-8 text-primary" />
+          <div className="p-2 bg-ink/5 rounded-sm border border-accent/10">
+            <CurrencyDollarIcon className="w-6 h-6 text-ink" />
           </div>
           <div className="ml-4">
-            <div className="text-xs font-bold text-ink-light uppercase tracking-widest">Total Value Locked</div>
-            <div className="text-2xl font-bold text-ink">${tvl}</div>
+            <div className="text-[10px] font-black text-ink-light uppercase tracking-widest">Total Value Locked</div>
+            <div className="text-2xl font-black text-ink tabular-nums">${tvl}</div>
           </div>
         </div>
         <div className="flex items-center">
-          <div className="p-2 bg-accent/10 rounded-lg">
-            <ShieldCheckIcon className="w-8 h-8 text-accent" />
+          <div className="p-2 bg-accent/5 rounded-sm border border-accent/10">
+            <ShieldCheckIcon className="w-6 h-6 text-accent" />
           </div>
           <div className="ml-4">
-            <div className="text-xs font-bold text-ink-light uppercase tracking-widest">Active Vaults</div>
-            <div className="text-2xl font-bold text-ink">
+            <div className="text-[10px] font-black text-ink-light uppercase tracking-widest">Active Vaults</div>
+            <div className="text-2xl font-black text-ink tabular-nums">
               {activeVaults}
             </div>
           </div>
         </div>
         <div className="flex items-center">
-          <div className="p-2 bg-success/10 rounded-lg">
-            <ArrowTrendingUpIcon className="w-8 h-8 text-success" />
+          <div className="p-2 bg-success/5 rounded-sm border border-accent/10">
+            <ArrowTrendingUpIcon className="w-6 h-6 text-success" />
           </div>
           <div className="ml-4">
-            <div className="text-xs font-bold text-ink-light uppercase tracking-widest">APY (Median)</div>
-            <div className="text-2xl font-bold text-ink text-success">{apy}%</div>
+            <div className="text-[10px] font-black text-ink-light uppercase tracking-widest">APY (Median)</div>
+            <div className="text-2xl font-black text-ink text-success tabular-nums">{apy}%</div>
           </div>
         </div>
       </CardContent>

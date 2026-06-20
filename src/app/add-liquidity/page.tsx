@@ -172,7 +172,7 @@ function AddLiquidityContent() {
               <CardContent className="p-8 space-y-10">
                 <div className="grid grid-cols-2 gap-10">
                   <div className="space-y-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Token A</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Token A</label>
                     <TokenSelect tokens={Tokens} selectedToken={tokenA} onSelect={(id) => setTokenA(id)} balances={balances} />
                     <Input
                       type="number"
@@ -183,7 +183,7 @@ function AddLiquidityContent() {
                     />
                   </div>
                   <div className="space-y-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Token B</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Token B</label>
                     <TokenSelect tokens={Tokens} selectedToken={tokenB} onSelect={(id) => setTokenB(id)} balances={balances} />
                     <Input
                       type="number"
@@ -222,7 +222,7 @@ function AddLiquidityContent() {
                 <div className="grid grid-cols-2 gap-10">
                   <div className="space-y-6">
                     <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Pool Configuration</label>
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Pool Configuration</label>
                       <div className="grid grid-cols-2 gap-2">
                         <TokenSelect tokens={Tokens} selectedToken={tokenA} onSelect={(id) => setTokenA(id)} balances={balances} />
                         <TokenSelect tokens={Tokens} selectedToken={tokenB} onSelect={(id) => setTokenB(id)} balances={balances} />
@@ -235,14 +235,14 @@ function AddLiquidityContent() {
                   </div>
 
                   <div className="space-y-6 bg-neutral-light p-6 border border-accent/20 rounded-sm">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Range Settings</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Range Settings</label>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <span className="text-[9px] font-black text-ink/30 uppercase tracking-[0.2em]">Lower Tick</span>
+                        <span className="text-[9px] font-black text-ink-light uppercase tracking-[0.2em]">Lower Tick</span>
                         <Input type="number" value={lowerTick} onChange={(e) => setLowerTick(e.target.value)} className="h-10 bg-background-paper border-accent/20 text-right font-mono text-xs font-black tabular-nums" />
                       </div>
                       <div className="space-y-2">
-                        <span className="text-[9px] font-black text-ink/30 uppercase tracking-[0.2em]">Upper Tick</span>
+                        <span className="text-[9px] font-black text-ink-light uppercase tracking-[0.2em]">Upper Tick</span>
                         <Input type="number" value={upperTick} onChange={(e) => setUpperTick(e.target.value)} className="h-10 bg-background-paper border-accent/20 text-right font-mono text-xs font-black tabular-nums" />
                       </div>
                     </div>

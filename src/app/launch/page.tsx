@@ -88,7 +88,7 @@ export default function LaunchPage() {
             </p>
           </div>
           <div className="text-right hidden md:block">
-            <span className="text-[9px] font-black uppercase text-ink/30">Current Phase</span>
+            <span className="text-[9px] font-black uppercase text-ink-light">Current Phase</span>
             <p className="text-xs font-mono font-black text-ink">{currentPhase?.name || "Loading..."}</p>
           </div>
         </div>
@@ -110,7 +110,7 @@ export default function LaunchPage() {
                 </div>
                 <CardContent className="p-6">
                   <div className="text-3xl font-black text-ink uppercase tracking-widest">{currentPhase?.name || 'N/A'}</div>
-                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Core Infrastructure Rollout</p>
+                  <p className="text-[9px] text-ink-light mt-3 font-black uppercase tracking-[0.2em]">Core Infrastructure Rollout</p>
                 </CardContent>
               </Card>
 
@@ -123,7 +123,7 @@ export default function LaunchPage() {
                   <div className="text-3xl font-black text-ink tabular-nums">
                     {fundingProgress.current.toLocaleString()} <span className="text-lg opacity-40">STX</span>
                   </div>
-                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Community Funding</p>
+                  <p className="text-[9px] text-ink-light mt-3 font-black uppercase tracking-[0.2em]">Community Funding</p>
                 </CardContent>
               </Card>
 
@@ -134,7 +134,7 @@ export default function LaunchPage() {
                 </div>
                 <CardContent className="p-6">
                   <div className="text-3xl font-black text-ink tabular-nums">{communityStats?.totalContributors || 0}</div>
-                  <p className="text-[9px] text-ink/40 mt-3 font-black uppercase tracking-[0.2em]">Active Contributors</p>
+                  <p className="text-[9px] text-ink-light mt-3 font-black uppercase tracking-[0.2em]">Active Contributors</p>
                 </CardContent>
               </Card>
             </div>
@@ -152,14 +152,14 @@ export default function LaunchPage() {
                         variant="outline"
                         className={cn(
                           "uppercase text-[8px] font-black tracking-[0.2em] px-2 py-0.5 border-accent/20",
-                          phase.status === "active" ? "text-accent" : "text-ink/30",
+                          phase.status === "active" ? "text-accent" : "text-ink-light",
                         )}
                       >
                         {phase.status}
                       </Badge>
                     </div>
                     <Progress value={(phase.funding / phase.target) * 100} className="h-1 bg-neutral-light" />
-                    <div className="flex justify-between text-[9px] font-black uppercase tracking-[0.2em] text-ink/40 tabular-nums">
+                    <div className="flex justify-between text-[9px] font-black uppercase tracking-[0.2em] text-ink-light tabular-nums">
                       <span>{phase.funding.toLocaleString()} / {phase.target.toLocaleString()} STX</span>
                       <span>{phase.contributors} MEMBERS</span>
                     </div>
@@ -184,7 +184,7 @@ export default function LaunchPage() {
                       placeholder="0.00"
                       className="text-right pr-12 font-black text-2xl h-14 bg-neutral-light border-accent/20 tabular-nums"
                     />
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-black text-ink/30 pointer-events-none">STX</span>
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-black text-ink-light pointer-events-none">STX</span>
                   </div>
                   <Button onClick={handleContribute} disabled={sending} className="min-w-[160px] h-14 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-xs hover:bg-ink-light rounded-none">
                     {sending ? "SUBMITTING..." : "CONTRIBUTE"}
@@ -192,7 +192,7 @@ export default function LaunchPage() {
                 </div>
 
                 <div className="p-4 bg-neutral-light border border-accent/20 rounded-sm flex justify-between items-center">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/40">Your Contribution:</span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Your Contribution:</span>
                   <span className="text-xl font-black text-ink tabular-nums">{userContribution.total} <span className="text-xs opacity-30 font-bold">STX</span></span>
                 </div>
 
