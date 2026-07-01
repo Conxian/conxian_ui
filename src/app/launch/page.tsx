@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/Button";
 import { AppConfig } from "@/lib/config";
 import CopyButton from "@/components/CopyButton";
 import { truncate, cn } from "@/lib/utils";
-import { BoltIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
+import { BoltIcon, GlobeAltIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
 import { logger } from "@/lib/logger";
 
 export default function LaunchPage() {
@@ -186,8 +186,16 @@ export default function LaunchPage() {
                     />
                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-black text-ink-light pointer-events-none">STX</span>
                   </div>
-                  <Button onClick={handleContribute} disabled={sending} className="min-w-[160px] h-14 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-xs hover:bg-ink-light rounded-none">
-                    {sending ? "SUBMITTING..." : "CONTRIBUTE"}
+                  <Button
+                    onClick={handleContribute}
+                    disabled={sending}
+                    aria-busy={sending}
+                    className="min-w-[160px] h-14 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-xs hover:bg-ink-light rounded-none flex items-center justify-center gap-3"
+                  >
+                    {sending && (
+                      <ArrowPathIcon className="w-5 h-5 animate-spin" aria-hidden="true" />
+                    )}
+                    <span>{sending ? "SUBMITTING..." : "CONTRIBUTE"}</span>
                   </Button>
                 </div>
 

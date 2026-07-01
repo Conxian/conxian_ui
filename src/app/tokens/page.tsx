@@ -21,6 +21,7 @@ import {
 import { formatAmount } from "@/lib/utils";
 import { useSelfLaunch } from "@/lib/hooks/use-self-launch";
 import { logger } from "@/lib/logger";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 export default function TokensPage() {
   const [address, setAddress] = React.useState<string>("");
@@ -137,11 +138,16 @@ export default function TokensPage() {
                 <Button
                   onClick={refresh}
                   disabled={loading}
+                  aria-busy={loading}
+                  aria-label="Refresh token inventory"
                   variant="outline"
                   size="sm"
-                  className="h-6 px-3 bg-ink text-background-paper border-none"
+                  className="h-6 px-3 bg-ink text-background-paper border-none flex items-center justify-center gap-2"
                 >
-                  {loading ? "SYNC..." : "REFRESH"}
+                  {loading && (
+                    <ArrowPathIcon className="w-3 h-3 animate-spin" aria-hidden="true" />
+                  )}
+                  <span>{loading ? "SYNC..." : "REFRESH"}</span>
                 </Button>
               </div>
               <CardContent className="p-0">
