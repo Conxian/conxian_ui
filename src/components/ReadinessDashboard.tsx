@@ -67,7 +67,7 @@ export function ReadinessDashboard() {
               <div className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
               <span className="text-sm font-black text-ink tabular-nums">SGX-V3 ACTIVE</span>
             </div>
-            <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase font-black">Node ID: 0x2E40...3B1A</p>
+            <p className="text-[10px] text-ink-light mt-1 font-mono uppercase font-black">Node ID: 0x2E40...3B1A</p>
           </CardContent>
         </Card>
 
@@ -82,7 +82,7 @@ export function ReadinessDashboard() {
               <ShieldCheckIcon className="w-4 h-4 text-success" />
               <span className="text-sm font-black text-ink">98.2% READY</span>
             </div>
-            <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase font-black">Audit: Halborn v1.4</p>
+            <p className="text-[10px] text-ink-light mt-1 font-mono uppercase font-black">Audit: Halborn v1.4</p>
           </CardContent>
         </Card>
 
@@ -97,7 +97,7 @@ export function ReadinessDashboard() {
               <GlobeAltIcon className="w-4 h-4 text-info" />
               <span className="text-sm font-black text-ink tabular-nums">1.2ms LATENCY</span>
             </div>
-            <p className="text-[10px] text-ink/40 mt-1 font-mono uppercase font-black">Region: US-EAST-1</p>
+            <p className="text-[10px] text-ink-light mt-1 font-mono uppercase font-black">Region: US-EAST-1</p>
           </CardContent>
         </Card>
       </div>
@@ -135,8 +135,8 @@ export function ReadinessDashboard() {
               </div>
             </div>
             <div className="bg-neutral-light p-4 rounded-sm border border-accent/20">
-              <h4 className="text-[10px] font-black text-ink/30 mb-3 uppercase tracking-widest">Live Status Feed</h4>
-              <div className="space-y-2 font-mono text-[10px] text-ink/60">
+              <h4 className="text-[10px] font-black text-ink-light mb-3 uppercase tracking-widest">Live Status Feed</h4>
+              <div className="space-y-2 font-mono text-[10px] text-ink-light">
                 <div className="flex justify-between border-b border-accent/10 pb-1">
                   <span>[SYSLOG] Consensus Reach:</span>
                   <span className="text-success font-black">MATCH</span>

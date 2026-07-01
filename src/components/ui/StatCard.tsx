@@ -18,7 +18,7 @@ export const StatCard = ({
 }: StatCardProps) => (
   <Card className="machined-card group hover:border-accent transition-all duration-300">
     <div className="machined-header">
-       <span>{title}</span>
+       <span className="uppercase tracking-widest">{title}</span>
        <div className="opacity-40 group-hover:opacity-100 transition-opacity">{icon}</div>
     </div>
     <CardContent className="p-6">

@@ -218,7 +218,7 @@ export default function SwapPage() {
                         value={fromAmount}
                         onChange={(e) => /^\d*\.?\d*$/.test(e.target.value) && setFromAmount(e.target.value)}
                         className="flex-1 text-right font-black text-2xl bg-transparent border-none focus:ring-0 tabular-nums h-auto p-0"
-                        placeholder="0.000000"
+                        placeholder="0.000000" aria-label="Amount to swap"
                       />
                     </div>
                   </div>
@@ -261,7 +261,7 @@ export default function SwapPage() {
                         value={toAmount}
                         readOnly
                         className="flex-1 text-right font-black text-2xl bg-transparent border-none focus:ring-0 text-ink-light tabular-nums h-auto p-0"
-                        placeholder="0.000000"
+                        placeholder="0.000000" aria-label="Amount to swap"
                       />
                     </div>
                   </div>

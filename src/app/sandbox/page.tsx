@@ -116,7 +116,7 @@ export default function SandboxPage() {
                 <CpuChipIcon className="w-3 h-3" />
               </div>
               <CardContent className="p-0">
-                <div className="p-6 font-mono text-[10px] text-ink/70 space-y-2 bg-neutral-light max-h-[300px] overflow-auto">
+                <div className="p-6 font-mono text-[10px] text-ink-light space-y-2 bg-neutral-light max-h-[300px] overflow-auto">
                   <p className="text-ink font-bold">[0x00] JUMPDEST</p>
                   <p>[0x01] PUSH1 0x80</p>
                   <p>[0x03] PUSH1 0x40</p>

@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card, CardContent } from "@/components/ui/Card";
 import { cn } from "@/lib/utils";
-import { BoltIcon, CodeBracketSquareIcon } from "@heroicons/react/24/outline";
+import { BoltIcon, CodeBracketSquareIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
 
 type AbiArg = { name?: string; type?: unknown };
 type AbiFn = { name?: string; args?: AbiArg[] };
@@ -39,6 +39,7 @@ function TxContent() {
   const [args, setArgs] = useState<BuiltArgs>({ cv: [], hex: [] });
   const [abi, setAbi] = useState<ContractAbi | null>(null);
   const [abiLoading, setAbiLoading] = useState(false);
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     if (templateParam === "swap") {
@@ -64,17 +65,25 @@ function TxContent() {
 
   const broadcast = async () => {
     const [contractAddress, contractName] = selected.split(".");
-    await openContractCall({
-      contractAddress,
-      contractName,
-      functionName: fnName,
-      functionArgs: args.cv,
-      network: getNetwork(),
-      appDetails: {
-        name: "Conxian UI",
-        icon: window.location.origin + "/conxian-mark-b.svg",
-      },
-    });
+    setSending(true);
+    try {
+      await openContractCall({
+        contractAddress,
+        contractName,
+        functionName: fnName,
+        functionArgs: args.cv,
+        network: getNetwork(),
+        appDetails: {
+          name: "Conxian UI",
+          icon: window.location.origin + "/conxian-mark-b.svg",
+        },
+        onFinish: () => setSending(false),
+        onCancel: () => setSending(false),
+      });
+    } catch (e) {
+      console.error(e);
+      setSending(false);
+    }
   };
 
   return (
@@ -107,6 +116,7 @@ function TxContent() {
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Target Contract</label>
                     <select
+                      aria-label="Select target contract"
                       className="w-full bg-neutral-light border border-accent/20 rounded-sm px-4 py-3 text-xs font-black uppercase tracking-widest focus:ring-1 focus:ring-accent focus:outline-none text-ink"
                       value={selected}
                       onChange={(e) => setSelected(e.target.value)}
@@ -124,11 +134,13 @@ function TxContent() {
                         value={fnName}
                         onChange={(e) => setFnName(e.target.value)}
                         placeholder={abiLoading ? "LOADING ABI..." : "FUNCTION_NAME"}
+                        aria-label="Function name"
                         className={cn("h-12 bg-neutral-light border-accent/20 font-black text-xs tabular-nums", abiLoading && "animate-pulse")}
                       />
                       {abi?.functions && (
                         <div className="absolute right-2 top-1/2 -translate-y-1/2">
                           <select
+                            aria-label="Browse ABI functions"
                             className="bg-transparent text-[9px] font-black uppercase border-none focus:ring-0 cursor-pointer text-accent"
                             onChange={(e) => setFnName(e.target.value)}
                             value={fnName}
@@ -163,11 +175,18 @@ function TxContent() {
                 </div>
 
                 <Button
-                  className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light rounded-none transition-all"
+                  className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light rounded-none transition-all flex items-center justify-center gap-3"
                   onClick={broadcast}
-                  disabled={!fnName || args.cv.length === 0}
+                  disabled={sending || !fnName || args.cv.length === 0}
                 >
-                  SUBMIT TRANSACTION
+                  {sending ? (
+                    <>
+                      <ArrowPathIcon className="w-5 h-5 animate-spin" aria-hidden="true" />
+                      <span>SUBMITTING...</span>
+                    </>
+                  ) : (
+                    "EXECUTE TRANSACTION"
+                  )}
                 </Button>
               </CardContent>
             </Card>

@@ -8,7 +8,7 @@ import { decodeResultHex } from "@/lib/clarity";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card, CardContent } from "@/components/ui/Card";
-import { CpuChipIcon, BoltIcon } from "@heroicons/react/24/outline";
+import { CpuChipIcon, BoltIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
 import { logger } from "@/lib/logger";
 
 interface ContractAbi {
@@ -110,6 +110,7 @@ export default function RouterPage() {
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-light">Target Router</label>
                     <select
+                      aria-label="Select target router"
                       className="w-full bg-neutral-light border border-accent/20 rounded-sm px-4 py-3 text-xs font-black uppercase tracking-widest focus:ring-1 focus:ring-accent focus:outline-none text-ink"
                       value={selected}
                       onChange={(e) => setSelected(e.target.value)}
@@ -125,6 +126,7 @@ export default function RouterPage() {
                       value={fnName}
                       onChange={(e) => setFnName(e.target.value)}
                       placeholder="estimate-output"
+                      aria-label="Function name"
                       className="h-12 bg-neutral-light border-accent/20 font-black text-xs tabular-nums"
                     />
                   </div>
@@ -138,11 +140,18 @@ export default function RouterPage() {
                 </div>
 
                 <Button
-                  className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light rounded-none transition-all"
+                  className="w-full h-14 bg-ink text-background-paper font-black uppercase tracking-[0.3em] text-xs hover:bg-ink-light rounded-none transition-all flex items-center justify-center gap-3"
                   onClick={execute}
                   disabled={loading || !fnName}
                 >
-                  {loading ? "SIMULATING..." : "Run Simulation"}
+                  {loading ? (
+                    <>
+                      <ArrowPathIcon className="w-5 h-5 animate-spin" aria-hidden="true" />
+                      <span>SIMULATING...</span>
+                    </>
+                  ) : (
+                    "EXECUTE SIMULATION"
+                  )}
                 </Button>
                 {status && (
                   <p className="text-center font-mono text-[10px] text-accent uppercase font-black tracking-[0.2em]">
@@ -170,7 +179,7 @@ export default function RouterPage() {
                       {result.ok ? 'Simulation Success' : 'Simulation Error'}
                     </div>
                     <div className="bg-neutral-light p-6 rounded-sm border border-accent/20 font-mono text-[10px] font-bold tabular-nums">
-                      <pre className="whitespace-pre-wrap break-all overflow-auto max-h-[400px] text-ink/70">
+                      <pre className="whitespace-pre-wrap break-all overflow-auto max-h-[400px] text-ink-light">
                         {result.ok ? JSON.stringify(decodeResultHex(result.result!), null, 2) : result.error}
                       </pre>
                     </div>
