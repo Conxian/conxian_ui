@@ -218,7 +218,7 @@ export default function ShieldedPage() {
               </ul>
             ) : (
               <div className="py-24 text-center space-y-6">
-                <ShieldCheckIcon className="w-16 h-16 mx-auto text-ink/10" />
+                <ShieldCheckIcon className="w-16 h-16 mx-auto text-ink-light/20" />
                 <div className="space-y-2">
                   <p className="text-ink font-black uppercase tracking-[0.2em] text-sm">No Private Wallets Found</p>
                   <p className="text-ink-light text-[10px] max-w-xs mx-auto font-bold uppercase tracking-widest leading-relaxed">

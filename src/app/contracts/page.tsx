@@ -125,7 +125,7 @@ export default function ContractsPage() {
                 </div>
                 <CardContent className="p-6 space-y-6">
                   <div className="bg-neutral-light p-6 rounded-sm border border-accent/20 font-mono text-[10px] leading-relaxed font-bold tabular-nums">
-                    <pre className="overflow-auto max-h-[500px] whitespace-pre-wrap text-ink/70">
+                    <pre className="overflow-auto max-h-[500px] whitespace-pre-wrap text-ink-light">
                       {JSON.stringify(iface, null, 2)}
                     </pre>
                   </div>

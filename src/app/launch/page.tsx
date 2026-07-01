@@ -181,7 +181,7 @@ export default function LaunchPage() {
                       type="number"
                       value={contributionAmount}
                       onChange={(e) => setContributionAmount(e.target.value)}
-                      placeholder="0.00"
+                      placeholder="0.00" aria-label="Contribution amount"
                       className="text-right pr-12 font-black text-2xl h-14 bg-neutral-light border-accent/20 tabular-nums"
                     />
                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-black text-ink-light pointer-events-none">STX</span>

@@ -142,7 +142,7 @@ export default function NetworkPage() {
               <CardContent className="p-6">
                 <div className="grid grid-cols-3 gap-6">
                   <div className="col-span-2 h-48 bg-neutral-light border border-ghost rounded-sm relative flex items-center justify-center">
-                    <GlobeAltIcon className="w-32 h-32 text-ink/10 animate-pulse-soft" />
+                    <GlobeAltIcon className="w-32 h-32 text-ink-light/20 animate-pulse-soft" />
                     <div className="absolute top-1/4 left-1/4 h-2 w-2 bg-success rounded-full animate-ping" title="US-EAST" />
                     <div className="absolute top-1/3 left-2/3 h-2 w-2 bg-error rounded-full animate-ping" title="EU-CENTRAL" />
                     <div className="absolute bottom-1/4 left-1/2 h-2 w-2 bg-success rounded-full animate-ping" title="AP-SOUTH" />
