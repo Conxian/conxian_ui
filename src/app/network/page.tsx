@@ -26,6 +26,7 @@ import {
   ChartBarIcon,
   MapIcon,
   ExclamationTriangleIcon,
+  ArrowPathIcon,
 } from "@heroicons/react/24/outline";
 
 export default function NetworkPage() {
@@ -76,8 +77,17 @@ export default function NetworkPage() {
               Network Status and Activity
             </p>
           </div>
-          <Button onClick={refresh} disabled={loading} className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]">
-            {loading ? 'UPDATING...' : 'REFRESH'}
+          <Button
+            onClick={refresh}
+            disabled={loading}
+            aria-busy={loading}
+            aria-label="Refresh network data"
+            className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3"
+          >
+            {loading && (
+              <ArrowPathIcon className="w-4 h-4 animate-spin" aria-hidden="true" />
+            )}
+            <span>{loading ? "UPDATING..." : "REFRESH"}</span>
           </Button>
         </div>
 

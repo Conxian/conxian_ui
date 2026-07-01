@@ -5,7 +5,7 @@ import { callReadOnly, ReadOnlyResponse } from "@/lib/core-api";
 import { DexPools } from "@/lib/pools";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
-import { CpuChipIcon, ChartBarIcon } from "@heroicons/react/24/outline";
+import { CpuChipIcon, ChartBarIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
 import { logger } from "@/lib/logger";
 
 const DEFAULT_SENDER = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM";
@@ -77,9 +77,14 @@ export default function PoolsPage() {
           <Button
             onClick={refresh}
             disabled={loading}
-            className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px]"
+            aria-busy={loading}
+            aria-label="Refresh pool data"
+            className="h-10 px-6 bg-ink text-background-paper font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3"
           >
-            {loading ? "UPDATING..." : "REFRESH"}
+            {loading && (
+              <ArrowPathIcon className="w-4 h-4 animate-spin" aria-hidden="true" />
+            )}
+            <span>{loading ? "UPDATING..." : "REFRESH"}</span>
           </Button>
         </div>
 
